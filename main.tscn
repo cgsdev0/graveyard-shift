@@ -1,3 +1,22 @@
-[gd_scene format=2]
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://board/board.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://monster.gd" type="Script" id=3]
 
 [node name="Node2D" type="Node2D"]
+
+[node name="Level" type="Node2D" parent="."]
+
+[node name="Board" type="Node2D" parent="Level"]
+position = Vector2( 114, 60 )
+script = ExtResource( 1 )
+rows = 4
+cols = 5
+size = Vector2( 400, 300 )
+
+[node name="Monster" type="Sprite" parent="Level"]
+modulate = Color( 1, 0.396078, 0.396078, 1 )
+position = Vector2( 101, 80 )
+texture = ExtResource( 2 )
+script = ExtResource( 3 )

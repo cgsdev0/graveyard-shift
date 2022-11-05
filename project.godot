@@ -8,6 +8,40 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "Board",
+"language": "GDScript",
+"path": "res://board/board.gd"
+}, {
+"base": "Tile",
+"class": "EmptyTile",
+"language": "GDScript",
+"path": "res://board/tiles/empty.gd"
+}, {
+"base": "Tile",
+"class": "ExitTile",
+"language": "GDScript",
+"path": "res://board/tiles/exit.gd"
+}, {
+"base": "Tile",
+"class": "PitTile",
+"language": "GDScript",
+"path": "res://board/tiles/pit.gd"
+}, {
+"base": "Area2D",
+"class": "Tile",
+"language": "GDScript",
+"path": "res://board/tiles/tile.gd"
+} ]
+_global_script_class_icons={
+"Board": "",
+"EmptyTile": "",
+"ExitTile": "",
+"PitTile": "",
+"Tile": ""
+}
+
 [application]
 
 config/name="GraveyardShift"
