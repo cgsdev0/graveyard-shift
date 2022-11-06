@@ -4,34 +4,23 @@ var board: Board
 var astar
 var path: PoolIntArray
 
-var grid_x = 0
+var grid_x = 3
 var grid_y = 0
 
 func _ready():
-	add_to_group("monsters")
+	add_to_group("soldiers")
 	add_to_group("pathfinders")
 	board = get_parent().get_node("Board")
 	global_position = board.get_tile(grid_x, grid_y).get_center()
 	astar = MyAStar.new(board)
 	update_navigation()
 
-func is_my_neighbor(pathfinder):
-	if abs(pathfinder.grid_x - grid_x) == 1 && pathfinder.grid_y == grid_y:
-		return true
-	if abs(pathfinder.grid_y - grid_y) == 1 && pathfinder.grid_x == grid_x:
-		return true
-	return false
-	
 func take_step():
+	return
 	if path.size() <= 1:
 		return
 	var u = path[0]
 	var v = path[1]
-	var soldiers = get_tree().get_nodes_in_group("soldiers")
-	for soldier in soldiers:
-		if is_my_neighbor(soldier):
-			soldier.queue_free()
-			return
 	var dir = board.compute_direction(u, v)
 	var i_dir = Game.invert_direction(dir)
 	var u_wall = board.get_tile_by_id(u).type == Game.TileType.WALL
@@ -51,7 +40,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		for i in 3:
 			take_step()
-			yield(get_tree().create_timer(0.2), "timeout")
+			yield(get_tree().create_timer(0.3), "timeout")
 		
 func get_path_cost(path):
 	var prev = null
@@ -92,6 +81,7 @@ func draw_arrow(a: Vector2, b: Vector2, color: Color):
 	draw_line(b, b + tip_unit_vector.rotated(-2.7) * 6, color)
 
 func _draw():
+	return
 	var prev = null
 	for point in path:
 		if prev != null:
