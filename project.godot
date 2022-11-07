@@ -9,18 +9,30 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node2D",
+"base": "Spatial",
 "class": "Board",
 "language": "GDScript",
 "path": "res://board/board.gd"
 }, {
-"base": "Area2D",
+"base": "Button",
+"class": "Card",
+"language": "GDScript",
+"path": "res://card.gd"
+}, {
+"base": "Spatial",
+"class": "Pathfinder",
+"language": "GDScript",
+"path": "res://pathfinder.gd"
+}, {
+"base": "Area",
 "class": "Tile",
 "language": "GDScript",
 "path": "res://board/tiles/tile.gd"
 } ]
 _global_script_class_icons={
 "Board": "",
+"Card": "",
+"Pathfinder": "",
 "Tile": ""
 }
 

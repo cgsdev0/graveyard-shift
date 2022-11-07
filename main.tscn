@@ -3,27 +3,52 @@
 [ext_resource path="res://board/board.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://monster.gd" type="Script" id=3]
-[ext_resource path="res://soldier.gd" type="Script" id=4]
+[ext_resource path="res://card.gd" type="Script" id=5]
 
-[node name="Node2D" type="Node2D"]
+[node name="Root" type="Node"]
 
-[node name="Level" type="Node2D" parent="."]
+[node name="Level" type="Spatial" parent="."]
 
-[node name="Board" type="Node2D" parent="Level"]
-position = Vector2( 114, 60 )
+[node name="Board" type="Spatial" parent="Level"]
 script = ExtResource( 1 )
 rows = 4
 cols = 5
-size = Vector2( 400, 300 )
+spacing = 0.2
+size = Vector2( 10, 10 )
 
-[node name="Monster" type="Sprite" parent="Level"]
+[node name="Monster" type="Sprite3D" parent="Level"]
 modulate = Color( 1, 0.396078, 0.396078, 1 )
-position = Vector2( 101, 80 )
 texture = ExtResource( 2 )
 script = ExtResource( 3 )
 
-[node name="Soldier" type="Sprite" parent="Level"]
-position = Vector2( 101, 80 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 2 )
-script = ExtResource( 4 )
+[node name="Camera" type="Camera" parent="Level"]
+transform = Transform( 0.999341, 0.00802563, -0.0353964, 0.0107914, 0.86544, 0.500897, 0.0346535, -0.500949, 0.864783, 4.32149, 3.86943, 13.5483 )
+
+[node name="Node2D" type="Control" parent="."]
+
+[node name="Card" type="Button" parent="Node2D"]
+margin_left = 133.0
+margin_top = 475.0
+margin_right = 260.0
+margin_bottom = 542.0
+text = "Wall"
+script = ExtResource( 5 )
+type = 3
+
+[node name="Card2" type="Button" parent="Node2D"]
+margin_left = 295.0
+margin_top = 474.0
+margin_right = 422.0
+margin_bottom = 541.0
+text = "Lure"
+script = ExtResource( 5 )
+type = 5
+
+[node name="Card3" type="Button" parent="Node2D"]
+margin_left = 473.0
+margin_top = 475.0
+margin_right = 600.0
+margin_bottom = 542.0
+text = "Soldier"
+script = ExtResource( 5 )
+type = 4

@@ -1,13 +1,16 @@
 class_name Board
-extends Node2D
+extends Spatial
 
 var tile = preload("res://board/tile.tscn")
 
 export var rows = 3
 export var cols = 3
 
-export var spacing = 8
+export var spacing = 0.0
 export var size = Vector2(100, 100)
+export var tile_height = 0.2
+
+var card
 
 func find_tile_id(type) -> int:
 	for i in rows * cols:
@@ -61,14 +64,18 @@ func toggle_tile_wall_bit(id: int, direction) -> void:
 	get_tile_by_id(id).wall_flags ^= 1 << direction
 	_propagate_board_change()
 	
+func on_card_select(card: Card):
+	self.card = card
+	
 func _ready():
+	Game.connect("select_card", self, "on_card_select")
 	var width = (size.x - spacing * (cols - 1)) / cols
 	var height = (size.y - spacing * (rows - 1)) / rows
-	var tile_size = Vector2(width, height)
+	var tile_size = Vector3(width, tile_height, height)
 	for r in rows:
 		for c in cols:
 			var t = tile.instance()
-			t.init(Vector2(tile_size), Vector2(c * (width + spacing), r * (height + spacing)))
+			t.init(Vector3(tile_size), Vector3(c * (width + spacing), 0, r * (height + spacing)))
 			self.add_child(t)
 	
 	replace_tile(4, 3, Game.TileType.EXIT)
@@ -80,7 +87,8 @@ func _ready():
 	
 
 func _process(delta):
-	update()
+	pass
+	# update()
 	
-func _draw():
-	draw_rect(Rect2(Vector2.ZERO, size), Color.red, false)
+#func _draw():
+	#draw_rect(Rect2(Vector2.ZERO, size), Color.red, false)

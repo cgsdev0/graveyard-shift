@@ -3,8 +3,13 @@ extends Node
 enum TileType {
 	EMPTY,
 	PIT,
-	WALL,
 	TREASURE,
+	
+	WALL,
+	SOLDIER,
+	LURE,
+	TRAP,
+	SPIKES,
 	# keep this one last
 	EXIT
 }
@@ -26,3 +31,6 @@ static func invert_direction(direction):
 			return Direction.EAST
 		Direction.EAST:
 			return Direction.WEST
+			
+			
+signal select_card(card)
