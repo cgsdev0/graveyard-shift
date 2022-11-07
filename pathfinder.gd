@@ -5,6 +5,8 @@ var board: Board
 var astar: AStar2D
 var path: PoolIntArray
 
+export var debug_path: bool = false
+
 export var grid_x = 0
 export var grid_y = 0
 
@@ -14,6 +16,9 @@ func _ready():
 	global_translation = board.get_tile(grid_x, grid_y).get_center()
 	# update_navigation()
 
+func get_id():
+	return grid_y * board.cols + grid_x
+	
 func is_my_neighbor(pathfinder):
 	if abs(pathfinder.grid_x - grid_x) == 1 && pathfinder.grid_y == grid_y:
 		return true
@@ -24,11 +29,32 @@ func is_my_neighbor(pathfinder):
 func take_step():
 	pass
 	
+var debug_path_node = null
+func draw_debug_path():
+	if debug_path && debug_path_node == null:
+		debug_path_node = ImmediateGeometry.new()
+		debug_path_node.material_override = SpatialMaterial.new()
+		debug_path_node.material_override.vertex_color_use_as_albedo = true
+		debug_path_node.material_override.flags_unshaded = true
+		debug_path_node.material_override.flags_use_point_size  = true
+		debug_path_node.material_override.params_point_size  = 20
+		get_parent().add_child(debug_path_node)
+	if debug_path:
+		debug_path_node.clear()
+		debug_path_node.begin(Mesh.PRIMITIVE_POINTS)
+		debug_path_node.set_color(Color.red)
+		for i in range(path.size()):
+			if i + 1 >= path.size():
+				continue
+			var A = board.get_tile_by_id(path[i]).get_center()
+			var B = board.get_tile_by_id(path[i + 1]).get_center()
+			debug_path_node.add_vertex(A)
+			debug_path_node.add_vertex(B)
+		debug_path_node.end()
+			
+	
 func _process(delta):
-	if Input.is_action_just_pressed("ui_accept"):
-		for i in 3:
-			self.take_step()
-			yield(get_tree().create_timer(0.2), "timeout")
+	draw_debug_path()
 		
 func get_path_cost(path):
 	var prev = null
@@ -63,7 +89,6 @@ func update_navigation():
 			var id = r * board.cols + c
 			astar.set_point_disabled(id, board.get_tile_by_id(id).type == Game.TileType.PIT)
 	path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
-	print("COST: ", get_path_cost(path))
 
 #func draw_arrow(a: Vector2, b: Vector2, color: Color):
 #	draw_line(a, b, color)

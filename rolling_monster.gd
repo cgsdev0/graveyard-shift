@@ -31,15 +31,8 @@ func check_wall(u, v):
 	elif v_wall && board.get_tile_by_id(v).check_wall_bit(i_dir):
 		return true
 	return false
-	
+
 func take_step():
-	var soldiers = get_tree().get_nodes_in_group("soldiers")
-	for soldier in soldiers:
-		if is_my_neighbor(soldier):
-			if check_wall(get_id(), soldier.get_id()):
-				continue
-			soldier.queue_free()
-			return
 	var lures = get_tree().get_nodes_in_group("lures")
 	for lure in lures:
 		if lure.grid_x == grid_x && lure.grid_y == grid_y:
@@ -52,20 +45,84 @@ func take_step():
 	var u = path[0]
 	var v = path[1]
 	var dir = board.compute_direction(u, v)
+	var gap = board.gap_from_direction(dir)
+	var u2 = u + gap
+	var rolling = false
+	while u != v:
+		if _take_partial_step(u, u2, rolling):
+			break
+		rolling = true
+		u = u2
+		u2 += gap
+		
+	path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
+	
+func _take_partial_step(u, v, rolling):
+	if !rolling:
+		var soldiers = get_tree().get_nodes_in_group("soldiers")
+		for soldier in soldiers:
+			if is_my_neighbor(soldier):
+				if check_wall(get_id(), soldier.get_id()):
+					continue
+				soldier.queue_free()
+				return true
+	else:
+		var soldiers = get_tree().get_nodes_in_group("soldiers")
+		for soldier in soldiers:
+			if soldier.get_id() == v:
+				if check_wall(get_id(), soldier.get_id()):
+					continue
+				soldier.queue_free()
+				return true
+	var lures = get_tree().get_nodes_in_group("lures")
+	for lure in lures:
+		if lure.grid_x == grid_x && lure.grid_y == grid_y:
+			lure.remove_from_group("lures")
+			lure.queue_free()
+			path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
+			return true
+	var dir = board.compute_direction(u, v)
 	var i_dir = Game.invert_direction(dir)
 	var u_wall = board.get_tile_by_id(u).type == Game.TileType.WALL
 	var v_wall = board.get_tile_by_id(v).type == Game.TileType.WALL
 	if u_wall && board.get_tile_by_id(u).check_wall_bit(dir):
 		board.set_tile_wall_bit(u, dir, false)
+		return true
 	elif v_wall && board.get_tile_by_id(v).check_wall_bit(i_dir):
 		board.set_tile_wall_bit(v, i_dir, false)
+		return true
 	else:
 		grid_y = int(v / board.cols)
 		grid_x = int(v % board.cols)
 		global_translation = board.get_tile(grid_x, grid_y).get_center()
-		path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
-#	update()
+		return false
 
+
+func update_navigation():
+	if astar.get_point_count() == 0:
+		# initialize the grid
+		for r in board.rows:
+			for c in board.cols:
+				var id = r * board.cols + c
+				astar.add_point(id, Vector2(c, r))
+		for r in board.rows:
+			for c in board.cols:
+				var id = r * board.cols + c
+				for r2 in range(r + 1, board.rows):
+					var connect_to = r2 * board.cols + c
+					print("Connecting: ", id, ", ", connect_to)
+					astar.connect_points(id, connect_to)
+				for c2 in range(c + 1, board.cols):
+					var connect_to = r * board.cols + c2
+					print("Connecting2: ", id, ", ", connect_to)
+					astar.connect_points(id, connect_to)
+	for r in board.rows:
+		for c in board.cols:
+			var id = r * board.cols + c
+			astar.set_point_disabled(id, board.get_tile_by_id(id).type == Game.TileType.PIT)
+	path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
+	print("COST: ", get_path_cost(path))
+	
 class MyAStar:
 	extends AStar2D
 
@@ -73,8 +130,10 @@ class MyAStar:
 	func _init(board: Board):
 		self.board = board
 		
-	func _compute_cost(u, v):
-		var cost = 1
+	func _compute_cost_neighbor(u, v):
+		var cost = 0
+		if board.get_tile_by_id(u).type == Game.TileType.PIT || board.get_tile_by_id(v).type == Game.TileType.PIT:
+			return 999
 		var u_wall = board.get_tile_by_id(u).type == Game.TileType.WALL
 		var v_wall = board.get_tile_by_id(v).type == Game.TileType.WALL
 		if  u_wall || v_wall:
@@ -86,5 +145,19 @@ class MyAStar:
 				cost += 1
 		return cost
 
+	func _compute_cost(u, v):
+		var ou = u
+		if !self.are_points_connected(u, v):
+			return 999
+		var cost = 1
+		var dir = board.compute_direction(u, v)
+		var gap = board.gap_from_direction(dir)
+		var u2 = u + gap
+		while u != v:
+			cost += _compute_cost_neighbor(u, u2)
+			u = u2
+			u2 += gap
+		return cost
+		
 	func _estimate_cost(u, v):
 		return 0 # IDK why but it works

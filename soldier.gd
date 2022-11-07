@@ -7,12 +7,19 @@ func _ready():
 	update_navigation()
 
 func take_step():
+	var lures = get_tree().get_nodes_in_group("lures")
+	for lure in lures:
+		if lure.grid_x == grid_x && lure.grid_y == grid_y:
+			lure.remove_from_group("lures")
+			lure.queue_free()
+			path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
+			return
 	if path.size() <= 1 || get_path_cost(path) > 100:
 		return
 	var u = path[0]
 	var v = path[1]
-	grid_y = floor(v / board.cols)
-	grid_x = floor(v % board.cols)
+	grid_y = int(v / board.cols)
+	grid_x = int(v % board.cols)
 	global_translation = board.get_tile(grid_x, grid_y).get_center()
 	path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
 

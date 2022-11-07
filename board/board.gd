@@ -25,10 +25,10 @@ func get_tile_by_id(id: int) -> Tile:
 	return get_child(id) as Tile
 
 func compute_direction(u, v):
-	var row_u = floor(u / cols)
-	var col_u = floor(u % cols)
-	var row_v = floor(v / cols)
-	var col_v = floor(v % cols)
+	var row_u = int(u / cols)
+	var col_u = int(u % cols)
+	var row_v = int(v / cols)
+	var col_v = int(v % cols)
 	if col_u == col_v:
 		if row_v > row_u:
 			return Game.Direction.SOUTH
@@ -78,13 +78,27 @@ func _ready():
 			t.init(Vector3(tile_size), Vector3(c * (width + spacing), 0, r * (height + spacing)))
 			self.add_child(t)
 	
+	#replace_tile(3, 3, Game.TileType.EXIT)
 	replace_tile(4, 3, Game.TileType.EXIT)
 	replace_tile(2, 0, Game.TileType.TREASURE)
+	
+	#replace_tile(1, 1, Game.TileType.PIT)
+	#replace_tile(0, 1, Game.TileType.PIT)
 	
 	replace_tile(0, 3, Game.TileType.PIT)
 	replace_tile(2, 2, Game.TileType.PIT)
 	replace_tile(3, 1, Game.TileType.PIT)
 	
+func gap_from_direction(dir):
+	match dir:
+		Game.Direction.EAST:
+			return 1
+		Game.Direction.WEST:
+			return -1
+		Game.Direction.NORTH:
+			return -cols
+		Game.Direction.SOUTH:
+			return cols
 
 func _process(delta):
 	pass

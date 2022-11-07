@@ -32,5 +32,6 @@ static func invert_direction(direction):
 		Direction.EAST:
 			return Direction.WEST
 			
-			
 signal select_card(card)
+signal game_over
+signal reset
