@@ -5,6 +5,7 @@ enum TileType {
 	EMPTY,
 	PIT,
 	TREASURE,
+	TREASURE_TAKEN,
 	
 	WALL,
 	SOLDIER,
@@ -54,6 +55,17 @@ var levels = [
 		],
 		"monsters": [
 			[0, 0, MonsterType.WALKER]
+		]
+	},
+	# Level 2
+	{
+		"cols": 6,
+		"rows": 6,
+		"tiles": [
+			[5, 5, TileType.EXIT],
+		],
+		"monsters": [
+			[0, 0, MonsterType.SPRINTER]
 		]
 	}
 ]

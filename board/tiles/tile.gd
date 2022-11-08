@@ -55,6 +55,8 @@ func set_color_from_type():
 			color = Color.white
 		Game.TileType.TREASURE:
 			color = Color.gold
+		Game.TileType.TREASURE_TAKEN:
+			color = Color.brown
 		Game.TileType.EXIT:
 			color = Color.green
 			

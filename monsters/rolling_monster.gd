@@ -32,7 +32,7 @@ func check_wall(u, v):
 	return false
 
 func get_action_limit():
-	return 1
+	return 2
 	
 func take_step():
 	var lures = get_tree().get_nodes_in_group("lures")
@@ -71,7 +71,7 @@ func _take_partial_step(u, v, rolling):
 			if is_my_neighbor(soldier):
 				if check_wall(get_id(), soldier.get_id()):
 					continue
-				soldier.queue_free()
+				soldier.kill()
 				return true
 	else:
 		var soldiers = get_tree().get_nodes_in_group("soldiers")
@@ -81,7 +81,7 @@ func _take_partial_step(u, v, rolling):
 					continue
 				if movement_tween.is_active():
 					yield(movement_tween, "tween_completed")
-				soldier.queue_free()
+				soldier.kill()
 				return true
 	var lures = get_tree().get_nodes_in_group("lures")
 	for lure in lures:

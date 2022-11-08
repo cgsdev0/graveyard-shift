@@ -10,6 +10,10 @@ export var debug_path: bool = false
 export var grid_x = 0
 export var grid_y = 0
 
+var enabled = true
+func kill():
+	self.enabled = false
+	
 var movement_tween
 func _ready():
 	movement_tween = Tween.new()

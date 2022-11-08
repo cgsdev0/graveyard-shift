@@ -2,13 +2,13 @@ extends Pathfinder
 
 
 func _ready():
-	add_to_group("soldiers")	
+	add_to_group("soldiers")
 	astar = MyAStar.new(board)
 	update_navigation()
 
 	
 func get_action_limit():
-	return 1
+	return 2
 	
 func _process(delta):
 	if !enabled:
@@ -17,13 +17,10 @@ func _process(delta):
 func take_step():
 	if !enabled:
 		return
-	var lures = get_tree().get_nodes_in_group("lures")
-	for lure in lures:
-		if lure.grid_x == grid_x && lure.grid_y == grid_y:
-			lure.remove_from_group("lures")
-			lure.queue_free()
-			path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
-			return
+	var treasure_tile = board.find_tile_id(Game.TileType.TREASURE)
+	if treasure_tile != null && treasure_tile == get_id():
+		board.replace_tile_by_id(get_id(), Game.TileType.TREASURE_TAKEN)
+		return
 	if path.size() <= 1 || get_path_cost(path) > 100:
 		return
 	var u = path[0]
@@ -31,25 +28,16 @@ func take_step():
 	grid_y = int(v / board.cols)
 	grid_x = int(v % board.cols)
 	movement_tween.interpolate_property(self, "global_translation",
-	global_translation, board.get_tile(grid_x, grid_y).get_center(), 1,
+	global_translation, board.get_tile(grid_x, grid_y).get_center(), 0.5,
 	Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	movement_tween.start()
 	path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
 
 func get_target_tile():
-	var lures = get_tree().get_nodes_in_group("lures")
-	var cheapest_cost = 9999
-	var cheapest_lure = null
-	for lure in lures:
-		var lure_id = lure.grid_y * board.cols + lure.grid_x
-		var path = astar.get_id_path(grid_y * board.cols + grid_x, lure_id)
-		var cost = get_path_cost(path)
-		if cost < cheapest_cost:
-			cheapest_lure = lure_id
-			cheapest_cost = cost
-	if cheapest_lure != null:
-		return cheapest_lure
-	return grid_y * board.cols + grid_x
+	var treasure = board.find_tile_id(Game.TileType.TREASURE)
+	if treasure == null:
+		return board.find_tile_id(Game.TileType.EXIT)
+	return treasure
 	
 class MyAStar:
 	extends AStar2D

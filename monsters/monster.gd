@@ -40,7 +40,7 @@ func take_step():
 		if is_my_neighbor(soldier):
 			if check_wall(get_id(), soldier.get_id()):
 				continue
-			soldier.queue_free()
+			soldier.kill()
 			return
 	var lures = get_tree().get_nodes_in_group("lures")
 	for lure in lures:
