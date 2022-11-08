@@ -1,8 +1,6 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://board/board.gd" type="Script" id=1]
-[ext_resource path="res://rbetta.png" type="Texture" id=2]
-[ext_resource path="res://rolling_monster.gd" type="Script" id=3]
 [ext_resource path="res://game_over.gd" type="Script" id=4]
 [ext_resource path="res://card.gd" type="Script" id=5]
 [ext_resource path="res://coordinator.gd" type="Script" id=6]
@@ -19,12 +17,6 @@ rows = 4
 cols = 5
 spacing = 0.2
 size = Vector2( 10, 10 )
-
-[node name="Monster" type="Sprite3D" parent="Level"]
-offset = Vector2( 0, 40 )
-modulate = Color( 1, 0.396078, 0.396078, 1 )
-texture = ExtResource( 2 )
-script = ExtResource( 3 )
 
 [node name="Camera" type="Camera" parent="Level"]
 transform = Transform( 0.999341, 0.00802563, -0.0353964, 0.0107914, 0.86544, 0.500897, 0.0346535, -0.500949, 0.864783, 4.32149, 3.86943, 13.5483 )

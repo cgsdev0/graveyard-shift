@@ -35,7 +35,6 @@ func get_action_limit():
 	return 1
 	
 func take_step():
-	print(path)
 	var lures = get_tree().get_nodes_in_group("lures")
 	for lure in lures:
 		if lure.grid_x == grid_x && lure.grid_y == grid_y:
@@ -66,7 +65,6 @@ func take_step():
 	path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
 	
 func _take_partial_step(u, v, rolling):
-	print(u, v)
 	if !rolling:
 		var soldiers = get_tree().get_nodes_in_group("soldiers")
 		for soldier in soldiers:

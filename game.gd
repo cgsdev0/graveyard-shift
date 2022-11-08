@@ -1,5 +1,6 @@
 extends Node
 
+
 enum TileType {
 	EMPTY,
 	PIT,
@@ -21,6 +22,42 @@ enum Direction {
 	WEST
 }
 
+enum MonsterType {
+	WALKER,
+	SPRINTER
+}
+
+var levels = [
+	# Level 0
+	{
+		"cols": 5,
+		"rows": 4,
+		"tiles": [
+			[4, 3, TileType.EXIT],
+			[2, 0, TileType.TREASURE],
+			[0, 3, TileType.PIT],
+			[2, 2, TileType.PIT],
+			[3, 1, TileType.PIT],
+		],
+		"monsters": [
+			[0, 0, MonsterType.SPRINTER]
+		]
+	},
+	# Level 1
+	{
+		"cols": 3,
+		"rows": 3,
+		"tiles": [
+			[2, 2, TileType.EXIT],
+			[0, 1, TileType.PIT],
+			[2, 1, TileType.PIT],
+		],
+		"monsters": [
+			[0, 0, MonsterType.WALKER]
+		]
+	}
+]
+
 static func invert_direction(direction):
 	match direction:
 		Direction.NORTH:
@@ -32,6 +69,8 @@ static func invert_direction(direction):
 		Direction.EAST:
 			return Direction.WEST
 			
+var level = 0
+
 func get_board():
 	return get_tree().root.find_node("Board", true, false)
 	

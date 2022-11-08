@@ -103,8 +103,19 @@ func on_card_select(card: Card):
 func _ready():
 	Game.connect("select_card", self, "on_card_select")
 	Game.connect("start_new_turn", self, "start_new_turn")
+	
+	var level = Game.levels[Game.level]
+	
+	rows = level.rows
+	cols = level.cols
+	
 	var width = (size.x - spacing * (cols - 1)) / cols
 	var height = (size.y - spacing * (rows - 1)) / rows
+	
+	# normalize
+	width = min(height, width)
+	height = width
+	
 	var tile_size = Vector3(width, tile_height, height)
 	for r in rows:
 		for c in cols:
@@ -112,16 +123,23 @@ func _ready():
 			t.init(Vector3(tile_size), Vector3(c * (width + spacing), 0, r * (height + spacing)))
 			self.add_child(t)
 	
-	#replace_tile(3, 3, Game.TileType.EXIT)
-	replace_tile(4, 3, Game.TileType.EXIT)
-	replace_tile(2, 0, Game.TileType.TREASURE)
+
+	for tile in level.tiles:
+		self.callv("replace_tile", tile)
 	
-	#replace_tile(1, 1, Game.TileType.PIT)
-	#replace_tile(0, 1, Game.TileType.PIT)
-	
-	replace_tile(0, 3, Game.TileType.PIT)
-	replace_tile(2, 2, Game.TileType.PIT)
-	replace_tile(3, 1, Game.TileType.PIT)
+	for monster in level.monsters:
+		self.callv("spawn_monster", monster)
+
+func spawn_monster(x, y, monster_type):
+	var monster
+	match monster_type:
+		Game.MonsterType.SPRINTER:
+			monster = load("res://monsters/sprinter.tscn").instance()
+		Game.MonsterType.WALKER:
+			monster = load("res://monsters/walker.tscn").instance()
+	monster.grid_x = x
+	monster.grid_y = y
+	get_parent().call_deferred("add_child", monster)
 	
 func gap_from_direction(dir):
 	match dir:

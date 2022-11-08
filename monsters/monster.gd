@@ -66,7 +66,7 @@ func take_step():
 		grid_x = int(v % board.cols)
 		#global_translation = board.get_tile(grid_x, grid_y).get_center()
 		movement_tween.interpolate_property(self, "global_translation",
-		global_translation, board.get_tile(grid_x, grid_y).get_center(), 1,
+		global_translation, board.get_tile(grid_x, grid_y).get_center(), 0.4,
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 		movement_tween.start()
 		path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())

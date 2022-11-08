@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://monsters/monster.gd" type="Script" id=1]
+[ext_resource path="res://rbetta.png" type="Texture" id=2]
+
+[node name="Monster" type="Sprite3D"]
+offset = Vector2( 0, 40 )
+modulate = Color( 0.713726, 0.396078, 1, 1 )
+texture = ExtResource( 2 )
+script = ExtResource( 1 )
