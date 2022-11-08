@@ -20,8 +20,10 @@ func get_target_tile():
 		return cheapest_lure
 	return board.find_tile_id(Game.TileType.EXIT)
 	
+func get_action_limit():
+	return 2
+	
 func check_wall(u, v):
-	print(u, " ",  v)
 	var dir = board.compute_direction(u, v)
 	var i_dir = Game.invert_direction(dir)
 	var u_wall = board.get_tile_by_id(u).type == Game.TileType.WALL
@@ -62,7 +64,11 @@ func take_step():
 	else:
 		grid_y = int(v / board.cols)
 		grid_x = int(v % board.cols)
-		global_translation = board.get_tile(grid_x, grid_y).get_center()
+		#global_translation = board.get_tile(grid_x, grid_y).get_center()
+		movement_tween.interpolate_property(self, "global_translation",
+		global_translation, board.get_tile(grid_x, grid_y).get_center(), 1,
+		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+		movement_tween.start()
 		path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
 #	update()
 

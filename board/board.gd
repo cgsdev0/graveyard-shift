@@ -11,6 +11,39 @@ export var size = Vector2(100, 100)
 export var tile_height = 0.2
 
 var card
+var actions = 1
+var actions_per_turn = 1
+
+func start_new_turn():
+	actions = actions_per_turn
+	
+func place_card_on_tile(id: int) -> void:
+	if actions <= 0 || card == null:
+		return
+	actions -= 1
+	
+	var desired_type = card.type
+	var desired_flags = card.wall_flags
+	card.type = Game.TileType.EMPTY
+	card = null
+	match desired_type:
+		Game.TileType.WALL:
+			get_child(id).wall_flags |= desired_flags
+		Game.TileType.LURE:
+			var lure = preload("res://lure.tscn").instance()
+			lure.grid_y = int(id / cols)
+			lure.grid_x = int(id % cols)
+			get_parent().add_child(lure)
+			_propagate_board_change()
+			return
+		Game.TileType.SOLDIER:
+			var soldier = load("res://soldier.tscn").instance()
+			soldier.grid_y = int(id / cols)
+			soldier.grid_x = int(id % cols)
+			get_parent().add_child(soldier)
+			_propagate_board_change()
+			return
+	replace_tile_by_id(id, desired_type)
 
 func find_tile_id(type) -> int:
 	for i in rows * cols:
@@ -69,6 +102,7 @@ func on_card_select(card: Card):
 	
 func _ready():
 	Game.connect("select_card", self, "on_card_select")
+	Game.connect("start_new_turn", self, "start_new_turn")
 	var width = (size.x - spacing * (cols - 1)) / cols
 	var height = (size.y - spacing * (rows - 1)) / rows
 	var tile_size = Vector3(width, tile_height, height)

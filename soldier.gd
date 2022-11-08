@@ -6,6 +6,10 @@ func _ready():
 	astar = MyAStar.new(board)
 	update_navigation()
 
+	
+func get_action_limit():
+	return 1
+	
 func take_step():
 	var lures = get_tree().get_nodes_in_group("lures")
 	for lure in lures:
@@ -20,7 +24,10 @@ func take_step():
 	var v = path[1]
 	grid_y = int(v / board.cols)
 	grid_x = int(v % board.cols)
-	global_translation = board.get_tile(grid_x, grid_y).get_center()
+	movement_tween.interpolate_property(self, "global_translation",
+	global_translation, board.get_tile(grid_x, grid_y).get_center(), 1,
+	Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	movement_tween.start()
 	path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
 
 func get_target_tile():

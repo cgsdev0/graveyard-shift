@@ -25,18 +25,24 @@ func deal():
 		SlotType.ITEM:
 			become(Deck.deal_item())
 			
+var board
+
 func _ready():
+	board = Game.get_board()
 	self.text = Game.TileType.keys()[type]
 	self.connect("pressed", self, "on_press")
+	Game.connect("start_new_turn", self, "start_new_turn")
 	deal()
 	pass
 
 func check_wall_bit(flag):
 	return wall_flags & (1 << flag)
 	
-func _process(delta):
-	if Input.is_action_just_pressed("ui_accept") && type == Game.TileType.EMPTY:
+func start_new_turn():
+	if type == Game.TileType.EMPTY:
 		deal()
+		
+func _process(delta):
 	self.text = Game.TileType.keys()[type]
 	if type == Game.TileType.WALL:
 		if check_wall_bit(Game.Direction.NORTH):
@@ -49,6 +55,7 @@ func _process(delta):
 			self.text += " WEST"
 		
 	self.visible = type != Game.TileType.EMPTY
+	self.disabled = board.actions == 0
 
 func on_press():
 	if type == Game.TileType.EMPTY:

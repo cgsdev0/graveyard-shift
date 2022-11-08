@@ -2,7 +2,7 @@ extends Spatial
 
 
 func _ready():
-	pass
+	Game.connect("end_turn", self, "on_end_turn")
 
 class MyCustomSorter:
 	static func sort_deterministic(a, b):
@@ -10,15 +10,25 @@ class MyCustomSorter:
 			return true
 		return false
 		
-func _process(delta):
-	if Input.is_action_just_pressed("ui_accept"):
-		for i in 2:
-			var pathfinders = get_tree().get_nodes_in_group("pathfinders")
-			pathfinders.sort_custom(MyCustomSorter, "sort_deterministic")
-			for pathfinder in pathfinders:
+func on_end_turn():
+	for i in 100:
+		var stepped_finders = 0
+		var pathfinders = get_tree().get_nodes_in_group("pathfinders")
+		pathfinders.sort_custom(MyCustomSorter, "sort_deterministic")
+		for pathfinder in pathfinders:
+			if !is_instance_valid(pathfinder):
+				continue
+			if pathfinder.get_action_limit() > i:
 				pathfinder.take_step()
-			yield(get_tree().create_timer(0.2), "timeout")
-			for monster in get_tree().get_nodes_in_group("monsters"):
-				if $Board.get_tile_by_id(monster.get_id()).type == Game.TileType.EXIT:
-					Game.emit_signal("game_over")
-					return
+				if pathfinder.movement_tween.is_active():
+					yield(pathfinder.movement_tween, "tween_completed")
+				stepped_finders += 1
+		
+		for monster in get_tree().get_nodes_in_group("monsters"):
+			if $Board.get_tile_by_id(monster.get_id()).type == Game.TileType.EXIT:
+				Game.emit_signal("game_over")
+				return
+		if stepped_finders == 0:
+			Game.emit_signal("start_new_turn")
+			return
+		yield(get_tree().create_timer(0.2), "timeout")

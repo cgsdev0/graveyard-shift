@@ -32,6 +32,11 @@ static func invert_direction(direction):
 		Direction.EAST:
 			return Direction.WEST
 			
+func get_board():
+	return get_tree().root.find_node("Board", true, false)
+	
 signal select_card(card)
 signal game_over
 signal reset
+signal start_new_turn
+signal end_turn

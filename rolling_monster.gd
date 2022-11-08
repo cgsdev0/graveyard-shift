@@ -21,7 +21,6 @@ func get_target_tile():
 	return board.find_tile_id(Game.TileType.EXIT)
 	
 func check_wall(u, v):
-	print(u, " ",  v)
 	var dir = board.compute_direction(u, v)
 	var i_dir = Game.invert_direction(dir)
 	var u_wall = board.get_tile_by_id(u).type == Game.TileType.WALL
@@ -32,7 +31,11 @@ func check_wall(u, v):
 		return true
 	return false
 
+func get_action_limit():
+	return 1
+	
 func take_step():
+	print(path)
 	var lures = get_tree().get_nodes_in_group("lures")
 	for lure in lures:
 		if lure.grid_x == grid_x && lure.grid_y == grid_y:
@@ -54,10 +57,16 @@ func take_step():
 		rolling = true
 		u = u2
 		u2 += gap
-		
+	
+	if board.get_tile_by_id(v).type == Game.TileType.WALL:
+		if board.get_tile_by_id(u).check_wall_bit(dir):
+			if movement_tween.is_active():
+					yield(movement_tween, "tween_completed")
+			board.set_tile_wall_bit(u, dir, false)
 	path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
 	
 func _take_partial_step(u, v, rolling):
+	print(u, v)
 	if !rolling:
 		var soldiers = get_tree().get_nodes_in_group("soldiers")
 		for soldier in soldiers:
@@ -72,6 +81,8 @@ func _take_partial_step(u, v, rolling):
 			if soldier.get_id() == v:
 				if check_wall(get_id(), soldier.get_id()):
 					continue
+				if movement_tween.is_active():
+					yield(movement_tween, "tween_completed")
 				soldier.queue_free()
 				return true
 	var lures = get_tree().get_nodes_in_group("lures")
@@ -86,15 +97,23 @@ func _take_partial_step(u, v, rolling):
 	var u_wall = board.get_tile_by_id(u).type == Game.TileType.WALL
 	var v_wall = board.get_tile_by_id(v).type == Game.TileType.WALL
 	if u_wall && board.get_tile_by_id(u).check_wall_bit(dir):
+		if movement_tween.is_active():
+			yield(movement_tween, "tween_completed")
 		board.set_tile_wall_bit(u, dir, false)
 		return true
 	elif v_wall && board.get_tile_by_id(v).check_wall_bit(i_dir):
+		if movement_tween.is_active():
+			yield(movement_tween, "tween_completed")
 		board.set_tile_wall_bit(v, i_dir, false)
 		return true
 	else:
 		grid_y = int(v / board.cols)
 		grid_x = int(v % board.cols)
-		global_translation = board.get_tile(grid_x, grid_y).get_center()
+		#global_translation = board.get_tile(grid_x, grid_y).get_center()
+		movement_tween.interpolate_property(self, "global_translation",
+		global_translation, board.get_tile(grid_x, grid_y).get_center(), 1,
+		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+		movement_tween.start()
 		return false
 
 
@@ -110,18 +129,16 @@ func update_navigation():
 				var id = r * board.cols + c
 				for r2 in range(r + 1, board.rows):
 					var connect_to = r2 * board.cols + c
-					print("Connecting: ", id, ", ", connect_to)
 					astar.connect_points(id, connect_to)
 				for c2 in range(c + 1, board.cols):
 					var connect_to = r * board.cols + c2
-					print("Connecting2: ", id, ", ", connect_to)
 					astar.connect_points(id, connect_to)
 	for r in board.rows:
 		for c in board.cols:
 			var id = r * board.cols + c
 			astar.set_point_disabled(id, board.get_tile_by_id(id).type == Game.TileType.PIT)
 	path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
-	print("COST: ", get_path_cost(path))
+	# print("COST: ", get_path_cost(path))
 	
 class MyAStar:
 	extends AStar2D

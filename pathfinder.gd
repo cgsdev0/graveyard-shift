@@ -10,7 +10,10 @@ export var debug_path: bool = false
 export var grid_x = 0
 export var grid_y = 0
 
+var movement_tween
 func _ready():
+	movement_tween = Tween.new()
+	self.add_child(movement_tween)
 	add_to_group("pathfinders")
 	board = get_parent().get_node("Board")
 	global_translation = board.get_tile(grid_x, grid_y).get_center()
@@ -52,6 +55,9 @@ func draw_debug_path():
 			debug_path_node.add_vertex(B)
 		debug_path_node.end()
 			
+	
+func get_action_limit():
+	return 0
 	
 func _process(delta):
 	draw_debug_path()

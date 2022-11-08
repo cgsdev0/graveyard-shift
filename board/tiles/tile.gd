@@ -73,29 +73,7 @@ func _on_Tile_input_event(camera, event, position, normal, shape_idx):
 	if type != Game.TileType.EMPTY && type != Game.TileType.WALL:
 		return
 	if event is InputEventMouseButton && event.pressed && event.button_index == 1:
-		if get_parent().card != null:
-			var desired_type = get_parent().card.type
-			var desired_flags = get_parent().card.wall_flags
-			get_parent().card.type = Game.TileType.EMPTY
-			get_parent().card = null
-			match desired_type:
-				Game.TileType.WALL:
-					wall_flags |= desired_flags
-				Game.TileType.LURE:
-					var lure = preload("res://lure.tscn").instance()
-					lure.grid_y = int(get_index() / get_parent().cols)
-					lure.grid_x = int(get_index() % get_parent().cols)
-					get_parent().get_parent().add_child(lure)
-					get_parent()._propagate_board_change()
-					return
-				Game.TileType.SOLDIER:
-					var soldier = load("res://soldier.tscn").instance()
-					soldier.grid_y = int(get_index() / get_parent().cols)
-					soldier.grid_x = int(get_index() % get_parent().cols)
-					get_parent().get_parent().add_child(soldier)
-					get_parent()._propagate_board_change()
-					return
-			get_parent().replace_tile_by_id(get_index(), desired_type)
+		get_parent().place_card_on_tile(get_index())
 	#	get_parent().replace_tile_by_id(get_index(), type + 1)
 	if event is InputEventMouseButton && event.pressed && event.button_index == 2:
 		get_parent().replace_tile_by_id(get_index(), Game.TileType.WALL)
