@@ -10,6 +10,7 @@ var starting_item_deck = [
 	{ "type": Game.TileType.SOLDIER },
 	{ "type": Game.TileType.SOLDIER },
 	{ "type": Game.TileType.LURE },
+	{ "type": Game.TileType.TRAP },
 ]
 
 var wall_deck = starting_wall_deck.duplicate()

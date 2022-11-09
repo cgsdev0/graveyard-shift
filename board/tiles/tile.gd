@@ -59,6 +59,10 @@ func set_color_from_type():
 			color = Color.brown
 		Game.TileType.EXIT:
 			color = Color.green
+		Game.TileType.TRAP:
+			color = Color.gray
+		Game.TileType.TRAP_SPRUNG:
+			color = Color.darkred
 			
 func _process(delta):
 	set_color_from_type()

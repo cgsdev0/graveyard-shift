@@ -10,6 +10,8 @@ export var debug_path: bool = false
 export var grid_x = 0
 export var grid_y = 0
 
+var skipped_turns = 0
+
 var enabled = true
 func kill():
 	self.enabled = false

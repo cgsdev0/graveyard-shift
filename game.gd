@@ -7,10 +7,12 @@ enum TileType {
 	TREASURE,
 	TREASURE_TAKEN,
 	
+	SECRET_DOOR,
 	WALL,
 	SOLDIER,
 	LURE,
 	TRAP,
+	TRAP_SPRUNG,
 	SPIKES,
 	# keep this one last
 	EXIT

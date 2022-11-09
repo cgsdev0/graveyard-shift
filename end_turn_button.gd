@@ -9,5 +9,5 @@ func start_new_turn():
 	disabled = false
 	
 func on_press():
-	Game.emit_signal("end_turn")
 	disabled = true
+	Game.emit_signal("end_turn")
