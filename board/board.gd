@@ -120,7 +120,7 @@ func _ready():
 	for r in rows:
 		for c in cols:
 			var t = tile.instance()
-			t.init(Vector3(tile_size), Vector3(c * (width + spacing), 0, r * (height + spacing)))
+			t.init(Vector3(tile_size), Vector3(c * (width + spacing), 0, r * (height + spacing)), spacing)
 			self.add_child(t)
 	
 

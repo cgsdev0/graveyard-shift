@@ -1,10 +1,19 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://board/board.gd" type="Script" id=1]
+[ext_resource path="res://hand.gd" type="Script" id=2]
+[ext_resource path="res://draggable_card.gd" type="Script" id=3]
 [ext_resource path="res://game_over.gd" type="Script" id=4]
 [ext_resource path="res://card.gd" type="Script" id=5]
 [ext_resource path="res://coordinator.gd" type="Script" id=6]
 [ext_resource path="res://end_turn_button.gd" type="Script" id=7]
+[ext_resource path="res://Spatial.gd" type="Script" id=8]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0, 0.976471, 1, 1 )
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 1, 1, 0.05 )
 
 [node name="Root" type="Node"]
 
@@ -19,9 +28,28 @@ spacing = 0.2
 size = Vector2( 10, 10 )
 
 [node name="Camera" type="Camera" parent="Level"]
-transform = Transform( 0.999341, 0.00802563, -0.0353964, 0.0107914, 0.86544, 0.500897, 0.0346535, -0.500949, 0.864783, 4.32149, 3.86943, 13.5483 )
+transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 5, 7, 13 )
+
+[node name="Spatial" type="Spatial" parent="Level"]
+script = ExtResource( 2 )
+
+[node name="Area" type="Area" parent="Level/Spatial"]
+script = ExtResource( 3 )
+
+[node name="Tile" type="CSGBox" parent="Level/Spatial/Area"]
+depth = 0.1
+material = SubResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Level/Spatial/Area"]
+shape = SubResource( 1 )
+
+[node name="Tween" type="Tween" parent="Level/Spatial/Area"]
+
+[node name="Mouse" type="Spatial" parent="Level/Spatial"]
+script = ExtResource( 8 )
 
 [node name="Node2D" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -101,3 +129,5 @@ script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
+
+[connection signal="input_event" from="Level/Spatial/Area" to="Level/Spatial/Area" method="_on_Area_input_event"]

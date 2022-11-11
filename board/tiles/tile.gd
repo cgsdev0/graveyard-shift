@@ -3,6 +3,7 @@ extends Area
 
 
 export var size = Vector3(100, 5, 100)
+var spacing = 0.0
 var color: Color
 var type = Game.TileType.EMPTY
 var wall_flags = 0b0000
@@ -10,12 +11,13 @@ var wall_flags = 0b0000
 func get_center() -> Vector3:
 	return global_translation + size / 2 + Vector3(0, 0.5, 0)
 	
-func init(s: Vector3, t: Vector3) -> void:
+func init(s: Vector3, t: Vector3, spacing: float) -> void:
 	size = s
 	translation = t
+	self.spacing = spacing
 	
 func _ready():
-	$CollisionShape2D.shape.extents = size / 2
+	$CollisionShape2D.shape.extents = size / 2 + Vector3(spacing, 0, spacing)
 	$CollisionShape2D.translation = size / 2
 	
 	# Position debug objects

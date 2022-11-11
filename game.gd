@@ -89,6 +89,10 @@ func get_board():
 	return get_tree().root.find_node("Board", true, false)
 	
 signal select_card(card)
+
+signal start_drag(card)
+signal end_drag
+
 signal game_over
 signal reset
 signal start_new_turn
