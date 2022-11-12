@@ -91,7 +91,8 @@ func get_board():
 signal select_card(card)
 
 signal start_drag(card)
-signal end_drag
+signal start_hover(card)
+signal end_hover(card)
 
 signal game_over
 signal reset

@@ -17,7 +17,7 @@ func init(s: Vector3, t: Vector3, spacing: float) -> void:
 	self.spacing = spacing
 	
 func _ready():
-	$CollisionShape2D.shape.extents = size / 2 + Vector3(spacing, 0, spacing)
+	$CollisionShape2D.shape.extents = size / 2 + Vector3(spacing / 2, 0, spacing / 2)
 	$CollisionShape2D.translation = size / 2
 	
 	# Position debug objects
