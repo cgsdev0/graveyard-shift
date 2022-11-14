@@ -28,12 +28,18 @@ _global_script_classes=[ {
 "class": "Tile",
 "language": "GDScript",
 "path": "res://board/tiles/tile.gd"
+}, {
+"base": "Spatial",
+"class": "Token",
+"language": "GDScript",
+"path": "res://tokens/token.gd"
 } ]
 _global_script_class_icons={
 "Board": "",
 "FreeLookCamera": "",
 "Pathfinder": "",
-"Tile": ""
+"Tile": "",
+"Token": ""
 }
 
 [application]
