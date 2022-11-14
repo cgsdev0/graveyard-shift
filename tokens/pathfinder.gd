@@ -80,6 +80,17 @@ func get_path_cost(path):
 	
 func get_target_tile():
 	 return board.find_tile_id(Game.TileType.EXIT)
+
+func check_wall(u, v):
+	var dir = board.compute_direction(u, v)
+	var i_dir = Game.invert_direction(dir)
+	var u_wall = Game.is_wall(board.get_tile_by_id(u).type)
+	var v_wall = Game.is_wall(board.get_tile_by_id(v).type)
+	if u_wall && board.get_tile_by_id(u).check_wall_bit(dir):
+		return true
+	elif v_wall && board.get_tile_by_id(v).check_wall_bit(i_dir):
+		return true
+	return false
 	
 func update_navigation():
 	if astar.get_point_count() == 0:

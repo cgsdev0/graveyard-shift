@@ -19,17 +19,6 @@ func get_target_tile():
 	if cheapest_lure != null:
 		return cheapest_lure
 	return board.find_tile_id(Game.TileType.EXIT)
-	
-func check_wall(u, v):
-	var dir = board.compute_direction(u, v)
-	var i_dir = Game.invert_direction(dir)
-	var u_wall = board.get_tile_by_id(u).type == Game.TileType.WALL
-	var v_wall = board.get_tile_by_id(v).type == Game.TileType.WALL
-	if u_wall && board.get_tile_by_id(u).check_wall_bit(dir):
-		return true
-	elif v_wall && board.get_tile_by_id(v).check_wall_bit(i_dir):
-		return true
-	return false
 
 func get_action_limit():
 	return 2
@@ -61,7 +50,7 @@ func take_step():
 		if board.get_tile_by_id(u).check_wall_bit(dir):
 			if movement_tween.is_active():
 					yield(movement_tween, "tween_completed")
-			board.set_tile_wall_bit(u, dir, false)
+			board.damage_tile_wall_bit(u, dir)
 	path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
 	
 func _take_partial_step(u, v, rolling):
@@ -97,12 +86,12 @@ func _take_partial_step(u, v, rolling):
 	if u_wall && board.get_tile_by_id(u).check_wall_bit(dir):
 		if movement_tween.is_active():
 			yield(movement_tween, "tween_completed")
-		board.set_tile_wall_bit(u, dir, false)
+		board.damage_tile_wall_bit(u, dir)
 		return true
 	elif v_wall && board.get_tile_by_id(v).check_wall_bit(i_dir):
 		if movement_tween.is_active():
 			yield(movement_tween, "tween_completed")
-		board.set_tile_wall_bit(v, i_dir, false)
+		board.damage_tile_wall_bit(v, i_dir)
 		return true
 	else:
 		grid_y = int(v / board.cols)
@@ -136,7 +125,7 @@ func update_navigation():
 			var id = r * board.cols + c
 			astar.set_point_disabled(id, board.get_tile_by_id(id).type == Game.TileType.PIT)
 	path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
-	# print("COST: ", get_path_cost(path))
+	print("COST: ", get_path_cost(path))
 	
 class MyAStar:
 	extends AStar2D
@@ -149,15 +138,17 @@ class MyAStar:
 		var cost = 0
 		if board.get_tile_by_id(u).type == Game.TileType.PIT || board.get_tile_by_id(v).type == Game.TileType.PIT:
 			return 999
-		var u_wall = board.get_tile_by_id(u).type == Game.TileType.WALL
-		var v_wall = board.get_tile_by_id(v).type == Game.TileType.WALL
+		var u_type = board.get_tile_by_id(u).type
+		var v_type = board.get_tile_by_id(v).type
+		var u_wall = Game.is_wall(u_type)
+		var v_wall = Game.is_wall(v_type)
 		if  u_wall || v_wall:
 			var dir = board.compute_direction(u, v)
 			var i_dir = Game.invert_direction(dir)
 			if u_wall && board.get_tile_by_id(u).check_wall_bit(dir):
-				cost += 1
+				cost += board.get_tile_by_id(u).check_wall_bit(dir)
 			if v_wall && board.get_tile_by_id(v).check_wall_bit(i_dir):
-				cost += 1
+				cost += board.get_tile_by_id(v).check_wall_bit(i_dir)
 		return cost
 
 	func _compute_cost(u, v):

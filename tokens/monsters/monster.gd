@@ -23,17 +23,6 @@ func get_target_tile():
 func get_action_limit():
 	return 2
 	
-func check_wall(u, v):
-	var dir = board.compute_direction(u, v)
-	var i_dir = Game.invert_direction(dir)
-	var u_wall = board.get_tile_by_id(u).type == Game.TileType.WALL
-	var v_wall = board.get_tile_by_id(v).type == Game.TileType.WALL
-	if u_wall && board.get_tile_by_id(u).check_wall_bit(dir):
-		return true
-	elif v_wall && board.get_tile_by_id(v).check_wall_bit(i_dir):
-		return true
-	return false
-	
 func take_step():
 	var soldiers = get_tree().get_nodes_in_group("soldiers")
 	for soldier in soldiers:
@@ -58,9 +47,9 @@ func take_step():
 	var u_wall = board.get_tile_by_id(u).type == Game.TileType.WALL
 	var v_wall = board.get_tile_by_id(v).type == Game.TileType.WALL
 	if u_wall && board.get_tile_by_id(u).check_wall_bit(dir):
-		board.set_tile_wall_bit(u, dir, false)
+		board.damage_tile_wall_bit(u, dir)
 	elif v_wall && board.get_tile_by_id(v).check_wall_bit(i_dir):
-		board.set_tile_wall_bit(v, i_dir, false)
+		board.damage_tile_wall_bit(v, i_dir)
 	else:
 		grid_y = int(v / board.cols)
 		grid_x = int(v % board.cols)
@@ -81,15 +70,17 @@ class MyAStar:
 		
 	func _compute_cost(u, v):
 		var cost = 1
-		var u_wall = board.get_tile_by_id(u).type == Game.TileType.WALL
-		var v_wall = board.get_tile_by_id(v).type == Game.TileType.WALL
+		var u_type = board.get_tile_by_id(u).type
+		var v_type = board.get_tile_by_id(v).type
+		var u_wall = Game.is_wall(u_type)
+		var v_wall = Game.is_wall(v_type)
 		if  u_wall || v_wall:
 			var dir = board.compute_direction(u, v)
 			var i_dir = Game.invert_direction(dir)
 			if u_wall && board.get_tile_by_id(u).check_wall_bit(dir):
-				cost += 1
+				cost += board.get_tile_by_id(u).check_wall_bit(dir)
 			if v_wall && board.get_tile_by_id(v).check_wall_bit(i_dir):
-				cost += 1
+				cost += board.get_tile_by_id(u).check_wall_bit(i_dir)
 		return cost
 
 	func _estimate_cost(u, v):

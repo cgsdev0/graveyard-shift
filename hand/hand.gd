@@ -189,12 +189,17 @@ func _physics_process(delta):
 		var to = from + get_viewport().get_camera().project_ray_normal(mouse) * 600
 		var result = space.intersect_ray(from, to, [], 0b10, false, true)
 		if result.has("collider"):
-			if result.collider.type == Game.TileType.EMPTY:
-				for token in get_tree().get_nodes_in_group("tokens"):
-					if token.get_id() == result.collider.get_index():
-						return
-				if snap_tile != result.collider:
-					set_snap_tile(result.collider)
+			if dragging.type == Game.TileType.BRIDGE:
+				if result.collider.type == Game.TileType.PIT:
+					if snap_tile != result.collider:
+						set_snap_tile(result.collider)
+			else:
+				if result.collider.type == Game.TileType.EMPTY:
+					for token in get_tree().get_nodes_in_group("tokens"):
+						if token.get_id() == result.collider.get_index():
+							return
+					if snap_tile != result.collider:
+						set_snap_tile(result.collider)
 		elif snap_tile != null:
 			set_snap_tile(null)
 		

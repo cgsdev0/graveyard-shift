@@ -3,10 +3,14 @@ extends Node
 var starting_deck = {
 	Game.SlotType.WALL: {
 		"cards": [
-			{ "type": Game.TileType.WALL, "wall_flags": 0b1000 },
-			{ "type": Game.TileType.WALL, "wall_flags": 0b0100 },
-			{ "type": Game.TileType.WALL, "wall_flags": 0b0010 },
-			{ "type": Game.TileType.WALL, "wall_flags": 0b0001 },
+			#                                            N  S  E  W
+			{ "type": Game.TileType.WALL, "wall_flags": [1, 0, 0, 0] },
+			{ "type": Game.TileType.WALL, "wall_flags": [0, 1, 0, 0] },
+			{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 1, 0] },
+			{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1] },
+			# definitely not base deck cards:
+			{ "type": Game.TileType.BRIDGE, "wall_flags": [1000, 1000, 0, 0] },
+			{ "type": Game.TileType.SECRET_DOOR, "wall_flags": [0, 0, 0, 100] },
 		],
 		"desired_count": 2,
 	 },
@@ -32,6 +36,7 @@ func on_reset():
 	deck = starting_deck.duplicate(true)
 	for key in deck.keys():
 		deck[key].cards.shuffle()
+		pass
 	
 func desired_count(slot_type):
 	return deck[slot_type].desired_count

@@ -11,6 +11,7 @@ enum TileType {
 	TREASURE,
 	TREASURE_TAKEN,
 	
+	BRIDGE,
 	SECRET_DOOR,
 	WALL,
 	SOLDIER,
@@ -87,6 +88,12 @@ var levels = [
 		]
 	}
 ]
+
+static func is_wall(tile_type):
+	match tile_type:
+		TileType.WALL, TileType.SECRET_DOOR, TileType.BRIDGE:
+			return true
+	return false
 
 static func invert_direction(direction):
 	match direction:

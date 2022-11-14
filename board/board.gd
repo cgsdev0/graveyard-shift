@@ -25,8 +25,8 @@ func place_card_on_tile(card, id: int) -> void:
 	var desired_flags = card.wall_flags
 	
 	match desired_type:
-		Game.TileType.WALL:
-			get_child(id).wall_flags |= desired_flags
+		Game.TileType.WALL, Game.TileType.SECRET_DOOR, Game.TileType.BRIDGE:
+			get_child(id).wall_flags = desired_flags
 		Game.TileType.LURE:
 			var lure = preload("res://tokens/lure.tscn").instance()
 			lure.grid_y = int(id / cols)
@@ -84,21 +84,17 @@ func replace_tile(col: int, row: int, type) -> void:
 func replace_tile_by_id(id: int, type) -> void:
 	_replace_tile(get_tile_by_id(id), type)
 
-func set_tile_wall_bit(id: int, direction, on: bool) -> void:
-	if on:
-		get_tile_by_id(id).wall_flags |= 1 << direction
-	else:
-		get_tile_by_id(id).wall_flags &= ~(1 << direction)
-	if get_tile_by_id(id).wall_flags == 0:
+func damage_tile_wall_bit(id: int, direction) -> void:
+	set_tile_wall_bit(id, direction, get_tile_by_id(id).wall_flags[direction] - 1)
+	
+func set_tile_wall_bit(id: int, direction, health: int) -> void:
+	get_tile_by_id(id).wall_flags[direction] = max(0, health)
+	if get_tile_by_id(id).wall_flags == [0, 0, 0, 0]:
 		replace_tile_by_id(id, Game.TileType.EMPTY)
 		for tile in get_tree().get_nodes_in_group("placed_tiles"):
 			if tile.placed_at == id:
 				tile.queue_free()
 				break
-	_propagate_board_change()
-	
-func toggle_tile_wall_bit(id: int, direction) -> void:
-	get_tile_by_id(id).wall_flags ^= 1 << direction
 	_propagate_board_change()
 	
 func _ready():
