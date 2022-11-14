@@ -6,6 +6,7 @@ var wall_flags = 0b1100
 
 var disabled = false
 var placed = false
+var placed_at
 
 func become(card):
 	if card == null:
@@ -18,6 +19,12 @@ func become(card):
 			
 var board
 
+func should_stay_on_board():
+	match type:
+		Game.TileType.SOLDIER, Game.TileType.LURE:
+			return false
+	return true
+	
 func _ready():
 	board = Game.get_board()
 	$Label3D.text = Game.TileType.keys()[type]
@@ -66,4 +73,3 @@ func _on_Area_mouse_exited():
 	if disabled:
 		return
 	Game.emit_signal("end_hover", self)
-	pass # Replace with function body.

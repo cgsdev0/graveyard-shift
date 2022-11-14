@@ -23,8 +23,7 @@ func place_card_on_tile(card, id: int) -> void:
 	
 	var desired_type = card.type
 	var desired_flags = card.wall_flags
-	card.type = Game.TileType.EMPTY
-	card = null
+	
 	match desired_type:
 		Game.TileType.WALL:
 			get_child(id).wall_flags |= desired_flags
@@ -90,6 +89,12 @@ func set_tile_wall_bit(id: int, direction, on: bool) -> void:
 		get_tile_by_id(id).wall_flags |= 1 << direction
 	else:
 		get_tile_by_id(id).wall_flags &= ~(1 << direction)
+	if get_tile_by_id(id).wall_flags == 0:
+		replace_tile_by_id(id, Game.TileType.EMPTY)
+		for tile in get_tree().get_nodes_in_group("placed_tiles"):
+			if tile.placed_at == id:
+				tile.queue_free()
+				break
 	_propagate_board_change()
 	
 func toggle_tile_wall_bit(id: int, direction) -> void:

@@ -21,6 +21,7 @@ func _ready():
 	movement_tween = Tween.new()
 	self.add_child(movement_tween)
 	add_to_group("pathfinders")
+	add_to_group("tokens")
 	board = get_parent().get_node("Board")
 	global_translation = board.get_tile(grid_x, grid_y).get_center()
 	# update_navigation()

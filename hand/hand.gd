@@ -13,9 +13,7 @@ export var hold_dist = 0.5
 var board
 
 func _ready():
-	board = get_parent().get_node("Board")
-	# $Area.rotation = get_viewport().get_camera().rotation
-	# $Area.global_translation = get_viewport().get_camera().project_position(hand_pos, 5)
+	board = Game.get_board()
 	$Mouse.dist_from_camera = dist_from_camera - hold_dist
 	Game.connect("start_drag", self, "start_drag")
 	Game.connect("start_hover", self, "start_hover")
@@ -151,8 +149,15 @@ func _process(delta):
 				# place the tile
 				board.place_card_on_tile(dragging, snap_tile.get_index())
 				$Cards.remove_child(dragging)
-				self.add_child(dragging)
-				dragging.set_owner(self)
+				# TODO: maybe a cool transition effect here?
+				if dragging.should_stay_on_board():
+					dragging.placed_at = snap_tile.get_index()
+					dragging.add_to_group("placed_tiles")
+					self.add_child(dragging)
+					dragging.set_owner(self)
+					dragging.get_node("Tween").resume_all()
+				else:
+					dragging.queue_free()
 				adjust_hand()
 				dragging = null
 				return
@@ -185,6 +190,9 @@ func _physics_process(delta):
 		var result = space.intersect_ray(from, to, [], 0b10, false, true)
 		if result.has("collider"):
 			if result.collider.type == Game.TileType.EMPTY:
+				for token in get_tree().get_nodes_in_group("tokens"):
+					if token.get_id() == result.collider.get_index():
+						return
 				if snap_tile != result.collider:
 					set_snap_tile(result.collider)
 		elif snap_tile != null:
