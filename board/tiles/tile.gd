@@ -9,7 +9,7 @@ var type = Game.TileType.EMPTY
 var wall_flags = [0, 0, 0, 0]
 	
 func get_center() -> Vector3:
-	return global_translation + size / 2 + Vector3(0, 0.5, 0)
+	return global_translation + size / 2 + Vector3(0, 0.1, 0)
 	
 func init(s: Vector3, t: Vector3, spacing: float) -> void:
 	size = s
