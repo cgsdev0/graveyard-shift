@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/rbetta.png-6c5811a940f812dc5e4188ed9c957327.s3tc.stex"
-path.etc2="res://.import/rbetta.png-6c5811a940f812dc5e4188ed9c957327.etc2.stex"
+path.s3tc="res://.import/icon.png-7dccc3a2bf04572b212237e77b4c0848.s3tc.stex"
+path.etc2="res://.import/icon.png-7dccc3a2bf04572b212237e77b4c0848.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://rbetta.png"
-dest_files=[ "res://.import/rbetta.png-6c5811a940f812dc5e4188ed9c957327.s3tc.stex", "res://.import/rbetta.png-6c5811a940f812dc5e4188ed9c957327.etc2.stex" ]
+source_file="res://debug/icon.png"
+dest_files=[ "res://.import/icon.png-7dccc3a2bf04572b212237e77b4c0848.s3tc.stex", "res://.import/icon.png-7dccc3a2bf04572b212237e77b4c0848.etc2.stex" ]
 
 [params]
 

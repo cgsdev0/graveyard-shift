@@ -17,17 +17,17 @@ _global_script_classes=[ {
 "base": "Button",
 "class": "Card",
 "language": "GDScript",
-"path": "res://card.gd"
+"path": "res://debug/card.gd"
 }, {
 "base": "Camera",
 "class": "FreeLookCamera",
 "language": "GDScript",
-"path": "res://Camera.gd"
+"path": "res://debug/camera.gd"
 }, {
 "base": "Spatial",
 "class": "Pathfinder",
 "language": "GDScript",
-"path": "res://pathfinder.gd"
+"path": "res://tokens/pathfinder.gd"
 }, {
 "base": "Area",
 "class": "Tile",
@@ -46,12 +46,12 @@ _global_script_class_icons={
 
 config/name="GraveyardShift"
 run/main_scene="res://main.tscn"
-config/icon="res://icon.png"
+config/icon="res://debug/icon.png"
 
 [autoload]
 
-Game="*res://game.gd"
-Deck="*res://deck.gd"
+Game="*res://logic/game.gd"
+Deck="*res://logic/deck.gd"
 
 [gui]
 

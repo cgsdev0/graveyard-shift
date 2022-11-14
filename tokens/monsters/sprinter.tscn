@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://monsters/rolling_monster.gd" type="Script" id=1]
-[ext_resource path="res://rbetta.png" type="Texture" id=2]
+[ext_resource path="res://tokens/monsters/rolling_monster.gd" type="Script" id=1]
+[ext_resource path="res://debug/rbetta.png" type="Texture" id=2]
 
 [node name="Monster" type="Sprite3D"]
 offset = Vector2( 0, 40 )

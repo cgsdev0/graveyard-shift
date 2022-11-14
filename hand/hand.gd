@@ -89,7 +89,7 @@ func project_to_3d(v: Vector2, f: float) -> Vector3:
 	
 func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
-		var card = preload("res://draggable_card.tscn").instance()
+		var card = preload("res://hand/draggable_card.tscn").instance()
 		card.rotation = get_viewport().get_camera().rotation
 		$Cards.add_child(card)
 		var cards = $Cards.get_child_count()

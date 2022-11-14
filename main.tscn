@@ -1,13 +1,13 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://board/board.gd" type="Script" id=1]
-[ext_resource path="res://hand.gd" type="Script" id=2]
-[ext_resource path="res://Camera.gd" type="Script" id=3]
-[ext_resource path="res://game_over.gd" type="Script" id=4]
-[ext_resource path="res://card.gd" type="Script" id=5]
-[ext_resource path="res://coordinator.gd" type="Script" id=6]
-[ext_resource path="res://end_turn_button.gd" type="Script" id=7]
-[ext_resource path="res://mouse.gd" type="Script" id=8]
+[ext_resource path="res://hand/hand.gd" type="Script" id=2]
+[ext_resource path="res://debug/camera.gd" type="Script" id=3]
+[ext_resource path="res://logic/game_over.gd" type="Script" id=4]
+[ext_resource path="res://debug/card.gd" type="Script" id=5]
+[ext_resource path="res://logic/coordinator.gd" type="Script" id=6]
+[ext_resource path="res://logic/end_turn_button.gd" type="Script" id=7]
+[ext_resource path="res://hand/mouse.gd" type="Script" id=8]
 
 [node name="Root" type="Node"]
 

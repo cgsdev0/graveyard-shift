@@ -30,14 +30,14 @@ func place_card_on_tile(id: int) -> void:
 		Game.TileType.WALL:
 			get_child(id).wall_flags |= desired_flags
 		Game.TileType.LURE:
-			var lure = preload("res://lure.tscn").instance()
+			var lure = preload("res://tokens/lure.tscn").instance()
 			lure.grid_y = int(id / cols)
 			lure.grid_x = int(id % cols)
 			get_parent().add_child(lure)
 			_propagate_board_change()
 			return
 		Game.TileType.SOLDIER:
-			var soldier = load("res://soldier.tscn").instance()
+			var soldier = load("res://tokens/soldier.tscn").instance()
 			soldier.grid_y = int(id / cols)
 			soldier.grid_x = int(id % cols)
 			get_parent().add_child(soldier)
@@ -135,7 +135,7 @@ func _ready():
 		self.callv("spawn_monster", monster)
 
 func spawn_adventurer(x, y):
-	var adventurer = load("res://adventurer.tscn").instance()
+	var adventurer = load("res://tokens/adventurer.tscn").instance()
 	adventurer.grid_x = x
 	adventurer.grid_y = y
 	get_parent().call_deferred("add_child", adventurer)
@@ -144,9 +144,9 @@ func spawn_monster(x, y, monster_type):
 	var monster
 	match monster_type:
 		Game.MonsterType.SPRINTER:
-			monster = load("res://monsters/sprinter.tscn").instance()
+			monster = load("res://tokens/monsters/sprinter.tscn").instance()
 		Game.MonsterType.WALKER:
-			monster = load("res://monsters/walker.tscn").instance()
+			monster = load("res://tokens/monsters/walker.tscn").instance()
 	monster.grid_x = x
 	monster.grid_y = y
 	get_parent().call_deferred("add_child", monster)

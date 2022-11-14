@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://lure.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://tokens/lure.gd" type="Script" id=1]
+[ext_resource path="res://debug/icon.png" type="Texture" id=2]
 
 [node name="Lure" type="Sprite3D"]
 modulate = Color( 0.992157, 1, 0, 1 )
