@@ -33,13 +33,19 @@ _global_script_classes=[ {
 "class": "Token",
 "language": "GDScript",
 "path": "res://tokens/token.gd"
+}, {
+"base": "Node2D",
+"class": "TokenGenerator",
+"language": "GDScript",
+"path": "res://tokens/token_generator.gd"
 } ]
 _global_script_class_icons={
 "Board": "",
 "FreeLookCamera": "",
 "Pathfinder": "",
 "Tile": "",
-"Token": ""
+"Token": "",
+"TokenGenerator": ""
 }
 
 [application]

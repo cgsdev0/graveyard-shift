@@ -23,7 +23,8 @@ func _ready():
 	add_to_group("pathfinders")
 	add_to_group("tokens")
 	board = get_parent().get_node("Board")
-	global_translation = board.get_tile(grid_x, grid_y).get_center()
+	if board:
+		global_translation = board.get_tile(grid_x, grid_y).get_center()
 	# update_navigation()
 
 func get_id():
@@ -93,6 +94,8 @@ func check_wall(u, v):
 	return false
 	
 func update_navigation():
+	if !board:
+		return
 	if astar.get_point_count() == 0:
 		# initialize the grid
 		for r in board.rows:
