@@ -6,12 +6,15 @@ var dragging = null
 var hover = null
 
 var snap_tile = null
+var dist_from_camera = 15.0
 export var tween_time = 0.2
+export var hold_dist = 0.5
 
 func _ready():
 	var hand_pos = Vector2(get_viewport().size.x / 2, get_viewport().size.y / 5 * 4)
 	# $Area.rotation = get_viewport().get_camera().rotation
 	# $Area.global_translation = get_viewport().get_camera().project_position(hand_pos, 5)
+	$Mouse.dist_from_camera = dist_from_camera - hold_dist
 	Game.connect("start_drag", self, "start_drag")
 	Game.connect("start_hover", self, "start_hover")
 	Game.connect("end_hover", self, "end_hover")
@@ -82,7 +85,7 @@ func get_pos_in_hand(i, total):
 		return Vector2(v.x / 2 + ratio * hand_width, y)
 		
 func project_to_3d(v: Vector2, f: float) -> Vector3:
-	return get_viewport().get_camera().project_position(v, 5 - float(f) / 100.0)
+	return get_viewport().get_camera().project_position(v, dist_from_camera - float(f) / 100.0)
 	
 func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
@@ -91,7 +94,12 @@ func _process(delta):
 		$Cards.add_child(card)
 		var cards = $Cards.get_child_count()
 		for c in $Cards.get_children():
-			c.global_translation = project_to_3d(get_pos_in_hand(c.get_index(), cards), c.get_index())
+			var tween = c.get_node("Tween") as Tween
+			tween.interpolate_property(c, "global_translation", 
+				c.global_translation, 
+				project_to_3d(get_pos_in_hand(c.get_index(), cards), c.get_index()),
+				tween_time, Tween.TRANS_QUAD, Tween.EASE_OUT)
+			tween.start()
 	if dragging:
 		var tween = dragging.get_node("Tween") as Tween
 		if !Input.is_mouse_button_pressed(1):
@@ -113,7 +121,7 @@ func _process(delta):
 				pass
 			else:
 				dragging.rotation = get_viewport().get_camera().rotation
-				dragging.global_translation = get_viewport().get_camera().project_position(mouse, 4.5)
+				dragging.global_translation = get_viewport().get_camera().project_position(mouse, dist_from_camera - hold_dist)
 
 func _physics_process(delta):
 	if dragging:

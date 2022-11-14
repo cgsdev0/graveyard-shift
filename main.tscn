@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://board/board.gd" type="Script" id=1]
 [ext_resource path="res://hand.gd" type="Script" id=2]
+[ext_resource path="res://Camera.gd" type="Script" id=3]
 [ext_resource path="res://game_over.gd" type="Script" id=4]
 [ext_resource path="res://card.gd" type="Script" id=5]
 [ext_resource path="res://coordinator.gd" type="Script" id=6]
@@ -21,7 +22,9 @@ spacing = 0.2
 size = Vector2( 10, 10 )
 
 [node name="Camera" type="Camera" parent="Level"]
-transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 5, 7, 13 )
+transform = Transform( 1, 0, 0, 0, 0.766045, 0.642788, 0, -0.642788, 0.766045, 5, 14.6, 23.2 )
+fov = 20.0
+script = ExtResource( 3 )
 
 [node name="Hand" type="Spatial" parent="Level"]
 script = ExtResource( 2 )
@@ -32,7 +35,6 @@ script = ExtResource( 8 )
 [node name="Cards" type="Node" parent="Level/Hand"]
 
 [node name="Node2D" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
