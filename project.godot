@@ -29,7 +29,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://board/tiles/tile.gd"
 }, {
-"base": "Spatial",
+"base": "MeshInstance",
 "class": "Token",
 "language": "GDScript",
 "path": "res://tokens/token.gd"
