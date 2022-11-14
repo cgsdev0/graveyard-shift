@@ -2,7 +2,7 @@ class_name Token
 extends Spatial
 
 var width = 0.2
-var scale_factor = 120.0
+export var scale_factor = 120.0
 export var albedo_color = Color.white
 export var sprite_texture = preload("res://debug/rbetta.png")
 export var sprite_mesh = preload("res://debug/rbetta_mesh.tres")
