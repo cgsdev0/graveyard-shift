@@ -27,6 +27,11 @@ var _e = false
 var _shift = false
 var _alt = false
 
+func _ready():
+	var camera = Game.levels[Game.level].camera
+	global_translation = camera.translation
+	global_rotation = camera.rotation
+	
 func _input(event):
 	# Receives mouse motion
 	if event is InputEventMouseMotion:

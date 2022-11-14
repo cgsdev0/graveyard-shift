@@ -10,17 +10,32 @@ var dist_from_camera = 15.0
 export var tween_time = 0.2
 export var hold_dist = 0.5
 
+var board
+
 func _ready():
-	var hand_pos = Vector2(get_viewport().size.x / 2, get_viewport().size.y / 5 * 4)
+	board = get_parent().get_node("Board")
 	# $Area.rotation = get_viewport().get_camera().rotation
 	# $Area.global_translation = get_viewport().get_camera().project_position(hand_pos, 5)
 	$Mouse.dist_from_camera = dist_from_camera - hold_dist
 	Game.connect("start_drag", self, "start_drag")
 	Game.connect("start_hover", self, "start_hover")
 	Game.connect("end_hover", self, "end_hover")
-	pass
+	Game.connect("start_new_turn", self, "on_start_new_turn")
+	get_tree().get_root().connect("size_changed", self, "on_resize")
+	yield(get_tree().create_timer(0.5), "timeout")
+	on_start_new_turn()
+	
+
+func on_resize():
+	adjust_hand()
+	
+func on_start_new_turn():
+	while deal_card():
+		yield(get_tree().create_timer(0.2), "timeout")
 	
 func end_hover(card):
+	if card.placed:
+		return
 	if dragging:
 		return
 	if hover == card:
@@ -34,6 +49,8 @@ func end_hover(card):
 		hover = null
 	
 func start_hover(card):
+	if card.placed:
+		return
 	if dragging:
 		return
 	if hover:
@@ -77,32 +94,68 @@ func set_snap_tile(tile):
 func get_pos_in_hand(i, total):
 	var v = get_viewport().size
 	var y = v.y - 50
+	# TODO: be more thoughtful here
+	var left_offset = 100
 	if total == 1:
-		return Vector2(v.x / 2, y)
+		return Vector2(v.x / 2 - left_offset, y)
 	else:
 		var ratio = float(i) / (total - 1.0) - 0.5
-		var hand_width = lerp(v.x / 10, v.x / 2, ease((total - 1.0) / 10.0, 0.5))
-		return Vector2(v.x / 2 + ratio * hand_width, y)
+		var hand_width = lerp(v.x / 10, v.x / 5 * 4, ease((total - 1.0) / 10.0, 0.5))
+		return Vector2(v.x / 2  - left_offset + ratio * hand_width, y)
 		
 func project_to_3d(v: Vector2, f: float) -> Vector3:
 	return get_viewport().get_camera().project_position(v, dist_from_camera - float(f) / 100.0)
 	
+func adjust_hand():
+	var cards = $Cards.get_child_count()
+	for c in $Cards.get_children():
+		var tween = c.get_node("Tween") as Tween
+		tween.interpolate_property(c, "global_translation", 
+			c.global_translation, 
+			project_to_3d(get_pos_in_hand(c.get_index(), cards), c.get_index()),
+			tween_time, Tween.TRANS_QUAD, Tween.EASE_OUT)
+		tween.start()
+			
+func _deal_card(slot_type):
+	var new_card = Deck.deal(slot_type)
+	if new_card == null:
+		return
+	var card = preload("res://hand/draggable_card.tscn").instance()
+	card.rotation = get_viewport().get_camera().rotation
+	card.slot_type = slot_type
+	card.become(new_card)
+	$Cards.add_child(card)
+	adjust_hand()
+
+func deal_card():
+	var counts = {}
+	for key in Game.SlotType.values():
+		counts[key] = 0
+		
+	for c in $Cards.get_children():
+		counts[c.slot_type] += 1
+	for key in counts.keys():
+		if counts[key] < Deck.desired_count(key):
+			_deal_card(key)
+			return true
+	return false
+	
 func _process(delta):
-	if Input.is_action_just_pressed("ui_accept"):
-		var card = preload("res://hand/draggable_card.tscn").instance()
-		card.rotation = get_viewport().get_camera().rotation
-		$Cards.add_child(card)
-		var cards = $Cards.get_child_count()
-		for c in $Cards.get_children():
-			var tween = c.get_node("Tween") as Tween
-			tween.interpolate_property(c, "global_translation", 
-				c.global_translation, 
-				project_to_3d(get_pos_in_hand(c.get_index(), cards), c.get_index()),
-				tween_time, Tween.TRANS_QUAD, Tween.EASE_OUT)
-			tween.start()
+	# if Input.is_action_just_pressed("ui_accept"):
+	# 	deal_card()
 	if dragging:
 		var tween = dragging.get_node("Tween") as Tween
 		if !Input.is_mouse_button_pressed(1):
+			if snap_tile:
+				dragging.placed = true
+				# place the tile
+				board.place_card_on_tile(dragging, snap_tile.get_index())
+				$Cards.remove_child(dragging)
+				self.add_child(dragging)
+				dragging.set_owner(self)
+				adjust_hand()
+				dragging = null
+				return
 			var hand_pos = get_pos_in_hand(dragging.get_index(), $Cards.get_child_count())
 			tween.interpolate_property(dragging, "global_translation", 
 				dragging.global_translation, 
@@ -138,5 +191,7 @@ func _physics_process(delta):
 			set_snap_tile(null)
 		
 func start_drag(card):
+	if card.placed:
+		return
 	if dragging == null:
 		dragging = card

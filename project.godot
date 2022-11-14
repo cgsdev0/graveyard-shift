@@ -14,11 +14,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://board/board.gd"
 }, {
-"base": "Button",
-"class": "Card",
-"language": "GDScript",
-"path": "res://debug/card.gd"
-}, {
 "base": "Camera",
 "class": "FreeLookCamera",
 "language": "GDScript",
@@ -36,7 +31,6 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Board": "",
-"Card": "",
 "FreeLookCamera": "",
 "Pathfinder": "",
 "Tile": ""

@@ -3,6 +3,7 @@
 [ext_resource path="res://hand/draggable_card.gd" type="Script" id=1]
 
 [sub_resource type="SpatialMaterial" id=2]
+resource_local_to_scene = true
 albedo_color = Color( 0, 0.976471, 1, 1 )
 
 [sub_resource type="BoxShape" id=1]
@@ -20,6 +21,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.12271, 0 )
 shape = SubResource( 1 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.661594, 0.0514873 )
+text = "hello i am 3d textawefawefawefawefawefawefawef"
+autowrap = true
+width = 180.0
 
 [connection signal="input_event" from="." to="." method="_on_Area_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_Area_mouse_entered"]

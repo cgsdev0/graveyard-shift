@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://board/board.gd" type="Script" id=1]
 [ext_resource path="res://hand/hand.gd" type="Script" id=2]
 [ext_resource path="res://debug/camera.gd" type="Script" id=3]
 [ext_resource path="res://logic/game_over.gd" type="Script" id=4]
-[ext_resource path="res://debug/card.gd" type="Script" id=5]
 [ext_resource path="res://logic/coordinator.gd" type="Script" id=6]
 [ext_resource path="res://logic/end_turn_button.gd" type="Script" id=7]
 [ext_resource path="res://hand/mouse.gd" type="Script" id=8]
@@ -39,58 +38,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="Card4" type="Button" parent="Node2D"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 42.0
-margin_top = -127.0
-margin_right = 169.0
-margin_bottom = -60.0
-script = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Card" type="Button" parent="Node2D"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 189.0
-margin_top = -124.0
-margin_right = 316.0
-margin_bottom = -57.0
-script = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Card2" type="Button" parent="Node2D"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 351.0
-margin_top = -125.0
-margin_right = 478.0
-margin_bottom = -58.0
-text = "Lure"
-script = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": true
-}
-slot_type = 1
-
-[node name="Card3" type="Button" parent="Node2D"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 529.0
-margin_top = -124.0
-margin_right = 656.0
-margin_bottom = -57.0
-text = "Soldier"
-script = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": true
-}
-slot_type = 1
-
 [node name="LoseText" type="Label" parent="Node2D"]
 visible = false
 margin_left = 403.0
@@ -109,6 +56,8 @@ margin_left = -189.0
 margin_top = -118.0
 margin_right = -47.0
 margin_bottom = -46.0
+focus_mode = 0
+enabled_focus_mode = 0
 text = "End Turn"
 script = ExtResource( 7 )
 __meta__ = {

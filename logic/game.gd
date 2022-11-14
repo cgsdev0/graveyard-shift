@@ -1,5 +1,9 @@
 extends Node
 
+enum SlotType {
+	WALL,
+	ITEM
+}
 
 enum TileType {
 	EMPTY,
@@ -33,6 +37,10 @@ enum MonsterType {
 var levels = [
 	# Level 0
 	{
+		"camera": {
+			"translation": Vector3(5, 14.6, 23.2),
+			"rotation": Vector3(-0.698132, 0, 0),
+		},
 		"cols": 5,
 		"rows": 4,
 		"tiles": [
@@ -48,6 +56,10 @@ var levels = [
 	},
 	# Level 1
 	{
+		"camera": {
+			"translation": Vector3(4.400816, 11.385846, 19.4188),
+			"rotation": Vector3(-0.645771, 0, 0),
+		},
 		"cols": 3,
 		"rows": 3,
 		"tiles": [
@@ -61,6 +73,10 @@ var levels = [
 	},
 	# Level 2
 	{
+		"camera": {
+			"translation": Vector3(7.665988, 17.146002, 33.365284),
+			"rotation": Vector3(-0.619591, 0, 0),
+		},
 		"cols": 6,
 		"rows": 6,
 		"tiles": [
@@ -88,8 +104,6 @@ var level = 0
 func get_board():
 	return get_tree().root.find_node("Board", true, false)
 	
-signal select_card(card)
-
 signal start_drag(card)
 signal start_hover(card)
 signal end_hover(card)

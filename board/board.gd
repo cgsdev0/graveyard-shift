@@ -10,14 +10,13 @@ export var spacing = 0.0
 export var size = Vector2(100, 100)
 export var tile_height = 0.2
 
-var card
 var actions = 1
 var actions_per_turn = 1
 
 func start_new_turn():
 	actions = actions_per_turn
 	
-func place_card_on_tile(id: int) -> void:
+func place_card_on_tile(card, id: int) -> void:
 	if actions <= 0 || card == null:
 		return
 	actions -= 1
@@ -97,11 +96,7 @@ func toggle_tile_wall_bit(id: int, direction) -> void:
 	get_tile_by_id(id).wall_flags ^= 1 << direction
 	_propagate_board_change()
 	
-func on_card_select(card: Card):
-	self.card = card
-	
 func _ready():
-	Game.connect("select_card", self, "on_card_select")
 	Game.connect("start_new_turn", self, "start_new_turn")
 	
 	var level = Game.levels[Game.level]
@@ -115,6 +110,10 @@ func _ready():
 	# normalize
 	width = min(height, width)
 	height = width
+	
+	# lol
+	width = 1.98
+	height = 1.98
 	
 	var tile_size = Vector3(width, tile_height, height)
 	for r in rows:

@@ -80,9 +80,6 @@ func check_wall_bit(flag):
 func _on_Tile_input_event(camera, event, position, normal, shape_idx):
 	if type != Game.TileType.EMPTY && type != Game.TileType.WALL:
 		return
-	if event is InputEventMouseButton && event.pressed && event.button_index == 1:
-		get_parent().place_card_on_tile(get_index())
-	#	get_parent().replace_tile_by_id(get_index(), type + 1)
 	if event is InputEventMouseButton && event.pressed && event.button_index == 2:
 		get_parent().replace_tile_by_id(get_index(), Game.TileType.WALL)
 		
