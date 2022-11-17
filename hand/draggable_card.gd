@@ -2,7 +2,7 @@ extends Area
 
 export(Game.SlotType) var slot_type
 export(Game.TileType) var type
-var wall_flags = 0b0000
+var wall_flags = [0, 0, 0, 0]
 
 var disabled = false
 var placed = false
@@ -13,16 +13,15 @@ func become(card):
 		type = Game.TileType.EMPTY
 		return
 	type = card.type
-	match slot_type:
-		Game.SlotType.WALL:
-			wall_flags = card.wall_flags
+	if Game.is_wall(type):
+		wall_flags = card.wall_flags
 
 			
 var board
 
 func should_stay_on_board():
 	match type:
-		Game.TileType.SOLDIER, Game.TileType.LURE:
+		Game.TileType.MONEY_TREE, Game.TileType.LURE:
 			return false
 	return true
 	
@@ -42,7 +41,7 @@ func check_wall_bit(flag):
 func _process(delta):
 	$Label3D.text = Game.TileType.keys()[type]
 	var is_bridge = int(type == Game.TileType.BRIDGE)
-	if slot_type == Game.SlotType.WALL:
+	if Game.is_wall(type):
 		if is_bridge ^ int(bool(check_wall_bit(Game.Direction.NORTH))):
 			$Label3D.text += " NORTH"
 		if is_bridge ^ int(bool(check_wall_bit(Game.Direction.SOUTH))):
@@ -58,7 +57,6 @@ func set_translation(glob):
 	global_translation = glob
 	
 func set_layer_mask(layer):
-	print("wtf", layer)
 	$Tile.set_layer_mask(layer)
 	$Label3D.set_layer_mask(layer)
 	

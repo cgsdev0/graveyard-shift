@@ -34,11 +34,11 @@ func place_card_on_tile(card, id: int) -> void:
 			get_parent().add_child(lure)
 			_propagate_board_change()
 			return
-		Game.TileType.SOLDIER:
-			var soldier = load("res://tokens/soldier.tscn").instance()
-			soldier.grid_y = int(id / cols)
-			soldier.grid_x = int(id % cols)
-			get_parent().add_child(soldier)
+		Game.TileType.MONEY_TREE:
+			var money_tree = load("res://tokens/money_tree.tscn").instance()
+			money_tree.grid_y = int(id / cols)
+			money_tree.grid_x = int(id % cols)
+			get_parent().add_child(money_tree)
 			_propagate_board_change()
 			return
 	replace_tile_by_id(id, desired_type)

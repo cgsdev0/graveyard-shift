@@ -38,5 +38,3 @@ material = SubResource( 3 )
 [node name="DebugWall_WEST" type="CSGBox" parent="."]
 visible = false
 material = SubResource( 3 )
-
-[connection signal="input_event" from="." to="." method="_on_Tile_input_event"]

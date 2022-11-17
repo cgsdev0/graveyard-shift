@@ -14,7 +14,7 @@ enum TileType {
 	BRIDGE,
 	SECRET_DOOR,
 	WALL,
-	SOLDIER,
+	MONEY_TREE,
 	LURE,
 	TRAP,
 	TRAP_SPRUNG,
@@ -64,9 +64,9 @@ var levels = [
 		"cols": 3,
 		"rows": 3,
 		"tiles": [
-			[2, 2, TileType.EXIT],
-			[0, 1, TileType.PIT],
-			[2, 1, TileType.PIT],
+			[2, 0, TileType.EXIT],
+			[1, 0, TileType.PIT],
+			[1, 1, TileType.PIT],
 		],
 		"monsters": [
 			[0, 0, MonsterType.WALKER]

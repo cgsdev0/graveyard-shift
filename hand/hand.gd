@@ -25,7 +25,7 @@ func _ready():
 	
 
 func on_resize():
-	adjust_hand()
+	call_deferred("adjust_hand")
 	
 func on_start_new_turn():
 	while deal_card():
@@ -95,13 +95,14 @@ func get_pos_in_hand(i, total):
 	var v = get_viewport().size
 	var y = v.y - 50
 	# TODO: be more thoughtful here
-	var left_offset = 0
+	var left_offset = $"%RightBar".rect_size.x
+	v.x -= left_offset + $"%LeftEdge".rect_size.x
 	if total == 1:
-		return Vector2(v.x / 2 - left_offset, y)
+		return Vector2(v.x / 2, y)
 	else:
 		var ratio = float(i) / (total - 1.0) - 0.5
 		var hand_width = lerp(v.x / 10, v.x / 5 * 4, ease((total - 1.0) / 10.0, 0.5))
-		return Vector2(v.x / 2  - left_offset + ratio * hand_width, y)
+		return Vector2(v.x / 2 + ratio * hand_width + $"%LeftEdge".rect_size.x, y)
 		
 func project_to_3d(v: Vector2, f: float) -> Vector3:
 	return get_viewport().get_camera().project_position(v, dist_from_camera - float(f) / 100.0)
