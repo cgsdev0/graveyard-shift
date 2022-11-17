@@ -68,6 +68,7 @@ func set_snap_tile(tile):
 	var hand_pos = Vector2(get_viewport().size.x / 2, get_viewport().size.y / 5 * 4)
 	var tween = dragging.get_node("Tween") as Tween
 	if tile == null:
+		dragging.set_layer_mask(2)
 		tween.follow_property(dragging, "global_translation", 
 			dragging.global_translation, 
 			$Mouse,
@@ -79,6 +80,7 @@ func set_snap_tile(tile):
 			tween_time, Tween.TRANS_QUAD, Tween.EASE_OUT)
 		tween.start()
 	else:
+		dragging.set_layer_mask(1)
 		tween.interpolate_property(dragging, "global_translation", 
 			dragging.global_translation, 
 			snap_tile.global_translation + snap_tile.size / 2 + Vector3(0, 0.1, 0),
@@ -91,7 +93,6 @@ func set_snap_tile(tile):
 		
 func get_pos_in_hand(i, total):
 	var v = get_viewport().size
-	print(v)
 	var y = v.y - 50
 	# TODO: be more thoughtful here
 	var left_offset = 0

@@ -128,7 +128,6 @@ func _ready():
 
 func get_middle():
 	var middle = Vector2((cols * size.x + ((cols - 1) * spacing)) / 2, (rows * size.y + ((rows - 1) * spacing)) / 2)
-	print(middle)
 	return middle
 	
 func spawn_adventurer(x, y):

@@ -13,6 +13,7 @@ extents = Vector3( 1, 2.122, 0.05 )
 script = ExtResource( 1 )
 
 [node name="Tile" type="CSGBox" parent="."]
+layers = 2
 depth = 0.1
 material = SubResource( 2 )
 
@@ -24,6 +25,7 @@ shape = SubResource( 1 )
 
 [node name="Label3D" type="Label3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.661594, 0.0514873 )
+layers = 2
 text = "hello i am 3d textawefawefawefawefawefawefawef"
 autowrap = true
 width = 180.0

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://debug/icon.png" type="Texture" id=1]
+
+[node name="TextureRect" type="Sprite"]
+show_behind_parent = true
+position = Vector2( 553, 354 )
+scale = Vector2( 16.4688, 9.375 )
+texture = ExtResource( 1 )

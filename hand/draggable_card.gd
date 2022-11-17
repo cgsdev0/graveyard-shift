@@ -27,7 +27,6 @@ func should_stay_on_board():
 	return true
 	
 func _ready():
-	print(wall_flags)
 	board = Game.get_board()
 	$Label3D.text = Game.TileType.keys()[type]
 	match slot_type:
@@ -57,6 +56,11 @@ func _process(delta):
 
 func set_translation(glob):
 	global_translation = glob
+	
+func set_layer_mask(layer):
+	print("wtf", layer)
+	$Tile.set_layer_mask(layer)
+	$Label3D.set_layer_mask(layer)
 	
 func _on_Area_input_event(camera, event, position, normal, shape_idx):
 	if disabled:

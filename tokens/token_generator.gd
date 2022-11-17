@@ -13,7 +13,6 @@ func to_vec3(v2):
 	return Vector3(v2.x, v2.y, 0)
 func _ready():	
 	if get_tree().root.get_child(get_tree().root.get_child_count() - 1) != self:
-		print("NOPE")
 		return
 		
 	$Control/FileOpen.popup()
@@ -42,7 +41,6 @@ func _ready():
 	for point in points:
 		tool2d.add_vertex(to_vec3(point))
 	var arr_mesh = tool2d.commit()
-	print(arr_mesh)
 	var mi2d = MeshInstance2D.new()
 	mi2d.modulate = Color.yellow
 	mi2d.modulate.a = 0.4
