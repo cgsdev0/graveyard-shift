@@ -13,6 +13,9 @@ export var tile_height = 0.2
 var actions = 1
 var actions_per_turn = 1
 
+func has_actions():
+	return actions > 0
+	
 func start_new_turn():
 	actions = actions_per_turn
 	
@@ -127,7 +130,7 @@ func _ready():
 		self.callv("spawn_monster", monster)
 
 func get_middle():
-	var middle = Vector2((cols * size.x + ((cols - 1) * spacing)) / 2, (rows * size.y + ((rows - 1) * spacing)) / 2)
+	var middle = Vector3((cols * size.x + ((cols - 1) * spacing)) / 2, 0, (rows * size.y + ((rows - 1) * spacing)) / 2)
 	return middle
 	
 func spawn_adventurer(x, y):

@@ -29,9 +29,11 @@ var _alt = false
 
 func _ready():
 	var camera = Game.levels[Game.level].camera
-	global_translation = camera.translation
-	global_rotation = camera.rotation
-	global_translation.x = $"%Board".get_middle().x
+	global_translation = $"%Board".get_middle()
+	global_translation.z += camera.zoom * cos(deg2rad(camera.angle))
+	global_translation.y += camera.zoom * sin(deg2rad(camera.angle))
+	look_at($"%Board".get_middle(), Vector3.UP)
+	translate_object_local(Vector3(0, - sqrt(camera.zoom) / 5, 0))
 	
 func _input(event):
 	# Receives mouse motion

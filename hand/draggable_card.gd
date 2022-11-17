@@ -8,6 +8,8 @@ var disabled = false
 var placed = false
 var placed_at
 
+var old_index
+
 func become(card):
 	if card == null:
 		type = Game.TileType.EMPTY
@@ -65,7 +67,9 @@ func _on_Area_input_event(camera, event, position, normal, shape_idx):
 		return
 	if event is InputEventMouseButton && event.button_index == 1:
 		if event.pressed:
-			Game.emit_signal("start_drag", self)
+			var offset = position - global_translation
+			print(offset)
+			Game.emit_signal("start_drag", self, offset)
 
 
 func _on_Area_mouse_entered():

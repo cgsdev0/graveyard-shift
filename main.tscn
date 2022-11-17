@@ -38,7 +38,6 @@ spacing = 0.2
 [node name="Camera" type="Camera" parent="BoardViewport/Viewport/Level"]
 unique_name_in_owner = true
 transform = Transform( 1, 0, 0, 0, 0.766045, 0.642788, 0, -0.642788, 0.766045, 5, 14.6, 23.2 )
-cull_mask = 1048573
 fov = 20.0
 size = 15.0
 script = ExtResource( 3 )
@@ -66,6 +65,7 @@ text = "You lose! Press R to restart"
 script = ExtResource( 4 )
 
 [node name="BottomEdge" type="ColorRect" parent="UI"]
+unique_name_in_owner = true
 anchor_top = 0.8
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -87,7 +87,7 @@ color = Color( 0.65098, 0.65098, 0.65098, 1 )
 
 [node name="RightBar" type="ColorRect" parent="UI"]
 unique_name_in_owner = true
-anchor_left = 0.82
+anchor_left = 0.78
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
