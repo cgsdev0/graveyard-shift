@@ -31,6 +31,7 @@ func _ready():
 	var camera = Game.levels[Game.level].camera
 	global_translation = camera.translation
 	global_rotation = camera.rotation
+	global_translation.x = $"%Board".get_middle().x
 	
 func _input(event):
 	# Receives mouse motion

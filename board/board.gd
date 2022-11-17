@@ -7,7 +7,7 @@ export var rows = 3
 export var cols = 3
 
 export var spacing = 0.0
-export var size = Vector2(100, 100)
+export var size = Vector2(1.98, 1.98)
 export var tile_height = 0.2
 
 var actions = 1
@@ -105,16 +105,8 @@ func _ready():
 	rows = level.rows
 	cols = level.cols
 	
-	var width = (size.x - spacing * (cols - 1)) / cols
-	var height = (size.y - spacing * (rows - 1)) / rows
-	
-	# normalize
-	width = min(height, width)
-	height = width
-	
-	# lol
-	width = 1.98
-	height = 1.98
+	var width = size.x
+	var height = size.y
 	
 	var tile_size = Vector3(width, tile_height, height)
 	for r in rows:
@@ -134,6 +126,11 @@ func _ready():
 	for monster in level.monsters:
 		self.callv("spawn_monster", monster)
 
+func get_middle():
+	var middle = Vector2((cols * size.x + ((cols - 1) * spacing)) / 2, (rows * size.y + ((rows - 1) * spacing)) / 2)
+	print(middle)
+	return middle
+	
 func spawn_adventurer(x, y):
 	var adventurer = load("res://tokens/adventurer.tscn").instance()
 	adventurer.grid_x = x

@@ -91,9 +91,10 @@ func set_snap_tile(tile):
 		
 func get_pos_in_hand(i, total):
 	var v = get_viewport().size
+	print(v)
 	var y = v.y - 50
 	# TODO: be more thoughtful here
-	var left_offset = 100
+	var left_offset = 0
 	if total == 1:
 		return Vector2(v.x / 2 - left_offset, y)
 	else:
