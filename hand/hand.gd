@@ -182,7 +182,7 @@ func deal_card():
 	return false
 	
 func move_cards_vertically():
-	if !is_mouse_in_card_area() && cards_up && dragging:
+	if !is_mouse_in_card_area() && cards_up:
 		cards_up = false
 		adjust_hand()
 	if is_mouse_in_card_area() && !cards_up && board.has_actions():

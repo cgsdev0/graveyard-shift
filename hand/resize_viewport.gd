@@ -5,8 +5,17 @@ var min_ratio = 16.0 / 9.0
 func _ready():
 	OS.min_window_size = OS.window_size
 	get_tree().get_root().connect("size_changed", self, "on_resize")
+	VisualServer.set_debug_generate_wireframes(true)
 	on_resize()
 	
+func _input(event):
+	if OS.is_debug_build() && event is InputEventKey and Input.is_key_pressed(KEY_PAGEUP):
+		var vp = $BoardViewport/Viewport
+		vp.debug_draw = (vp.debug_draw + 1 ) % 4
+		vp = $HandViewport/Viewport
+		vp.debug_draw = (vp.debug_draw + 1 ) % 4
+
+
 var last_margin = null
 func on_resize():
 	var v = get_tree().root.get_viewport().size
