@@ -52,16 +52,19 @@ func end_hover(card):
 		tween.start()
 		hover = null
 		
+func get_mouse_position():
+	return get_viewport().get_mouse_position() - Vector2(0, $"%GameView".margin_top)
+	
 func is_mouse_in_card_area():
-	var mouse = get_viewport().get_mouse_position()
+	var mouse = get_mouse_position()
 	return mouse.y > get_viewport().size.y - $"%BottomEdge".rect_size.y * 1.2
+	
 func set_dragging(drag):
 	if drag == null:
 		if self.dragging != null:
-			var mouse = get_viewport().get_mouse_position()
+			var mouse = get_mouse_position()
 			if is_mouse_in_card_area():
 				var proj = get_viewport().get_camera().project_position(mouse, dist_from_camera - hold_dist)
-				print(proj)
 				var ind = -1
 				for i in $Cards.get_child_count():
 					if $Cards.get_child(i).global_translation.x < proj.x:
@@ -82,14 +85,13 @@ func set_dragging(drag):
 		drag.old_index = drag.get_index()
 		$Cards.remove_child(drag)
 		self.add_child(drag)
-		print(drag)
 		call_deferred("adjust_hand")
 	self.dragging = drag
 	
 func start_hover(card):
 	if card.placed:
 		return
-	if hover:
+	if hover && hover != card:
 		end_hover(hover)
 	if dragging:
 		return
@@ -104,7 +106,7 @@ func start_hover(card):
 
 func set_snap_tile(tile):
 	self.snap_tile = tile
-	var mouse = get_viewport().get_mouse_position()
+	var mouse = get_mouse_position()
 	var hand_pos = Vector2(get_viewport().size.x / 2, get_viewport().size.y / 5 * 4)
 	var tween = dragging.get_node("Tween") as Tween
 	if tile == null:
@@ -214,7 +216,7 @@ func _process(delta):
 				return
 			set_dragging(null)
 			return
-		var mouse = get_viewport().get_mouse_position()
+		var mouse = get_mouse_position()
 		if snap_tile == null:
 			if tween.is_active():
 				pass
@@ -225,7 +227,7 @@ func _process(delta):
 func _physics_process(delta):
 	if dragging:
 		var space = get_world().direct_space_state
-		var mouse = get_viewport().get_mouse_position()
+		var mouse = get_mouse_position()
 		var from = get_viewport().get_camera().project_ray_origin(mouse)
 		var to = from + get_viewport().get_camera().project_ray_normal(mouse) * 600
 		var result = space.intersect_ray(from, to, [], 0b10, false, true)

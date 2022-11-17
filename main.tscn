@@ -11,51 +11,63 @@
 [ext_resource path="res://hand/resize_viewport.gd" type="Script" id=9]
 
 [node name="Root" type="Node"]
-script = ExtResource( 9 )
 
-[node name="BoardViewport" type="ViewportContainer" parent="."]
+[node name="GameView" type="ViewportContainer" parent="."]
+unique_name_in_owner = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 stretch = true
 
-[node name="Viewport" type="Viewport" parent="BoardViewport"]
-size = Vector2( 1024, 600 )
+[node name="Viewport" type="Viewport" parent="GameView"]
+size = Vector2( 800, 450 )
+handle_input_locally = false
+render_target_update_mode = 3
+script = ExtResource( 9 )
+
+[node name="BoardViewport" type="ViewportContainer" parent="GameView/Viewport"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+stretch = true
+
+[node name="Viewport" type="Viewport" parent="GameView/Viewport/BoardViewport"]
+size = Vector2( 800, 450 )
 handle_input_locally = false
 render_target_update_mode = 3
 physics_object_picking = true
 
-[node name="Level" type="Spatial" parent="BoardViewport/Viewport"]
+[node name="Level" type="Spatial" parent="GameView/Viewport/BoardViewport/Viewport"]
 script = ExtResource( 6 )
 
-[node name="Board" type="Spatial" parent="BoardViewport/Viewport/Level"]
+[node name="Board" type="Spatial" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
 unique_name_in_owner = true
 script = ExtResource( 1 )
 rows = 4
 cols = 5
 spacing = 0.2
 
-[node name="Camera" type="Camera" parent="BoardViewport/Viewport/Level"]
+[node name="Camera" type="Camera" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
 unique_name_in_owner = true
 transform = Transform( 1, 0, 0, 0, 0.766045, 0.642788, 0, -0.642788, 0.766045, 5, 14.6, 23.2 )
 fov = 20.0
 size = 15.0
 script = ExtResource( 3 )
 
-[node name="Hand" type="Spatial" parent="BoardViewport/Viewport/Level"]
+[node name="Hand" type="Spatial" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
 script = ExtResource( 2 )
 
-[node name="Mouse" type="Spatial" parent="BoardViewport/Viewport/Level/Hand"]
+[node name="Mouse" type="Spatial" parent="GameView/Viewport/BoardViewport/Viewport/Level/Hand"]
 script = ExtResource( 8 )
 
-[node name="Cards" type="Spatial" parent="BoardViewport/Viewport/Level/Hand"]
+[node name="Cards" type="Spatial" parent="GameView/Viewport/BoardViewport/Viewport/Level/Hand"]
 
-[node name="UI" type="Control" parent="."]
+[node name="UI" type="Control" parent="GameView/Viewport"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="LoseText" type="Label" parent="UI"]
+[node name="LoseText" type="Label" parent="GameView/Viewport/UI"]
 visible = false
 margin_left = 403.0
 margin_top = 111.0
@@ -64,7 +76,7 @@ margin_bottom = 189.0
 text = "You lose! Press R to restart"
 script = ExtResource( 4 )
 
-[node name="BottomEdge" type="ColorRect" parent="UI"]
+[node name="BottomEdge" type="ColorRect" parent="GameView/Viewport/UI"]
 unique_name_in_owner = true
 anchor_top = 0.8
 anchor_right = 1.0
@@ -72,20 +84,20 @@ anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0.34902, 0.34902, 0.34902, 1 )
 
-[node name="TopEdge" type="ColorRect" parent="UI"]
+[node name="TopEdge" type="ColorRect" parent="GameView/Viewport/UI"]
 visible = false
 anchor_right = 1.0
 mouse_filter = 2
 color = Color( 0.65098, 0.65098, 0.65098, 1 )
 
-[node name="LeftEdge" type="ColorRect" parent="UI"]
+[node name="LeftEdge" type="ColorRect" parent="GameView/Viewport/UI"]
 unique_name_in_owner = true
 visible = false
 anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0.65098, 0.65098, 0.65098, 1 )
 
-[node name="RightBar" type="ColorRect" parent="UI"]
+[node name="RightBar" type="ColorRect" parent="GameView/Viewport/UI"]
 unique_name_in_owner = true
 anchor_left = 0.78
 anchor_right = 1.0
@@ -93,7 +105,7 @@ anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0.65098, 0.65098, 0.65098, 1 )
 
-[node name="Button" type="Button" parent="UI"]
+[node name="Button" type="Button" parent="GameView/Viewport/UI"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -110,20 +122,20 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="HandViewport" type="ViewportContainer" parent="."]
+[node name="HandViewport" type="ViewportContainer" parent="GameView/Viewport"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 stretch = true
 
-[node name="Viewport2" type="Viewport" parent="HandViewport"]
-size = Vector2( 1024, 600 )
+[node name="Viewport2" type="Viewport" parent="GameView/Viewport/HandViewport"]
+size = Vector2( 800, 450 )
 transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 3
 physics_object_picking = true
 
-[node name="Camera" type="Camera" parent="HandViewport/Viewport2"]
+[node name="Camera" type="Camera" parent="GameView/Viewport/HandViewport/Viewport2"]
 transform = Transform( 1, 0, 0, 0, 0.82102, 0.5709, 0, -0.5709, 0.82102, 0, 1.60929, 3.6432 )
 cull_mask = 2
 fov = 20.0
