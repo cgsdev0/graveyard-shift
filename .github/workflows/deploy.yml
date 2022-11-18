@@ -8,9 +8,11 @@ on:
 
 env:
   GODOT_VERSION: 3.5.1
+  EXPORT_NAME: GraveyardShift
   
 jobs:
-  Godot:
+  export_web:
+    name: HTML5 Export
     runs-on: ubuntu-latest
     container:
       image: docker://barichello/godot-ci:3.5.1
@@ -24,11 +26,38 @@ jobs:
           mkdir -v -p build releases final-bundle ~/.local/share/godot/templates
           mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
       - name: Linux Build
-        run: godot -v --export "HTML5" ./build/index.html
+        run: godot -v --export "HTML5" ./build/html5/index.html
       - uses: KikimoraGames/itch-publish@v0.0.3
         with:
           butlerApiKey: ${{secrets.BUTLER_API_KEY}}
-          gameData: ./build
+          gameData: ./build/html5
           itchUsername: badcop
           itchGameId: graveyard-shift
           buildChannel: release
+          
+  export-mac:
+    name: Mac Export
+    runs-on: ubuntu-20.04
+    container:
+      image: barichello/godot-ci:3.5.1
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/templates
+          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
+      - name: Mac Build
+        run: |
+          mkdir -v -p build/mac
+          cd $EXPORT_NAME
+          godot -v --export "Mac" ../build/mac/$EXPORT_NAME.zip
+      - uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butlerApiKey: ${{secrets.BUTLER_API_KEY}}
+          gameData: ./build/mac
+          itchUsername: badcop
+          itchGameId: graveyard-shift
+          buildChannel: macos
