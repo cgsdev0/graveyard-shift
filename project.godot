@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://tokens/pathfinder.gd"
 }, {
+"base": "Container",
+"class": "SpanLimiter",
+"language": "GDScript",
+"path": "res://span_limiter.gd"
+}, {
 "base": "Area",
 "class": "Tile",
 "language": "GDScript",
@@ -43,6 +48,7 @@ _global_script_class_icons={
 "Board": "",
 "FreeLookCamera": "",
 "Pathfinder": "",
+"SpanLimiter": "",
 "Tile": "",
 "Token": "",
 "TokenGenerator": ""

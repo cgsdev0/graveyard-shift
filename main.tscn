@@ -64,6 +64,7 @@ script = ExtResource( 2 )
 script = ExtResource( 8 )
 
 [node name="Cards" type="Spatial" parent="GameView/Viewport/BoardViewport/Viewport/Level/Hand"]
+visible = false
 
 [node name="UI" parent="GameView/Viewport" instance=ExtResource( 4 )]
 unique_name_in_owner = true

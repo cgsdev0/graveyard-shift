@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://logic/end_turn_button.gd" type="Script" id=1]
 [ext_resource path="res://logic/game_over.gd" type="Script" id=2]
@@ -6,6 +6,9 @@
 [ext_resource path="res://ui.gd" type="Script" id=4]
 [ext_resource path="res://debug/icon.png" type="Texture" id=5]
 [ext_resource path="res://ui.theme" type="Theme" id=6]
+[ext_resource path="res://shop_card.tscn" type="PackedScene" id=7]
+[ext_resource path="res://shop.theme" type="Theme" id=8]
+[ext_resource path="res://span_limiter.gd" type="Script" id=9]
 
 [node name="UI" type="Control"]
 anchor_right = 1.0
@@ -165,3 +168,267 @@ margin_bottom = 26.0
 size_flags_horizontal = 3
 text = "2 gold"
 valign = 1
+
+[node name="Banner" type="ColorRect" parent="."]
+visible = false
+anchor_top = 0.37
+anchor_right = 1.0
+anchor_bottom = 0.6
+mouse_filter = 2
+color = Color( 0, 0, 0, 0.745098 )
+
+[node name="OneLine" type="Label" parent="Banner"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_type_variation = "MassiveLabel"
+text = "Monster's Turn"
+align = 1
+valign = 1
+
+[node name="TwoLine" type="VBoxContainer" parent="Banner"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="Header" type="Label" parent="Banner/TwoLine"]
+margin_top = 18.0
+margin_right = 800.0
+margin_bottom = 57.0
+theme_type_variation = "BigLabel"
+text = "Graveyard #6"
+align = 1
+valign = 1
+
+[node name="Subtitle" type="Label" parent="Banner/TwoLine"]
+margin_top = 65.0
+margin_right = 800.0
+margin_bottom = 85.0
+text = "4 turns to sunrise"
+align = 1
+valign = 1
+
+[node name="LevelStart" type="HBoxContainer" parent="."]
+visible = false
+anchor_left = 0.2
+anchor_top = 0.861
+anchor_right = 0.6
+anchor_bottom = 0.943
+alignment = 1
+
+[node name="Button" type="Button" parent="LevelStart"]
+margin_right = 156.0
+margin_bottom = 36.0
+size_flags_horizontal = 3
+text = "Configure Deck"
+
+[node name="Button2" type="Button" parent="LevelStart"]
+margin_left = 164.0
+margin_right = 320.0
+margin_bottom = 36.0
+size_flags_horizontal = 3
+text = "Start Level"
+
+[node name="GameOver" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.745098 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="Header" type="Label" parent="GameOver/VBoxContainer"]
+margin_top = 139.0
+margin_right = 800.0
+margin_bottom = 196.0
+theme_type_variation = "MassiveLabel"
+text = "The monster escaped!"
+align = 1
+valign = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver/VBoxContainer"]
+margin_left = 292.0
+margin_top = 204.0
+margin_right = 508.0
+margin_bottom = 310.0
+size_flags_horizontal = 4
+
+[node name="Button" type="Button" parent="GameOver/VBoxContainer/VBoxContainer"]
+margin_right = 216.0
+margin_bottom = 30.0
+text = "Try again with same deck"
+
+[node name="Button2" type="Button" parent="GameOver/VBoxContainer/VBoxContainer"]
+margin_top = 38.0
+margin_right = 216.0
+margin_bottom = 68.0
+text = "Reconfigure deck (5G)"
+icon = ExtResource( 5 )
+icon_align = 2
+expand_icon = true
+
+[node name="Button3" type="Button" parent="GameOver/VBoxContainer/VBoxContainer"]
+margin_top = 76.0
+margin_right = 216.0
+margin_bottom = 106.0
+text = "Quit to title"
+
+[node name="YouWin" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.745098 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="YouWin"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="Header" type="Label" parent="YouWin/VBoxContainer"]
+margin_top = 157.0
+margin_right = 800.0
+margin_bottom = 214.0
+theme_type_variation = "MassiveLabel"
+text = "You win!"
+align = 1
+valign = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="YouWin/VBoxContainer"]
+margin_left = 318.0
+margin_top = 222.0
+margin_right = 481.0
+margin_bottom = 292.0
+size_flags_horizontal = 4
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="YouWin/VBoxContainer/VBoxContainer"]
+margin_right = 163.0
+margin_bottom = 32.0
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="YouWin/VBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_vertical = 3
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="YouWin/VBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 40.0
+margin_top = 6.0
+margin_right = 163.0
+margin_bottom = 26.0
+size_flags_horizontal = 3
+text = "Gold earned: 25"
+valign = 1
+
+[node name="Button3" type="Button" parent="YouWin/VBoxContainer/VBoxContainer"]
+margin_top = 40.0
+margin_right = 163.0
+margin_bottom = 70.0
+text = "Next Level"
+
+[node name="Shop" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 8 )
+
+[node name="Container" type="Container" parent="Shop"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_vertical = 3
+script = ExtResource( 9 )
+rect_max_size = Vector2( 1080, 600 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Shop/Container"]
+margin_right = 800.0
+margin_bottom = 450.0
+size_flags_vertical = 3
+alignment = 1
+
+[node name="MarginContainer2" type="HBoxContainer" parent="Shop/Container/VBoxContainer"]
+margin_right = 800.0
+margin_bottom = 48.0
+alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="Shop/Container/VBoxContainer/MarginContainer2"]
+margin_right = 76.0
+margin_bottom = 48.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Shop/Container/VBoxContainer/MarginContainer2/MarginContainer2"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 68.0
+margin_bottom = 40.0
+size_flags_vertical = 5
+
+[node name="TextureRect" type="TextureRect" parent="Shop/Container/VBoxContainer/MarginContainer2/MarginContainer2/HBoxContainer"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_vertical = 3
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Shop/Container/VBoxContainer/MarginContainer2/MarginContainer2/HBoxContainer"]
+margin_left = 40.0
+margin_right = 60.0
+margin_bottom = 32.0
+size_flags_vertical = 7
+text = "8G"
+valign = 1
+
+[node name="Label2" type="Label" parent="Shop/Container/VBoxContainer/MarginContainer2"]
+margin_left = 84.0
+margin_top = 4.0
+margin_right = 676.0
+margin_bottom = 43.0
+size_flags_horizontal = 3
+theme_type_variation = "BigLabel"
+text = "Shop"
+align = 1
+valign = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Shop/Container/VBoxContainer/MarginContainer2"]
+margin_left = 684.0
+margin_right = 800.0
+margin_bottom = 48.0
+
+[node name="Button" type="Button" parent="Shop/Container/VBoxContainer/MarginContainer2/MarginContainer"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 108.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 100, 32 )
+text = "Skip"
+
+[node name="MarginContainer" type="MarginContainer" parent="Shop/Container/VBoxContainer"]
+margin_top = 56.0
+margin_right = 800.0
+margin_bottom = 450.0
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Shop/Container/VBoxContainer/MarginContainer"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 792.0
+margin_bottom = 386.0
+size_flags_vertical = 3
+
+[node name="MarginContainer" parent="Shop/Container/VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource( 7 )]
+margin_right = 256.0
+margin_bottom = 378.0
+
+[node name="MarginContainer2" parent="Shop/Container/VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource( 7 )]
+margin_left = 264.0
+margin_right = 520.0
+margin_bottom = 378.0
+
+[node name="MarginContainer3" parent="Shop/Container/VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource( 7 )]
+margin_left = 528.0
+margin_right = 784.0
+margin_bottom = 378.0
