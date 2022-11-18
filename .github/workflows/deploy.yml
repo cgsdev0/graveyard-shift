@@ -52,8 +52,7 @@ jobs:
       - name: Mac Build
         run: |
           mkdir -v -p build/mac
-          cd $EXPORT_NAME
-          godot -v --export "Mac" ../build/mac/$EXPORT_NAME.zip
+          godot -v --export "Mac" ./build/mac/$EXPORT_NAME.zip
       - uses: KikimoraGames/itch-publish@v0.0.3
         with:
           butlerApiKey: ${{secrets.BUTLER_API_KEY}}
