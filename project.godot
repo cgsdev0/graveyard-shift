@@ -27,7 +27,7 @@ _global_script_classes=[ {
 "base": "Container",
 "class": "SpanLimiter",
 "language": "GDScript",
-"path": "res://span_limiter.gd"
+"path": "res://ui/span_limiter.gd"
 }, {
 "base": "Area",
 "class": "Tile",

@@ -1,14 +1,13 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://logic/end_turn_button.gd" type="Script" id=1]
 [ext_resource path="res://logic/game_over.gd" type="Script" id=2]
 [ext_resource path="res://debug/lil_guy.png" type="Texture" id=3]
-[ext_resource path="res://ui.gd" type="Script" id=4]
+[ext_resource path="res://ui/ui.gd" type="Script" id=4]
 [ext_resource path="res://debug/icon.png" type="Texture" id=5]
-[ext_resource path="res://ui.theme" type="Theme" id=6]
-[ext_resource path="res://shop_card.tscn" type="PackedScene" id=7]
-[ext_resource path="res://shop.theme" type="Theme" id=8]
-[ext_resource path="res://span_limiter.gd" type="Script" id=9]
+[ext_resource path="res://ui/ui.theme" type="Theme" id=6]
+[ext_resource path="res://debug/over.png" type="Texture" id=10]
+[ext_resource path="res://debug/under.png" type="Texture" id=11]
 
 [node name="UI" type="Control"]
 anchor_right = 1.0
@@ -84,12 +83,39 @@ margin_top = 10.0
 margin_right = 160.0
 margin_bottom = 77.0
 
-[node name="TurnsLabel" type="Label" parent="RightBar/MarginContainer/VBoxContainer/TurnPanel/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="RightBar/MarginContainer/VBoxContainer/TurnPanel/VBoxContainer"]
 margin_right = 160.0
 margin_bottom = 39.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="TurnsLabel" type="Label" parent="RightBar/MarginContainer/VBoxContainer/TurnPanel/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+margin_right = 71.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.88
 theme_type_variation = "BigLabel"
 text = "4"
-align = 1
+align = 2
+
+[node name="TurnsProgress" type="TextureProgress" parent="RightBar/MarginContainer/VBoxContainer/TurnPanel/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+margin_left = 79.0
+margin_top = 3.0
+margin_right = 111.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_horizontal = 2
+size_flags_vertical = 4
+max_value = 1000.0
+value = 1000.0
+texture_under = ExtResource( 11 )
+texture_progress = ExtResource( 10 )
+fill_mode = 5
+nine_patch_stretch = true
+
+[node name="Tween" type="Tween" parent="RightBar/MarginContainer/VBoxContainer/TurnPanel/VBoxContainer/HBoxContainer/TurnsProgress"]
 
 [node name="Label" type="Label" parent="RightBar/MarginContainer/VBoxContainer/TurnPanel/VBoxContainer"]
 margin_top = 47.0
@@ -325,110 +351,10 @@ size_flags_horizontal = 3
 text = "Gold earned: 25"
 valign = 1
 
-[node name="Button3" type="Button" parent="YouWin/VBoxContainer/VBoxContainer"]
+[node name="OpenShopButton" type="Button" parent="YouWin/VBoxContainer/VBoxContainer"]
 margin_top = 40.0
 margin_right = 163.0
 margin_bottom = 70.0
-text = "Next Level"
+text = "Continue"
 
-[node name="Shop" type="ColorRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-theme = ExtResource( 8 )
-
-[node name="Container" type="Container" parent="Shop"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-size_flags_vertical = 3
-script = ExtResource( 9 )
-rect_max_size = Vector2( 1080, 600 )
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Shop/Container"]
-margin_right = 800.0
-margin_bottom = 450.0
-size_flags_vertical = 3
-alignment = 1
-
-[node name="MarginContainer2" type="HBoxContainer" parent="Shop/Container/VBoxContainer"]
-margin_right = 800.0
-margin_bottom = 48.0
-alignment = 1
-
-[node name="MarginContainer2" type="MarginContainer" parent="Shop/Container/VBoxContainer/MarginContainer2"]
-margin_right = 76.0
-margin_bottom = 48.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Shop/Container/VBoxContainer/MarginContainer2/MarginContainer2"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 68.0
-margin_bottom = 40.0
-size_flags_vertical = 5
-
-[node name="TextureRect" type="TextureRect" parent="Shop/Container/VBoxContainer/MarginContainer2/MarginContainer2/HBoxContainer"]
-margin_right = 32.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 32, 32 )
-size_flags_vertical = 3
-texture = ExtResource( 5 )
-expand = true
-stretch_mode = 6
-
-[node name="Label" type="Label" parent="Shop/Container/VBoxContainer/MarginContainer2/MarginContainer2/HBoxContainer"]
-margin_left = 40.0
-margin_right = 60.0
-margin_bottom = 32.0
-size_flags_vertical = 7
-text = "8G"
-valign = 1
-
-[node name="Label2" type="Label" parent="Shop/Container/VBoxContainer/MarginContainer2"]
-margin_left = 84.0
-margin_top = 4.0
-margin_right = 676.0
-margin_bottom = 43.0
-size_flags_horizontal = 3
-theme_type_variation = "BigLabel"
-text = "Shop"
-align = 1
-valign = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="Shop/Container/VBoxContainer/MarginContainer2"]
-margin_left = 684.0
-margin_right = 800.0
-margin_bottom = 48.0
-
-[node name="Button" type="Button" parent="Shop/Container/VBoxContainer/MarginContainer2/MarginContainer"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 108.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 100, 32 )
-text = "Skip"
-
-[node name="MarginContainer" type="MarginContainer" parent="Shop/Container/VBoxContainer"]
-margin_top = 56.0
-margin_right = 800.0
-margin_bottom = 450.0
-size_flags_vertical = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Shop/Container/VBoxContainer/MarginContainer"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 792.0
-margin_bottom = 386.0
-size_flags_vertical = 3
-
-[node name="MarginContainer" parent="Shop/Container/VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource( 7 )]
-margin_right = 256.0
-margin_bottom = 378.0
-
-[node name="MarginContainer2" parent="Shop/Container/VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource( 7 )]
-margin_left = 264.0
-margin_right = 520.0
-margin_bottom = 378.0
-
-[node name="MarginContainer3" parent="Shop/Container/VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource( 7 )]
-margin_left = 528.0
-margin_right = 784.0
-margin_bottom = 378.0
+[connection signal="pressed" from="YouWin/VBoxContainer/VBoxContainer/OpenShopButton" to="." method="_on_OpenShopButton_pressed"]

@@ -3,7 +3,7 @@ extends Viewport
 var min_ratio = 16.0 / 9.0
 
 func _ready():
-	OS.min_window_size = OS.window_size
+	OS.min_window_size = Vector2(800, 450)
 	get_tree().get_root().connect("size_changed", self, "on_resize")
 	VisualServer.set_debug_generate_wireframes(true)
 	call_deferred("on_resize")

@@ -38,7 +38,7 @@ func on_end_turn():
 			if $Board.get_tile_by_id(pathfinder.get_id()).type == Game.TileType.TRAP:
 				$Board.replace_tile_by_id(pathfinder.get_id(), Game.TileType.TRAP_SPRUNG)
 				pathfinder.skipped_turns += 1
-	Game.emit_signal("start_new_turn")
+	Game.emit_signal("prep_new_turn")
 
 #	for i in 100:
 #		var stepped_finders = 0

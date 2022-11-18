@@ -1,17 +1,28 @@
 extends Control
 
-var original_theme
-
 func _ready():
 	get_tree().get_root().connect("size_changed", self, "on_resize")
+	Game.connect("prep_new_turn", self, "start_new_turn")
 	call_deferred("on_resize")
-	original_theme = theme.duplicate(true)
+	if !Game.original_theme:
+		Game.original_theme = theme.duplicate(true)
 	
-	var merged_shop_theme = Theme.new()
-	merged_shop_theme.merge_with(original_theme)
-	merged_shop_theme.merge_with($Shop.theme)
-	$Shop.theme = merged_shop_theme
-
+	var level = Game.levels[Game.level]
+	max_turns = float(level.turns)
+	turns = max_turns
+	set_turns(level.turns)
+	
+func start_new_turn():
+	turns -= 1
+	set_turns(turns)
+	yield($"%TurnsProgress/Tween", "tween_completed")
+	if turns == 0:
+		Game.emit_signal("you_win")
+		# TODO: animate
+		$YouWin.visible = true
+	else:
+		Game.emit_signal("start_new_turn")
+	
 func scale_margin(original_margin, scale_factor):
 	if original_margin == -1:
 		return -1
@@ -19,11 +30,10 @@ func scale_margin(original_margin, scale_factor):
 
 var min_sizes = {}
 func scale_children(node, scale_factor):
-	if node == $Shop:
-		return
 	for child in node.get_children():
 		if child is Control:
 			if child.rect_min_size != Vector2.ZERO:
+				print(child)
 				if !min_sizes.has(child.get_instance_id()):
 					min_sizes[child.get_instance_id()] = child.rect_min_size
 				child.rect_min_size = min_sizes[child.get_instance_id()] * scale_factor
@@ -38,25 +48,36 @@ func on_resize():
 	for type in theme.get_font_types():
 		for font in theme.get_font_list(type):
 			var f = theme.get_font(font, type)
-			f.size = int(original_theme.get_font(font, type).size * scale_factor)
+			f.size = int(Game.original_theme.get_font(font, type).size * scale_factor)
 	
 	# this should really be an engine feature
 	scale_children(self, scale_factor)
+	print(min_sizes)
 	
 	for type in theme.get_constant_types():
 		for constant in theme.get_constant_list(type):
-			theme.set_constant(constant, type, original_theme.get_constant(constant, type) * scale_factor)
+			theme.set_constant(constant, type, Game.original_theme.get_constant(constant, type) * scale_factor)
 			
 			
 	for type in theme.get_stylebox_types():
 		for n in theme.get_stylebox_list(type):
 			var stylemap = theme.get_stylebox(n, type)
-			var og_stylemap = original_theme.get_stylebox(n, type)
+			var og_stylemap = Game.original_theme.get_stylebox(n, type)
 			stylemap.content_margin_bottom = scale_margin(og_stylemap.content_margin_bottom, scale_factor)
 			stylemap.content_margin_top = scale_margin(og_stylemap.content_margin_top, scale_factor)
 			stylemap.content_margin_left = scale_margin(og_stylemap.content_margin_left, scale_factor)
 			stylemap.content_margin_right = scale_margin(og_stylemap.content_margin_right, scale_factor)
 	update()
+
+var max_turns = 4.0
+var turns = 4.0
+
+func set_turns(turns):
+	$"%TurnsLabel".text = str(turns)
+	var progress = lerp($"%TurnsProgress".min_value, $"%TurnsProgress".max_value, turns / max_turns)
+	$"%TurnsProgress/Tween".interpolate_property($"%TurnsProgress", "value", $"%TurnsProgress".value, progress, 0.5)
+	$"%TurnsProgress/Tween".start()
+	
 func get_bottom_edge():
 	return $"%BottomEdge"
 
@@ -68,3 +89,7 @@ func get_top_edge():
 	
 func get_right_bar():
 	return $"%RightBar"
+
+
+func _on_OpenShopButton_pressed():
+	get_tree().change_scene("res://shop.tscn")

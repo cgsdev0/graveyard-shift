@@ -7,7 +7,7 @@ resource_local_to_scene = true
 albedo_color = Color( 0, 0.976471, 1, 1 )
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 1, 2.122, 0.05 )
+extents = Vector3( 1, 1, 0.05 )
 
 [node name="Area" type="Area"]
 script = ExtResource( 1 )
@@ -18,7 +18,6 @@ depth = 0.1
 material = SubResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.12271, 0 )
 shape = SubResource( 1 )
 
 [node name="Tween" type="Tween" parent="."]

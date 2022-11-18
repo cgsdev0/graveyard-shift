@@ -35,9 +35,12 @@ enum MonsterType {
 	SPRINTER
 }
 
+var original_theme
+
 var levels = [
 	# Level 0
 	{
+		"turns": 4,
 		"camera": {
 			"zoom": 27,
 			"angle": 40,
@@ -57,6 +60,7 @@ var levels = [
 	},
 	# Level 1
 	{
+		"turns": 1,
 		"camera": {
 			"zoom": 18,
 			"angle": 40,
@@ -74,6 +78,7 @@ var levels = [
 	},
 	# Level 2
 	{
+		"turns": 3,
 		"camera": {
 			"zoom": 35,
 			"angle": 40,
@@ -116,6 +121,8 @@ signal start_hover(card)
 signal end_hover(card)
 
 signal game_over
+signal you_win
 signal reset
+signal prep_new_turn
 signal start_new_turn
 signal end_turn
