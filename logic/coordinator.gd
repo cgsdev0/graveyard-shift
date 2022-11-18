@@ -38,6 +38,8 @@ func on_end_turn():
 			if $Board.get_tile_by_id(pathfinder.get_id()).type == Game.TileType.TRAP:
 				$Board.replace_tile_by_id(pathfinder.get_id(), Game.TileType.TRAP_SPRUNG)
 				pathfinder.skipped_turns += 1
+	for money_tree in get_tree().get_nodes_in_group("money_trees"):
+		money_tree.tick()
 	Game.emit_signal("prep_new_turn")
 
 #	for i in 100:

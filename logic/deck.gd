@@ -9,17 +9,17 @@ var starting_deck = {
 	 Game.SlotType.ITEM: {
 		"cards": [
 			#                                            N  S  E  W
-			{ "type": Game.TileType.WALL, "wall_flags": [1, 0, 0, 0] },
-			{ "type": Game.TileType.WALL, "wall_flags": [0, 1, 0, 0] },
-			{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 1, 0] },
-			{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1] },
+			{ "type": Game.TileType.WALL, "wall_flags": [1, 0, 0, 0], "ac": 1 },
+			{ "type": Game.TileType.WALL, "wall_flags": [0, 1, 0, 0], "ac": 1 },
+			{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 1, 0], "ac": 1 },
+			{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
 			# definitely not base deck cards:
 			#{ "type": Game.TileType.BRIDGE, "wall_flags": [1000, 1000, 0, 0] },
 			#{ "type": Game.TileType.SECRET_DOOR, "wall_flags": [0, 0, 0, 100] },
-			{ "type": Game.TileType.MONEY_TREE },
-			{ "type": Game.TileType.MONEY_TREE },
-			{ "type": Game.TileType.LURE },
-			{ "type": Game.TileType.TRAP },
+			{ "type": Game.TileType.MONEY_TREE, "ac": 2 },
+			{ "type": Game.TileType.MONEY_TREE, "ac": 2 },
+			{ "type": Game.TileType.LURE, "ac": 2 },
+			{ "type": Game.TileType.TRAP, "ac": 2 },
 		],
 		"desired_count": 4,
 	}

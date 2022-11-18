@@ -54,6 +54,7 @@ spacing = 0.2
 [node name="Camera" type="Camera" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
 unique_name_in_owner = true
 transform = Transform( 1, 0, 0, 0, 0.766045, 0.642788, 0, -0.642788, 0.766045, 5, 14.6, 23.2 )
+cull_mask = 1048573
 fov = 20.0
 size = 15.0
 script = ExtResource( 3 )

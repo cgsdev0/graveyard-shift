@@ -63,6 +63,7 @@ func is_mouse_in_card_area():
 func set_dragging(drag):
 	if drag == null:
 		if self.dragging != null:
+			dragging.show_error(false)
 			var mouse = get_mouse_position()
 			if is_mouse_in_card_area():
 				var proj = get_viewport().get_camera().project_position(mouse, dist_from_camera - hold_dist)
@@ -112,6 +113,7 @@ func set_snap_tile(tile):
 	var tween = dragging.get_node("Tween") as Tween
 	if tile == null:
 		dragging.set_layer_mask(2)
+		dragging.show_error(false)
 		tween.follow_property(dragging, "global_translation", 
 			dragging.global_translation, 
 			$Mouse,
@@ -124,6 +126,7 @@ func set_snap_tile(tile):
 		tween.start()
 	else:
 		dragging.set_layer_mask(1)
+		dragging.show_error(dragging.ac > Game.actions)
 		tween.interpolate_property(dragging, "global_translation", 
 			dragging.global_translation, 
 			snap_tile.global_translation + snap_tile.size / 2 + Vector3(0, 0.1, 0),
@@ -151,10 +154,15 @@ func project_to_3d(v: Vector2, f: float) -> Vector3:
 func adjust_hand():
 	var cards = $Cards.get_child_count()
 	for c in $Cards.get_children():
+		c.set_layer_mask(2)
 		var tween = c.get_node("Tween") as Tween
 		tween.interpolate_property(c, "global_translation", 
 			c.global_translation, 
 			project_to_3d(get_pos_in_hand(c.get_index(), cards), c.get_index()),
+			tween_time, Tween.TRANS_QUAD, Tween.EASE_OUT)
+		tween.interpolate_property(c, "global_rotation", 
+			c.global_rotation, 
+			get_viewport().get_camera().global_rotation,
 			tween_time, Tween.TRANS_QUAD, Tween.EASE_OUT)
 		tween.start()
 			
@@ -197,7 +205,7 @@ func _process(delta):
 	if dragging:
 		var tween = dragging.get_node("Tween") as Tween
 		if !Input.is_mouse_button_pressed(1):
-			if snap_tile:
+			if snap_tile && Game.actions >= dragging.ac:
 				dragging.placed = true
 				# place the tile
 				board.place_card_on_tile(dragging, snap_tile.get_index())

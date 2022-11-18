@@ -40,7 +40,25 @@ var original_theme
 var levels = [
 	# Level 0
 	{
-		"turns": 4,
+		"turns": 1,
+		"camera": {
+			"zoom": 18,
+			"angle": 40,
+		},
+		"cols": 3,
+		"rows": 3,
+		"tiles": [
+			[2, 0, TileType.EXIT],
+			[1, 0, TileType.PIT],
+			[1, 1, TileType.PIT],
+		],
+		"monsters": [
+			[0, 0, MonsterType.WALKER]
+		]
+	},
+	# Level 1
+	{
+		"turns": 6,
 		"camera": {
 			"zoom": 27,
 			"angle": 40,
@@ -56,24 +74,6 @@ var levels = [
 		],
 		"monsters": [
 			[0, 0, MonsterType.SPRINTER]
-		]
-	},
-	# Level 1
-	{
-		"turns": 1,
-		"camera": {
-			"zoom": 18,
-			"angle": 40,
-		},
-		"cols": 3,
-		"rows": 3,
-		"tiles": [
-			[2, 0, TileType.EXIT],
-			[1, 0, TileType.PIT],
-			[1, 1, TileType.PIT],
-		],
-		"monsters": [
-			[0, 0, MonsterType.WALKER]
 		]
 	},
 	# Level 2
@@ -110,9 +110,31 @@ static func invert_direction(direction):
 			return Direction.EAST
 		Direction.EAST:
 			return Direction.WEST
-			
-var level = 0
 
+# Game State
+var level = 0
+var turns = 0
+var max_turns = 0
+var actions = 2
+var actions_per_turn = 2
+
+var money = 0
+var money_at_start = 0
+
+func on_reset():
+	turns = float(levels[level].turns)
+	actions = actions_per_turn
+	max_turns = turns
+	money_at_start = money
+	
+func reset_money():
+	money = money_at_start
+
+func _ready():
+	self.connect("reset", self, "on_reset")
+	on_reset()
+
+	
 func get_board():
 	return get_tree().root.find_node("Board", true, false)
 	

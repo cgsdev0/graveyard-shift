@@ -7,16 +7,13 @@ func _ready():
 	if !Game.original_theme:
 		Game.original_theme = theme.duplicate(true)
 	
-	var level = Game.levels[Game.level]
-	max_turns = float(level.turns)
-	turns = max_turns
-	set_turns(level.turns)
+	set_turns(Game.turns)
 	
 func start_new_turn():
-	turns -= 1
-	set_turns(turns)
+	Game.turns -= 1
+	set_turns(Game.turns)
 	yield($"%TurnsProgress/Tween", "tween_completed")
-	if turns == 0:
+	if Game.turns == 0:
 		Game.emit_signal("you_win")
 		# TODO: animate
 		$YouWin.visible = true
@@ -69,12 +66,9 @@ func on_resize():
 			stylemap.content_margin_right = scale_margin(og_stylemap.content_margin_right, scale_factor)
 	update()
 
-var max_turns = 4.0
-var turns = 4.0
-
 func set_turns(turns):
-	$"%TurnsLabel".text = str(turns)
-	var progress = lerp($"%TurnsProgress".min_value, $"%TurnsProgress".max_value, turns / max_turns)
+	$"%TurnsLabel".text = str(Game.turns)
+	var progress = lerp($"%TurnsProgress".min_value, $"%TurnsProgress".max_value, Game.turns / Game.max_turns)
 	$"%TurnsProgress/Tween".interpolate_property($"%TurnsProgress", "value", $"%TurnsProgress".value, progress, 0.5)
 	$"%TurnsProgress/Tween".start()
 	
@@ -89,7 +83,6 @@ func get_top_edge():
 	
 func get_right_bar():
 	return $"%RightBar"
-
 
 func _on_OpenShopButton_pressed():
 	get_tree().change_scene("res://shop.tscn")

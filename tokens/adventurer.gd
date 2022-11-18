@@ -2,7 +2,8 @@ extends Pathfinder
 
 
 func _ready():
-	add_to_group("soldiers")
+	add_to_group("adventurers")
+	add_to_group("killable_tokens")
 	astar = MyAStar.new(board)
 	update_navigation()
 

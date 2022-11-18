@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://ui/shop.theme" type="Theme" id=1]
 [ext_resource path="res://ui/span_limiter.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://debug/icon.png" type="Texture" id=4]
 [ext_resource path="res://ui/ui.theme" type="Theme" id=5]
 [ext_resource path="res://shop.gd" type="Script" id=6]
+[ext_resource path="res://ui/money_label.gd" type="Script" id=7]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -63,6 +64,7 @@ margin_bottom = 32.0
 size_flags_vertical = 7
 text = "8G"
 valign = 1
+script = ExtResource( 7 )
 
 [node name="Label2" type="Label" parent="Shop/Container/VBoxContainer/MarginContainer2"]
 margin_left = 84.0
@@ -80,7 +82,7 @@ margin_left = 684.0
 margin_right = 800.0
 margin_bottom = 48.0
 
-[node name="Button" type="Button" parent="Shop/Container/VBoxContainer/MarginContainer2/MarginContainer"]
+[node name="SkipButton" type="Button" parent="Shop/Container/VBoxContainer/MarginContainer2/MarginContainer"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 108.0
@@ -114,3 +116,5 @@ margin_bottom = 378.0
 margin_left = 528.0
 margin_right = 784.0
 margin_bottom = 378.0
+
+[connection signal="pressed" from="Shop/Container/VBoxContainer/MarginContainer2/MarginContainer/SkipButton" to="." method="_on_SkipButton_pressed"]

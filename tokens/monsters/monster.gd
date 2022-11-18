@@ -24,7 +24,7 @@ func get_action_limit():
 	return 2
 	
 func take_step():
-	var soldiers = get_tree().get_nodes_in_group("soldiers")
+	var soldiers = get_tree().get_nodes_in_group("killable_tokens")
 	for soldier in soldiers:
 		if is_my_neighbor(soldier):
 			if check_wall(get_id(), soldier.get_id()):

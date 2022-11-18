@@ -55,7 +55,7 @@ func take_step():
 	
 func _take_partial_step(u, v, rolling):
 	if !rolling:
-		var soldiers = get_tree().get_nodes_in_group("soldiers")
+		var soldiers = get_tree().get_nodes_in_group("killable_tokens")
 		for soldier in soldiers:
 			if is_my_neighbor(soldier):
 				if check_wall(get_id(), soldier.get_id()):
@@ -63,7 +63,7 @@ func _take_partial_step(u, v, rolling):
 				soldier.kill()
 				return true
 	else:
-		var soldiers = get_tree().get_nodes_in_group("soldiers")
+		var soldiers = get_tree().get_nodes_in_group("killable_tokens")
 		for soldier in soldiers:
 			if soldier.get_id() == v:
 				if check_wall(get_id(), soldier.get_id()):

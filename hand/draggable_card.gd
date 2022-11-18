@@ -2,6 +2,7 @@ extends Area
 
 export(Game.SlotType) var slot_type
 export(Game.TileType) var type
+var ac = 1
 var wall_flags = [0, 0, 0, 0]
 
 var disabled = false
@@ -10,10 +11,15 @@ var placed_at
 
 var old_index
 
+func show_error(show):
+	$Tile.visible = !show
+	$NoPlace.visible = show
+	
 func become(card):
 	if card == null:
 		type = Game.TileType.EMPTY
 		return
+	ac = card.ac
 	type = card.type
 	if Game.is_wall(type):
 		wall_flags = card.wall_flags
@@ -53,7 +59,7 @@ func _process(delta):
 		if is_bridge ^ int(bool(check_wall_bit(Game.Direction.WEST))):
 			$Label3D.text += " WEST"
 		
-	self.disabled = board.actions == 0
+	self.disabled = Game.actions == 0
 
 func set_translation(glob):
 	global_translation = glob

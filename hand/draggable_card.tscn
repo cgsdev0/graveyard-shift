@@ -1,10 +1,16 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://hand/draggable_card.gd" type="Script" id=1]
+[ext_resource path="res://debug/big_prototype_dynamic_font.tres" type="DynamicFont" id=2]
 
 [sub_resource type="SpatialMaterial" id=2]
 resource_local_to_scene = true
 albedo_color = Color( 0, 0.976471, 1, 1 )
+
+[sub_resource type="SpatialMaterial" id=3]
+resource_local_to_scene = true
+flags_transparent = true
+albedo_color = Color( 2, 0.42, 0.47, 0.67 )
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1, 1, 0.05 )
@@ -16,6 +22,21 @@ script = ExtResource( 1 )
 layers = 2
 depth = 0.1
 material = SubResource( 2 )
+
+[node name="NoPlace" type="CSGBox" parent="."]
+visible = false
+layers = 2
+depth = 0.1
+material = SubResource( 3 )
+
+[node name="Label3D2" type="Label3D" parent="NoPlace"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00765145, 0.0633913, 0.119253 )
+layers = 2
+modulate = Color( 0.568627, 0, 0, 1 )
+text = "NOT ENOUGH ACTIONS"
+font = ExtResource( 2 )
+autowrap = true
+width = 180.0
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )
