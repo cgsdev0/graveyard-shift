@@ -63,6 +63,7 @@ Deck="*res://logic/deck.gd"
 
 window/size/width=800
 window/size/height=450
+window/stretch/aspect="keep"
 
 [gui]
 

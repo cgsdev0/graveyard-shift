@@ -1,0 +1,167 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://logic/end_turn_button.gd" type="Script" id=1]
+[ext_resource path="res://logic/game_over.gd" type="Script" id=2]
+[ext_resource path="res://debug/lil_guy.png" type="Texture" id=3]
+[ext_resource path="res://ui.gd" type="Script" id=4]
+[ext_resource path="res://debug/icon.png" type="Texture" id=5]
+[ext_resource path="res://ui.theme" type="Theme" id=6]
+
+[node name="UI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = ExtResource( 6 )
+script = ExtResource( 4 )
+
+[node name="LoseText" type="Label" parent="."]
+visible = false
+margin_left = 403.0
+margin_top = 111.0
+margin_right = 682.0
+margin_bottom = 189.0
+text = "You lose! Press R to restart"
+script = ExtResource( 2 )
+
+[node name="BottomEdge" type="ColorRect" parent="."]
+unique_name_in_owner = true
+anchor_top = 0.8
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0.34902, 0.34902, 0.34902, 1 )
+
+[node name="TopEdge" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+mouse_filter = 2
+color = Color( 0.65098, 0.65098, 0.65098, 1 )
+
+[node name="LeftEdge" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0.65098, 0.65098, 0.65098, 1 )
+
+[node name="RightBar" type="ColorRect" parent="."]
+unique_name_in_owner = true
+anchor_left = 0.78
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_clip_content = true
+mouse_filter = 2
+color = Color( 0.65098, 0.65098, 0.65098, 1 )
+
+[node name="Friend" type="TextureRect" parent="RightBar"]
+anchor_top = 0.6
+anchor_right = 1.0
+anchor_bottom = 1.05
+rect_clip_content = true
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="RightBar"]
+anchor_right = 1.0
+anchor_bottom = 0.6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RightBar/MarginContainer"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 168.0
+margin_bottom = 262.0
+
+[node name="TurnPanel" type="PanelContainer" parent="RightBar/MarginContainer/VBoxContainer"]
+margin_right = 160.0
+margin_bottom = 87.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RightBar/MarginContainer/VBoxContainer/TurnPanel"]
+margin_top = 10.0
+margin_right = 160.0
+margin_bottom = 77.0
+
+[node name="TurnsLabel" type="Label" parent="RightBar/MarginContainer/VBoxContainer/TurnPanel/VBoxContainer"]
+margin_right = 160.0
+margin_bottom = 39.0
+theme_type_variation = "BigLabel"
+text = "4"
+align = 1
+
+[node name="Label" type="Label" parent="RightBar/MarginContainer/VBoxContainer/TurnPanel/VBoxContainer"]
+margin_top = 47.0
+margin_right = 160.0
+margin_bottom = 67.0
+text = "Turns Until Sunrise"
+align = 1
+
+[node name="ActionPanel" type="PanelContainer" parent="RightBar/MarginContainer/VBoxContainer"]
+margin_top = 95.0
+margin_right = 160.0
+margin_bottom = 196.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RightBar/MarginContainer/VBoxContainer/ActionPanel"]
+margin_top = 10.0
+margin_right = 160.0
+margin_bottom = 91.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RightBar/MarginContainer/VBoxContainer/ActionPanel/VBoxContainer"]
+margin_right = 160.0
+margin_bottom = 43.0
+alignment = 1
+
+[node name="TurnsLabel" type="Label" parent="RightBar/MarginContainer/VBoxContainer/ActionPanel/VBoxContainer/HBoxContainer"]
+margin_left = 26.0
+margin_top = 2.0
+margin_right = 45.0
+margin_bottom = 41.0
+theme_type_variation = "BigLabel"
+text = "3"
+align = 1
+valign = 1
+
+[node name="Label" type="Label" parent="RightBar/MarginContainer/VBoxContainer/ActionPanel/VBoxContainer/HBoxContainer"]
+margin_left = 53.0
+margin_right = 133.0
+margin_bottom = 43.0
+text = "Actions
+Remaining"
+align = 1
+valign = 1
+
+[node name="Button" type="Button" parent="RightBar/MarginContainer/VBoxContainer/ActionPanel/VBoxContainer"]
+margin_left = 35.0
+margin_top = 51.0
+margin_right = 125.0
+margin_bottom = 81.0
+focus_mode = 0
+size_flags_horizontal = 4
+enabled_focus_mode = 0
+text = "End Turn"
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RightBar/MarginContainer/VBoxContainer"]
+margin_top = 204.0
+margin_right = 160.0
+margin_bottom = 236.0
+
+[node name="TextureRect" type="TextureRect" parent="RightBar/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_vertical = 3
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="RightBar/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 40.0
+margin_top = 6.0
+margin_right = 160.0
+margin_bottom = 26.0
+size_flags_horizontal = 3
+text = "2 gold"
+valign = 1

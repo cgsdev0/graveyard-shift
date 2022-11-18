@@ -6,7 +6,7 @@ func _ready():
 	OS.min_window_size = OS.window_size
 	get_tree().get_root().connect("size_changed", self, "on_resize")
 	VisualServer.set_debug_generate_wireframes(true)
-	on_resize()
+	call_deferred("on_resize")
 	
 func _input(event):
 	if OS.is_debug_build() && event is InputEventKey and Input.is_key_pressed(KEY_PAGEUP):

@@ -25,6 +25,7 @@ func _ready():
 	Game.connect("end_hover", self, "end_hover")
 	Game.connect("start_new_turn", self, "on_start_new_turn")
 	get_tree().get_root().connect("size_changed", self, "on_resize")
+	call_deferred("on_resize")
 	yield(get_tree().create_timer(0.5), "timeout")
 	on_start_new_turn()
 	
@@ -57,7 +58,7 @@ func get_mouse_position():
 	
 func is_mouse_in_card_area():
 	var mouse = get_mouse_position()
-	return mouse.y > get_viewport().size.y - $"%BottomEdge".rect_size.y * 1.2
+	return mouse.y > get_viewport().size.y - $"%UI".get_bottom_edge().rect_size.y * 1.2
 	
 func set_dragging(drag):
 	if drag == null:
@@ -136,7 +137,7 @@ func set_snap_tile(tile):
 func get_pos_in_hand(i, total):
 	var v = get_viewport().size
 	var y = v.y - (50 if cards_up else -15)
-	var v_width = v.x - $"%RightBar".rect_size.x
+	var v_width = v.x - $"%UI".get_right_bar().rect_size.x
 	if total == 1:
 		return Vector2(v.x / 2, y)
 	else:
@@ -184,7 +185,7 @@ func deal_card():
 func move_cards_vertically():
 	if !is_mouse_in_card_area() && cards_up:
 		cards_up = false
-		adjust_hand()
+		adjust_hand() 
 	if is_mouse_in_card_area() && !cards_up && board.has_actions():
 		cards_up = true
 		adjust_hand()
