@@ -23,7 +23,7 @@ jobs:
       - name: Setup
         run: |
           pwd
-          mkdir -v -p build releases final-bundle ~/.local/share/godot/templates
+          mkdir -v -p build/html5 releases final-bundle ~/.local/share/godot/templates
           mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
       - name: Linux Build
         run: godot -v --export "HTML5" ./build/html5/index.html
