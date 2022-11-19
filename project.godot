@@ -64,6 +64,7 @@ config/icon="res://debug/icon.png"
 
 Game="*res://logic/game.gd"
 Deck="*res://logic/deck.gd"
+ShopDeck="*res://logic/shop_deck.gd"
 
 [display]
 
