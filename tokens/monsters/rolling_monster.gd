@@ -55,7 +55,7 @@ func take_step():
 			yield(y, "completed")
 		$AnimationPlayer.play("move")
 		movement_tween.start()
-		yield(movement_tween, "tween_completed")
+		yield(movement_tween, "tween_all_completed")
 		rolling = true
 		u = u2
 		u2 += gap
@@ -108,7 +108,16 @@ func _take_partial_step(u, v, rolling):
 		var dist = global_translation.distance_to(board.get_tile(grid_x, grid_y).get_center())
 		movement_tween.interpolate_property(self, "global_translation",
 		global_translation, board.get_tile(grid_x, grid_y).get_center(), dist / 4,
-		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+		Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
+#		movement_tween.interpolate_property(self, "global_translation:z",
+#		global_translation.z, board.get_tile(grid_x, grid_y).get_center().z, dist / 4,
+#		Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
+#		movement_tween.interpolate_property(self, "global_translation:y",
+#		global_translation.y, global_translation.y + 0.3, dist / 8,
+#		Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
+#		movement_tween.interpolate_property(self, "global_translation:y",
+#		global_translation.y + 0.3, global_translation.y, dist / 8,
+#		Tween.TRANS_QUAD, Tween.EASE_OUT, dist / 8)
 		# yield(movement_tween, "tween_completed")
 		return null
 

@@ -17,7 +17,7 @@
 
 [sub_resource type="Animation" id=3]
 resource_name = "attack"
-length = 0.5
+length = 0.45
 tracks/0/type = "value"
 tracks/0/path = NodePath("Attack1:visible")
 tracks/0/interp = 1
@@ -25,10 +25,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.15, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ true, false ]
+"values": [ true, false, true ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Attack2:visible")
@@ -37,10 +37,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.15, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ false, true ]
+"values": [ false, true, false ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Idle1:visible")
@@ -169,7 +169,7 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id=2]
 resource_name = "move"
-length = 0.5
+length = 0.3
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Idle1:visible")
@@ -202,7 +202,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.25 ),
+"times": PoolRealArray( 0, 0.15 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
@@ -214,7 +214,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.25 ),
+"times": PoolRealArray( 0, 0.15 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
@@ -260,7 +260,6 @@ script = ExtResource( 2 )
 sprite_texture = ExtResource( 6 )
 
 [node name="Spin1" type="MeshInstance" parent="."]
-visible = false
 mesh = ExtResource( 8 )
 script = ExtResource( 2 )
 sprite_texture = ExtResource( 10 )
