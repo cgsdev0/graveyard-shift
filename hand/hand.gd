@@ -23,20 +23,21 @@ func _ready():
 	Game.connect("start_drag", self, "start_drag")
 	Game.connect("start_hover", self, "start_hover")
 	Game.connect("end_hover", self, "end_hover")
-	Game.connect("start_new_turn", self, "on_start_new_turn")
+	Game.connect("deal_new_turn", self, "on_deal_new_turn")
 	get_tree().get_root().connect("size_changed", self, "on_resize")
 	call_deferred("on_resize")
 	yield(get_tree().create_timer(0.5), "timeout")
-	on_start_new_turn()
+	on_deal_new_turn()
 	
 
 func on_resize():
 	call_deferred("adjust_hand")
 	
-func on_start_new_turn():
+func on_deal_new_turn():
 	cards_up = true
 	while deal_card():
 		yield(get_tree().create_timer(0.2), "timeout")
+	Game.emit_signal("start_new_turn")
 	
 func end_hover(card):
 	if card.placed:

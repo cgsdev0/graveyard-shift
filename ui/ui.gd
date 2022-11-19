@@ -18,7 +18,7 @@ func start_new_turn():
 		# TODO: animate
 		$YouWin.visible = true
 	else:
-		Game.emit_signal("start_new_turn")
+		Game.emit_signal("deal_new_turn")
 	
 func scale_margin(original_margin, scale_factor):
 	if original_margin == -1:
@@ -30,7 +30,6 @@ func scale_children(node, scale_factor):
 	for child in node.get_children():
 		if child is Control:
 			if child.rect_min_size != Vector2.ZERO:
-				print(child)
 				if !min_sizes.has(child.get_instance_id()):
 					min_sizes[child.get_instance_id()] = child.rect_min_size
 				child.rect_min_size = min_sizes[child.get_instance_id()] * scale_factor
@@ -49,7 +48,6 @@ func on_resize():
 	
 	# this should really be an engine feature
 	scale_children(self, scale_factor)
-	print(min_sizes)
 	
 	for type in theme.get_constant_types():
 		for constant in theme.get_constant_list(type):

@@ -14,7 +14,6 @@ var initial_transform
 var facing = Game.Direction.EAST
 
 func reset_rotation_horizontal():
-	print("wtf")
 	match facing:
 		Game.Direction.EAST, Game.Direction.WEST:
 			return
@@ -26,7 +25,6 @@ func rotate_to(dir, force_cheat = false):
 		cheat = PI / 8
 	if grid_x * 2 < board.cols - 1:
 		cheat = -PI / 8
-	print(cheat)
 	var basis
 	facing = dir
 	match dir:
