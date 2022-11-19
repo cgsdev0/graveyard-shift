@@ -120,10 +120,10 @@ var actions_per_turn = 2
 
 var money = 0
 var money_at_start = 0
-var is_turn = true
+var is_turn = false
 
 func on_reset():
-	is_turn = true
+	is_turn = false
 	turns = float(levels[level].turns)
 	actions = actions_per_turn
 	max_turns = turns
@@ -155,5 +155,6 @@ signal game_over
 signal you_win
 signal reset
 signal prep_new_turn
+signal deal_new_turn
 signal start_new_turn
 signal end_turn

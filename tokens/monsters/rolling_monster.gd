@@ -49,6 +49,7 @@ func take_step():
 				yield(y, "completed")
 			$AnimationPlayer.play("attack")
 			yield($AnimationPlayer, "animation_finished")
+			kill_all()
 			break
 		var y = rotate_to(dir)
 		if y is Object:
@@ -66,7 +67,16 @@ func take_step():
 			board.damage_tile_wall_bit(u, dir)
 	path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
 	return
-	
+
+var kill_queue = []
+var wall_queue = []
+func kill_all():
+	while !kill_queue.empty():
+		var enemy = kill_queue.pop_back()
+		enemy.kill()
+	while !wall_queue.empty():
+		board.callv("damage_tile_wall_bit", wall_queue.pop_back())
+		
 func _take_partial_step(u, v, rolling):
 	if !rolling:
 		var soldiers = get_tree().get_nodes_in_group("killable_tokens")
@@ -74,7 +84,7 @@ func _take_partial_step(u, v, rolling):
 			if is_my_neighbor(soldier):
 				if check_wall(get_id(), soldier.get_id()):
 					continue
-				soldier.kill()
+				kill_queue.push_back(soldier)
 				return board.compute_direction(u, soldier.get_id())
 	else:
 		var soldiers = get_tree().get_nodes_in_group("killable_tokens")
@@ -82,13 +92,12 @@ func _take_partial_step(u, v, rolling):
 			if soldier.get_id() == v:
 				if check_wall(get_id(), soldier.get_id()):
 					continue
-				soldier.kill()
+				kill_queue.push_back(soldier)
 				return board.compute_direction(u, v)
 	var lures = get_tree().get_nodes_in_group("lures")
 	for lure in lures:
 		if lure.grid_x == grid_x && lure.grid_y == grid_y:
-			lure.remove_from_group("lures")
-			lure.queue_free()
+			kill_queue.push(lure)
 			path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
 			return Game.Direction.EAST
 	var dir = board.compute_direction(u, v)
@@ -96,10 +105,12 @@ func _take_partial_step(u, v, rolling):
 	var u_wall = board.get_tile_by_id(u).type == Game.TileType.WALL
 	var v_wall = board.get_tile_by_id(v).type == Game.TileType.WALL
 	if u_wall && board.get_tile_by_id(u).check_wall_bit(dir):
-		board.damage_tile_wall_bit(u, dir)
+		# board.damage_tile_wall_bit(u, dir)
+		wall_queue.push_back([u, dir])
 		return dir
 	elif v_wall && board.get_tile_by_id(v).check_wall_bit(i_dir):
-		board.damage_tile_wall_bit(v, i_dir)
+		# board.damage_tile_wall_bit(v, i_dir)
+		wall_queue.push_back([v, i_dir])
 		return dir
 	else:
 		grid_y = int(v / board.cols)

@@ -47,7 +47,6 @@ func on_end_turn():
 				pathfinder.skipped_turns += 1
 		var rot = pathfinder.reset_rotation_horizontal()
 		if rot is GDScriptFunctionState:
-			print(rot)
 			yield(rot, "completed")
 	for money_tree in get_tree().get_nodes_in_group("money_trees"):
 		money_tree.tick()
