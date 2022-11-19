@@ -32,6 +32,7 @@ func take_step():
 	global_translation, board.get_tile(grid_x, grid_y).get_center(), 0.5,
 	Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	movement_tween.start()
+	yield(movement_tween, "tween_completed")
 	path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
 
 func get_target_tile():

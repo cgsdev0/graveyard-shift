@@ -5,34 +5,7 @@
 [node name="Spatial" type="Node2D"]
 position = Vector2( 200, 200 )
 script = ExtResource( 1 )
+scale_factor = 800.0
 
 [node name="Sprite" type="Sprite" parent="."]
 z_index = -3
-
-[node name="Control" type="Control" parent="."]
-anchor_right = 0.866
-anchor_bottom = 0.83
-margin_right = -142.0
-margin_bottom = -105.0
-
-[node name="FileSave" type="FileDialog" parent="Control"]
-anchor_right = 0.853
-anchor_bottom = 0.799
-margin_left = 384.0
-margin_top = 25.0
-margin_right = 13.0
-margin_bottom = 25.0
-filters = PoolStringArray( "*.tres" )
-
-[node name="FileOpen" type="FileDialog" parent="Control"]
-anchor_right = 0.633
-anchor_bottom = 0.707
-margin_left = 13.0
-margin_top = 25.0
-margin_right = 13.0
-margin_bottom = 25.0
-window_title = "Open a File"
-mode = 0
-filters = PoolStringArray( "*.png" )
-
-[connection signal="file_selected" from="Control/FileSave" to="." method="_on_FileDialog_file_selected"]

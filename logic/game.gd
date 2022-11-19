@@ -120,8 +120,10 @@ var actions_per_turn = 2
 
 var money = 0
 var money_at_start = 0
+var is_turn = true
 
 func on_reset():
+	is_turn = true
 	turns = float(levels[level].turns)
 	actions = actions_per_turn
 	max_turns = turns
@@ -132,8 +134,15 @@ func reset_money():
 
 func _ready():
 	self.connect("reset", self, "on_reset")
+	self.connect("end_turn", self, "on_end_turn")
+	self.connect("start_new_turn", self, "on_start_new_turn")
 	on_reset()
 
+func on_start_new_turn():
+	is_turn = true
+	
+func on_end_turn():
+	is_turn = false
 	
 func get_board():
 	return get_tree().root.find_node("Board", true, false)

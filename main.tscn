@@ -59,13 +59,14 @@ fov = 20.0
 size = 15.0
 script = ExtResource( 3 )
 
-[node name="Hand" type="Spatial" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
+[node name="Hand" type="Spatial" parent="GameView/Viewport/BoardViewport/Viewport/Level/Camera"]
+transform = Transform( 1, 0, 0, 0, 0.766044, -0.642788, 0, 0.642788, 0.766044, -5, 3.72843, -27.1569 )
 script = ExtResource( 2 )
 
-[node name="Mouse" type="Spatial" parent="GameView/Viewport/BoardViewport/Viewport/Level/Hand"]
+[node name="Mouse" type="Spatial" parent="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand"]
 script = ExtResource( 8 )
 
-[node name="Cards" type="Spatial" parent="GameView/Viewport/BoardViewport/Viewport/Level/Hand"]
+[node name="Cards" type="Spatial" parent="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand"]
 
 [node name="UI" parent="GameView/Viewport" instance=ExtResource( 4 )]
 unique_name_in_owner = true

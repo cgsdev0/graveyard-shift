@@ -1,14 +1,10 @@
 class_name Pathfinder
-extends Spatial
+extends Token
 
-var board: Board
 var astar: AStar2D
 var path: PoolIntArray
 
 export var debug_path: bool = false
-
-export var grid_x = 0
-export var grid_y = 0
 
 var skipped_turns = 0
 
@@ -16,20 +12,15 @@ var enabled = true
 func kill():
 	self.enabled = false
 	
-var movement_tween
 func _ready():
 	movement_tween = Tween.new()
 	self.add_child(movement_tween)
 	add_to_group("pathfinders")
-	add_to_group("tokens")
 	board = get_parent().get_node("Board")
 	if board:
 		global_translation = board.get_tile(grid_x, grid_y).get_center()
 	# update_navigation()
 
-func get_id():
-	return grid_y * board.cols + grid_x
-	
 func is_my_neighbor(pathfinder):
 	if abs(pathfinder.grid_x - grid_x) == 1 && pathfinder.grid_y == grid_y:
 		return true

@@ -83,6 +83,8 @@ func set_dragging(drag):
 				$Cards.move_child(dragging, dragging.old_index)
 			call_deferred("adjust_hand")
 	else:
+		if !Game.is_turn:
+			return
 		hover = null
 		drag.old_index = drag.get_index()
 		$Cards.remove_child(drag)
@@ -96,6 +98,8 @@ func start_hover(card):
 	if hover && hover != card:
 		end_hover(hover)
 	if dragging:
+		return
+	if !Game.is_turn:
 		return
 	hover = card
 	var hand_pos = get_pos_in_hand(card.get_index(), $Cards.get_child_count())
@@ -191,10 +195,10 @@ func deal_card():
 	return false
 	
 func move_cards_vertically():
-	if !is_mouse_in_card_area() && cards_up && (hover == null || dragging):
+	if (!is_mouse_in_card_area() && cards_up && (hover == null || dragging)) || (!Game.is_turn && cards_up):
 		cards_up = false
 		adjust_hand() 
-	if is_mouse_in_card_area() && !cards_up && board.has_actions():
+	if is_mouse_in_card_area() && !cards_up && board.has_actions() && Game.is_turn:
 		cards_up = true
 		adjust_hand()
 	
