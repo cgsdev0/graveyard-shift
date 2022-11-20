@@ -144,7 +144,8 @@ func set_snap_tile(tile):
 		
 func get_pos_in_hand(i, total):
 	var v = get_viewport().size
-	var y = v.y - (50 if cards_up else -15)
+	var y_scale = v.y / 450.0
+	var y = v.y - (50 if cards_up else -15) * y_scale
 	var v_width = v.x - $"%UI".get_right_bar().rect_size.x
 	if total == 1:
 		return Vector2(v.x / 2, y)

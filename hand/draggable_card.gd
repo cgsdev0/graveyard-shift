@@ -19,7 +19,14 @@ func placement_animation():
 	match type:
 		Game.TileType.WALL:
 			$Tile.scale_up_walls()
-			
+
+func recompute_wall_decals():
+	var bits = 0
+	for i in range(wall_flags.size()):
+		if wall_flags[i]:
+			bits |= 1 << i
+	$Tile.decal_bits = bits
+	
 func become(card):
 	if card == null:
 		type = Game.TileType.EMPTY
@@ -28,6 +35,7 @@ func become(card):
 	type = card.type
 	if Game.is_wall(type):
 		wall_flags = card.wall_flags
+		recompute_wall_decals()
 
 			
 var board

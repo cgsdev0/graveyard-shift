@@ -3,12 +3,16 @@
 [resource]
 code = "shader_type spatial;
 
-uniform sampler2D tex : hint_albedo;
-uniform sampler2D tex2 : hint_albedo;
+uniform sampler2D bg : hint_albedo;
+
+uniform sampler2D decal_1 : hint_albedo;
+uniform sampler2D decal_2 : hint_albedo;
+uniform sampler2D decal_3 : hint_albedo;
+uniform sampler2D decal_4 : hint_albedo;
 
 uniform float b_scale = 1.0;
 uniform float v_offset = 0.0;
-uniform bool enable_b = false;
+uniform int decal_bits = 0;
 uniform bool has_debug_tint = false;
 uniform float fade_c = 0.0;
 
@@ -18,10 +22,22 @@ uniform vec4 tint : hint_color;
 uniform int index;
 
 void fragment() {
-	ALBEDO = texture(tex, UV).rgb;
+	ALBEDO = texture(bg, UV).rgb;
 	
-	if (enable_b) {
-		vec4 color = texture(tex2, UV * b_scale + vec2((1.0 - b_scale) / 2.0, (1.0 - b_scale) / 2.0 + v_offset * (1.0 - b_scale)));
+	if ((decal_bits & 1) > 0) {
+		vec4 color = texture(decal_1, UV * b_scale + vec2((1.0 - b_scale) / 2.0, (1.0 - b_scale) / 2.0 + v_offset * (1.0 - b_scale)));
+		ALBEDO = mix(ALBEDO, color.rgb, color.a);
+	}
+	if ((decal_bits & 2) > 0) {
+		vec4 color = texture(decal_2, UV * b_scale + vec2((1.0 - b_scale) / 2.0, (1.0 - b_scale) / 2.0 + v_offset * (1.0 - b_scale)));
+		ALBEDO = mix(ALBEDO, color.rgb, color.a);
+	}
+	if ((decal_bits & 4) > 0) {
+		vec4 color = texture(decal_3, UV * b_scale + vec2((1.0 - b_scale) / 2.0, (1.0 - b_scale) / 2.0 + v_offset * (1.0 - b_scale)));
+		ALBEDO = mix(ALBEDO, color.rgb, color.a);
+	}
+	if ((decal_bits & 8) > 0) {
+		vec4 color = texture(decal_4, UV * b_scale + vec2((1.0 - b_scale) / 2.0, (1.0 - b_scale) / 2.0 + v_offset * (1.0 - b_scale)));
 		ALBEDO = mix(ALBEDO, color.rgb, color.a);
 //		ROUGHNESS = 0.0;
 //		if (color.a > 0.0) {

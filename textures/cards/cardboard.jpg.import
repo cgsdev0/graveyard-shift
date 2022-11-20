@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/NW.png-af1954439f0284217be73b0b767970a3.s3tc.stex"
-path.etc2="res://.import/NW.png-af1954439f0284217be73b0b767970a3.etc2.stex"
+path.s3tc="res://.import/cardboard.jpg-8e2444b990ed4db6c3273277d7b85dba.s3tc.stex"
+path.etc2="res://.import/cardboard.jpg-8e2444b990ed4db6c3273277d7b85dba.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/NW.png"
-dest_files=[ "res://.import/NW.png-af1954439f0284217be73b0b767970a3.s3tc.stex", "res://.import/NW.png-af1954439f0284217be73b0b767970a3.etc2.stex" ]
+source_file="res://textures/cards/cardboard.jpg"
+dest_files=[ "res://.import/cardboard.jpg-8e2444b990ed4db6c3273277d7b85dba.s3tc.stex", "res://.import/cardboard.jpg-8e2444b990ed4db6c3273277d7b85dba.etc2.stex" ]
 
 [params]
 

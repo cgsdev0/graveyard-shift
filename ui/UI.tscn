@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://logic/end_turn_button.gd" type="Script" id=1]
 [ext_resource path="res://logic/game_over.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://ui/ui.theme" type="Theme" id=6]
 [ext_resource path="res://ui/actions_label.gd" type="Script" id=7]
 [ext_resource path="res://ui/money_label.gd" type="Script" id=8]
+[ext_resource path="res://textures/ui/gold.png" type="Texture" id=9]
 [ext_resource path="res://debug/over.png" type="Texture" id=10]
 [ext_resource path="res://debug/under.png" type="Texture" id=11]
 
@@ -185,7 +186,7 @@ margin_right = 32.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 size_flags_vertical = 3
-texture = ExtResource( 5 )
+texture = ExtResource( 9 )
 expand = true
 stretch_mode = 6
 
@@ -342,7 +343,7 @@ margin_right = 32.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 size_flags_vertical = 3
-texture = ExtResource( 5 )
+texture = ExtResource( 9 )
 expand = true
 stretch_mode = 6
 
