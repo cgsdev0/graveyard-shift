@@ -1,19 +1,25 @@
-[gd_resource type="ShaderMaterial" load_steps=4 format=2]
+[gd_resource type="ShaderMaterial" load_steps=7 format=2]
 
 [ext_resource path="res://shaders/card_shader.tres" type="Shader" id=1]
-[ext_resource path="res://textures/NW.png" type="Texture" id=3]
-[ext_resource path="res://textures/Card Back.png" type="Texture" id=4]
+[ext_resource path="res://textures/cards/walls/E.png" type="Texture" id=2]
+[ext_resource path="res://textures/cards/walls/N.png" type="Texture" id=3]
+[ext_resource path="res://textures/cards/Card Back.png" type="Texture" id=4]
+[ext_resource path="res://textures/cards/walls/W.png" type="Texture" id=5]
+[ext_resource path="res://textures/cards/walls/S.png" type="Texture" id=6]
 
 [resource]
 resource_local_to_scene = true
 shader = ExtResource( 1 )
 shader_param/b_scale = 1.0
-shader_param/v_offset = 0.0
-shader_param/enable_b = true
+shader_param/v_offset = 0.064
+shader_param/decal_bits = 0
 shader_param/has_debug_tint = false
-shader_param/fade_c = 0.0
+shader_param/fade_c = 1.0
 shader_param/debug_tint = null
 shader_param/tint = Color( 0.952941, 0.133333, 1, 1 )
 shader_param/index = null
-shader_param/tex = ExtResource( 4 )
-shader_param/tex2 = ExtResource( 3 )
+shader_param/bg = ExtResource( 4 )
+shader_param/decal_1 = ExtResource( 3 )
+shader_param/decal_2 = ExtResource( 6 )
+shader_param/decal_3 = ExtResource( 2 )
+shader_param/decal_4 = ExtResource( 5 )

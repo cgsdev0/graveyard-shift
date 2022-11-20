@@ -3,7 +3,7 @@
 [ext_resource path="res://shaders/card_shader_material.tres" type="Material" id=1]
 [ext_resource path="res://debug/untitled.glb" type="PackedScene" id=2]
 [ext_resource path="res://card_model.gd" type="Script" id=3]
-[ext_resource path="res://textures/cardboard.jpg" type="Texture" id=4]
+[ext_resource path="res://textures/cards/cardboard.jpg" type="Texture" id=4]
 
 [sub_resource type="SpatialMaterial" id=2]
 albedo_color = Color( 0, 0, 0, 1 )
@@ -54,6 +54,7 @@ tracks/2/keys = {
 script = ExtResource( 3 )
 
 [node name="Plane" parent="." index="0"]
+transform = Transform( 0.000142908, 1, 0.000535442, -2.09167, 6.85763e-05, -0.00211913, -0.00211917, -0.00025592, 2.09167, 0.198421, -0.007768, 0.0195606 )
 material/0 = ExtResource( 1 )
 material/1 = SubResource( 2 )
 material/2 = SubResource( 3 )

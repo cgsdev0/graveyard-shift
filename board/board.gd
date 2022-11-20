@@ -89,12 +89,15 @@ func damage_tile_wall_bit(id: int, direction) -> void:
 	
 func set_tile_wall_bit(id: int, direction, health: int) -> void:
 	get_tile_by_id(id).wall_flags[direction] = max(0, health)
-	if get_tile_by_id(id).wall_flags == [0, 0, 0, 0]:
-		replace_tile_by_id(id, Game.TileType.EMPTY)
-		for tile in get_tree().get_nodes_in_group("placed_tiles"):
-			if tile.placed_at == id:
-				tile.queue_free()
-				break
+	for tile in get_tree().get_nodes_in_group("placed_tiles"):
+		if tile.placed_at == id:
+			tile.recompute_wall_decals()
+#	if get_tile_by_id(id).wall_flags == [0, 0, 0, 0]:
+#		replace_tile_by_id(id, Game.TileType.EMPTY)
+#		for tile in get_tree().get_nodes_in_group("placed_tiles"):
+#			if tile.placed_at == id:
+#				tile.queue_free()
+#				break
 	_propagate_board_change()
 	
 func _ready():

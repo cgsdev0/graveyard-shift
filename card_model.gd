@@ -2,7 +2,7 @@ tool
 extends Spatial
 
 export var header = 0.0 setget _set_header
-export var decal = false setget _set_decal
+export var decal_bits = 0 setget _set_decal_bits
 export var decal_scale = 1.0 setget _set_decal_scale
 export var decal_v_offset = 0.0 setget _set_decal_v_offset
 
@@ -21,12 +21,12 @@ func _set_header(v):
 	$Plane.get_surface_material(0).set_shader_param("fade_c", v)
 	header = v
 
-func _set_decal(v):
+func _set_decal_bits(v):
 	if $Plane.get_surface_material(0) == null:
 		return
 		
-	$Plane.get_surface_material(0).set_shader_param("enable_b", v)
-	decal = v
+	$Plane.get_surface_material(0).set_shader_param("decal_bits", v)
+	decal_bits = v
 	
 func _set_decal_scale(v):
 	if $Plane.get_surface_material(0) == null:
