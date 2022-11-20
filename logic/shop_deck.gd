@@ -68,3 +68,6 @@ func on_hard_reset():
 	for i in range(deck.size()):
 		deck[i].shuffle()
 	treasure_deck.shuffle()
+
+func deal(i):
+	return deck[i].pop_back()

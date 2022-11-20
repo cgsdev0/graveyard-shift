@@ -96,23 +96,24 @@ margin_right = 800.0
 margin_bottom = 450.0
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Shop/Container/VBoxContainer/MarginContainer"]
+[node name="Cards" type="HBoxContainer" parent="Shop/Container/VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 792.0
 margin_bottom = 386.0
 size_flags_vertical = 3
 
-[node name="MarginContainer" parent="Shop/Container/VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource( 3 )]
+[node name="MarginContainer" parent="Shop/Container/VBoxContainer/MarginContainer/Cards" instance=ExtResource( 3 )]
 margin_right = 256.0
 margin_bottom = 378.0
 
-[node name="MarginContainer2" parent="Shop/Container/VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource( 3 )]
+[node name="MarginContainer2" parent="Shop/Container/VBoxContainer/MarginContainer/Cards" instance=ExtResource( 3 )]
 margin_left = 264.0
 margin_right = 520.0
 margin_bottom = 378.0
 
-[node name="MarginContainer3" parent="Shop/Container/VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource( 3 )]
+[node name="MarginContainer3" parent="Shop/Container/VBoxContainer/MarginContainer/Cards" instance=ExtResource( 3 )]
 margin_left = 528.0
 margin_right = 784.0
 margin_bottom = 378.0

@@ -51,6 +51,9 @@ func on_reset():
 		deck[key].cards.shuffle()
 		pass
 	
+func add_card(card):
+	starting_deck[Game.SlotType.ITEM].cards.push_back(card)
+	
 func desired_count(slot_type):
 	return deck[slot_type].desired_count
 	
