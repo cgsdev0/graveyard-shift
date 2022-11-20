@@ -25,8 +25,6 @@ var starting_deck = [
 #	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
 #	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
 #	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
-		{ "cost": 0, "type": Game.TileType.BRIDGE, "wall_flags": [1000, 1000, 0, 0], "ac": 1 },
-		{ "cost": 0, "type": Game.TileType.BRIDGE, "wall_flags": [0, 0, 1000, 1000], "ac": 1 },
 ]
 
 var deck = starting_deck.duplicate(true)
@@ -38,7 +36,7 @@ func _ready():
 
 func on_reset():
 	deck = starting_deck.duplicate(true)
-#	deck.shuffle()
+	deck.shuffle()
 	
 func add_card(card):
 	starting_deck.push_back(card)
