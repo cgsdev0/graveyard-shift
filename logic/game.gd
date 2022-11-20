@@ -40,7 +40,7 @@ var original_theme
 var levels = [
 	# Level 0
 	{
-		"turns": 1,
+		"turns": 4,
 		"camera": {
 			"zoom": 18,
 			"angle": 40,

@@ -92,8 +92,9 @@ func set_tile_wall_bit(id: int, direction, health: int) -> void:
 	for tile in get_tree().get_nodes_in_group("placed_tiles"):
 		if tile.placed_at == id:
 			tile.recompute_wall_decals()
-#	if get_tile_by_id(id).wall_flags == [0, 0, 0, 0]:
-#		replace_tile_by_id(id, Game.TileType.EMPTY)
+	if get_tile_by_id(id).wall_flags == [0, 0, 0, 0]:
+		replace_tile_by_id(id, Game.TileType.EMPTY)
+		get_tile_by_id(id).stacks += 1
 #		for tile in get_tree().get_nodes_in_group("placed_tiles"):
 #			if tile.placed_at == id:
 #				tile.queue_free()

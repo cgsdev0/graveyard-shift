@@ -40,12 +40,15 @@ func take_step():
 			return
 	if path.size() <= 1 || get_path_cost(path) > 100:
 		return
+	print(astar._compute_cost(3, 4))
 	var u = path[0]
 	var v = path[1]
 	var dir = board.compute_direction(u, v)
 	var i_dir = Game.invert_direction(dir)
-	var u_wall = board.get_tile_by_id(u).type == Game.TileType.WALL
-	var v_wall = board.get_tile_by_id(v).type == Game.TileType.WALL
+	var u_type = board.get_tile_by_id(u).type
+	var v_type = board.get_tile_by_id(v).type
+	var u_wall = Game.is_wall(u_type)
+	var v_wall = Game.is_wall(v_type)
 	if u_wall && board.get_tile_by_id(u).check_wall_bit(dir):
 		board.damage_tile_wall_bit(u, dir)
 	elif v_wall && board.get_tile_by_id(v).check_wall_bit(i_dir):
@@ -80,7 +83,7 @@ class MyAStar:
 			if u_wall && board.get_tile_by_id(u).check_wall_bit(dir):
 				cost += board.get_tile_by_id(u).check_wall_bit(dir)
 			if v_wall && board.get_tile_by_id(v).check_wall_bit(i_dir):
-				cost += board.get_tile_by_id(u).check_wall_bit(i_dir)
+				cost += board.get_tile_by_id(v).check_wall_bit(i_dir)
 		return cost
 
 	func _estimate_cost(u, v):

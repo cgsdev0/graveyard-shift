@@ -28,9 +28,11 @@ material = SubResource( 2 )
 [node name="TileMesh" parent="." instance=ExtResource( 2 )]
 transform = Transform( 9.28593e-16, 2.12437e-08, -0.486, 0.486, -2.12437e-08, 0, -2.12437e-08, -0.486, -2.12437e-08, 0, 0, 0 )
 __meta__ = {
-"_edit_pinned_properties_": [ "header" ]
+"_edit_pinned_properties_": [ "header", "decal_bits", "decal_scale", "decal_v_offset" ]
 }
 header = 0.0
+decal_bits = 0
+decal_scale = 1.0
 decal_v_offset = 0.0
 
 [node name="DebugWall_NORTH" type="CSGBox" parent="."]

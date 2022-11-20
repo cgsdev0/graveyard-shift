@@ -40,5 +40,10 @@ func _set_decal_v_offset(v):
 	$Plane.get_surface_material(0).set_shader_param("v_offset", v)
 	decal_v_offset = v
 	
+func set_text(action_cost, card_name):
+	$"%ActionCost".text = str(action_cost)
+	$"%CardName".text = str(card_name)
+	
 func _ready():
-	pass
+	$Plane.get_surface_material(0).set_shader_param("label", $Viewport.get_texture())
+	$Plane.get_surface_material(0).set_shader_param("has_viewport", true)
