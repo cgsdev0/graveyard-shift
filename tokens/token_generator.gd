@@ -4,19 +4,60 @@ extends Node2D
 var width = 0.2
 export var scale_factor = 100.0
 
-var mi
 
-var points = []
-var p
 
 func to_vec3(v2):
 	return Vector3(v2.x, v2.y, 0)
-func _ready():	
+	
+func _find_png_paths() -> Array:
+	var png_paths := [] # accumulated png paths to return
+	var dir_queue := ["res://textures"] # directories remaining to be traversed
+	var dir: Directory # current directory being traversed
+
+	var file: String # current file being examined
+	while file or not dir_queue.empty():
+		# continue looping until there are no files or directories left
+		if file:
+			# there is another file in this directory
+			if dir.current_is_dir():
+				# found a directory, append it to the queue.
+				dir_queue.append("%s/%s" % [dir.get_current_dir(), file])
+			elif file.ends_with(".png.import"):
+				# found a .png.import file, append its corresponding png to our results
+				png_paths.append("%s/%s" % [dir.get_current_dir(), file.get_basename()])
+		else:
+			# there are no more files in this directory
+			if dir:
+				# close the current directory
+				dir.list_dir_end()
+
+			if dir_queue.empty():
+				# there are no more directories. terminate the loop
+				break
+
+			# there are more directories. open the next directory
+			dir = Directory.new()
+			dir.open(dir_queue.pop_front())
+			dir.list_dir_begin(true, true)
+		
+		file = dir.get_next()
+
+	return png_paths
+	
+func _ready():
+	var textures = _find_png_paths()
+	for tex in textures:
+		model_to_texture(tex)
+	get_tree().quit()
+	
+func model_to_texture(path):
 	if get_tree().root.get_child(get_tree().root.get_child_count() - 1) != self:
 		return
 		
-	$Control/FileOpen.popup()
-	var path = yield($Control/FileOpen, "file_selected")
+	var mi
+
+	var points = []
+	var p
 	$Sprite.texture = load(path)
 	
 	mi = MeshInstance.new()
@@ -87,27 +128,5 @@ func _ready():
 
 	mi.scale *= -1
 	mi.scale.x = 1
-	var splitted = path.rsplit("/", true, 1)
-	$Control/FileSave.set_current_file(splitted[1].replace(".png", "_mesh.tres"))
-	$Control/FileSave.popup()
-	$Control/FileSave.set_current_dir(splitted[0])
-	$Control/FileSave.deselect_items()
 	
-
-
-func _draw():
-	if !p || !points:
-		return
-	var sz = $Sprite.texture.get_size() / 2
-	sz.x = 0
-	for i in range(0, points.size(), 3):
-		draw_line(points[i] + $Sprite.position + sz, points[i+1] + $Sprite.position + sz, Color.red)
-		draw_line(points[i+1] + $Sprite.position + sz, points[i+2] + $Sprite.position + sz, Color.red)
-		draw_line(points[i] + $Sprite.position + sz, points[i+2] + $Sprite.position + sz, Color.red)
-	for i in p.size() - 1:
-		draw_line(p[i] + $Sprite.position + sz, p[i+1] + $Sprite.position + sz, Color.green)
-		pass
-
-
-func _on_FileDialog_file_selected(path):
-	ResourceSaver.save(path, mi.mesh)
+	ResourceSaver.save(path.replace(".png", "_mesh.tres"), mi.mesh)
