@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://debug/card_base_texture.png" type="Texture" id=1]
+[ext_resource path="res://debug/top_border.png" type="Texture" id=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+
+uniform sampler2D tex : hint_albedo;
+uniform sampler2D tex2 : hint_albedo;
+uniform int index;
+
+void fragment() {
+	vec4 colorA = texture(tex, UV);
+	vec4 colorB = texture(tex2, UV);
+    ALBEDO = mix(colorA.rgb, colorB.rgb, colorB.a);
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/index = null
+shader_param/tex = ExtResource( 1 )
+shader_param/tex2 = ExtResource( 2 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="CSGBox" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.290707, 0, 0 )
+depth = 0.058
+material = SubResource( 2 )

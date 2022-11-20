@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://board/tiles/tile.gd" type="Script" id=1]
+[ext_resource path="res://card_model.tscn" type="PackedScene" id=2]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -21,7 +22,15 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="DebugCube" type="CSGBox" parent="."]
+visible = false
 material = SubResource( 2 )
+
+[node name="TileMesh" parent="." instance=ExtResource( 2 )]
+transform = Transform( 9.28593e-16, 2.12437e-08, -0.486, 0.486, -2.12437e-08, 0, -2.12437e-08, -0.486, -2.12437e-08, 0, 0, 0 )
+__meta__ = {
+"_edit_pinned_properties_": [ "decal" ]
+}
+decal = false
 
 [node name="DebugWall_NORTH" type="CSGBox" parent="."]
 visible = false

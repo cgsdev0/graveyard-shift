@@ -38,6 +38,7 @@ stretch = true
 [node name="Viewport" type="Viewport" parent="GameView/Viewport/BoardViewport"]
 size = Vector2( 800, 450 )
 handle_input_locally = false
+msaa = 1
 render_target_update_mode = 3
 physics_object_picking = true
 

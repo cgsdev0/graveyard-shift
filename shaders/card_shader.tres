@@ -1,0 +1,39 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type spatial;
+
+uniform sampler2D tex : hint_albedo;
+uniform sampler2D tex2 : hint_albedo;
+
+uniform float b_scale = 1.0;
+uniform float v_offset = 0.0;
+uniform bool enable_b = false;
+uniform bool has_debug_tint = false;
+uniform float fade_c = 0.0;
+
+uniform vec4 debug_tint : hint_color;
+uniform vec4 tint : hint_color;
+
+uniform int index;
+
+void fragment() {
+	ALBEDO = texture(tex, UV).rgb;
+	
+	if (enable_b) {
+		vec4 color = texture(tex2, UV * b_scale + vec2((1.0 - b_scale) / 2.0, (1.0 - b_scale) / 2.0 + v_offset * (1.0 - b_scale)));
+		ALBEDO = mix(ALBEDO, color.rgb, color.a);
+//		ROUGHNESS = 0.0;
+//		if (color.a > 0.0) {
+//		NORMALMAP = vec3(1.0 - color.z)
+//		}
+	}
+	if (fade_c > 0.0 && UV.y < 0.19 && UV.y > 0.07 && UV.x > 0.07 && UV.x < 0.93) {
+		 // vec4 color = texture(tex3, UV);
+		ALBEDO = mix(ALBEDO, tint.rgb, fade_c);
+	}
+    
+	if (has_debug_tint) {
+		ALBEDO = debug_tint.rgb;
+	}
+}"

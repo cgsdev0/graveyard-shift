@@ -19,6 +19,7 @@ func init(s: Vector3, t: Vector3, spacing: float) -> void:
 func _ready():
 	$CollisionShape2D.shape.extents = size / 2 + Vector3(spacing / 2, 0, spacing / 2)
 	$CollisionShape2D.translation = size / 2
+	$TileMesh.translation = size / 2
 	
 	# Position debug objects
 	$DebugCube.translation = size / 2
@@ -69,10 +70,12 @@ func set_color_from_type():
 func _process(delta):
 	set_color_from_type()
 	$DebugCube.material.albedo_color = color
-	$DebugWall_NORTH.visible = check_wall_bit(Game.Direction.NORTH)
-	$DebugWall_SOUTH.visible = check_wall_bit(Game.Direction.SOUTH)
-	$DebugWall_EAST.visible = check_wall_bit(Game.Direction.EAST)
-	$DebugWall_WEST.visible = check_wall_bit(Game.Direction.WEST)
+	if color != Color.white:
+		$TileMesh.set_debug_tint(color)
+#	$DebugWall_NORTH.visible = check_wall_bit(Game.Direction.NORTH)
+#	$DebugWall_SOUTH.visible = check_wall_bit(Game.Direction.SOUTH)
+#	$DebugWall_EAST.visible = check_wall_bit(Game.Direction.EAST)
+#	$DebugWall_WEST.visible = check_wall_bit(Game.Direction.WEST)
 
 func check_wall_bit(flag):
 	return wall_flags[flag]

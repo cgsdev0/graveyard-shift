@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://shaders/card_shader_material.tres" type="Material" id=1]
+[ext_resource path="res://debug/untitled.glb" type="PackedScene" id=2]
+[ext_resource path="res://card_model.gd" type="Script" id=3]
+[ext_resource path="res://textures/cardboard.jpg" type="Texture" id=4]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_texture = ExtResource( 4 )
+
+[sub_resource type="Animation" id=1]
+resource_name = "scale_up_walls"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:header")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.406126, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:decal_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ 1.0, 0.427 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:decal_v_offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.064 ]
+}
+
+[node name="untitled" instance=ExtResource( 2 )]
+script = ExtResource( 3 )
+
+[node name="Plane" parent="." index="0"]
+material/0 = ExtResource( 1 )
+material/1 = SubResource( 2 )
+material/2 = SubResource( 3 )
+__meta__ = {
+"_edit_pinned_properties_": [ "material/0" ]
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
+anims/scale_up_walls = SubResource( 1 )

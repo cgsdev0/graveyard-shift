@@ -29,7 +29,7 @@ func rotate_to(dir, force_cheat = false):
 	facing = dir
 	match dir:
 		Game.Direction.NORTH:
-			basis = initial_transform.rotated(Vector3.UP, PI / 2.0 - cheat).basis
+			basis = initial_transform.rotated(Vector3.UP, PI / 2.0 + cheat).basis
 		Game.Direction.SOUTH:
 			basis = initial_transform.rotated(Vector3.UP, PI / 2.0 * 3.0 + cheat).basis
 		Game.Direction.EAST:
