@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://shaders/card_shader_material.tres" type="Material" id=1]
 [ext_resource path="res://debug/untitled.glb" type="PackedScene" id=2]
 [ext_resource path="res://card_model.gd" type="Script" id=3]
 [ext_resource path="res://textures/cards/cardboard.jpg" type="Texture" id=4]
 [ext_resource path="res://textures/cards/back_of_card.png" type="Texture" id=5]
+[ext_resource path="res://debug/card_label_font.tres" type="DynamicFont" id=6]
+[ext_resource path="res://textures/ui/gold.png" type="Texture" id=7]
 
 [sub_resource type="SpatialMaterial" id=2]
 albedo_texture = ExtResource( 5 )
@@ -65,3 +67,53 @@ __meta__ = {
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
 anims/scale_up_walls = SubResource( 1 )
+
+[node name="Viewport" type="Viewport" parent="." index="2"]
+size = Vector2( 512, 512 )
+transparent_bg = true
+handle_input_locally = false
+hdr = false
+usage = 0
+render_target_update_mode = 1
+gui_disable_input = true
+
+[node name="Control2" type="Control" parent="Viewport" index="0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -50.0
+
+[node name="TextureRect" type="TextureRect" parent="Viewport/Control2" index="0"]
+anchor_left = 0.22
+anchor_top = 0.12
+anchor_right = 0.266
+anchor_bottom = 0.174
+rect_min_size = Vector2( 32, 32 )
+size_flags_vertical = 3
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
+
+[node name="ActionCost" type="Label" parent="Viewport/Control2" index="1"]
+unique_name_in_owner = true
+anchor_left = 0.285
+anchor_top = 0.113
+anchor_right = 0.29
+anchor_bottom = 0.119
+size_flags_horizontal = 3
+size_flags_vertical = 2
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 6 )
+text = "1"
+
+[node name="CardName" type="Label" parent="Viewport/Control2" index="2"]
+unique_name_in_owner = true
+anchor_top = 0.113
+anchor_bottom = 0.113
+margin_right = 609.0
+margin_bottom = 99.0
+size_flags_horizontal = 3
+size_flags_vertical = 2
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 6 )
+text = "Wall"
+align = 1

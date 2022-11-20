@@ -19,10 +19,13 @@ uniform float fade_c = 0.0;
 uniform vec4 debug_tint : hint_color;
 uniform vec4 tint : hint_color;
 
-uniform int index;
+uniform sampler2D label : hint_albedo;
+
+uniform bool has_viewport = false;
 
 void fragment() {
 	ALBEDO = texture(bg, UV).rgb;
+	// ROUGHNESS = 0.25;
 	
 	if ((decal_bits & 1) > 0) {
 		vec4 color = texture(decal_1, UV * b_scale + vec2((1.0 - b_scale) / 2.0, (1.0 - b_scale) / 2.0 + v_offset * (1.0 - b_scale)));
@@ -47,8 +50,14 @@ void fragment() {
 	if (fade_c > 0.0 && UV.y < 0.19 && UV.y > 0.07 && UV.x > 0.07 && UV.x < 0.93) {
 		 // vec4 color = texture(tex3, UV);
 		ALBEDO = mix(ALBEDO, tint.rgb, fade_c);
+		
 	}
-    
+	
+	if (has_viewport) {
+	    vec4 tex = texture(label, vec2(UV.x, 1.0 - UV.y));
+		ALBEDO = mix(ALBEDO, tex.rgb, tex.a * fade_c);
+	}
+		
 	if (has_debug_tint) {
 		ALBEDO = debug_tint.rgb;
 	}

@@ -11,13 +11,15 @@ var placed_at
 
 var old_index
 
+var card 
+
 func show_error(show):
 	$Tile.visible = !show
 	$NoPlace.visible = show
 	
 func placement_animation():
 	match type:
-		Game.TileType.WALL:
+		Game.TileType.WALL, Game.TileType.BRIDGE:
 			$Tile.scale_up_walls()
 
 func recompute_wall_decals():
@@ -28,6 +30,7 @@ func recompute_wall_decals():
 	$Tile.decal_bits = bits
 	
 func become(card):
+	self.card = card
 	if card == null:
 		type = Game.TileType.EMPTY
 		return
@@ -48,6 +51,7 @@ func should_stay_on_board():
 	
 func _ready():
 	board = Game.get_board()
+	$Tile.set_text(str(card.ac), Game.TileType.keys()[type])
 	$Label3D.text = Game.TileType.keys()[type]
 
 func check_wall_bit(flag):

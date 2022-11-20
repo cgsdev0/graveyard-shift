@@ -134,7 +134,7 @@ func set_snap_tile(tile):
 		dragging.show_error(dragging.ac > Game.actions)
 		tween.interpolate_property(dragging, "global_translation", 
 			dragging.global_translation, 
-			snap_tile.global_translation + snap_tile.size / 2 + Vector3(0, 0.1, 0),
+			snap_tile.get_center(),
 			tween_time, Tween.TRANS_QUAD, Tween.EASE_OUT)
 		tween.interpolate_property(dragging, "global_rotation", 
 			dragging.global_rotation, 
