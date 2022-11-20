@@ -1,42 +1,32 @@
 extends Node
 
-var starting_deck = {
-	Game.SlotType.WALL: {
-		"cards": [
-		],
-		"desired_count": 0,
-	 },
-	 Game.SlotType.ITEM: {
-		"cards": [
-			#                                            N  S  E  W
-#			{ "type": Game.TileType.WALL, "wall_flags": [1, 0, 0, 0], "ac": 1 },
-#			{ "type": Game.TileType.WALL, "wall_flags": [1, 0, 0, 0], "ac": 1 },
-#			{ "type": Game.TileType.WALL, "wall_flags": [1, 0, 0, 0], "ac": 1 },
-#			{ "type": Game.TileType.WALL, "wall_flags": [1, 0, 0, 0], "ac": 1 },
-#			{ "type": Game.TileType.WALL, "wall_flags": [0, 1, 0, 0], "ac": 1 },
-#			{ "type": Game.TileType.WALL, "wall_flags": [0, 1, 0, 0], "ac": 1 },
-#			{ "type": Game.TileType.WALL, "wall_flags": [0, 1, 0, 0], "ac": 1 },
-#			{ "type": Game.TileType.WALL, "wall_flags": [0, 1, 0, 0], "ac": 1 },
-#			{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 1, 0], "ac": 1 },
-#			{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 1, 0], "ac": 1 },
-#			{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 1, 0], "ac": 1 },
-#			{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 1, 0], "ac": 1 },
-#			{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
-#			{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
-#			{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
-#			{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
-			{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
-			{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
-			{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
-			{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
-			{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
-			{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
-			{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
-			{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
-		],
-		"desired_count": 4,
-	}
-}
+var starting_deck = [
+	#                                            N  S  E  W
+	{ "type": Game.TileType.WALL, "wall_flags": [1, 0, 0, 0], "ac": 1 },
+	{ "type": Game.TileType.WALL, "wall_flags": [1, 0, 0, 0], "ac": 1 },
+	{ "type": Game.TileType.WALL, "wall_flags": [1, 0, 0, 0], "ac": 1 },
+	{ "type": Game.TileType.WALL, "wall_flags": [1, 0, 0, 0], "ac": 1 },
+	{ "type": Game.TileType.WALL, "wall_flags": [0, 1, 0, 0], "ac": 1 },
+	{ "type": Game.TileType.WALL, "wall_flags": [0, 1, 0, 0], "ac": 1 },
+	{ "type": Game.TileType.WALL, "wall_flags": [0, 1, 0, 0], "ac": 1 },
+	{ "type": Game.TileType.WALL, "wall_flags": [0, 1, 0, 0], "ac": 1 },
+	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 1, 0], "ac": 1 },
+	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 1, 0], "ac": 1 },
+	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 1, 0], "ac": 1 },
+	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 1, 0], "ac": 1 },
+	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
+	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
+	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
+	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
+#	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
+#	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
+#	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
+#	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
+#	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
+#	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
+#	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
+#	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
+]
 
 var deck = starting_deck.duplicate(true)
 
@@ -47,15 +37,13 @@ func _ready():
 
 func on_reset():
 	deck = starting_deck.duplicate(true)
-	for key in deck.keys():
-		deck[key].cards.shuffle()
-		pass
+	deck.shuffle()
 	
 func add_card(card):
-	starting_deck[Game.SlotType.ITEM].cards.push_back(card)
+	starting_deck.push_back(card)
 	
-func desired_count(slot_type):
-	return deck[slot_type].desired_count
+func desired_count():
+	return 4
 	
-func deal(slot_type):
-	return deck[slot_type].cards.pop_back()
+func deal():
+	return deck.pop_back()

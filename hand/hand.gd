@@ -171,29 +171,18 @@ func adjust_hand():
 			tween_time, Tween.TRANS_QUAD, Tween.EASE_OUT)
 		tween.start()
 			
-func _deal_card(slot_type):
-	var new_card = Deck.deal(slot_type)
+func deal_card():
+	if $Cards.get_child_count() >= Deck.desired_count():
+		return false
+	var new_card = Deck.deal()
 	if new_card == null:
-		return
+		return false
 	var card = preload("res://hand/draggable_card.tscn").instance()
 	card.rotation = get_viewport().get_camera().rotation
-	card.slot_type = slot_type
 	card.become(new_card)
 	$Cards.add_child(card)
 	adjust_hand()
-
-func deal_card():
-	var counts = {}
-	for key in Game.SlotType.values():
-		counts[key] = 0
-		
-	for c in $Cards.get_children():
-		counts[c.slot_type] += 1
-	for key in counts.keys():
-		if counts[key] < Deck.desired_count(key):
-			_deal_card(key)
-			return true
-	return false
+	return true
 	
 func move_cards_vertically():
 	if (!is_mouse_in_card_area() && cards_up && (hover == null || dragging)) || (!Game.is_turn && cards_up):
@@ -218,7 +207,12 @@ func _process(delta):
 				if dragging.should_stay_on_board():
 					dragging.placed_at = snap_tile.get_index()
 					dragging.add_to_group("placed_tiles")
-					dragging.set_owner(self)
+					var t = dragging.global_transform
+					remove_child(dragging)
+					get_parent().get_parent().add_child(dragging)
+					dragging.set_owner(get_parent().get_parent())
+					dragging.global_transform = t
+					dragging.placement_animation()
 					dragging.get_node("Tween").resume_all()
 				else:
 					dragging.queue_free()

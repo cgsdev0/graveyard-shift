@@ -15,6 +15,11 @@ func show_error(show):
 	$Tile.visible = !show
 	$NoPlace.visible = show
 	
+func placement_animation():
+	match type:
+		Game.TileType.WALL:
+			$Tile.scale_up_walls()
+			
 func become(card):
 	if card == null:
 		type = Game.TileType.EMPTY
@@ -36,12 +41,6 @@ func should_stay_on_board():
 func _ready():
 	board = Game.get_board()
 	$Label3D.text = Game.TileType.keys()[type]
-	match slot_type:
-		Game.SlotType.ITEM:
-			pass
-		Game.SlotType.WALL:
-			$Tile.material.albedo_color = Color.rebeccapurple
-	pass
 
 func check_wall_bit(flag):
 	return wall_flags[flag]
@@ -65,7 +64,7 @@ func set_translation(glob):
 	global_translation = glob
 	
 func set_layer_mask(layer):
-	$Tile.set_layer_mask(layer)
+	$Tile.get_node("Plane").set_layer_mask(layer)
 	$Label3D.set_layer_mask(layer)
 	
 func _on_Area_input_event(camera, event, position, normal, shape_idx):
