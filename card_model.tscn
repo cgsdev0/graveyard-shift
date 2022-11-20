@@ -1,12 +1,13 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://shaders/card_shader_material.tres" type="Material" id=1]
 [ext_resource path="res://debug/untitled.glb" type="PackedScene" id=2]
 [ext_resource path="res://card_model.gd" type="Script" id=3]
 [ext_resource path="res://textures/cards/cardboard.jpg" type="Texture" id=4]
+[ext_resource path="res://textures/cards/back_of_card.png" type="Texture" id=5]
 
 [sub_resource type="SpatialMaterial" id=2]
-albedo_color = Color( 0, 0, 0, 1 )
+albedo_texture = ExtResource( 5 )
 
 [sub_resource type="SpatialMaterial" id=3]
 albedo_texture = ExtResource( 4 )
