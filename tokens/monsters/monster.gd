@@ -40,7 +40,6 @@ func take_step():
 			return
 	if path.size() <= 1 || get_path_cost(path) > 100:
 		return
-	print(astar._compute_cost(3, 4))
 	var u = path[0]
 	var v = path[1]
 	var dir = board.compute_direction(u, v)
