@@ -20,7 +20,9 @@ func show_error(show):
 func placement_animation():
 	match type:
 		Game.TileType.WALL, Game.TileType.BRIDGE:
-			$Tile.scale_up_walls()
+			$Tile.play_animation("scale_up_walls")
+		_:
+			$Tile.play_animation("fade_out_header")
 
 func recompute_wall_decals():
 	var bits = 0

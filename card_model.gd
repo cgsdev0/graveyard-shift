@@ -17,8 +17,8 @@ func enable_hearts(n):
 	for i in range(min(n, 5)):
 		$"%HeartContainer".get_child(i).visible = true
 		
-func scale_up_walls():
-	$AnimationPlayer.play("scale_up_walls")
+func play_animation(anim):
+	$AnimationPlayer.play(anim)
 
 func _set_header(v):
 	if $Plane.get_surface_material(0) == null:
