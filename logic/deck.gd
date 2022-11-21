@@ -43,7 +43,9 @@ func _ready():
 	on_reset()
 
 func on_reset():
-	deck = starting_deck.duplicate(true)
+	deck = []
+	for i in selected_deck:
+		deck.push_back(starting_deck[i].duplicate(true))
 	deck.shuffle()
 	
 func add_card(card):
