@@ -14,7 +14,6 @@ func set_debug_tint(v):
 	$Plane.get_surface_material(0).set_shader_param("has_debug_tint", true)
 
 func enable_hearts(n):
-	print("Enabling ", n)
 	for child in $"%HeartContainer".get_children():
 		child.visible = false
 	for i in range(min(n, $"%HeartContainer".get_child_count())):
@@ -23,6 +22,14 @@ func enable_hearts(n):
 		
 func play_animation(anim):
 	$AnimationPlayer.play(anim)
+	
+var original_decal1 = preload("res://textures/cards/walls/N.png")
+
+func override_decal(tex):
+	if tex == null:
+		tex = original_decal1
+	print(tex)
+	$Plane.get_surface_material(0).set_shader_param("decal_1", tex)
 
 func _set_header(v):
 	if $Plane.get_surface_material(0) == null:
