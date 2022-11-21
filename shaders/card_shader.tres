@@ -54,7 +54,7 @@ void fragment() {
 	}
 	
 	if (has_viewport) {
-	    vec4 tex = texture(label, vec2(UV.x, 1.0 - UV.y));
+	    vec4 tex = texture(label, vec2(UV.x, UV.y));
 		ALBEDO = mix(ALBEDO, tex.rgb, tex.a * fade_c);
 //		if (tex.a * fade_c > 0.0) {
 //			 ROUGHNESS = 1.0 - tex.a * fade_c;

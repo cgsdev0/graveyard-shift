@@ -14,8 +14,12 @@ func set_debug_tint(v):
 	$Plane.get_surface_material(0).set_shader_param("has_debug_tint", true)
 
 func enable_hearts(n):
-	for i in range(min(n, 5)):
+	print("Enabling ", n)
+	for child in $"%HeartContainer".get_children():
+		child.visible = false
+	for i in range(min(n, $"%HeartContainer".get_child_count())):
 		$"%HeartContainer".get_child(i).visible = true
+	$Viewport.render_target_update_mode = Viewport.UPDATE_ONCE
 		
 func play_animation(anim):
 	$AnimationPlayer.play(anim)
@@ -54,6 +58,7 @@ func _set_decal_v_offset(v):
 func set_text(action_cost, card_name):
 	$"%ActionCost".text = str(action_cost)
 	$"%CardName".text = str(card_name)
+	$Viewport.render_target_update_mode = Viewport.UPDATE_ONCE
 	
 func _ready():
 	$Plane.get_surface_material(0).set_shader_param("label", $Viewport.get_texture())

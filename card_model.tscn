@@ -72,6 +72,7 @@ tracks/2/keys = {
 [node name="untitled" instance=ExtResource( 2 )]
 script = ExtResource( 3 )
 header = 1.0
+decal_bits = 15
 decal_v_offset = 0.064
 
 [node name="Plane" parent="." index="0"]
@@ -93,7 +94,8 @@ transparent_bg = true
 handle_input_locally = false
 hdr = false
 usage = 0
-render_target_update_mode = 1
+render_target_v_flip = true
+render_target_update_mode = 3
 gui_disable_input = true
 
 [node name="Control2" type="Control" parent="Viewport" index="0"]
