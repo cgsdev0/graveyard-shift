@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://shop_card_3d.gd" type="Script" id=1]
+[ext_resource path="res://card_model.tscn" type="PackedScene" id=2]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.102684, 2.0857, 2.09552 )
+
+[node name="Spatial" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="Area2D" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Area2D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.136912, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="Card" parent="." instance=ExtResource( 2 )]
+__meta__ = {
+"_edit_pinned_properties_": [ "decal_bits", "header", "decal_scale", "decal_v_offset" ]
+}
+header = 1.0
+decal_bits = 0
+decal_scale = 1.0
+decal_v_offset = 0.0
+
+[connection signal="input_event" from="Area2D" to="." method="_on_Area2D_input_event"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_Area2D_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_Area2D_mouse_exited"]

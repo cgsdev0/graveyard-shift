@@ -29,6 +29,14 @@ var starting_deck = [
 
 var deck = starting_deck.duplicate(true)
 
+static func card_color(card):
+	match card.type:
+		Game.TileType.WALL:
+			if card.wall_flags.max() > 1:
+				return Color.aqua
+			return Color.blue
+	return Color.red
+	
 func _ready():
 	Game.connect("reset", self, "on_reset")
 	randomize()

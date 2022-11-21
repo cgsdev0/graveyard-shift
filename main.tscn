@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://board/board.gd" type="Script" id=1]
 [ext_resource path="res://hand/hand.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://hand/hand_viewport.gd" type="Script" id=7]
 [ext_resource path="res://hand/mouse.gd" type="Script" id=8]
 [ext_resource path="res://hand/resize_viewport.gd" type="Script" id=9]
+[ext_resource path="res://not_default_env.tres" type="Environment" id=10]
 
 [node name="Root" type="Node"]
 
@@ -68,6 +69,13 @@ script = ExtResource( 2 )
 script = ExtResource( 8 )
 
 [node name="Cards" type="Spatial" parent="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand"]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
+transform = Transform( 0.827896, 0.321863, -0.459339, -0.0582291, 0.863856, 0.500361, 0.557851, -0.3875, 0.733925, -2.03058, 1.91977, 1.96957 )
+light_energy = 0.5
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="GameView/Viewport/BoardViewport/Viewport"]
+environment = ExtResource( 10 )
 
 [node name="UI" parent="GameView/Viewport" instance=ExtResource( 4 )]
 unique_name_in_owner = true
