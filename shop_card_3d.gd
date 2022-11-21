@@ -6,9 +6,10 @@ var wall_flags = [0,0,0,0]
 
 func recompute_wall_decals():
 	var bits = 0
-	for i in range(wall_flags.size()):
-		if wall_flags[i]:
-			bits |= 1 << i
+	if Game.is_wall(card.type):
+		for i in range(wall_flags.size()):
+			if wall_flags[i]:
+				bits |= 1 << i
 	$Card.decal_bits = bits
 	
 func become(card):
@@ -17,12 +18,13 @@ func become(card):
 		return
 	$Card.set_text(str(card.ac), Game.TileType.keys()[card.type])
 	$Card.header_tint = Deck.card_color(card)
+	$Card.enable_hearts(0)
 	if Game.is_wall(card.type):
 		wall_flags = card.wall_flags
 		match card.type:
 			Game.TileType.WALL, Game.TileType.SECRET_DOOR:
 				$Card.enable_hearts(card.wall_flags.max())
-		recompute_wall_decals()
+	recompute_wall_decals()
 		
 
 var tween: Tween
