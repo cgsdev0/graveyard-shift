@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://shaders/card_shader_material.tres" type="Material" id=1]
 [ext_resource path="res://debug/untitled.glb" type="PackedScene" id=2]
@@ -14,6 +14,21 @@ albedo_texture = ExtResource( 5 )
 
 [sub_resource type="SpatialMaterial" id=3]
 albedo_texture = ExtResource( 4 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "fade_out_header"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:header")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.406126, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
 
 [sub_resource type="Animation" id=1]
 resource_name = "scale_up_walls"
@@ -56,6 +71,8 @@ tracks/2/keys = {
 
 [node name="untitled" instance=ExtResource( 2 )]
 script = ExtResource( 3 )
+header = 1.0
+decal_v_offset = 0.064
 
 [node name="Plane" parent="." index="0"]
 transform = Transform( 0.000142908, 1, 0.000535442, -2.09167, 6.85763e-05, -0.00211913, -0.00211917, -0.00025592, 2.09167, 0.198421, -0.007768, 0.0195606 )
@@ -67,6 +84,7 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
+anims/fade_out_header = SubResource( 4 )
 anims/scale_up_walls = SubResource( 1 )
 
 [node name="Viewport" type="Viewport" parent="." index="2"]
