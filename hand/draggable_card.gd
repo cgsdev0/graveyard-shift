@@ -34,10 +34,15 @@ func become(card):
 	if card == null:
 		type = Game.TileType.EMPTY
 		return
+	$Tile.set_text(str(card.ac), Game.TileType.keys()[card.type])
+	$Tile.header_tint = Deck.card_color(card)
 	ac = card.ac
 	type = card.type
 	if Game.is_wall(type):
 		wall_flags = card.wall_flags
+		match card.type:
+			Game.TileType.WALL, Game.TileType.SECRET_DOOR:
+				$Tile.enable_hearts(card.wall_flags.max())
 		recompute_wall_decals()
 
 			
@@ -51,7 +56,6 @@ func should_stay_on_board():
 	
 func _ready():
 	board = Game.get_board()
-	$Tile.set_text(str(card.ac), Game.TileType.keys()[type])
 	$Label3D.text = Game.TileType.keys()[type]
 
 func check_wall_bit(flag):

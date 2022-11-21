@@ -1,6 +1,7 @@
 tool
 extends Spatial
 
+export var header_tint: Color = Color.red setget _set_header_tint
 export var header = 0.0 setget _set_header
 export var decal_bits = 0 setget _set_decal_bits
 export var decal_scale = 1.0 setget _set_decal_scale
@@ -11,7 +12,11 @@ func set_debug_tint(v):
 		return
 	$Plane.get_surface_material(0).set_shader_param("debug_tint", v)
 	$Plane.get_surface_material(0).set_shader_param("has_debug_tint", true)
-	
+
+func enable_hearts(n):
+	for i in range(min(n, 5)):
+		$"%HeartContainer".get_child(i).visible = true
+		
 func scale_up_walls():
 	$AnimationPlayer.play("scale_up_walls")
 
@@ -20,6 +25,12 @@ func _set_header(v):
 		return
 	$Plane.get_surface_material(0).set_shader_param("fade_c", v)
 	header = v
+
+func _set_header_tint(v):
+	if $Plane.get_surface_material(0) == null:
+		return
+	$Plane.get_surface_material(0).set_shader_param("tint", v)
+	header_tint = v
 
 func _set_decal_bits(v):
 	if $Plane.get_surface_material(0) == null:

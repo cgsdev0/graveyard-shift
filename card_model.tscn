@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://shaders/card_shader_material.tres" type="Material" id=1]
 [ext_resource path="res://debug/untitled.glb" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://textures/cards/back_of_card.png" type="Texture" id=5]
 [ext_resource path="res://debug/card_label_font.tres" type="DynamicFont" id=6]
 [ext_resource path="res://textures/ui/gold.png" type="Texture" id=7]
+[ext_resource path="res://textures/ui/heart.png" type="Texture" id=8]
 
 [sub_resource type="SpatialMaterial" id=2]
 albedo_texture = ExtResource( 5 )
@@ -93,7 +94,64 @@ texture = ExtResource( 7 )
 expand = true
 stretch_mode = 6
 
-[node name="ActionCost" type="Label" parent="Viewport/Control2" index="1"]
+[node name="HeartContainer" type="HFlowContainer" parent="Viewport/Control2" index="1"]
+unique_name_in_owner = true
+anchor_left = 0.22
+anchor_top = 0.22
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="TextureRect2" type="TextureRect" parent="Viewport/Control2/HeartContainer" index="0"]
+visible = false
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_vertical = 3
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect3" type="TextureRect" parent="Viewport/Control2/HeartContainer" index="1"]
+visible = false
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_vertical = 3
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect4" type="TextureRect" parent="Viewport/Control2/HeartContainer" index="2"]
+visible = false
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_vertical = 3
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect5" type="TextureRect" parent="Viewport/Control2/HeartContainer" index="3"]
+visible = false
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_vertical = 3
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect6" type="TextureRect" parent="Viewport/Control2/HeartContainer" index="4"]
+visible = false
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_vertical = 3
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 6
+
+[node name="ActionCost" type="Label" parent="Viewport/Control2" index="2"]
 unique_name_in_owner = true
 anchor_left = 0.285
 anchor_top = 0.113
@@ -105,7 +163,7 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = ExtResource( 6 )
 text = "1"
 
-[node name="CardName" type="Label" parent="Viewport/Control2" index="2"]
+[node name="CardName" type="Label" parent="Viewport/Control2" index="3"]
 unique_name_in_owner = true
 anchor_top = 0.113
 anchor_bottom = 0.113

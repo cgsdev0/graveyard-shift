@@ -25,7 +25,7 @@ uniform bool has_viewport = false;
 
 void fragment() {
 	ALBEDO = texture(bg, UV).rgb;
-	// ROUGHNESS = 0.25;
+	ROUGHNESS = 0.6;
 	
 	if ((decal_bits & 1) > 0) {
 		vec4 color = texture(decal_1, UV * b_scale + vec2((1.0 - b_scale) / 2.0, (1.0 - b_scale) / 2.0 + v_offset * (1.0 - b_scale)));
@@ -56,6 +56,10 @@ void fragment() {
 	if (has_viewport) {
 	    vec4 tex = texture(label, vec2(UV.x, 1.0 - UV.y));
 		ALBEDO = mix(ALBEDO, tex.rgb, tex.a * fade_c);
+//		if (tex.a * fade_c > 0.0) {
+//			 ROUGHNESS = 1.0 - tex.a * fade_c;
+//			 METALLIC = 1.0 - tex.a * fade_c;
+//		}
 	}
 		
 	if (has_debug_tint) {
