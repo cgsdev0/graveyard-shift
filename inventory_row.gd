@@ -50,4 +50,6 @@ func _process(delta):
 
 func _on_MarginContainer_gui_input(event):
 	if event is InputEventMouseButton && event.pressed && event.button_index == 1:
+		if $"%CheckBox".disabled:
+			return
 		$"%CheckBox".pressed = !$"%CheckBox".pressed
