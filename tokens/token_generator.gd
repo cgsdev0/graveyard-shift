@@ -1,7 +1,7 @@
 class_name TokenGenerator
 extends Node2D
 
-var width = 0.2
+var width = 0.1
 export var scale_factor = 100.0
 
 
@@ -11,7 +11,7 @@ func to_vec3(v2):
 	
 func _find_png_paths() -> Array:
 	var png_paths := [] # accumulated png paths to return
-	var dir_queue := ["res://textures"] # directories remaining to be traversed
+	var dir_queue := ["res://textures/monsters/Spinner"] # directories remaining to be traversed
 	var dir: Directory # current directory being traversed
 
 	var file: String # current file being examined
@@ -95,35 +95,53 @@ func model_to_texture(path):
 	outline.push_back(outline[0])
 	var mdt = MeshDataTool.new()
 	mdt.create_from_surface(mi.mesh, 0)
-	
+	var st = SurfaceTool.new()
+	st.clear()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 	var w_off = Vector3(0, 0, width) / 2.0
 	for i in range(mdt.get_vertex_count()):
 		var vertex = mdt.get_vertex(i)
-		mdt.set_vertex(i, vertex / scale_factor - w_off)
-		mdt.set_vertex_uv(i, Vector2(vertex.x / $Sprite.texture.get_width() + 0.5, vertex.y  / $Sprite.texture.get_height() + 1.0))
+		st.add_uv(Vector2(vertex.x / $Sprite.texture.get_width() + 0.5, vertex.y  / $Sprite.texture.get_height() + 1.0))
+		st.add_vertex(vertex / scale_factor - w_off)
 	
 	mi.mesh.surface_remove(0)
-	mdt.commit_to_surface(mi.mesh)
+	st.generate_normals(false)
+	st.generate_tangents()
+	st.commit(mi.mesh)
 	
-	for i in range(mdt.get_vertex_count()):
-		var vertex = mdt.get_vertex(i)
-		mdt.set_vertex(i, vertex + w_off * 2.0)
-	mdt.commit_to_surface(mi.mesh)
+	st = SurfaceTool.new()
+	st.clear()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	for i in range(0, mdt.get_vertex_count(), 3):
+		var vertex = mdt.get_vertex(i + 2)
+		st.add_uv(Vector2(vertex.x / $Sprite.texture.get_width() + 0.5, vertex.y  / $Sprite.texture.get_height() + 1.0))
+		st.add_vertex(vertex / scale_factor + w_off)
+		vertex = mdt.get_vertex(i + 1)
+		st.add_uv(Vector2(vertex.x / $Sprite.texture.get_width() + 0.5, vertex.y  / $Sprite.texture.get_height() + 1.0))
+		st.add_vertex(vertex / scale_factor + w_off)
+		vertex = mdt.get_vertex(i)
+		st.add_uv(Vector2(vertex.x / $Sprite.texture.get_width() + 0.5, vertex.y  / $Sprite.texture.get_height() + 1.0))
+		st.add_vertex(vertex / scale_factor + w_off)
 	
-	var st = SurfaceTool.new()
+	st.generate_normals(true)
+	st.generate_tangents()
+	st.commit(mi.mesh)
+	
+	st = SurfaceTool.new()
 	st.clear()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 	for i in range(outline.size()):
 		if i + 1 >= outline.size():
 			break
 		
+		st.add_vertex(to_vec3(outline[i + 1]) / scale_factor - w_off)
+		st.add_vertex(to_vec3(outline[i]) / scale_factor + w_off)
 		st.add_vertex(to_vec3(outline[i]) / scale_factor - w_off)
-		st.add_vertex(to_vec3(outline[i]) / scale_factor + w_off)
 		st.add_vertex(to_vec3(outline[i + 1]) / scale_factor - w_off)
-		st.add_vertex(to_vec3(outline[i]) / scale_factor + w_off)
 		st.add_vertex(to_vec3(outline[i + 1]) / scale_factor + w_off)
-		st.add_vertex(to_vec3(outline[i + 1]) / scale_factor - w_off)
-	st.generate_normals()
+		st.add_vertex(to_vec3(outline[i]) / scale_factor + w_off)
+	st.generate_normals(true)
+	st.generate_tangents()
 	st.commit(mi.mesh)
 
 	mi.scale *= -1
