@@ -10,7 +10,6 @@ func _ready():
 	var mat = SpatialMaterial.new()
 	mat.albedo_color = self.albedo_color
 	mat.set_texture(SpatialMaterial.TEXTURE_ALBEDO, sprite_texture)
-	mat.params_cull_mode = SpatialMaterial.CULL_DISABLED
 	set_surface_material(0, mat)
 	set_surface_material(1, mat)
 	set_surface_material(2, mat)

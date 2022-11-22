@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 0.180392, 0.121569, 0.0666667, 1 )
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_unshaded = true
+albedo_color = Color( 3, 2, 0, 1 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="CSGBox" type="CSGBox" parent="."]
+width = 0.068051
+height = 0.544977
+depth = 0.0478131
+material = SubResource( 1 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGBox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00361156, 0.381138, -0.00532436 )
+width = 0.191516
+height = 0.29615
+depth = 0.187512
+material = SubResource( 2 )
+
+[node name="OmniLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.908548, 0 )
+light_color = Color( 0.921569, 0.921569, 0.921569, 1 )
+light_energy = 0.9
+omni_range = 3.0

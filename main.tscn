@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://board/board.gd" type="Script" id=1]
 [ext_resource path="res://hand/hand.gd" type="Script" id=2]
@@ -11,16 +11,146 @@
 [ext_resource path="res://hand/resize_viewport.gd" type="Script" id=9]
 [ext_resource path="res://not_default_env.tres" type="Environment" id=10]
 [ext_resource path="res://textures/cards/Card Back.png" type="Texture" id=11]
+[ext_resource path="res://lantern.tscn" type="PackedScene" id=12]
+
+[sub_resource type="ShaderMaterial" id=4]
 
 [sub_resource type="PlaneMesh" id=1]
 
 [sub_resource type="SpatialMaterial" id=2]
 albedo_texture = ExtResource( 11 )
 
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("GameView/Viewport/BoardViewport/Viewport/Level/DirectionalLight:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.1 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("GameView/Viewport/BoardViewport/Viewport/WorldEnvironment:environment:ambient_light_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.232, 0.2436, 0.58, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("GameView/Viewport/BoardViewport/Viewport/WorldEnvironment:environment:ambient_light_sky_contribution")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("GameView/Viewport/BoardViewport/Viewport/Level/DirectionalLight:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -21.0358, -56.3957, 12.5942 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("GameView/Viewport/BoardViewport/Viewport/WorldEnvironment:environment:ambient_light_energy")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.5 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "daytime"
+tracks/0/type = "value"
+tracks/0/path = NodePath("GameView/Viewport/BoardViewport/Viewport/Level/DirectionalLight:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.1, 0.5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("GameView/Viewport/BoardViewport/Viewport/WorldEnvironment:environment:ambient_light_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.232, 0.2436, 0.58, 1 ), Color( 0.439216, 0.439216, 0.439216, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("GameView/Viewport/BoardViewport/Viewport/WorldEnvironment:environment:ambient_light_sky_contribution")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.15 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("GameView/Viewport/BoardViewport/Viewport/Level/DirectionalLight:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( -21.0358, -56.3957, 12.5942 ), Vector3( -21.0358, 83.2203, 12.5942 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("GameView/Viewport/BoardViewport/Viewport/WorldEnvironment:environment:ambient_light_energy")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.5 ]
+}
+
 [node name="Root" type="Node"]
 
 [node name="GameView" type="ViewportContainer" parent="."]
 unique_name_in_owner = true
+material = SubResource( 4 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -77,13 +207,31 @@ script = ExtResource( 8 )
 [node name="Cards" type="Spatial" parent="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand"]
 
 [node name="DirectionalLight" type="DirectionalLight" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
-transform = Transform( 0.827896, 0.321863, -0.459339, -0.0582291, 0.863856, 0.500361, 0.557851, -0.3875, 0.733925, -2.03058, 1.91977, 2.38178 )
-light_energy = 0.5
+transform = Transform( 0.605325, 0.171092, -0.777374, 0.203513, 0.910899, 0.358951, 0.769523, -0.375488, 0.51657, -2.03058, 1.91977, 2.38178 )
+light_energy = 0.1
 
 [node name="CSGMesh" type="CSGMesh" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
 transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 20, 7.41679, 0, 3.07916 )
 mesh = SubResource( 1 )
 material = SubResource( 2 )
+
+[node name="Spatial2" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.633888, 0.177969, 2.69126 )
+
+[node name="Spatial4" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.97891, 0.177969, -0.768508 )
+
+[node name="Spatial5" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.27404, 0.229359, -0.630659 )
+
+[node name="Spatial6" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.324, 0.229359, 2.82323 )
+
+[node name="Spatial7" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2657, 0.229359, 8.59867 )
+
+[node name="Spatial3" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.50863, 0.177969, 7.28031 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="GameView/Viewport/BoardViewport/Viewport"]
 environment = ExtResource( 10 )
@@ -111,3 +259,7 @@ cull_mask = 2
 fov = 20.0
 size = 15.0
 script = ExtResource( 5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 5 )
+anims/daytime = SubResource( 6 )
