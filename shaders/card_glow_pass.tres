@@ -1,0 +1,19 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type spatial;
+render_mode cull_back, unshaded;
+
+uniform bool enable = false;
+uniform float glow_adjust = 0.0;
+
+void vertex() {
+	VERTEX *= 0.95 + clamp(glow_adjust, 0.0, 0.1);
+	VERTEX.y *= -1.0;
+	VERTEX.y -= 0.1;
+}
+
+void fragment() {
+	ALBEDO = vec3(0.2, 0.9, 1.0);
+	ALPHA = sin(UV.x * 8.0 + UV.y * 11.0 + TIME * 4.0) / 8.0 + 1.9 + sin(TIME) * 0.15;
+}"

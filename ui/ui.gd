@@ -84,4 +84,4 @@ func get_right_bar():
 	return $"%RightBar"
 
 func _on_OpenShopButton_pressed():
-	get_tree().change_scene("res://shop.tscn")
+	Game.emit_signal("change_scene", "res://shop.tscn")

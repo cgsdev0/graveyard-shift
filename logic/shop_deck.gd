@@ -71,3 +71,8 @@ func on_hard_reset():
 
 func deal(i):
 	return deck[i].pop_back()
+
+func deal_treasure():
+	var card = treasure_deck.pop_back().duplicate(true)
+	card.treasure = true
+	return card

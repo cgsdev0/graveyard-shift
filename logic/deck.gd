@@ -29,6 +29,8 @@ var selected_deck = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
 var deck = starting_deck.duplicate(true)
 
+var pending_treasure_card = null #{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 }# null
+
 static func card_color(card):
 	match card.type:
 		Game.TileType.WALL:

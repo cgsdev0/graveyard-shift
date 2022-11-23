@@ -224,3 +224,7 @@ signal prep_new_turn
 signal deal_new_turn
 signal start_new_turn
 signal end_turn
+
+signal accept_treasure
+signal change_scene(path)
+signal soft_reset
