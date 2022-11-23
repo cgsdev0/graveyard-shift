@@ -36,7 +36,7 @@ func become(card):
 	if card == null:
 		type = Game.TileType.EMPTY
 		return
-	$Tile.set_text(str(card.ac), Game.TileType.keys()[card.type])
+	$Tile.set_text(str(card.ac), Game.title_card(card))
 	$Tile.header_tint = Deck.card_color(card)
 	ac = card.ac
 	type = card.type

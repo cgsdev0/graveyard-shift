@@ -43,7 +43,6 @@ size_flags_vertical = 3
 unique_name_in_owner = true
 margin_right = 24.0
 margin_bottom = 32.0
-mouse_filter = 1
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
 unique_name_in_owner = true

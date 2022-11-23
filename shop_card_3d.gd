@@ -27,7 +27,7 @@ func become(card):
 	self.card = card
 	if card == null:
 		return
-	$Card.set_text(str(card.ac), Game.TileType.keys()[card.type])
+	$Card.set_text(str(card.ac), Game.title_card(card))
 	$Card.header_tint = Deck.card_color(card)
 	$Card.enable_hearts(0)
 	if Game.is_wall(card.type):
