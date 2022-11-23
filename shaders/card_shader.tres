@@ -28,6 +28,7 @@ void fragment() {
 	// glass effect ???
 	// ALPHA = 0.2;
 	ROUGHNESS = 0.6;
+	// ALPHA = 1.0;
 	
 	if ((decal_bits & 1) > 0) {
 		vec4 color = texture(decal_1, UV * b_scale + vec2((1.0 - b_scale) / 2.0, (1.0 - b_scale) / 2.0 + v_offset * (1.0 - b_scale)));

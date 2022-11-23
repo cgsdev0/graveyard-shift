@@ -1,3 +1,4 @@
+class_name ShopCard3D
 extends Spatial
 
 var follow_node
@@ -47,6 +48,9 @@ func _ready():
 	pass
 
 func _process(delta):
+	do_process(delta)
+	
+func do_process(delta):
 	var cam = get_parent() as Camera
 	global_translation = cam.project_position(follow_node.rect_global_position + follow_node.rect_size / 2.0, 20.0)
 	var pos1 = cam.unproject_position(global_translation)

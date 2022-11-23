@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://ui/font/secret_society_large.tres" type="DynamicFont" id=1]
 [ext_resource path="res://ui/span_limiter.gd" type="Script" id=2]
@@ -10,10 +10,26 @@
 [ext_resource path="res://inventory.gd" type="Script" id=11]
 [ext_resource path="res://inventory_skip_button.gd" type="Script" id=12]
 
+[sub_resource type="Animation" id=1]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Container:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [node name="Node" type="Node"]
 script = ExtResource( 11 )
 
 [node name="Container" type="Container" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 1
@@ -33,9 +49,9 @@ margin_right = 800.0
 margin_bottom = 74.0
 
 [node name="Label2" type="Label" parent="Container/VBoxContainer/MarginContainer2"]
-margin_left = 12.0
+margin_left = 16.0
 margin_top = 8.0
-margin_right = 788.0
+margin_right = 784.0
 margin_bottom = 66.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 1 )
@@ -44,9 +60,9 @@ align = 1
 valign = 1
 
 [node name="SkipButton" type="Button" parent="Container/VBoxContainer/MarginContainer2"]
-margin_left = 648.0
+margin_left = 644.0
 margin_top = 8.0
-margin_right = 788.0
+margin_right = 784.0
 margin_bottom = 55.0
 rect_min_size = Vector2( 140, 47 )
 size_flags_horizontal = 8
@@ -62,22 +78,22 @@ mouse_filter = 1
 size_flags_vertical = 3
 
 [node name="Cards" type="HBoxContainer" parent="Container/VBoxContainer/MarginContainer"]
-margin_left = 12.0
+margin_left = 16.0
 margin_top = 8.0
-margin_right = 788.0
+margin_right = 784.0
 margin_bottom = 510.0
 size_flags_vertical = 3
 custom_constants/separation = 22
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Container/VBoxContainer/MarginContainer/Cards"]
-margin_right = 293.0
+margin_right = 290.0
 margin_bottom = 502.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="DeckLabel" type="Label" parent="Container/VBoxContainer/MarginContainer/Cards/VBoxContainer"]
 unique_name_in_owner = true
-margin_right = 293.0
+margin_right = 290.0
 margin_bottom = 47.0
 custom_fonts/font = ExtResource( 4 )
 text = "10 of 12 cards"
@@ -85,14 +101,14 @@ align = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="Container/VBoxContainer/MarginContainer/Cards/VBoxContainer"]
 margin_top = 55.0
-margin_right = 293.0
+margin_right = 290.0
 margin_bottom = 502.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ItemList" type="ScrollContainer" parent="Container/VBoxContainer/MarginContainer/Cards/VBoxContainer/PanelContainer"]
 margin_top = 10.0
-margin_right = 293.0
+margin_right = 290.0
 margin_bottom = 437.0
 mouse_filter = 1
 size_flags_horizontal = 3
@@ -100,20 +116,20 @@ size_flags_vertical = 11
 script = ExtResource( 3 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Container/VBoxContainer/MarginContainer/Cards/VBoxContainer/PanelContainer/ItemList"]
-margin_right = 293.0
+margin_right = 290.0
 size_flags_horizontal = 3
 custom_constants/separation = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Container/VBoxContainer/MarginContainer/Cards"]
-margin_left = 315.0
-margin_right = 776.0
+margin_left = 312.0
+margin_right = 768.0
 margin_bottom = 502.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 1.57
 
 [node name="MarginContainer" type="MarginContainer" parent="Container/VBoxContainer/MarginContainer/Cards/VBoxContainer2"]
-margin_right = 461.0
+margin_right = 456.0
 margin_bottom = 284.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -122,9 +138,9 @@ custom_constants/margin_bottom = 12
 
 [node name="PreviewTarget" type="TextureRect" parent="Container/VBoxContainer/MarginContainer/Cards/VBoxContainer2/MarginContainer"]
 unique_name_in_owner = true
-margin_left = 12.0
+margin_left = 16.0
 margin_top = 24.0
-margin_right = 449.0
+margin_right = 440.0
 margin_bottom = 272.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -134,14 +150,14 @@ stretch_mode = 6
 
 [node name="PanelContainer2" type="PanelContainer" parent="Container/VBoxContainer/MarginContainer/Cards/VBoxContainer2"]
 margin_top = 292.0
-margin_right = 461.0
+margin_right = 456.0
 margin_bottom = 502.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 1.92
 
 [node name="MarginContainer" type="MarginContainer" parent="Container/VBoxContainer/MarginContainer/Cards/VBoxContainer2/PanelContainer2"]
 margin_top = 10.0
-margin_right = 461.0
+margin_right = 456.0
 margin_bottom = 200.0
 custom_constants/margin_right = 24
 custom_constants/margin_top = 12
@@ -151,12 +167,12 @@ custom_constants/margin_bottom = 0
 [node name="VBoxContainer" type="VBoxContainer" parent="Container/VBoxContainer/MarginContainer/Cards/VBoxContainer2/PanelContainer2/MarginContainer"]
 margin_left = 24.0
 margin_top = 12.0
-margin_right = 437.0
+margin_right = 432.0
 margin_bottom = 190.0
 
 [node name="Title" type="Label" parent="Container/VBoxContainer/MarginContainer/Cards/VBoxContainer2/PanelContainer2/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-margin_right = 413.0
+margin_right = 408.0
 margin_bottom = 47.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
@@ -167,7 +183,7 @@ autowrap = true
 
 [node name="MarginContainer" type="MarginContainer" parent="Container/VBoxContainer/MarginContainer/Cards/VBoxContainer2/PanelContainer2/MarginContainer/VBoxContainer"]
 margin_top = 55.0
-margin_right = 413.0
+margin_right = 408.0
 margin_bottom = 118.0
 custom_constants/margin_right = 0
 custom_constants/margin_top = 10
@@ -177,7 +193,7 @@ custom_constants/margin_bottom = 10
 [node name="Description" type="Label" parent="Container/VBoxContainer/MarginContainer/Cards/VBoxContainer2/PanelContainer2/MarginContainer/VBoxContainer/MarginContainer"]
 unique_name_in_owner = true
 margin_top = 10.0
-margin_right = 413.0
+margin_right = 408.0
 margin_bottom = 53.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 3
@@ -188,7 +204,7 @@ max_lines_visible = 2
 [node name="Lore" type="Label" parent="Container/VBoxContainer/MarginContainer/Cards/VBoxContainer2/PanelContainer2/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 margin_top = 126.0
-margin_right = 413.0
+margin_right = 408.0
 margin_bottom = 178.0
 rect_min_size = Vector2( 0, 52 )
 size_flags_horizontal = 3
@@ -197,5 +213,8 @@ text = "Who knew monsters were weak to cinderblock?"
 align = 1
 autowrap = true
 max_lines_visible = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/fade_in = SubResource( 1 )
 
 [connection signal="pressed" from="Container/VBoxContainer/MarginContainer2/SkipButton" to="." method="_on_SkipButton_pressed"]
