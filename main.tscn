@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://board/board.gd" type="Script" id=1]
 [ext_resource path="res://hand/hand.gd" type="Script" id=2]
@@ -11,8 +11,7 @@
 [ext_resource path="res://hand/resize_viewport.gd" type="Script" id=9]
 [ext_resource path="res://not_default_env.tres" type="Environment" id=10]
 [ext_resource path="res://textures/cards/Card Back.png" type="Texture" id=11]
-[ext_resource path="res://lantern.tscn" type="PackedScene" id=12]
-[ext_resource path="res://3x3_fence.tscn" type="PackedScene" id=13]
+[ext_resource path="res://daylight_animation.gd" type="Script" id=12]
 
 [sub_resource type="ShaderMaterial" id=4]
 
@@ -86,6 +85,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id=6]
 resource_name = "daytime"
+length = 2.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("GameView/Viewport/BoardViewport/Viewport/Level/DirectionalLight:light_energy")
 tracks/0/interp = 1
@@ -158,7 +158,7 @@ mouse_filter = 2
 stretch = true
 
 [node name="Viewport" type="Viewport" parent="GameView"]
-size = Vector2( 800, 450 )
+size = Vector2( 800, 600 )
 handle_input_locally = false
 hdr = false
 disable_3d = true
@@ -174,7 +174,7 @@ mouse_filter = 2
 stretch = true
 
 [node name="Viewport" type="Viewport" parent="GameView/Viewport/BoardViewport"]
-size = Vector2( 800, 450 )
+size = Vector2( 800, 600 )
 handle_input_locally = false
 msaa = 1
 render_target_update_mode = 3
@@ -213,36 +213,9 @@ transform = Transform( 0.605325, 0.171092, -0.777374, 0.203513, 0.910899, 0.3589
 light_energy = 0.1
 
 [node name="CSGMesh" type="CSGMesh" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
-transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 20, 7.41679, 0, 3.07916 )
+transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 20, 7.417, 0.13, 3.079 )
 mesh = SubResource( 1 )
 material = SubResource( 2 )
-
-[node name="Spatial2" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.633888, 0.177969, 2.69126 )
-visible = false
-
-[node name="Spatial4" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.97891, 0.177969, -0.768508 )
-visible = false
-
-[node name="Spatial5" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.27404, 0.229359, -0.630659 )
-visible = false
-
-[node name="Spatial6" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.324, 0.229359, 2.82323 )
-visible = false
-
-[node name="Spatial7" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2657, 0.229359, 8.59867 )
-visible = false
-
-[node name="Spatial3" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.50863, 0.177969, 7.28031 )
-visible = false
-
-[node name="Level" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 13 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.99, 0, 0.99 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="GameView/Viewport/BoardViewport/Viewport"]
 environment = ExtResource( 10 )
@@ -258,7 +231,7 @@ stretch = true
 script = ExtResource( 7 )
 
 [node name="Viewport" type="Viewport" parent="GameView/Viewport/HandViewport"]
-size = Vector2( 800, 450 )
+size = Vector2( 800, 600 )
 transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 3
@@ -275,3 +248,4 @@ script = ExtResource( 5 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 5 )
 anims/daytime = SubResource( 6 )
+script = ExtResource( 12 )

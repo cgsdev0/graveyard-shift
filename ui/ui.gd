@@ -15,8 +15,8 @@ func start_new_turn():
 	yield($"%TurnsProgress/Tween", "tween_completed")
 	if Game.turns == 0:
 		Game.emit_signal("you_win")
-		# TODO: animate
-		$YouWin.visible = true
+		yield(Game, "daylight_animation_done")
+		$YouWin/AnimationPlayer.play("victory")
 	else:
 		Game.emit_signal("deal_new_turn")
 	
@@ -44,6 +44,7 @@ func on_resize():
 	for type in theme.get_font_types():
 		for font in theme.get_font_list(type):
 			var f = theme.get_font(font, type)
+			print(font," ", type, " ", f)
 			f.size = int(Game.original_theme.get_font(font, type).size * scale_factor)
 	
 	# this should really be an engine feature

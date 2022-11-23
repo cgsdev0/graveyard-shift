@@ -37,6 +37,9 @@ func _ready():
 		new_3d_card.global_translation = Vector3.ZERO
 		
 
+func get_shop_cam():
+	return $"%ShopCamera"
+	
 func _on_SkipButton_pressed():
 #	Game.level += 1
 #	Game.emit_signal("reset")
@@ -45,5 +48,6 @@ func _on_SkipButton_pressed():
 	for child in $"%ShopCamera".get_children():
 		$"%ShopCamera".remove_child(child)
 	var inventory = preload("res://inventory.tscn").instance()
+	inventory.controller = self
 	$Shop.add_child(inventory)
 	# get_tree().change_scene("res://inventory.tscn")

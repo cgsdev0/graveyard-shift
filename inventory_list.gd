@@ -18,7 +18,7 @@ func _ready():
 	preview = preload("res://shop_card_3d.tscn").instance()
 	preview.follow_node = $"%PreviewTarget"
 	preview.become(Deck.starting_deck[0])
-	$"%ShopCamera".add_child(preview)
+	get_owner().controller.get_shop_cam().add_child(preview)
 	preview.global_rotation = Vector3.ZERO
 	preview.global_translation = Vector3.ZERO
 
@@ -30,7 +30,7 @@ func on_toggle_row(state, index):
 		Deck.selected_deck.erase(index)
 
 func _process(delta):
-	$"%DeckLabel".text = str(Deck.selected_deck.size()) + " / " + str(Deck.max_deck_size) + " cards in deck"
+	$"%DeckLabel".text = str(Deck.selected_deck.size()) + " of " + str(Deck.max_deck_size) + " cards"
 	
 func on_hover_row(row):
 	preview.become(row.card)

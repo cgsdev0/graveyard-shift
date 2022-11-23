@@ -1,19 +1,21 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://textures/cards/Card Back.png" type="Texture" id=1]
-[ext_resource path="res://not_default_env.tres" type="Environment" id=3]
-[ext_resource path="res://hand/follow_main_camera.gd" type="Script" id=5]
-[ext_resource path="res://logic/coordinator.gd" type="Script" id=6]
-[ext_resource path="res://hand/hand_viewport.gd" type="Script" id=7]
-[ext_resource path="res://board/board.gd" type="Script" id=8]
-[ext_resource path="res://hand/hand.gd" type="Script" id=10]
-[ext_resource path="res://debug/camera.gd" type="Script" id=11]
-[ext_resource path="res://3x3_fence.tscn" type="PackedScene" id=12]
-[ext_resource path="res://ui/UI.tscn" type="PackedScene" id=13]
-[ext_resource path="res://board/tile.tscn" type="PackedScene" id=14]
-[ext_resource path="res://hand/resize_viewport.gd" type="Script" id=15]
-[ext_resource path="res://hand/mouse.gd" type="Script" id=16]
-[ext_resource path="res://lantern.tscn" type="PackedScene" id=17]
+[ext_resource path="res://not_default_env.tres" type="Environment" id=2]
+[ext_resource path="res://hand/follow_main_camera.gd" type="Script" id=3]
+[ext_resource path="res://logic/coordinator.gd" type="Script" id=4]
+[ext_resource path="res://debug/camera.gd" type="Script" id=5]
+[ext_resource path="res://ui/ui.gd" type="Script" id=6]
+[ext_resource path="res://daylight_animation.gd" type="Script" id=7]
+[ext_resource path="res://hand/hand_viewport.gd" type="Script" id=8]
+[ext_resource path="res://hand/resize_viewport.gd" type="Script" id=9]
+[ext_resource path="res://hand/mouse.gd" type="Script" id=10]
+[ext_resource path="res://board/board.gd" type="Script" id=11]
+[ext_resource path="res://hand/hand.gd" type="Script" id=12]
+[ext_resource path="res://board/tiles/tile.gd" type="Script" id=13]
+[ext_resource path="res://ui/ui.theme" type="Theme" id=14]
+[ext_resource path="res://ui/UI.tscn" type="PackedScene" id=15]
+[ext_resource path="res://board/tile.tscn" type="PackedScene" id=16]
 
 [sub_resource type="ShaderMaterial" id=4]
 
@@ -87,6 +89,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id=6]
 resource_name = "daytime"
+length = 2.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("GameView/Viewport/BoardViewport/Viewport/Level/DirectionalLight:light_energy")
 tracks/0/interp = 1
@@ -148,7 +151,7 @@ tracks/4/keys = {
 "values": [ 1.5 ]
 }
 
-[node name="Root2" type="Node"]
+[node name="Root" type="Node"]
 
 [node name="GameView" type="ViewportContainer" parent="."]
 unique_name_in_owner = true
@@ -159,14 +162,14 @@ mouse_filter = 2
 stretch = true
 
 [node name="Viewport" type="Viewport" parent="GameView"]
-size = Vector2( 800, 450 )
+size = Vector2( 1920, 1017 )
 handle_input_locally = false
 hdr = false
 disable_3d = true
 usage = 1
 debug_draw = 1
 render_target_update_mode = 3
-script = ExtResource( 15 )
+script = ExtResource( 9 )
 
 [node name="BoardViewport" type="ViewportContainer" parent="GameView/Viewport"]
 anchor_right = 1.0
@@ -176,99 +179,161 @@ mouse_filter = 2
 stretch = true
 
 [node name="Viewport" type="Viewport" parent="GameView/Viewport/BoardViewport"]
-size = Vector2( 1222, 450 )
+size = Vector2( 2342, 1017 )
 handle_input_locally = false
 msaa = 1
 render_target_update_mode = 3
 physics_object_picking = true
 
 [node name="Level" type="Spatial" parent="GameView/Viewport/BoardViewport/Viewport"]
-script = ExtResource( 6 )
+script = ExtResource( 4 )
 
 [node name="Board" type="Spatial" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
 unique_name_in_owner = true
-script = ExtResource( 8 )
+script = ExtResource( 11 )
 rows = 4
 cols = 5
 spacing = 0.2
+size = Vector2( 1.98, 1.98 )
+tile_height = 0.2
 
-[node name="Tile" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+[node name="Tile" type="Area" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 16 )]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 13 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@54" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+[node name="@Tile@292" type="Area" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.18, 0, 0 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 13 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@55" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+[node name="@Tile@293" type="Area" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.36, 0, 0 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 13 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@56" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+[node name="@Tile@294" type="Area" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.54, 0, 0 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 13 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@57" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+[node name="@Tile@295" type="Area" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.72, 0, 0 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 13 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@58" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+[node name="@Tile@296" type="Area" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.18 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 13 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@59" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+[node name="@Tile@297" type="Area" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.18, 0, 2.18 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 13 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@60" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+[node name="@Tile@298" type="Area" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.36, 0, 2.18 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 13 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@61" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+[node name="@Tile@299" type="Area" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.54, 0, 2.18 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 13 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@62" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+[node name="@Tile@300" type="Area" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.72, 0, 2.18 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 13 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@63" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+[node name="@Tile@301" type="Area" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.36 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 13 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@64" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+[node name="@Tile@302" type="Area" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.18, 0, 4.36 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 13 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@65" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+[node name="@Tile@303" type="Area" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.36, 0, 4.36 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 13 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@66" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+[node name="@Tile@304" type="Area" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.54, 0, 4.36 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 13 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@67" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+[node name="@Tile@305" type="Area" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.72, 0, 4.36 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 13 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@68" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+[node name="@Tile@306" type="Area" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.54 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 13 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@69" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+[node name="@Tile@307" type="Area" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.18, 0, 6.54 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 13 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@70" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+[node name="@Tile@308" type="Area" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.36, 0, 6.54 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 13 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@71" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+[node name="@Tile@309" type="Area" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.54, 0, 6.54 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 13 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@72" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+[node name="@Tile@310" type="Area" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.72, 0, 6.54 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 13 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
 [node name="Camera" type="Camera" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
@@ -278,15 +343,18 @@ cull_mask = 1048573
 current = true
 fov = 20.0
 size = 15.0
-script = ExtResource( 11 )
+script = ExtResource( 5 )
+sensitivity = 0.25
 
 [node name="Hand" type="Spatial" parent="GameView/Viewport/BoardViewport/Viewport/Level/Camera"]
 transform = Transform( 1, 0, 0, 0, 0.766044, -0.642788, 0, 0.642788, 0.766044, -5, 3.72843, -27.1569 )
-script = ExtResource( 10 )
+script = ExtResource( 12 )
+tween_time = 0.2
+hold_dist = 0.5
 
 [node name="Mouse" type="Spatial" parent="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.25456, 4.77307, 12.5173 )
-script = ExtResource( 16 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.47967, 5.79761, 11.6576 )
+script = ExtResource( 10 )
 
 [node name="Cards" type="Spatial" parent="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand"]
 
@@ -295,42 +363,20 @@ transform = Transform( 0.605325, 0.171092, -0.777374, 0.203513, 0.910899, 0.3589
 light_energy = 0.1
 
 [node name="CSGMesh" type="CSGMesh" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
-transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 20, 7.41679, 0, 3.07916 )
+transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 20, 7.417, 0.13, 3.079 )
 mesh = SubResource( 1 )
 material = SubResource( 2 )
 
-[node name="Spatial2" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 17 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.633888, 0.177969, 2.69126 )
-visible = false
-
-[node name="Spatial4" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 17 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.97891, 0.177969, -0.768508 )
-visible = false
-
-[node name="Spatial5" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 17 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.27404, 0.229359, -0.630659 )
-visible = false
-
-[node name="Spatial6" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 17 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.324, 0.229359, 2.82323 )
-visible = false
-
-[node name="Spatial7" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 17 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2657, 0.229359, 8.59867 )
-visible = false
-
-[node name="Spatial3" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 17 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.50863, 0.177969, 7.28031 )
-visible = false
-
-[node name="Level" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.99, 0, 0.99 )
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="GameView/Viewport/BoardViewport/Viewport"]
-environment = ExtResource( 3 )
+environment = ExtResource( 2 )
 
-[node name="UI" parent="GameView/Viewport" instance=ExtResource( 13 )]
+[node name="UI" type="Control" parent="GameView/Viewport" instance=ExtResource( 15 )]
 unique_name_in_owner = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = ExtResource( 14 )
+script = ExtResource( 6 )
 
 [node name="HandViewport" type="ViewportContainer" parent="GameView/Viewport"]
 anchor_right = 1.0
@@ -338,10 +384,10 @@ anchor_bottom = 1.0
 margin_left = -422.4
 mouse_filter = 2
 stretch = true
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [node name="Viewport" type="Viewport" parent="GameView/Viewport/HandViewport"]
-size = Vector2( 1222, 450 )
+size = Vector2( 2342, 1017 )
 transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 3
@@ -353,8 +399,22 @@ cull_mask = 2
 current = true
 fov = 20.0
 size = 15.0
-script = ExtResource( 5 )
+script = ExtResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 5 )
 anims/daytime = SubResource( 6 )
+script = ExtResource( 7 )
+
+[connection signal="input_event" from="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand/Cards/@Area@345" to="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand/Cards/@Area@345" method="_on_Area_input_event"]
+[connection signal="mouse_entered" from="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand/Cards/@Area@345" to="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand/Cards/@Area@345" method="_on_Area_mouse_entered"]
+[connection signal="mouse_exited" from="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand/Cards/@Area@345" to="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand/Cards/@Area@345" method="_on_Area_mouse_exited"]
+[connection signal="input_event" from="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand/Cards/@Area@346" to="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand/Cards/@Area@346" method="_on_Area_input_event"]
+[connection signal="mouse_entered" from="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand/Cards/@Area@346" to="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand/Cards/@Area@346" method="_on_Area_mouse_entered"]
+[connection signal="mouse_exited" from="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand/Cards/@Area@346" to="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand/Cards/@Area@346" method="_on_Area_mouse_exited"]
+[connection signal="input_event" from="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand/Cards/@Area@348" to="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand/Cards/@Area@348" method="_on_Area_input_event"]
+[connection signal="mouse_entered" from="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand/Cards/@Area@348" to="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand/Cards/@Area@348" method="_on_Area_mouse_entered"]
+[connection signal="mouse_exited" from="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand/Cards/@Area@348" to="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand/Cards/@Area@348" method="_on_Area_mouse_exited"]
+[connection signal="input_event" from="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand/Cards/Area" to="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand/Cards/Area" method="_on_Area_input_event"]
+[connection signal="mouse_entered" from="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand/Cards/Area" to="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand/Cards/Area" method="_on_Area_mouse_entered"]
+[connection signal="mouse_exited" from="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand/Cards/Area" to="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand/Cards/Area" method="_on_Area_mouse_exited"]

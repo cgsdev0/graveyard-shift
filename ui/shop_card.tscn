@@ -4,7 +4,7 @@
 [ext_resource path="res://ui/shop_card.gd" type="Script" id=2]
 [ext_resource path="res://textures/ui/gold.png" type="Texture" id=3]
 [ext_resource path="res://ui/font/secret_society_med.tres" type="DynamicFont" id=4]
-[ext_resource path="res://debug/prototype_dynamic_font.tres" type="DynamicFont" id=5]
+[ext_resource path="res://debug/prototype_dynamic_font_nonscaling.tres" type="DynamicFont" id=5]
 
 [node name="MarginContainer" type="PanelContainer"]
 anchor_right = 1.0

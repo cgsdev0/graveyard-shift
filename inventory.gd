@@ -1,12 +1,6 @@
-extends Control
+extends Node
 
-
-func _ready():
-	var merged_shop_theme = Theme.new()
-	merged_shop_theme.merge_with(Game.original_theme)
-	merged_shop_theme.merge_with($Shop.theme)
-	$Shop.theme = merged_shop_theme
-
+var controller
 
 func _on_SkipButton_pressed():
 	Game.level += 1
