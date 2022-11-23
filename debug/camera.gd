@@ -33,7 +33,7 @@ func _ready():
 	global_translation.z += camera.zoom * cos(deg2rad(camera.angle))
 	global_translation.y += camera.zoom * sin(deg2rad(camera.angle))
 	look_at($"%Board".get_middle(), Vector3.UP)
-	translate_object_local(Vector3(0, - sqrt(camera.zoom) / 5, 0))
+	translate_object_local(Vector3(0, - sqrt(camera.zoom) / 5 + camera.up, 0))
 	
 func _input(event):
 	# Receives mouse motion
@@ -73,6 +73,9 @@ func _input(event):
 # Updates mouselook and movement every frame
 func _process(delta):
 	if Input.is_action_just_pressed("restart"):
+		var packed_scene = PackedScene.new()
+		packed_scene.pack(get_tree().get_current_scene())
+		ResourceSaver.save("res://saved_scene.tscn", packed_scene)
 		print(self.global_translation)
 		print(self.global_rotation)
 	_update_mouselook()

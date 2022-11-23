@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://models/Column.glb" type="PackedScene" id=1]
+[ext_resource path="res://models/Picket fence (1).glb" type="PackedScene" id=9]
+
+[node name="Level" type="Spatial"]
+
+[node name="Spatial" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5 )
+
+[node name="Picket fence (1)" parent="Spatial" instance=ExtResource( 9 )]
+transform = Transform( -4.37114e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, -4.37114e-09, -1.50579, -0.00170994, 4.01365 )
+
+[node name="Picket fence (1)11" parent="Spatial" instance=ExtResource( 9 )]
+transform = Transform( -4.37114e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, -4.37114e-09, -1.50579, -0.00170994, 6.0183 )
+
+[node name="Column" parent="Spatial/Picket fence (1)11" instance=ExtResource( 1 )]
+transform = Transform( 4, 0, 7.57912e-14, 0, 4, 0, -7.57912e-14, 0, 4, 74.8124, 0, -0.983823 )
+
+[node name="Column2" parent="Spatial/Picket fence (1)11" instance=ExtResource( 1 )]
+transform = Transform( 4, 0, 1.13687e-13, 0, 4, 0, -1.13687e-13, 0, 4, 74.812, 0, 74.525 )
+
+[node name="Column3" parent="Spatial/Picket fence (1)11" instance=ExtResource( 1 )]
+transform = Transform( 4, 0, 1.13687e-13, 0, 4, 0, -1.13687e-13, 0, 4, 74.812, 0, 36.8 )
+
+[node name="Picket fence (1)2" parent="Spatial" instance=ExtResource( 9 )]
+transform = Transform( -4.37114e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, -4.37114e-09, -1.50579, -0.00170994, 1.40124 )
+
+[node name="Picket fence (1)3" parent="Spatial" instance=ExtResource( 9 )]
+transform = Transform( -4.37114e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, -4.37114e-09, -1.50579, -0.00170994, -0.197056 )
+
+[node name="Picket fence (1)4" parent="Spatial" instance=ExtResource( 9 )]
+transform = Transform( -0.1, 0, -8.74228e-09, 0, 0.1, 0, 8.74228e-09, 0, -0.1, -0.310521, -0.00170994, -1.63916 )
+
+[node name="Picket fence (1)5" parent="Spatial" instance=ExtResource( 9 )]
+transform = Transform( -0.1, 0, -8.74228e-09, 0, 0.1, 0, 8.74228e-09, 0, -0.1, 2.25776, -0.00170994, -1.63916 )
+
+[node name="Picket fence (1)6" parent="Spatial" instance=ExtResource( 9 )]
+transform = Transform( -0.1, 0, -8.74228e-09, 0, 0.1, 0, 8.74228e-09, 0, -0.1, 4.65715, -0.00170994, -1.63916 )
+
+[node name="Picket fence (1)7" parent="Spatial" instance=ExtResource( 9 )]
+transform = Transform( -4.37114e-09, 0, -0.1, 0, 0.1, 0, 0.1, 0, -4.37114e-09, 5.82984, -0.00170994, -0.208337 )
+
+[node name="Picket fence (1)8" parent="Spatial" instance=ExtResource( 9 )]
+transform = Transform( -4.37114e-09, 0, -0.1, 0, 0.1, 0, 0.1, 0, -4.37114e-09, 5.82984, -0.00170994, 2.37464 )
+
+[node name="Picket fence (1)9" parent="Spatial" instance=ExtResource( 9 )]
+transform = Transform( -4.37114e-09, 0, -0.1, 0, 0.1, 0, 0.1, 0, -4.37114e-09, 5.82984, -0.00170994, 4.18887 )
+
+[node name="Picket fence (1)10" parent="Spatial" instance=ExtResource( 9 )]
+transform = Transform( -4.37114e-09, 0, -0.1, 0, 0.1, 0, 0.1, 0, -4.37114e-09, 5.82984, -0.00170994, 6.18847 )
