@@ -19,6 +19,12 @@ enum TileType {
 	TRAP,
 	TRAP_SPRUNG,
 	SPIKES,
+	
+	FRESH_START,
+	FORESIGHT,
+	ACTION_SURGE,
+	COURAGE,
+	GUST,
 	# keep this one last
 	EXIT
 }
@@ -97,6 +103,62 @@ var levels = [
 	}
 ]
 
+const descriptions = {
+	TileType.WALL: "Blocks the path of all entities; monsters can break it down.",
+	TileType.SECRET_DOOR: "Monsters cannot pass, but adventurers can. Can still be destroyed.",
+	TileType.MONEY_TREE: "Earn {gpm} gold at the end of every turn. Can also serve as a basic wall.",
+	TileType.LURE: "Lure monsters to a particular tile. Range: {range} tiles",
+	TileType.BRIDGE: "Creates a path over open graves.",
+	TileType.SPIKES: "Stops an entity in its tracks. Takes one turn to become active.",
+	TileType.TRAP: "If a monster ends its turn on this tile, its next turn will be skipped.",
+	TileType.FRESH_START: "Redraw your entire hand.",
+	TileType.FORESIGHT: "View the top 3 cards of the deck; add one to your hand.",
+	TileType.COURAGE: "Give your adventurer an extra action this turn.",
+	TileType.ACTION_SURGE: "Give yourself an extra action this turn.",
+	TileType.GUST: "Push an entity one tile in any direction.",
+}
+
+const flavor = {
+	TileType.WALL: "A sturdy stone wall.",
+	TileType.SECRET_DOOR: "A stone wall with a secret passage...",
+	TileType.MONEY_TREE: "Money DOES grow on trees!",
+	TileType.LURE: "An irresistable treat.",
+	TileType.BRIDGE: "Don't burn bridges, build them!",
+	TileType.SPIKES: "A deadly trap hidden in the floor.",
+	TileType.TRAP: "Tricky to master, but incredibly powerful.",
+	TileType.FRESH_START: "Gotta know when to fold 'em...",
+	TileType.FORESIGHT: "It won't tell you the lotto numbers, sadly",
+	TileType.COURAGE: "Smells suspiciously like whiskey...",
+	TileType.ACTION_SURGE: "That sweet taste of victory.",
+	TileType.GUST: "Try pushing them into a pit",
+}
+
+const title = {
+	TileType.WALL: "Wall",
+	TileType.SECRET_DOOR: "Secret Door",
+	TileType.MONEY_TREE: "Money Tree",
+	TileType.LURE: "Lure",
+	TileType.BRIDGE: "Bridge",
+	TileType.SPIKES: "Spike Trap",
+	TileType.TRAP: "Bear Trap",
+	TileType.FRESH_START: "Fresh Start",
+	TileType.FORESIGHT: "Foresight",
+	TileType.COURAGE: "Courage",
+	TileType.ACTION_SURGE: "Action Surge",
+	TileType.GUST: "Gust of Wind",
+}
+
+static func title_card(card):
+	if card.type == TileType.WALL:
+		if card.wall_flags.max() > 1:
+			return "Reinforced Wall"
+	return title[card.type]
+	
+static func describe_card(card):
+	return descriptions[card.type].format(card)
+	
+static func flavor_text_card(card):
+	return flavor[card.type].format(card)
 static func is_wall(tile_type):
 	match tile_type:
 		TileType.WALL, TileType.SECRET_DOOR, TileType.BRIDGE:

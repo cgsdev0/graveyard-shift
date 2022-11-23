@@ -15,11 +15,16 @@ func _ready():
 		$MainContainer/NullLabel.visible = true
 		$MainContainer/NullLabel.modulate = null_color
 		return
+	$"%Title".text = Game.title_card(card)
+	$"%Description".text = Game.describe_card(card)
+	$"%Lore".text = Game.flavor_text_card(card)
 	$"%CostLabel".text = str(card.cost)
 
 func _process(delta):
 	if card == null:
 		return
+	if bought:
+		modulate = Color(1.0, 1.0, 1.0, 0.5)
 	$"%BuyButton".disabled = bought || Game.money < card.cost
 	$"%CostLabel".modulate = no_afford_color if Game.money < card.cost else afford_color
 

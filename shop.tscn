@@ -1,15 +1,23 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://ui/shop.theme" type="Theme" id=1]
+[ext_resource path="res://ui/shop2.theme" type="Theme" id=1]
 [ext_resource path="res://ui/span_limiter.gd" type="Script" id=2]
 [ext_resource path="res://ui/shop_card.tscn" type="PackedScene" id=3]
 [ext_resource path="res://textures/ui/gold.png" type="Texture" id=4]
-[ext_resource path="res://ui/ui.theme" type="Theme" id=5]
+[ext_resource path="res://shaders/shop_fog.gdshader" type="Shader" id=5]
 [ext_resource path="res://shop.gd" type="Script" id=6]
 [ext_resource path="res://ui/money_label.gd" type="Script" id=7]
 [ext_resource path="res://debug/draw_bb.gd" type="Script" id=8]
 [ext_resource path="res://shop_camera.gd" type="Script" id=9]
 [ext_resource path="res://not_default_env.tres" type="Environment" id=10]
+[ext_resource path="res://ui/font/secret_society_large.tres" type="DynamicFont" id=11]
+[ext_resource path="res://ui/font/secret_society_med.tres" type="DynamicFont" id=12]
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 5 )
+shader_param/color = Color( 0.360784, 0.356863, 0.584314, 0.380392 )
+shader_param/bgcolor = Color( 0.027451, 0.0156863, 0.0627451, 1 )
+shader_param/OCTAVES = 4
 
 [node name="Root" type="Node"]
 
@@ -20,7 +28,7 @@ mouse_filter = 2
 stretch = true
 
 [node name="Viewport" type="Viewport" parent="ViewportContainer"]
-size = Vector2( 800, 450 )
+size = Vector2( 800, 600 )
 handle_input_locally = false
 hdr = false
 disable_3d = true
@@ -30,10 +38,10 @@ render_target_update_mode = 3
 [node name="Control" type="Control" parent="ViewportContainer/Viewport"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource( 5 )
 script = ExtResource( 6 )
 
 [node name="Shop" type="ColorRect" parent="ViewportContainer/Viewport/Control"]
+material = SubResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
@@ -43,33 +51,33 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_vertical = 3
 script = ExtResource( 2 )
-rect_max_size = Vector2( 1080, 600 )
+rect_max_size = Vector2( 1080, 700 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ViewportContainer/Viewport/Control/Shop/Container"]
 margin_right = 800.0
-margin_bottom = 450.0
+margin_bottom = 600.0
 size_flags_vertical = 3
 alignment = 1
 
 [node name="MarginContainer2" type="HBoxContainer" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer"]
 margin_right = 800.0
-margin_bottom = 48.0
+margin_bottom = 63.0
 alignment = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2"]
-margin_right = 76.0
-margin_bottom = 48.0
+margin_right = 148.0
+margin_bottom = 63.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2/MarginContainer2"]
-margin_left = 8.0
+margin_left = 12.0
 margin_top = 8.0
-margin_right = 68.0
-margin_bottom = 40.0
+margin_right = 136.0
+margin_bottom = 55.0
 size_flags_vertical = 5
 
 [node name="TextureRect" type="TextureRect" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2/MarginContainer2/HBoxContainer"]
 margin_right = 32.0
-margin_bottom = 32.0
+margin_bottom = 47.0
 rect_min_size = Vector2( 32, 32 )
 size_flags_vertical = 3
 texture = ExtResource( 4 )
@@ -77,65 +85,74 @@ expand = true
 stretch_mode = 6
 
 [node name="Label" type="Label" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2/MarginContainer2/HBoxContainer"]
-margin_left = 40.0
-margin_right = 60.0
-margin_bottom = 32.0
+margin_left = 44.0
+margin_right = 124.0
+margin_bottom = 47.0
+rect_min_size = Vector2( 80, 0 )
 size_flags_vertical = 7
-text = "8G"
+custom_fonts/font = ExtResource( 12 )
+text = "10"
 valign = 1
 script = ExtResource( 7 )
 
-[node name="Label2" type="Label" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2"]
-margin_left = 84.0
-margin_top = 4.0
-margin_right = 676.0
-margin_bottom = 43.0
+[node name="Title" type="Label" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2"]
+margin_left = 160.0
+margin_top = 2.0
+margin_right = 624.0
+margin_bottom = 60.0
 size_flags_horizontal = 3
 theme_type_variation = "BigLabel"
-text = "Shop"
+custom_fonts/font = ExtResource( 11 )
+text = "Graveyard Shop"
 align = 1
 valign = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2"]
-margin_left = 684.0
+margin_left = 636.0
 margin_right = 800.0
-margin_bottom = 48.0
+margin_bottom = 63.0
 
 [node name="SkipButton" type="Button" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2/MarginContainer"]
-margin_left = 8.0
+margin_left = 12.0
 margin_top = 8.0
-margin_right = 108.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 100, 32 )
-text = "Skip"
+margin_right = 152.0
+margin_bottom = 55.0
+rect_min_size = Vector2( 140, 32 )
+text = "Continue"
 
 [node name="MarginContainer" type="MarginContainer" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer"]
-margin_top = 56.0
+margin_top = 71.0
 margin_right = 800.0
-margin_bottom = 450.0
+margin_bottom = 600.0
 size_flags_vertical = 3
 
 [node name="Cards" type="HBoxContainer" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer"]
 unique_name_in_owner = true
-margin_left = 8.0
+margin_left = 12.0
 margin_top = 8.0
-margin_right = 792.0
-margin_bottom = 386.0
+margin_right = 788.0
+margin_bottom = 521.0
 size_flags_vertical = 3
 
 [node name="MarginContainer" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer/Cards" instance=ExtResource( 3 )]
-margin_right = 256.0
-margin_bottom = 378.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 250.0
+margin_bottom = 513.0
 
 [node name="MarginContainer2" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer/Cards" instance=ExtResource( 3 )]
-margin_left = 264.0
-margin_right = 520.0
-margin_bottom = 378.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 262.0
+margin_right = 513.0
+margin_bottom = 513.0
 
 [node name="MarginContainer3" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer/Cards" instance=ExtResource( 3 )]
-margin_left = 528.0
-margin_right = 784.0
-margin_bottom = 378.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 525.0
+margin_right = 776.0
+margin_bottom = 513.0
 
 [node name="ViewportContainer2" type="ViewportContainer" parent="."]
 anchor_right = 1.0
@@ -149,9 +166,10 @@ visible = false
 script = ExtResource( 8 )
 
 [node name="Viewport" type="Viewport" parent="ViewportContainer2"]
-size = Vector2( 800, 450 )
+size = Vector2( 800, 600 )
 transparent_bg = true
 handle_input_locally = false
+msaa = 3
 render_target_update_mode = 3
 physics_object_picking = true
 

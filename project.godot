@@ -75,7 +75,6 @@ ShopDeck="*res://logic/shop_deck.gd"
 [display]
 
 window/size/width=800
-window/size/height=450
 window/stretch/aspect="keep"
 
 [gui]

@@ -1,26 +1,26 @@
 [gd_scene load_steps=20 format=2]
 
-[ext_resource path="res://debug/camera.gd" type="Script" id=1]
-[ext_resource path="res://textures/cards/Card Back.png" type="Texture" id=3]
-[ext_resource path="res://hand/hand.gd" type="Script" id=4]
-[ext_resource path="res://board/tile.tscn" type="PackedScene" id=5]
-[ext_resource path="res://board/board.gd" type="Script" id=6]
-[ext_resource path="res://not_default_env.tres" type="Environment" id=8]
-[ext_resource path="res://hand/follow_main_camera.gd" type="Script" id=9]
-[ext_resource path="res://logic/coordinator.gd" type="Script" id=10]
-[ext_resource path="res://hand/hand_viewport.gd" type="Script" id=11]
-[ext_resource path="res://hand/mouse.gd" type="Script" id=12]
-[ext_resource path="res://hand/resize_viewport.gd" type="Script" id=13]
-[ext_resource path="res://lantern.tscn" type="PackedScene" id=15]
-[ext_resource path="res://3x3_fence.tscn" type="PackedScene" id=16]
-[ext_resource path="res://ui/UI.tscn" type="PackedScene" id=17]
+[ext_resource path="res://textures/cards/Card Back.png" type="Texture" id=1]
+[ext_resource path="res://not_default_env.tres" type="Environment" id=3]
+[ext_resource path="res://hand/follow_main_camera.gd" type="Script" id=5]
+[ext_resource path="res://logic/coordinator.gd" type="Script" id=6]
+[ext_resource path="res://hand/hand_viewport.gd" type="Script" id=7]
+[ext_resource path="res://board/board.gd" type="Script" id=8]
+[ext_resource path="res://hand/hand.gd" type="Script" id=10]
+[ext_resource path="res://debug/camera.gd" type="Script" id=11]
+[ext_resource path="res://3x3_fence.tscn" type="PackedScene" id=12]
+[ext_resource path="res://ui/UI.tscn" type="PackedScene" id=13]
+[ext_resource path="res://board/tile.tscn" type="PackedScene" id=14]
+[ext_resource path="res://hand/resize_viewport.gd" type="Script" id=15]
+[ext_resource path="res://hand/mouse.gd" type="Script" id=16]
+[ext_resource path="res://lantern.tscn" type="PackedScene" id=17]
 
 [sub_resource type="ShaderMaterial" id=4]
 
 [sub_resource type="PlaneMesh" id=1]
 
 [sub_resource type="SpatialMaterial" id=2]
-albedo_texture = ExtResource( 3 )
+albedo_texture = ExtResource( 1 )
 
 [sub_resource type="Animation" id=5]
 length = 0.001
@@ -148,7 +148,7 @@ tracks/4/keys = {
 "values": [ 1.5 ]
 }
 
-[node name="Root" type="Node"]
+[node name="Root2" type="Node"]
 
 [node name="GameView" type="ViewportContainer" parent="."]
 unique_name_in_owner = true
@@ -166,81 +166,127 @@ disable_3d = true
 usage = 1
 debug_draw = 1
 render_target_update_mode = 3
-script = ExtResource( 13 )
+script = ExtResource( 15 )
 
 [node name="BoardViewport" type="ViewportContainer" parent="GameView/Viewport"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -176.0
+margin_left = -422.4
 mouse_filter = 2
 stretch = true
 
 [node name="Viewport" type="Viewport" parent="GameView/Viewport/BoardViewport"]
-size = Vector2( 976, 450 )
+size = Vector2( 1222, 450 )
 handle_input_locally = false
 msaa = 1
 render_target_update_mode = 3
 physics_object_picking = true
 
 [node name="Level" type="Spatial" parent="GameView/Viewport/BoardViewport/Viewport"]
-script = ExtResource( 10 )
+script = ExtResource( 6 )
 
 [node name="Board" type="Spatial" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
 unique_name_in_owner = true
-script = ExtResource( 6 )
+script = ExtResource( 8 )
+rows = 4
+cols = 5
 spacing = 0.2
 
-[node name="Tile" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 5 )]
+[node name="Tile" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@2" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 5 )]
+[node name="@Tile@54" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.18, 0, 0 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@3" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 5 )]
+[node name="@Tile@55" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.36, 0, 0 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@4" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 5 )]
+[node name="@Tile@56" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.54, 0, 0 )
+size = Vector3( 1.98, 0.2, 1.98 )
+
+[node name="@Tile@57" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.72, 0, 0 )
+size = Vector3( 1.98, 0.2, 1.98 )
+
+[node name="@Tile@58" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.18 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@5" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 5 )]
+[node name="@Tile@59" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.18, 0, 2.18 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@6" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 5 )]
+[node name="@Tile@60" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.36, 0, 2.18 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@7" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 5 )]
+[node name="@Tile@61" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.54, 0, 2.18 )
+size = Vector3( 1.98, 0.2, 1.98 )
+
+[node name="@Tile@62" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.72, 0, 2.18 )
+size = Vector3( 1.98, 0.2, 1.98 )
+
+[node name="@Tile@63" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.36 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@8" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 5 )]
+[node name="@Tile@64" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.18, 0, 4.36 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
-[node name="@Tile@9" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 5 )]
+[node name="@Tile@65" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.36, 0, 4.36 )
+size = Vector3( 1.98, 0.2, 1.98 )
+
+[node name="@Tile@66" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.54, 0, 4.36 )
+size = Vector3( 1.98, 0.2, 1.98 )
+
+[node name="@Tile@67" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.72, 0, 4.36 )
+size = Vector3( 1.98, 0.2, 1.98 )
+
+[node name="@Tile@68" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.54 )
+size = Vector3( 1.98, 0.2, 1.98 )
+
+[node name="@Tile@69" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.18, 0, 6.54 )
+size = Vector3( 1.98, 0.2, 1.98 )
+
+[node name="@Tile@70" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.36, 0, 6.54 )
+size = Vector3( 1.98, 0.2, 1.98 )
+
+[node name="@Tile@71" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.54, 0, 6.54 )
+size = Vector3( 1.98, 0.2, 1.98 )
+
+[node name="@Tile@72" parent="GameView/Viewport/BoardViewport/Viewport/Level/Board" instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.72, 0, 6.54 )
 size = Vector3( 1.98, 0.2, 1.98 )
 
 [node name="Camera" type="Camera" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
 unique_name_in_owner = true
-transform = Transform( 1, 0, 0, 0, 0.766044, 0.642788, 0, -0.642788, 0.766044, 3.17, 10.9202, 17.5042 )
+transform = Transform( 1, 0, 0, 0, 0.766044, 0.642788, 0, -0.642788, 0.766044, 5.35, 16.5592, 25.6112 )
 cull_mask = 1048573
 current = true
 fov = 20.0
 size = 15.0
-script = ExtResource( 1 )
+script = ExtResource( 11 )
 
 [node name="Hand" type="Spatial" parent="GameView/Viewport/BoardViewport/Viewport/Level/Camera"]
 transform = Transform( 1, 0, 0, 0, 0.766044, -0.642788, 0, 0.642788, 0.766044, -5, 3.72843, -27.1569 )
-script = ExtResource( 4 )
+script = ExtResource( 10 )
 
 [node name="Mouse" type="Spatial" parent="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand"]
-transform = Transform( 1, 0, 0, 0, 0.999987, 5.05906e-12, 0, -5.05906e-12, 0.999987, 1.45465, 7.23814, 10.4489 )
-script = ExtResource( 12 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.25456, 4.77307, 12.5173 )
+script = ExtResource( 16 )
 
 [node name="Cards" type="Spatial" parent="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand"]
 
@@ -253,54 +299,61 @@ transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 20, 7.41679, 0, 3.07916 )
 mesh = SubResource( 1 )
 material = SubResource( 2 )
 
-[node name="Spatial2" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 15 )]
+[node name="Spatial2" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.633888, 0.177969, 2.69126 )
+visible = false
 
-[node name="Spatial4" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 15 )]
+[node name="Spatial4" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.97891, 0.177969, -0.768508 )
+visible = false
 
-[node name="Spatial5" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 15 )]
+[node name="Spatial5" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.27404, 0.229359, -0.630659 )
+visible = false
 
-[node name="Spatial6" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 15 )]
+[node name="Spatial6" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.324, 0.229359, 2.82323 )
+visible = false
 
-[node name="Spatial7" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 15 )]
+[node name="Spatial7" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2657, 0.229359, 8.59867 )
+visible = false
 
-[node name="Spatial3" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 15 )]
+[node name="Spatial3" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.50863, 0.177969, 7.28031 )
+visible = false
 
-[node name="Level" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 16 )]
+[node name="Level" parent="GameView/Viewport/BoardViewport/Viewport/Level" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.99, 0, 0.99 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="GameView/Viewport/BoardViewport/Viewport"]
-environment = ExtResource( 8 )
+environment = ExtResource( 3 )
 
-[node name="UI" parent="GameView/Viewport" instance=ExtResource( 17 )]
+[node name="UI" parent="GameView/Viewport" instance=ExtResource( 13 )]
 unique_name_in_owner = true
 
 [node name="HandViewport" type="ViewportContainer" parent="GameView/Viewport"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -176.0
+margin_left = -422.4
 mouse_filter = 2
 stretch = true
-script = ExtResource( 11 )
+script = ExtResource( 7 )
 
 [node name="Viewport" type="Viewport" parent="GameView/Viewport/HandViewport"]
-size = Vector2( 976, 450 )
+size = Vector2( 1222, 450 )
 transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 3
 physics_object_picking = true
 
 [node name="Camera" type="Camera" parent="GameView/Viewport/HandViewport/Viewport"]
-transform = Transform( 1, 0, 0, 0, 0.766044, 0.642788, 0, -0.642788, 0.766044, 3.17, 10.9202, 17.5042 )
+transform = Transform( 1, 0, 0, 0, 0.766044, 0.642788, 0, -0.642788, 0.766044, 5.35, 16.5592, 25.6112 )
 cull_mask = 2
 current = true
 fov = 20.0
 size = 15.0
-script = ExtResource( 9 )
+script = ExtResource( 5 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 5 )

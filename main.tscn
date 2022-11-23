@@ -194,6 +194,7 @@ spacing = 0.2
 unique_name_in_owner = true
 transform = Transform( 1, 0, 0, 0, 0.766045, 0.642788, 0, -0.642788, 0.766045, 5, 14.6, 23.2 )
 cull_mask = 1048573
+current = true
 fov = 20.0
 size = 15.0
 script = ExtResource( 3 )
@@ -266,6 +267,7 @@ physics_object_picking = true
 [node name="Camera" type="Camera" parent="GameView/Viewport/HandViewport/Viewport"]
 transform = Transform( 1, 0, 0, 0, 0.82102, 0.5709, 0, -0.5709, 0.82102, 0, 1.60929, 3.6432 )
 cull_mask = 2
+current = true
 fov = 20.0
 size = 15.0
 script = ExtResource( 5 )

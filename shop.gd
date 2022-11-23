@@ -8,10 +8,10 @@ func _init():
 	ShopCard3D = load("res://shop_card_3d.tscn")
 		
 func _ready():
-	var merged_shop_theme = Theme.new()
-	merged_shop_theme.merge_with(Game.original_theme)
-	merged_shop_theme.merge_with($Shop.theme)
-	$Shop.theme = merged_shop_theme
+#	var merged_shop_theme = Theme.new()
+#	merged_shop_theme.merge_with(Game.original_theme)
+#	merged_shop_theme.merge_with($Shop.theme)
+#	$Shop.theme = merged_shop_theme
 	
 	for child in $"%Cards".get_children():
 		$"%Cards".remove_child(child)
@@ -40,4 +40,10 @@ func _ready():
 func _on_SkipButton_pressed():
 #	Game.level += 1
 #	Game.emit_signal("reset")
-	get_tree().change_scene("res://inventory.tscn")
+	for child in $Shop.get_children():
+		$Shop.remove_child(child)
+	for child in $"%ShopCamera".get_children():
+		$"%ShopCamera".remove_child(child)
+	var inventory = preload("res://inventory.tscn").instance()
+	$Shop.add_child(inventory)
+	# get_tree().change_scene("res://inventory.tscn")
