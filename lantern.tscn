@@ -7,7 +7,7 @@ albedo_color = Color( 0.180392, 0.121569, 0.0666667, 1 )
 flags_unshaded = true
 albedo_color = Color( 3, 2, 0, 1 )
 
-[node name="Spatial" type="Spatial"]
+[node name="MeshInstance" type="MeshInstance"]
 
 [node name="CSGBox" type="CSGBox" parent="."]
 width = 0.068051
@@ -22,7 +22,9 @@ height = 0.29615
 depth = 0.187512
 material = SubResource( 2 )
 
-[node name="OmniLight" type="OmniLight" parent="."]
+[node name="Spatial" type="Spatial" parent="CSGBox"]
+
+[node name="OmniLight" type="OmniLight" parent="CSGBox/Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.908548, 0 )
 light_color = Color( 0.921569, 0.921569, 0.921569, 1 )
 light_energy = 0.9

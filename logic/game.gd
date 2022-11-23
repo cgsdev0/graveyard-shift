@@ -42,8 +42,9 @@ var levels = [
 	{
 		"turns": 4,
 		"camera": {
-			"zoom": 18,
+			"zoom": 21,
 			"angle": 40,
+			"up": 0.3,
 		},
 		"cols": 3,
 		"rows": 3,
@@ -62,6 +63,7 @@ var levels = [
 		"camera": {
 			"zoom": 27,
 			"angle": 40,
+			"up": 0.0,
 		},
 		"cols": 5,
 		"rows": 4,
@@ -82,6 +84,7 @@ var levels = [
 		"camera": {
 			"zoom": 35,
 			"angle": 40,
+			"up": 0.0,
 		},
 		"cols": 6,
 		"rows": 6,

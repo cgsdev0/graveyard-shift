@@ -118,6 +118,7 @@ func _ready():
 			var t = tile.instance()
 			t.init(Vector3(tile_size), Vector3(c * (width + spacing), 0, r * (height + spacing)), spacing)
 			self.add_child(t)
+			t.set_owner(self.get_owner())
 	
 
 	for tile in level.tiles:
