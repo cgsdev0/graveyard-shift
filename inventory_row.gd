@@ -11,16 +11,15 @@ var card
 var color: Color
 func become(card):
 	self.card = card
-	$"%Label".text = Game.TileType.keys()[card.type]
+	$"%Label".text = Game.title_card(card)
 	color = Deck.card_color(card)
 	$ColorRect.color = color
 	if Game.is_wall(card.type):
-		$"%WallIndicator".visible = true
 		var bits = flags_to_bits(card.wall_flags)
 		$"%WallIndicator".texture.region.position.y = float(bits / 4 * 24)
 		$"%WallIndicator".texture.region.position.x = float(bits % 4 * 24)
 	else:
-		$"%WallIndicator".visible = false
+		$"%WallIndicator".texture = null
 
 func check_box(v = true):
 	$"%CheckBox".pressed = v
@@ -35,8 +34,8 @@ func _on_CheckBox_toggled(button_pressed):
 func _process(delta):
 	if Deck.selected_deck.size() >= Deck.max_deck_size && !$"%CheckBox".pressed:
 		$"%CheckBox".disabled = true
-		$ColorRect.color = color.linear_interpolate(Color.lightgray, 0.85)
-		$"%Label".modulate = Color.gray
+		$ColorRect.color = Color.gray
+		$"%Label".modulate = Color.darkgray
 	else:
 		
 		$"%CheckBox".disabled = false

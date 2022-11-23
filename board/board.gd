@@ -2,6 +2,9 @@ class_name Board
 extends Spatial
 
 var tile = preload("res://board/tile.tscn")
+var FencePost = preload("res://models/fence/fencePost.tscn")
+var Fence = preload("res://models/fence/fence.tscn")
+var Lantern = preload("res://models/lamp_post.tscn")
 
 export var rows = 3
 export var cols = 3
@@ -112,13 +115,21 @@ func _ready():
 	var width = size.x
 	var height = size.y
 	
+
+	
 	var tile_size = Vector3(width, tile_height, height)
+	
 	for r in rows:
 		for c in cols:
 			var t = tile.instance()
-			t.init(Vector3(tile_size), Vector3(c * (width + spacing), 0, r * (height + spacing)), spacing)
+			var pos = Vector3(c * (width + spacing), 0, r * (height + spacing))
+			t.init(Vector3(tile_size), pos, spacing)
 			self.add_child(t)
 			t.set_owner(self.get_owner())
+			spawn_fence_post(r, c, pos, tile_size)
+			spawn_fence(r, c, pos, tile_size)
+			spawn_lantern(r, c, pos, tile_size)
+
 	
 
 	for tile in level.tiles:
@@ -131,6 +142,73 @@ func _ready():
 	for monster in level.monsters:
 		self.callv("spawn_monster", monster)
 
+var fence_gap = 1.0
+var height = -0.13
+
+const lantern_math = [
+	[],
+	[],
+	[1],
+	[1, 2],
+	[1, 3],
+	[1, 4],
+	[1, 3, 5]
+]
+
+func spawn_lantern(r, c, pos, tile_size):
+	if not r in lantern_math[rows]:
+		return
+	if not c in lantern_math[cols]:
+		return
+	var f = Lantern.instance()
+	call_deferred("add_to_parent", f)
+	f.global_translation = pos - Vector3(spacing / 2, height, spacing / 2)
+	
+func spawn_fence(r, c, pos, tile_size):
+	if r == 0:
+		var f = Fence.instance()
+		call_deferred("add_to_parent", f)
+		f.global_translation = pos - Vector3(spacing / 2, height, fence_gap)
+		if c == cols - 1:
+			f = Fence.instance()
+			call_deferred("add_to_parent", f)
+			f.global_translation = pos - Vector3(-tile_size.x, height, fence_gap)
+	if c == 0:
+		var f = Fence.instance()
+		call_deferred("add_to_parent", f)
+		f.global_translation = pos - Vector3(fence_gap, height, 0 if r == 0 else spacing / 2)
+		f.rotate_y(PI / 2)
+	if c == cols - 1:
+		var f = Fence.instance()
+		call_deferred("add_to_parent", f)
+		f.global_translation = pos + Vector3(tile_size. x + fence_gap, height, 0 if r == 0 else - spacing / 2)
+		f.rotate_y(PI / 2)
+	
+func spawn_fence_post(r, c, pos, tile_size):
+	if r == 0:
+		var f = FencePost.instance()
+		call_deferred("add_to_parent", f)
+		f.global_translation = pos + Vector3(tile_size.x / 2, height, -fence_gap)
+		if c == 0:
+			f = FencePost.instance()
+			call_deferred("add_to_parent", f)
+			f.global_translation = pos + Vector3(-fence_gap, height, -fence_gap)
+		if c == cols - 1:
+			f = FencePost.instance()
+			call_deferred("add_to_parent", f)
+			f.global_translation = pos + Vector3(tile_size.x + fence_gap, height, -fence_gap)
+	if c == 0:
+		var f = FencePost.instance()
+		call_deferred("add_to_parent", f)
+		f.global_translation = pos + Vector3(-fence_gap, height, tile_size.z / 2)
+	if c == cols - 1:
+		var f = FencePost.instance()
+		call_deferred("add_to_parent", f)
+		f.global_translation = pos + Vector3(tile_size.x + fence_gap, height, tile_size.z / 2)
+
+func add_to_parent(f):
+	get_parent().add_child(f)
+	
 func get_middle():
 	var middle = Vector3((cols * size.x + ((cols - 1) * spacing)) / 2, 0, (rows * size.y + ((rows - 1) * spacing)) / 2)
 	return middle

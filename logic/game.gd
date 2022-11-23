@@ -217,6 +217,7 @@ signal start_hover(card)
 signal end_hover(card)
 
 signal game_over
+signal daylight_animation_done
 signal you_win
 signal reset
 signal prep_new_turn

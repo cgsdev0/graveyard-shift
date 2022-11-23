@@ -28,7 +28,6 @@ var original_decal1 = preload("res://textures/cards/walls/N.png")
 func override_decal(tex):
 	if tex == null:
 		tex = original_decal1
-	print(tex)
 	$Plane.get_surface_material(0).set_shader_param("decal_1", tex)
 
 func _set_header(v):

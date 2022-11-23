@@ -65,11 +65,11 @@ margin_bottom = 63.0
 alignment = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2"]
-margin_right = 148.0
+margin_right = 152.0
 margin_bottom = 63.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2/MarginContainer2"]
-margin_left = 12.0
+margin_left = 16.0
 margin_top = 8.0
 margin_right = 136.0
 margin_bottom = 55.0
@@ -85,8 +85,8 @@ expand = true
 stretch_mode = 6
 
 [node name="Label" type="Label" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2/MarginContainer2/HBoxContainer"]
-margin_left = 44.0
-margin_right = 124.0
+margin_left = 40.0
+margin_right = 120.0
 margin_bottom = 47.0
 rect_min_size = Vector2( 80, 0 )
 size_flags_vertical = 7
@@ -98,7 +98,7 @@ script = ExtResource( 7 )
 [node name="Title" type="Label" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2"]
 margin_left = 160.0
 margin_top = 2.0
-margin_right = 624.0
+margin_right = 620.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 theme_type_variation = "BigLabel"
@@ -108,14 +108,14 @@ align = 1
 valign = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2"]
-margin_left = 636.0
+margin_left = 628.0
 margin_right = 800.0
 margin_bottom = 63.0
 
 [node name="SkipButton" type="Button" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2/MarginContainer"]
-margin_left = 12.0
+margin_left = 16.0
 margin_top = 8.0
-margin_right = 152.0
+margin_right = 156.0
 margin_bottom = 55.0
 rect_min_size = Vector2( 140, 32 )
 text = "Continue"
@@ -128,9 +128,9 @@ size_flags_vertical = 3
 
 [node name="Cards" type="HBoxContainer" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer"]
 unique_name_in_owner = true
-margin_left = 12.0
+margin_left = 16.0
 margin_top = 8.0
-margin_right = 788.0
+margin_right = 784.0
 margin_bottom = 521.0
 size_flags_vertical = 3
 
@@ -143,15 +143,15 @@ margin_bottom = 513.0
 [node name="MarginContainer2" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer/Cards" instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 262.0
-margin_right = 513.0
+margin_left = 258.0
+margin_right = 509.0
 margin_bottom = 513.0
 
 [node name="MarginContainer3" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer/Cards" instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 525.0
-margin_right = 776.0
+margin_left = 517.0
+margin_right = 768.0
 margin_bottom = 513.0
 
 [node name="ViewportContainer2" type="ViewportContainer" parent="."]

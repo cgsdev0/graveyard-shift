@@ -1,11 +1,9 @@
 [gd_scene load_steps=3 format=2]
 
+[ext_resource path="res://shaders/lantern_glow_mat.tres" type="Material" id=1]
+
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.180392, 0.121569, 0.0666667, 1 )
-
-[sub_resource type="SpatialMaterial" id=2]
-flags_unshaded = true
-albedo_color = Color( 3, 2, 0, 1 )
 
 [node name="MeshInstance" type="MeshInstance"]
 
@@ -20,7 +18,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00361156, 0.381138, -0.0053
 width = 0.191516
 height = 0.29615
 depth = 0.187512
-material = SubResource( 2 )
+material = ExtResource( 1 )
 
 [node name="Spatial" type="Spatial" parent="CSGBox"]
 
