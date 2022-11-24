@@ -44,6 +44,12 @@ func place_card_on_tile(card, id: int) -> void:
 			get_parent().add_child(money_tree)
 			_propagate_board_change()
 			return
+		Game.TileType.COURAGE:
+			for adventurer in get_tree().get_nodes_in_group("adventurers"):
+				if adventurer.get_id() != id:
+					continue
+				adventurer.give_courage(card.card.courage)
+			return
 	replace_tile_by_id(id, desired_type)
 
 func find_tile_id(type):
