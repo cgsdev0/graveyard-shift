@@ -10,6 +10,8 @@ export var decal_v_offset = 0.0 setget _set_decal_v_offset
 var selection_glow_shader = preload("res://shaders/selection_glow.tres")
 var treasure_glow_shader = preload("res://shaders/treasure_glow.tres")
 
+
+
 func set_debug_tint(v):
 	if $Plane.get_surface_material(0) == null:
 		return

@@ -26,6 +26,7 @@ func on_end_turn():
 	for pathfinder in pathfinders:
 		if !is_instance_valid(pathfinder):
 			continue
+		pathfinder.stunned = false
 		if pathfinder.skipped_turns:
 			pathfinder.skipped_turns -= 1
 			continue
@@ -33,14 +34,19 @@ func on_end_turn():
 			var step = pathfinder.take_step()
 			if step is GDScriptFunctionState:
 				yield(step, "completed")
-			play_animation(pathfinder, "idle")
 			stepped_finders += 1
+			if !pathfinder.enabled:
+				# rip
+				break
+			play_animation(pathfinder, "idle")
 			if pathfinder.is_in_group("monsters"):
 				if $Board.get_tile_by_id(pathfinder.get_id()).type == Game.TileType.EXIT:
 					Game.emit_signal("game_over")
 					pathfinder.reset_rotation_horizontal()
 					return
 			yield(get_tree().create_timer(0.2), "timeout")
+			if pathfinder.stunned:
+				break
 		if pathfinder.is_in_group("monsters"):
 			if $Board.get_tile_by_id(pathfinder.get_id()).type == Game.TileType.TRAP:
 				$Board.replace_tile_by_id(pathfinder.get_id(), Game.TileType.TRAP_SPRUNG)

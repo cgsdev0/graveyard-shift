@@ -267,6 +267,13 @@ func compute_valid_tiles(card):
 			for token in get_tree().get_nodes_in_group("adventurers"):
 				if token.get_id() == tile.get_index():
 					valid_tiles.push_back(tile)
+		elif card.type == Game.TileType.GUST:
+			for token in get_tree().get_nodes_in_group("pathfinders"):
+				if token.get_id() == tile.get_index():
+					var next_id = board.compute_tile_id(token.get_id(), Game.gust_direction(card.card.direction))
+					if board.is_on_board(next_id):
+						valid_tiles.push_back(tile)
+			
 		else:
 			if tile.type == Game.TileType.EMPTY:
 				var should_add = true

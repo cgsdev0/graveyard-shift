@@ -11,8 +11,8 @@ var starting_deck = [
 	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 1, 0], "ac": 1 },
 	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 1, 0], "ac": 1 },
 	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 1, 0], "ac": 1 },
-	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
-	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
+	# { "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
+	# { "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
 	# { "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
 #	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
 #	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
@@ -22,7 +22,9 @@ var starting_deck = [
 #	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
 #	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
 #	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
-	{ "type": Game.TileType.COURAGE, "ac": 0, "courage": 1 },
+	{ "type": Game.TileType.LURE, "range": "unlimited", "ac": 2 },
+	{ "type": Game.TileType.LURE, "range": 3, "ac": 2 },
+	{ "type": Game.TileType.GUST, "ac": 2, "direction": "right" },
 ]
 
 var max_deck_size = 12
@@ -40,8 +42,13 @@ static func card_color(card):
 			return Color.blue
 	return Color.red
 	
+func on_accept_treasure():
+	if pending_treasure_card:
+		add_card(pending_treasure_card)
+		
 func _ready():
 	Game.connect("reset", self, "on_reset")
+	Game.connect("accept_treasure", self, "on_accept_treasure")
 	randomize()
 	on_reset()
 

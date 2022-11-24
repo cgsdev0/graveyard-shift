@@ -7,6 +7,7 @@ var spacing = 0.0
 var color: Color
 var type = Game.TileType.EMPTY
 var wall_flags = [0, 0, 0, 0]
+var spikes_ready = false
 
 var stacks = 0
 	
@@ -21,7 +22,12 @@ func init(s: Vector3, t: Vector3, spacing: float) -> void:
 func set_selection_glow(v):
 	$TileMesh.set_selection_glow(v)
 	
+func on_start_new_turn():
+	if type == Game.TileType.SPIKES:
+		spikes_ready = true
+		
 func _ready():
+	Game.connect("start_new_turn", self, "on_start_new_turn")
 	$CollisionShape2D.shape.extents = size / 2 + Vector3(spacing / 2, 0, spacing / 2)
 	$CollisionShape2D.translation = size / 2
 	$TileMesh.translation = size / 2

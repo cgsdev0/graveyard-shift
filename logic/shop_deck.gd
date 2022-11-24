@@ -10,8 +10,8 @@ var starting_treasure_deck = [
 		{ "type": Game.TileType.TRAP, "ac": 2 },
 		{ "type": Game.TileType.TRAP, "ac": 2 },
 		#
-		{ "type": Game.TileType.LURE, "range": 300, "ac": 2 },
-		{ "type": Game.TileType.LURE, "range": 300, "ac": 2 },
+		{ "type": Game.TileType.LURE, "range": "unlimited", "ac": 2 },
+		{ "type": Game.TileType.LURE, "range": "unlimited", "ac": 2 },
 ]
 
 var starting_deck = [

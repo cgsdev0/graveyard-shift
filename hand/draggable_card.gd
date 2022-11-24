@@ -52,7 +52,7 @@ var board
 
 func should_stay_on_board():
 	match type:
-		Game.TileType.MONEY_TREE, Game.TileType.LURE, Game.TileType.COURAGE:
+		Game.TileType.MONEY_TREE, Game.TileType.LURE, Game.TileType.COURAGE, Game.TileType.GUST:
 			return false
 	return true
 	

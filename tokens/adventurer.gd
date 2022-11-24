@@ -1,5 +1,6 @@
 extends Pathfinder
 
+var has_treasure = false
 
 func _ready():
 	add_to_group("adventurers")
@@ -30,6 +31,7 @@ func take_step():
 	var treasure_tile = board.find_tile_id(Game.TileType.TREASURE)
 	if treasure_tile != null && treasure_tile == get_id():
 		board.replace_tile_by_id(get_id(), Game.TileType.TREASURE_TAKEN)
+		has_treasure = true
 		return
 	if path.size() <= 1 || get_path_cost(path) > 100:
 		return
@@ -42,6 +44,11 @@ func take_step():
 	Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	movement_tween.start()
 	yield(movement_tween, "tween_completed")
+	if board.get_tile_by_id(v).type == Game.TileType.EXIT:
+		# rip adventurer
+		var prize = ShopDeck.deal_treasure()
+		Deck.pending_treasure_card = prize
+		self.kill()
 	path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
 
 func get_target_tile():
