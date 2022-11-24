@@ -18,10 +18,14 @@ func init(s: Vector3, t: Vector3, spacing: float) -> void:
 	translation = t
 	self.spacing = spacing
 	
+func set_selection_glow(v):
+	$TileMesh.set_selection_glow(v)
+	
 func _ready():
 	$CollisionShape2D.shape.extents = size / 2 + Vector3(spacing / 2, 0, spacing / 2)
 	$CollisionShape2D.translation = size / 2
 	$TileMesh.translation = size / 2
+	$TileMesh.attach_selection_glow()
 	
 	# Position debug objects
 	$DebugCube.translation = size / 2

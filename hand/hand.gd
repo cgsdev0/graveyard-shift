@@ -62,8 +62,10 @@ func is_mouse_in_card_area():
 	return mouse.y > get_viewport().size.y - $"%UI".get_bottom_edge().rect_size.y * 1.2
 	
 func set_dragging(drag):
+	compute_valid_tiles(drag)
 	if drag == null:
 		if self.dragging != null:
+			disable_tile_highlights()
 			dragging.show_error(false)
 			var mouse = get_mouse_position()
 			if is_mouse_in_card_area():
@@ -86,6 +88,8 @@ func set_dragging(drag):
 	else:
 		if !Game.is_turn:
 			return
+		
+		highlight_valid_tiles()
 		hover = null
 		drag.old_index = drag.get_index()
 		$Cards.remove_child(drag)
@@ -112,6 +116,8 @@ func start_hover(card):
 	tween.start()
 
 func set_snap_tile(tile):
+	if self.snap_tile == tile:
+		return
 	self.snap_tile = tile
 	var mouse = get_mouse_position()
 	var hand_pos = Vector2(get_viewport().size.x / 2, get_viewport().size.y / 5 * 4)
@@ -202,6 +208,7 @@ func _process(delta):
 		if !Input.is_mouse_button_pressed(1):
 			if snap_tile && Game.actions >= dragging.ac:
 				dragging.placed = true
+				disable_tile_highlights()
 				# place the tile
 				board.place_card_on_tile(dragging, snap_tile.get_index())
 				# TODO: maybe a cool transition effect here?
@@ -241,19 +248,37 @@ func _physics_process(delta):
 		var to = from + get_viewport().get_camera().project_ray_normal(mouse) * 600
 		var result = space.intersect_ray(from, to, [], 0b10, false, true)
 		if result.has("collider"):
-			if dragging.type == Game.TileType.BRIDGE:
-				if result.collider.type == Game.TileType.PIT:
-					if snap_tile != result.collider:
-						set_snap_tile(result.collider)
-			else:
-				if result.collider.type == Game.TileType.EMPTY:
-					for token in get_tree().get_nodes_in_group("tokens"):
-						if token.get_id() == result.collider.get_index():
-							return
+			if result.collider in valid_tiles:
 					if snap_tile != result.collider:
 						set_snap_tile(result.collider)
 		elif snap_tile != null:
 			set_snap_tile(null)
+
+var valid_tiles = []
+func compute_valid_tiles(card):
+	valid_tiles = []
+	if card == null:
+		return
+	for tile in board.get_children():
+		if card.type == Game.TileType.BRIDGE:
+			if tile.type == Game.TileType.PIT:
+				valid_tiles.push_back(tile)
+		else:
+			if tile.type == Game.TileType.EMPTY:
+				var should_add = true
+				for token in get_tree().get_nodes_in_group("tokens"):
+					if token.get_id() == tile.get_index():
+						should_add = false
+				if should_add:
+					valid_tiles.push_back(tile)
+
+func highlight_valid_tiles():
+	for tile in valid_tiles:
+		tile.set_selection_glow(true)
+		
+func disable_tile_highlights():
+	for tile in board.get_children():
+		tile.set_selection_glow(false)
 		
 func start_drag(card, pos):
 	if card.placed:

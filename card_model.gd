@@ -7,7 +7,8 @@ export var decal_bits = 0 setget _set_decal_bits
 export var decal_scale = 1.0 setget _set_decal_scale
 export var decal_v_offset = 0.0 setget _set_decal_v_offset
 
-var glow_shader = preload("res://shaders/card_glow_pass.tres")
+var selection_glow_shader = preload("res://shaders/selection_glow.tres")
+var treasure_glow_shader = preload("res://shaders/treasure_glow.tres")
 
 func set_debug_tint(v):
 	if $Plane.get_surface_material(0) == null:
@@ -27,12 +28,20 @@ func play_animation(anim):
 	
 var original_decal1 = preload("res://textures/cards/walls/N.png")
 
-func enable_glow():
+func attach_selection_glow():
 	var pass2 = ShaderMaterial.new()
-	pass2.shader = glow_shader
+	pass2.shader = selection_glow_shader
+	$Plane.get_surface_material(0).next_pass = pass2
+
+func set_selection_glow(v):
+	$Plane.get_surface_material(0).next_pass.set_shader_param("enable", v)
+	
+func enable_treasure_glow():
+	var pass2 = ShaderMaterial.new()
+	pass2.shader = treasure_glow_shader
 	$Plane.get_surface_material(0).next_pass = pass2
 	
-func adjust_glow(adjust):
+func adjust_treasure_glow(adjust):
 	$Plane.get_surface_material(0).next_pass.set_shader_param("glow_adjust", adjust)
 	
 func override_decal(tex):
