@@ -1,0 +1,24 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type spatial;
+render_mode cull_back, unshaded;
+
+const float glow_adjust = 2.537;
+uniform bool enable = false;
+
+varying vec3 v;
+void vertex() {
+	VERTEX *= 1.05  + sin(TIME * 4.0) * 0.01;
+	VERTEX.y *= -1.0;
+	VERTEX.y -= 0.02;
+	v = VERTEX;
+}
+
+void fragment() {
+	float adjust = glow_adjust;
+	ALBEDO = vec3(0.2, 0.9, 1.0) * 1.5;
+	ALPHA = (VERTEX.y == -0.02 || !enable) ? 0.0 : 
+		min(clamp(pow(1.0 - abs(UV.x - 0.5) * adjust, 0.5), 0.0, 1.0),
+		clamp(pow(1.0 - abs(UV.y - 0.5) * adjust, 0.5), 0.0, 1.0));
+}"
