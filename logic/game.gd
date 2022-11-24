@@ -36,6 +36,17 @@ enum Direction {
 	WEST
 }
 
+func gust_direction(dir):
+	match dir:
+		"left":
+			return Direction.WEST
+		"right":
+			return Direction.EAST
+		"up":
+			return Direction.NORTH
+		"down": 
+			return Direction.SOUTH
+
 enum MonsterType {
 	WALKER,
 	SPRINTER
@@ -104,18 +115,18 @@ var levels = [
 ]
 
 const descriptions = {
-	TileType.WALL: "Blocks the path of all entities; monsters can break it down.",
+	TileType.WALL: "Blocks and re-routes entities; monsters can attack it to bring it down.",
 	TileType.SECRET_DOOR: "Monsters cannot pass, but adventurers can. Can still be destroyed.",
-	TileType.MONEY_TREE: "Earn {gpm} gold at the end of every turn. Can also serve as a basic wall.",
+	TileType.MONEY_TREE: "Earn {gpm} gold at the end of every turn. Can also serve as a primitive wall.",
 	TileType.LURE: "Lure monsters to a particular tile. Range: {range} tiles",
 	TileType.BRIDGE: "Creates a path over open graves.",
-	TileType.SPIKES: "Stops an entity in its tracks. Takes one turn to become active.",
-	TileType.TRAP: "If a monster ends its turn on this tile, its next turn will be skipped.",
+	TileType.SPIKES: "Stops an entity in its tracks and stuns for 1 turn. Takes one turn to become active.",
+	TileType.TRAP: "If a monster ends its turn on this tile, it will be stunned next turn.",
 	TileType.FRESH_START: "Redraw your entire hand.",
 	TileType.FORESIGHT: "View the top 3 cards of the deck; add one to your hand.",
 	TileType.COURAGE: "Give your adventurer {courage} extra action(s) this turn.",
 	TileType.ACTION_SURGE: "Give yourself {surge} extra action(s) this turn.",
-	TileType.GUST: "Push an entity one tile in any direction.",
+	TileType.GUST: "Push an entity one tile to the {direction}.",
 }
 
 const flavor = {
@@ -139,20 +150,22 @@ const title = {
 	TileType.MONEY_TREE: "Money Tree",
 	TileType.LURE: "Lure",
 	TileType.BRIDGE: "Bridge",
-	TileType.SPIKES: "Spike Trap",
+	TileType.SPIKES: "Floor Spikes",
 	TileType.TRAP: "Bear Trap",
 	TileType.FRESH_START: "Fresh Start",
 	TileType.FORESIGHT: "Foresight",
 	TileType.COURAGE: "Courage",
 	TileType.ACTION_SURGE: "Action Surge",
-	TileType.GUST: "Gust of Wind",
+	TileType.GUST: "Gust ({direction})",
 }
 
 static func title_card(card):
-	if card.type == TileType.WALL:
-		if card.wall_flags.max() > 1:
-			return "Reinforced Wall"
-	return title[card.type]
+	# Define some overrides
+	if card.type == TileType.WALL && card.wall_flags.max() > 1:
+		return "Reinforced Wall"
+	if card.type == TileType.LURE && typeof(card.range) == TYPE_STRING:
+		return "Super Lure"
+	return title[card.type].format(card)
 	
 static func describe_card(card):
 	return descriptions[card.type].format(card)

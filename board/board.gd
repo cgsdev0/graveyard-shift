@@ -34,6 +34,10 @@ func place_card_on_tile(card, id: int) -> void:
 			var lure = preload("res://tokens/lure.tscn").instance()
 			lure.grid_y = int(id / cols)
 			lure.grid_x = int(id % cols)
+			if typeof(card.card.range) == TYPE_STRING:
+				lure.lure_range = 1000
+			else:
+				lure.lure_range = card.card.range
 			get_parent().add_child(lure)
 			_propagate_board_change()
 			return
@@ -49,6 +53,12 @@ func place_card_on_tile(card, id: int) -> void:
 				if adventurer.get_id() != id:
 					continue
 				adventurer.give_courage(card.card.courage)
+			return
+		Game.TileType.GUST:
+			for pathfinder in get_tree().get_nodes_in_group("pathfinders"):
+				if pathfinder.get_id() != id:
+					continue
+				pathfinder.gust(Game.gust_direction(card.card.direction))
 			return
 	replace_tile_by_id(id, desired_type)
 
@@ -247,6 +257,28 @@ func gap_from_direction(dir):
 		Game.Direction.SOUTH:
 			return cols
 
+func compute_tile_id(start_id, dir):
+	match dir:
+		Game.Direction.EAST:
+			if (start_id + 1) % cols == 0:
+				return -1
+			return start_id + 1
+		Game.Direction.WEST:
+			if start_id % cols == 0:
+				return -1
+			return start_id - 1
+		Game.Direction.NORTH:
+			if start_id / cols == 0:
+				return -1
+			return start_id - cols
+		Game.Direction.SOUTH:
+			if start_id / cols == rows - 1:
+				return -1
+			return start_id + cols
+			
+func is_on_board(id):
+	return id <= rows * cols - 1 && id >= 0
+	
 func _process(delta):
 	pass
 	# update()

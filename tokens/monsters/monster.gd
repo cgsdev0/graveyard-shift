@@ -10,10 +10,12 @@ func get_target_tile():
 	var cheapest_cost = 9999
 	var cheapest_lure = null
 	for lure in lures:
+		if lure.lure_range < manhattan_distance(lure.get_id(), self.get_id()):
+			continue
 		var lure_id = lure.grid_y * board.cols + lure.grid_x
 		var path = astar.get_id_path(grid_y * board.cols + grid_x, lure_id)
 		var cost = get_path_cost(path)
-		if cost < cheapest_cost:
+		if cost < cheapest_cost && cost <= lure.lure_range:
 			cheapest_lure = lure_id
 			cheapest_cost = cost
 	if cheapest_lure != null:
@@ -55,6 +57,9 @@ func take_step():
 	else:
 		grid_y = int(v / board.cols)
 		grid_x = int(v % board.cols)
+		if board.get_tile_by_id(v).spikes_ready:
+			stunned = true
+			skipped_turns += 1
 		#global_translation = board.get_tile(grid_x, grid_y).get_center()
 		movement_tween.interpolate_property(self, "global_translation",
 		global_translation, board.get_tile(grid_x, grid_y).get_center(), 0.4,

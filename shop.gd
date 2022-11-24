@@ -65,6 +65,7 @@ func get_shop_cam():
 func _on_SkipButton_pressed():
 #	Game.level += 1
 #	Game.emit_signal("reset")
+# TODO: send un-purchased cards back to the shop deck
 	$AnimationPlayer.play("fade_out")
 	yield($AnimationPlayer, "animation_finished")
 	for child in $Shop.get_children():

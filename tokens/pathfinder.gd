@@ -8,10 +8,44 @@ export var debug_path: bool = false
 
 var skipped_turns = 0
 
+var stunned = false
+
 var enabled = true
 func kill():
 	self.enabled = false
+
+func manhattan_distance(u, v):
+	var ux = u % board.cols
+	var uy = u / board.cols
+	var vx = v % board.cols
+	var vy = v / board.cols
+	return abs(ux - vx) + abs(uy - vy)
 	
+func gust(dir):
+	var dest = board.compute_tile_id(get_id(), dir)
+	grid_y = int(dest / board.cols)
+	grid_x = int(dest % board.cols)
+	movement_tween.interpolate_property(self, "global_translation",
+	global_translation, board.get_tile(grid_x, grid_y).get_center(), 0.3,
+	Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+
+	if board.get_tile_by_id(dest).type == Game.TileType.PIT:
+		movement_tween.interpolate_property(self, "global_translation",
+		board.get_tile(grid_x, grid_y).get_center(), 
+		board.get_tile(grid_x, grid_y).get_center() - Vector3(0, 3, 0), 0.3,
+		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 0.3)
+		grid_y = start_y
+		grid_x = start_x
+		movement_tween.interpolate_property(self, "global_translation",
+		board.get_tile(grid_x, grid_y).get_center() + Vector3(0, 3, 0), 
+		board.get_tile(grid_x, grid_y).get_center(), 0.3,
+		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 0.6)
+	movement_tween.start()
+	update_navigation()
+		
+var start_x
+var start_y
+
 func _ready():
 	movement_tween = Tween.new()
 	self.add_child(movement_tween)
@@ -19,6 +53,8 @@ func _ready():
 	board = get_parent().get_node("Board")
 	if board:
 		global_translation = board.get_tile(grid_x, grid_y).get_center()
+	start_x = grid_x
+	start_y = grid_y
 	# update_navigation()
 
 func is_my_neighbor(pathfinder):

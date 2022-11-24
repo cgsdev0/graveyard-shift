@@ -11,7 +11,7 @@ func _ready():
 	global_rotation = Vector3.ZERO
 	global_translation = cam.project_position(get_viewport().size / 2, 10.0)
 	hover_time = -1.0
-	$Card.enable_glow()
+	$Card.enable_treasure_glow()
 	Game.connect("accept_treasure", self, "on_accept_treasure")
 
 func on_accept_treasure():
@@ -31,7 +31,7 @@ func do_process(delta):
 		return
 	global_rotation = Vector3.ZERO
 	
-	$Card.adjust_glow(lerp(0, 0.1, ease(clamp((hover_time - 1.3) / 12.0, 0, 1), 0.2)))
+	$Card.adjust_treasure_glow(lerp(0, 0.1, ease(clamp((hover_time - 1.3) / 12.0, 0, 1), 0.2)))
 	if !done_spinning:
 		var start = Vector3(0, -15, 0)
 		global_translation += lerp(start, Vector3.ZERO, ease(clamp(hover_time / 2.0, 0, 1), 0.4))
