@@ -113,8 +113,8 @@ const descriptions = {
 	TileType.TRAP: "If a monster ends its turn on this tile, its next turn will be skipped.",
 	TileType.FRESH_START: "Redraw your entire hand.",
 	TileType.FORESIGHT: "View the top 3 cards of the deck; add one to your hand.",
-	TileType.COURAGE: "Give your adventurer an extra action this turn.",
-	TileType.ACTION_SURGE: "Give yourself an extra action this turn.",
+	TileType.COURAGE: "Give your adventurer {courage} extra action(s) this turn.",
+	TileType.ACTION_SURGE: "Give yourself {surge} extra action(s) this turn.",
 	TileType.GUST: "Push an entity one tile in any direction.",
 }
 

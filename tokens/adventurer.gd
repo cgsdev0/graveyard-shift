@@ -6,10 +6,19 @@ func _ready():
 	add_to_group("killable_tokens")
 	astar = MyAStar.new(board)
 	update_navigation()
+	Game.connect("start_new_turn", self, "reset_action_limit")
+	reset_action_limit()
+	
 
+var action_limit
+func reset_action_limit():
+	action_limit = 2
 	
 func get_action_limit():
-	return 2
+	return action_limit
+	
+func give_courage(v):
+	action_limit += v
 	
 func _process(delta):
 	if !enabled:

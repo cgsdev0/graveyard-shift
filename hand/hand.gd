@@ -263,6 +263,10 @@ func compute_valid_tiles(card):
 		if card.type == Game.TileType.BRIDGE:
 			if tile.type == Game.TileType.PIT:
 				valid_tiles.push_back(tile)
+		elif card.type == Game.TileType.COURAGE:
+			for token in get_tree().get_nodes_in_group("adventurers"):
+				if token.get_id() == tile.get_index():
+					valid_tiles.push_back(tile)
 		else:
 			if tile.type == Game.TileType.EMPTY:
 				var should_add = true
