@@ -60,8 +60,8 @@ func get_target_tile():
 class MyAStar:
 	extends AStar2D
 
-	var board: Board
-	func _init(board: Board):
+	var board
+	func _init(board):
 		self.board = board
 		
 	func _compute_cost(u, v):

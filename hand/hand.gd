@@ -16,6 +16,8 @@ var offset
 var cards_up = true
 var initial_cards_position
 
+var DraggableCard = preload("res://hand/draggable_card.tscn")
+
 func _ready():
 	initial_cards_position = $Cards.global_translation
 	board = Game.get_board()
@@ -137,7 +139,7 @@ func set_snap_tile(tile):
 		tween.start()
 	else:
 		dragging.set_layer_mask(1)
-		dragging.show_error(dragging.ac > Game.actions)
+		dragging.show_error(dragging.card.ac > Game.actions)
 		tween.interpolate_property(dragging, "global_translation", 
 			dragging.global_translation, 
 			snap_tile.get_center(),
@@ -184,7 +186,7 @@ func deal_card():
 	var new_card = Deck.deal()
 	if new_card == null:
 		return false
-	var card = preload("res://hand/draggable_card.tscn").instance()
+	var card = DraggableCard.instance()
 	card.rotation = get_viewport().get_camera().rotation
 	card.become(new_card)
 	$Cards.add_child(card)
@@ -206,24 +208,24 @@ func _process(delta):
 	if dragging:
 		var tween = dragging.get_node("Tween") as Tween
 		if !Input.is_mouse_button_pressed(1):
-			if snap_tile && Game.actions >= dragging.ac:
+			if snap_tile && Game.actions >= dragging.card.ac:
 				dragging.placed = true
 				disable_tile_highlights()
 				# place the tile
 				board.place_card_on_tile(dragging, snap_tile.get_index())
 				# TODO: maybe a cool transition effect here?
-				if dragging.should_stay_on_board():
-					dragging.placed_at = snap_tile.get_index()
-					dragging.add_to_group("placed_tiles")
-					var t = dragging.global_transform
-					remove_child(dragging)
-					get_parent().get_parent().add_child(dragging)
-					dragging.set_owner(get_parent().get_parent())
-					dragging.global_transform = t
-					dragging.placement_animation()
-					dragging.get_node("Tween").resume_all()
-				else:
-					dragging.queue_free()
+				dragging.placed_at = snap_tile.get_index()
+				dragging.add_to_group("placed_tiles")
+				var t = dragging.global_transform
+				remove_child(dragging)
+				get_parent().get_parent().add_child(dragging)
+				dragging.set_owner(get_parent().get_parent())
+				dragging.global_transform = t
+				dragging.placement_animation()
+				snap_tile.stacks += 1
+				dragging.get_node("Tween").resume_all()
+#				else:
+#					dragging.queue_free()
 				hover = null
 				dragging = null
 				if board.has_actions():

@@ -2,12 +2,15 @@ extends Control
 
 var preview
 
+var Row = preload("res://inventory_row.tscn")
+var shopCard3D = preload("res://shop_card_3d.tscn")
+
 func _ready():
 	$"%PreviewTarget".texture = null
 	
 	for i in range(Deck.starting_deck.size()):
 		var card = Deck.starting_deck[i]
-		var row = preload("res://inventory_row.tscn").instance()
+		var row = Row.instance()
 		row.become(card)
 		$VBoxContainer.add_child(row)
 		row.connect("mouse_entered", self, "on_hover_row", [row])
@@ -15,7 +18,7 @@ func _ready():
 		if i in Deck.selected_deck:
 			row.check_box()
 		
-	preview = preload("res://shop_card_3d.tscn").instance()
+	preview = shopCard3D.instance()
 	preview.follow_node = $"%PreviewTarget"
 	preview.become(Deck.starting_deck[0])
 	get_owner().controller.get_shop_cam().add_child(preview)

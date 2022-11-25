@@ -3,40 +3,11 @@ extends Spatial
 
 var follow_node
 var card
-var wall_flags = [0,0,0,0]
-
-var textures = {
-	Game.TileType.MONEY_TREE: preload("res://textures/cards/money_tree.png"),
-	Game.TileType.LURE: preload("res://textures/cards/lure.png"),
-	Game.TileType.TRAP: preload("res://textures/cards/trap.png"),
-}
-
-func recompute_wall_decals():
-	var bits = 0
-	if Game.is_wall(card.type):
-		#if card.type == Game.TileType.WALL:
-		$Card.override_decal(null)
-		for i in range(wall_flags.size()):
-			if wall_flags[i]:
-				bits |= 1 << i
-	elif textures.has(card.type):
-		bits = 1
-		$Card.override_decal(textures[card.type])
-	$Card.decal_bits = bits
 	
 func become(card):
 	self.card = card
-	if card == null:
-		return
-	$Card.set_text(str(card.ac), Game.title_card(card))
-	$Card.header_tint = Deck.card_color(card)
-	$Card.enable_hearts(0)
-	if Game.is_wall(card.type):
-		wall_flags = card.wall_flags
-		match card.type:
-			Game.TileType.WALL, Game.TileType.SECRET_DOOR:
-				$Card.enable_hearts(card.wall_flags.max())
-	recompute_wall_decals()
+	$Card.become(card)
+	$Card.recompute_wall_decals(card)
 		
 
 var tween: Tween

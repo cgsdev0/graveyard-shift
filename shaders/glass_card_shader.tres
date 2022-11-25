@@ -16,6 +16,8 @@ uniform int decal_bits = 0;
 uniform bool has_debug_tint = false;
 uniform float fade_c = 0.0;
 
+uniform float glass_fade = 0.0;
+
 uniform vec4 debug_tint : hint_color;
 uniform vec4 tint : hint_color;
 
@@ -25,24 +27,31 @@ uniform bool has_viewport = false;
 
 void fragment() {
 	ALBEDO = texture(bg, UV).rgb;
+	// glass effect ???
+	ALPHA = 0.1 + (1.0 - glass_fade) * 0.9;
+	ALBEDO = mix(ALBEDO, vec3(0.2, 0.2, 0.2), glass_fade);
 	ROUGHNESS = 0.6;
 	// ALPHA = 1.0;
 	
 	if ((decal_bits & 1) > 0 && b_scale < 40.0) {
 		vec4 color = texture(decal_1, clamp(UV * b_scale + vec2((1.0 - b_scale) / 2.0, (1.0 - b_scale) / 2.0 + v_offset * (1.0 - b_scale)) , vec2(0.0), vec2(1.0)));
 		ALBEDO = mix(ALBEDO, color.rgb, color.a);
+		ALPHA += color.a;
 	}
 	if ((decal_bits & 2) > 0) {
 		vec4 color = texture(decal_2, UV * b_scale + vec2((1.0 - b_scale) / 2.0, (1.0 - b_scale) / 2.0 + v_offset * (1.0 - b_scale)));
 		ALBEDO = mix(ALBEDO, color.rgb, color.a);
+		ALPHA += color.a;
 	}
 	if ((decal_bits & 4) > 0) {
 		vec4 color = texture(decal_3, UV * b_scale + vec2((1.0 - b_scale) / 2.0, (1.0 - b_scale) / 2.0 + v_offset * (1.0 - b_scale)));
 		ALBEDO = mix(ALBEDO, color.rgb, color.a);
+		ALPHA += color.a;
 	}
 	if ((decal_bits & 8) > 0) {
 		vec4 color = texture(decal_4, UV * b_scale + vec2((1.0 - b_scale) / 2.0, (1.0 - b_scale) / 2.0 + v_offset * (1.0 - b_scale)));
 		ALBEDO = mix(ALBEDO, color.rgb, color.a);
+		ALPHA += color.a;
 //		ROUGHNESS = 0.0;
 //		if (color.a > 0.0) {
 //		NORMALMAP = vec3(1.0 - color.z)
@@ -50,12 +59,15 @@ void fragment() {
 	}
 	if (fade_c > 0.0 && UV.y < 0.19 && UV.y > 0.07 && UV.x > 0.07 && UV.x < 0.93) {
 		 // vec4 color = texture(tex3, UV);
-		ALBEDO = mix(ALBEDO, tint.rgb, fade_c);		
+		ALBEDO = mix(ALBEDO, tint.rgb, fade_c);
+		ALPHA += fade_c;
+		
 	}
 	
 	if (has_viewport) {
 	    vec4 tex = texture(label, vec2(UV.x, UV.y));
 		ALBEDO = mix(ALBEDO, tex.rgb, tex.a * fade_c);
+		ALPHA += tex.a * fade_c;
 //		if (tex.a * fade_c > 0.0) {
 //			 ROUGHNESS = 1.0 - tex.a * fade_c;
 //			 METALLIC = 1.0 - tex.a * fade_c;
@@ -65,4 +77,11 @@ void fragment() {
 	if (has_debug_tint) {
 		ALBEDO = debug_tint.rgb;
 	}
+// glass part 2
+	ALPHA = clamp(ALPHA, 0.0, 1.0);
+//	if (ALPHA <= 0.2) {
+//		ALBEDO = vec3(0.5, 0.5, 0.6);
+//		ROUGHNESS = 0.0;
+//		METALLIC = 0.0;
+//	}
 }"

@@ -28,11 +28,13 @@ func _process(delta):
 	$"%BuyButton".disabled = bought || Game.money < card.cost
 	$"%CostLabel".modulate = no_afford_color if Game.money < card.cost else afford_color
 
+signal bought
 
 func _on_BuyButton_pressed():
 	Game.money -= card.cost
 	bought = true
 	Deck.add_card(card)
+	self.emit_signal("bought")
 	$"%BuyButton".disabled = true
 	$"%BuyButton".focus_mode = Control.FOCUS_NONE
 	$"%BuyButton".text = "Purchased!"

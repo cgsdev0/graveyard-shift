@@ -9,6 +9,6 @@ func on_transition(path):
 	yield($CanvasLayer, "transitioned")
 	var child = $CurrentScene.get_child(0)
 	$CurrentScene.remove_child(child)
-	child.free()
+	child.queue_free()
 	var shop = load(path).instance()
 	$CurrentScene.add_child(shop)

@@ -2,7 +2,6 @@ extends Area
 
 export(Game.SlotType) var slot_type
 export(Game.TileType) var type
-var ac = 1
 var wall_flags = [0, 0, 0, 0]
 
 var disabled = false
@@ -11,7 +10,9 @@ var placed_at
 
 var old_index
 
-var card 
+var card
+
+var mutable_card
 
 func show_error(show):
 	$Tile.visible = !show
@@ -19,42 +20,30 @@ func show_error(show):
 	
 func placement_animation():
 	match type:
-		Game.TileType.WALL, Game.TileType.BRIDGE:
+		Game.TileType.WALL:
 			$Tile.play_animation("scale_up_walls")
+		Game.TileType.BRIDGE:
+			$Tile.play_animation("scale_up_bridge")
+		Game.TileType.MONEY_TREE, Game.TileType.LURE, Game.TileType.COURAGE, Game.TileType.GUST:
+			$Tile.play_animation("fade_out_all")
 		_:
 			$Tile.play_animation("fade_out_header")
 
 func recompute_wall_decals():
-	var bits = 0
-	for i in range(wall_flags.size()):
-		if wall_flags[i]:
-			bits |= 1 << i
-	$Tile.decal_bits = bits
+	if mutable_card.has("wall_flags"):
+		mutable_card.wall_flags = wall_flags
+	$Tile.recompute_wall_decals(mutable_card)
 	
 func become(card):
 	self.card = card
-	if card == null:
-		type = Game.TileType.EMPTY
-		return
-	$Tile.set_text(str(card.ac), Game.title_card(card))
-	$Tile.header_tint = Deck.card_color(card)
-	ac = card.ac
-	type = card.type
-	if Game.is_wall(type):
-		wall_flags = card.wall_flags
-		match card.type:
-			Game.TileType.WALL, Game.TileType.SECRET_DOOR:
-				$Tile.enable_hearts(card.wall_flags.max())
-		recompute_wall_decals()
+	self.mutable_card = card.duplicate(true)
+	self.type = card.type
+	self.wall_flags = card.get("wall_flags", [])
+	$Tile.become(card)
+	$Tile.recompute_wall_decals(card)
 
 			
 var board
-
-func should_stay_on_board():
-	match type:
-		Game.TileType.MONEY_TREE, Game.TileType.LURE, Game.TileType.COURAGE, Game.TileType.GUST:
-			return false
-	return true
 	
 func _ready():
 	board = Game.get_board()
