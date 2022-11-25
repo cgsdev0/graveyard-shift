@@ -4,7 +4,7 @@ extends Area
 
 export var size = Vector3(100, 5, 100)
 var spacing = 0.0
-var color: Color
+var color: Color = Color.white
 var type = Game.TileType.EMPTY
 var wall_flags = [0, 0, 0, 0]
 var spikes_ready = false
@@ -26,12 +26,13 @@ func on_start_new_turn():
 	if type == Game.TileType.SPIKES:
 		spikes_ready = true
 		
-func _ready():
+func on_board_ready():
 	Game.connect("start_new_turn", self, "on_start_new_turn")
 	$CollisionShape2D.shape.extents = size / 2 + Vector3(spacing / 2, 0, spacing / 2)
 	$CollisionShape2D.translation = size / 2
 	$TileMesh.translation = size / 2
 	$TileMesh.attach_selection_glow()
+	$TileMesh.become({ "type": self.type })
 	
 	# Position debug objects
 	$DebugCube.translation = size / 2
@@ -64,8 +65,8 @@ func set_color_from_type():
 	match type:
 		Game.TileType.EMPTY:
 			color = Color.white
-		Game.TileType.PIT:
-			color = Color.black
+#		Game.TileType.PIT:
+#			color = Color.black
 		Game.TileType.WALL, Game.TileType.BRIDGE:
 			color = Color.white
 		Game.TileType.TREASURE:
@@ -74,12 +75,9 @@ func set_color_from_type():
 			color = Color.brown
 		Game.TileType.EXIT:
 			color = Color.green
-		Game.TileType.TRAP:
-			color = Color.gray
-		Game.TileType.TRAP_SPRUNG:
-			color = Color.darkred
 			
 func _process(delta):
+	# TODO: PASS HERE
 	set_color_from_type()
 	$DebugCube.material.albedo_color = color
 	if color != Color.white:

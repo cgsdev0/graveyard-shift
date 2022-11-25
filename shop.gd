@@ -1,30 +1,39 @@
 extends Control
 
-var ShopCard
-var shopCard3D
-var treasureCard3D
+var ShopCard = preload("res://ui/shop_card.tscn")
+var shopCard3D = preload("res://shop_card_3d.tscn")
+var treasureCard3D = preload("res://ui/treasure_card_3d.tscn")
+var Inventory = preload("res://inventory.tscn")
 
-func _init():
-	ShopCard = load("res://ui/shop_card.tscn")
-	shopCard3D = load("res://shop_card_3d.tscn")
-	treasureCard3D = load("res://ui/treasure_card_3d.tscn")
-		
+
+var cards
+var bought
+
 func _ready():
 #	var merged_shop_theme = Theme.new()
 #	merged_shop_theme.merge_with(Game.original_theme)
 #	merged_shop_theme.merge_with($Shop.theme)
 #	$Shop.theme = merged_shop_theme
+	cards = []
+	bought = [false, false, false]
+	$AnimationPlayer.play("RESET")
+	$Shop/TreasureView/AnimationPlayer.play("RESET")
 	Game.connect("accept_treasure", self, "on_accept_treasure")
 	
+	$Shop.material.set_shader_param("time_offset", OS.get_ticks_msec() / 1000.0)
 	for child in $"%Cards".get_children():
 		$"%Cards".remove_child(child)
 		child.queue_free()
 		
 	if Deck.pending_treasure_card == null:
-		$AnimationPlayer.play("fade_in")
-		yield(get_tree().create_timer(0.1), "timeout")
-		deal_shop_cards()
-		$Shop/Container.visible = true
+		if Game.skip_to_inventory:
+			Game.skip_to_inventory = false
+			go_to_inventory()
+		else:
+			$AnimationPlayer.play("fade_in")
+			yield(get_tree().create_timer(0.1), "timeout")
+			deal_shop_cards()
+			$Shop/Container.visible = true
 	else:
 		$Shop/TreasureView/AnimationPlayer.play("new_treasure")
 		var new_3d_card = treasureCard3D.instance()
@@ -38,9 +47,12 @@ func on_accept_treasure():
 	yield(get_tree().create_timer(0.1), "timeout")
 	deal_shop_cards()
 	
+func on_bought(c):
+	bought[c.get_index()] = true
+	
 func deal_shop_cards():
 	# Deal some cards
-	var cards = []
+	cards = []
 	cards.push_back(ShopDeck.deal(0))
 	cards.push_back(ShopDeck.deal(1))
 	cards.push_back(ShopDeck.deal(2))
@@ -49,6 +61,7 @@ func deal_shop_cards():
 		var new_card = ShopCard.instance()
 		new_card.card = card
 		$"%Cards".add_child(new_card)
+		new_card.connect("bought", self, "on_bought", [new_card])
 		if card == null:
 			return
 		var new_3d_card = shopCard3D.instance()
@@ -62,19 +75,31 @@ func deal_shop_cards():
 func get_shop_cam():
 	return $"%ShopCamera"
 	
+func undeal_shop_cards():
+	for i in range(bought.size()):
+		if !bought[i]:
+			var card = cards[i]
+			if !card:
+				continue
+			ShopDeck.return_card(card, i)
+			
 func _on_SkipButton_pressed():
 #	Game.level += 1
 #	Game.emit_signal("reset")
 # TODO: send un-purchased cards back to the shop deck
 	$AnimationPlayer.play("fade_out")
 	yield($AnimationPlayer, "animation_finished")
+	undeal_shop_cards()
+	# get_tree().change_scene("res://inventory.tscn")
+	go_to_inventory()
+
+func go_to_inventory():
 	for child in $Shop.get_children():
 		$Shop.remove_child(child)
 	for child in $"%ShopCamera".get_children():
 		$"%ShopCamera".remove_child(child)
-	var inventory = preload("res://inventory.tscn").instance()
+	var inventory = Inventory.instance()
 	inventory.controller = self
 	$Shop.add_child(inventory)
 	$AnimationPlayer.play("fade_in")
 	inventory.fade_in()
-	# get_tree().change_scene("res://inventory.tscn")

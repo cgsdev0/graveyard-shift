@@ -6,6 +6,12 @@ var FencePost = preload("res://models/fence/fencePost.tscn")
 var Fence = preload("res://models/fence/fence.tscn")
 var Lantern = preload("res://models/lamp_post.tscn")
 
+var MoneyTree = preload("res://tokens/money_tree.tscn")
+var Lure = preload("res://tokens/lure.tscn")
+var Adventurer = preload("res://tokens/adventurer.tscn")
+var Sprinter = preload("res://tokens/monsters/sprinter.tscn")
+var Walker = preload("res://tokens/monsters/walker.tscn")
+
 export var rows = 3
 export var cols = 3
 
@@ -22,7 +28,7 @@ func start_new_turn():
 func place_card_on_tile(card, id: int) -> void:
 	if Game.actions <= 0 || card == null:
 		return
-	Game.actions -= card.ac
+	Game.actions -= card.card.ac
 	
 	var desired_type = card.type
 	var desired_flags = card.wall_flags
@@ -31,7 +37,7 @@ func place_card_on_tile(card, id: int) -> void:
 		Game.TileType.WALL, Game.TileType.SECRET_DOOR, Game.TileType.BRIDGE:
 			get_child(id).wall_flags = desired_flags
 		Game.TileType.LURE:
-			var lure = preload("res://tokens/lure.tscn").instance()
+			var lure = Lure.instance()
 			lure.grid_y = int(id / cols)
 			lure.grid_x = int(id % cols)
 			if typeof(card.card.range) == TYPE_STRING:
@@ -42,7 +48,7 @@ func place_card_on_tile(card, id: int) -> void:
 			_propagate_board_change()
 			return
 		Game.TileType.MONEY_TREE:
-			var money_tree = load("res://tokens/money_tree.tscn").instance()
+			var money_tree = MoneyTree.instance()
 			money_tree.grid_y = int(id / cols)
 			money_tree.grid_x = int(id % cols)
 			get_parent().add_child(money_tree)
@@ -113,7 +119,6 @@ func set_tile_wall_bit(id: int, direction, health: int) -> void:
 			tile.recompute_wall_decals()
 	if get_tile_by_id(id).wall_flags == [0, 0, 0, 0]:
 		replace_tile_by_id(id, Game.TileType.EMPTY)
-		get_tile_by_id(id).stacks += 1
 #		for tile in get_tree().get_nodes_in_group("placed_tiles"):
 #			if tile.placed_at == id:
 #				tile.queue_free()
@@ -150,6 +155,9 @@ func _ready():
 
 	for tile in level.tiles:
 		self.callv("replace_tile", tile)
+		
+	for tile in get_children():
+		tile.on_board_ready()
 		
 	if find_tile_id(Game.TileType.TREASURE) != null:
 		var exit = find_tile_id(Game.TileType.EXIT)
@@ -230,7 +238,7 @@ func get_middle():
 	return middle
 	
 func spawn_adventurer(x, y):
-	var adventurer = load("res://tokens/adventurer.tscn").instance()
+	var adventurer = Adventurer.instance()
 	adventurer.grid_x = x
 	adventurer.grid_y = y
 	get_parent().call_deferred("add_child", adventurer)
@@ -239,9 +247,9 @@ func spawn_monster(x, y, monster_type):
 	var monster
 	match monster_type:
 		Game.MonsterType.SPRINTER:
-			monster = load("res://tokens/monsters/sprinter.tscn").instance()
+			monster = Sprinter.instance()
 		Game.MonsterType.WALKER:
-			monster = load("res://tokens/monsters/walker.tscn").instance()
+			monster = Walker.instance()
 	monster.grid_x = x
 	monster.grid_y = y
 	get_parent().call_deferred("add_child", monster)

@@ -9,7 +9,7 @@ func _ready():
 
 var dead_switch = false
 func _process(delta):
-	if dead_switch:
+	if dead_switch || !OS.is_debug_build():
 		return
 	if Input.is_key_pressed(KEY_1):
 		Game.level = 0
@@ -25,6 +25,12 @@ func _process(delta):
 		Game.level = 2
 		Game.emit_signal("reset")
 		Game.emit_signal("change_scene", "res://main.tscn")
+		dead_switch = true
+	elif Input.is_key_pressed(KEY_DELETE):
+		if Input.is_key_pressed(KEY_SHIFT):
+			Game.skip_to_inventory = true
+		Game.emit_signal("reset")
+		Game.emit_signal("change_scene", "res://shop.tscn")
 		dead_switch = true
 		
 		

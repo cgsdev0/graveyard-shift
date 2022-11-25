@@ -19,6 +19,7 @@
 shader = ExtResource( 5 )
 shader_param/color = Color( 0.360784, 0.356863, 0.584314, 0.380392 )
 shader_param/bgcolor = Color( 0.027451, 0.0156863, 0.0627451, 1 )
+shader_param/time_offset = 0.0
 shader_param/OCTAVES = 4
 
 [sub_resource type="Animation" id=3]
@@ -81,7 +82,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0 ]
+"values": [ 2 ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -201,18 +202,6 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Container:margin_top")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -434,7 +423,6 @@ margin_bottom = 513.0
 
 [node name="TreasureView" type="Control" parent="ViewportContainer/Viewport/Control/Shop"]
 visible = false
-self_modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 

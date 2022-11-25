@@ -1,14 +1,14 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://ui/scene_manager.gd" type="Script" id=1]
-[ext_resource path="res://ui/fade_transition.gd" type="Script" id=2]
+[ext_resource path="res://ui/fade_transition.gd" type="Script" id=1]
+[ext_resource path="res://ui/scene_manager.gd" type="Script" id=2]
 [ext_resource path="res://ui/fade_transition.tscn" type="PackedScene" id=3]
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource( 1 )
+script = ExtResource( 2 )
 
 [node name="CurrentScene" type="Node" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." instance=ExtResource( 3 )]
 layer = 3
-script = ExtResource( 2 )
+script = ExtResource( 1 )

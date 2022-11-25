@@ -199,6 +199,7 @@ var actions_per_turn = 2
 var money = 0
 var money_at_start = 0
 var is_turn = false
+var skip_to_inventory = false
 
 func on_reset():
 	is_turn = false
