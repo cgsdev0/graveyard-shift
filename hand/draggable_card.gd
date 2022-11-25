@@ -20,7 +20,7 @@ func show_error(show):
 	
 func placement_animation():
 	match type:
-		Game.TileType.WALL:
+		Game.TileType.WALL, Game.TileType.SECRET_DOOR:
 			$Tile.play_animation("scale_up_walls")
 		Game.TileType.BRIDGE:
 			$Tile.play_animation("scale_up_bridge")

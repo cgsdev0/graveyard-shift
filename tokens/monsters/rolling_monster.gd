@@ -104,8 +104,10 @@ func _take_partial_step(u, v, rolling):
 			return Game.Direction.EAST
 	var dir = board.compute_direction(u, v)
 	var i_dir = Game.invert_direction(dir)
-	var u_wall = board.get_tile_by_id(u).type == Game.TileType.WALL
-	var v_wall = board.get_tile_by_id(v).type == Game.TileType.WALL
+	var u_type = board.get_tile_by_id(u).type
+	var v_type = board.get_tile_by_id(v).type
+	var u_wall = Game.is_wall(u_type)
+	var v_wall = Game.is_wall(v_type)
 	if u_wall && board.get_tile_by_id(u).check_wall_bit(dir):
 		# board.damage_tile_wall_bit(u, dir)
 		wall_queue.push_back([u, dir])

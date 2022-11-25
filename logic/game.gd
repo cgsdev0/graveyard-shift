@@ -55,7 +55,7 @@ enum MonsterType {
 var original_theme
 
 var levels = [
-	# Level 0
+	# Level 0 - introduce game
 	{
 		"turns": 4,
 		"camera": {
@@ -74,7 +74,71 @@ var levels = [
 			[0, 0, MonsterType.WALKER]
 		]
 	},
-	# Level 1
+	# Level 1 - introduce adventurer
+	{
+		"turns": 4,
+		"camera": {
+			"zoom": 23,
+			"angle": 40,
+			"up": 0.1,
+		},
+		"cols": 4,
+		"rows": 3,
+		"tiles": [
+			[3, 2, TileType.EXIT],
+			[1, 0, TileType.PIT],
+			[2, 2, TileType.PIT],
+			[3, 0, TileType.TREASURE],
+		],
+		"monsters": [
+			[0, 0, MonsterType.WALKER]
+		]
+	},
+	# Level 2
+	{
+		"turns": 4,
+		"camera": {
+			"zoom": 25,
+			"angle": 40,
+			"up": 0.0,
+		},
+		"cols": 4,
+		"rows": 4,
+		"tiles": [
+			[2, 2, TileType.EXIT],
+			[0, 0, TileType.PIT],
+			[2, 1, TileType.PIT],
+			[1, 2, TileType.PIT],
+			[3, 3, TileType.PIT],
+			[0, 3, TileType.TREASURE],
+		],
+		"monsters": [
+			[1, 1, MonsterType.WALKER]
+		]
+	},
+	# Level 3
+	{
+		"turns": 5,
+		"camera": {
+			"zoom": 27,
+			"angle": 40,
+			"up": 0.0,
+		},
+		"cols": 5,
+		"rows": 4,
+		"tiles": [
+			[2, 2, TileType.EXIT],
+			[0, 2, TileType.TREASURE],
+			[3, 0, TileType.PIT],
+			[3, 2, TileType.PIT],
+			[1, 2, TileType.PIT],
+			[2, 3, TileType.PIT],
+		],
+		"monsters": [
+			[1, 3, MonsterType.SPRINTER]
+		]
+	},
+	# Level 4
 	{
 		"turns": 6,
 		"camera": {
@@ -95,7 +159,7 @@ var levels = [
 			[0, 0, MonsterType.SPRINTER]
 		]
 	},
-	# Level 2
+	# Level 5
 	{
 		"turns": 3,
 		"camera": {

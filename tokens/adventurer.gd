@@ -68,8 +68,8 @@ class MyAStar:
 		var cost = 1
 		var u_type = board.get_tile_by_id(u).type
 		var v_type = board.get_tile_by_id(v).type
-		var u_wall = Game.is_wall(u_type)
-		var v_wall = Game.is_wall(v_type)
+		var u_wall = u_type != Game.TileType.SECRET_DOOR && Game.is_wall(u_type)
+		var v_wall = v_type != Game.TileType.SECRET_DOOR && Game.is_wall(v_type)
 		if  u_wall || v_wall:
 			var dir = board.compute_direction(u, v)
 			var i_dir = Game.invert_direction(dir)
