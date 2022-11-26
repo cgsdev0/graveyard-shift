@@ -53,9 +53,9 @@ func on_bought(c):
 func deal_shop_cards():
 	# Deal some cards
 	cards = []
-	cards.push_back(ShopDeck.deal(0))
-	cards.push_back(ShopDeck.deal(1))
-	cards.push_back(ShopDeck.deal(2))
+	cards.push_back(ShopDeck.deal())
+	cards.push_back(ShopDeck.deal())
+	cards.push_back(ShopDeck.deal())
 	
 	for card in cards:
 		var new_card = ShopCard.instance()
@@ -81,7 +81,7 @@ func undeal_shop_cards():
 			var card = cards[i]
 			if !card:
 				continue
-			ShopDeck.return_card(card, i)
+			ShopDeck.return_card(card)
 			
 func _on_SkipButton_pressed():
 #	Game.level += 1
@@ -89,7 +89,6 @@ func _on_SkipButton_pressed():
 # TODO: send un-purchased cards back to the shop deck
 	$AnimationPlayer.play("fade_out")
 	yield($AnimationPlayer, "animation_finished")
-	undeal_shop_cards()
 	# get_tree().change_scene("res://inventory.tscn")
 	go_to_inventory()
 
@@ -103,3 +102,20 @@ func go_to_inventory():
 	$Shop.add_child(inventory)
 	$AnimationPlayer.play("fade_in")
 	inventory.fade_in()
+
+func _process(delta):
+	if $"%RerollButton" != null:
+		$"%RerollButton".disabled = Game.money < 2
+	
+func _on_RerollButton_pressed():
+	$"%RerollButton".release_focus()
+	Game.money -= 2
+	$AnimationPlayer.play("reroll_out")
+	yield($AnimationPlayer, "animation_finished")
+	undeal_shop_cards()
+	for child in $"%Cards".get_children():
+		$"%Cards".remove_child(child)
+	for child in $"%ShopCamera".get_children():
+		$"%ShopCamera".remove_child(child)
+	deal_shop_cards()
+	$AnimationPlayer.play("reroll_in")

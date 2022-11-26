@@ -135,7 +135,7 @@ var levels = [
 			[2, 3, TileType.PIT],
 		],
 		"monsters": [
-			[1, 3, MonsterType.SPRINTER]
+			[1, 3, MonsterType.WALKER]
 		]
 	},
 	# Level 4
@@ -188,9 +188,9 @@ const descriptions = {
 	TileType.TRAP: "If a monster ends its turn on this tile, it will be stunned next turn.",
 	TileType.FRESH_START: "Redraw your entire hand.",
 	TileType.FORESIGHT: "Draw 3 cards; add one to your hand. Shuffle the others back into the deck.",
-	TileType.COURAGE: "Give your adventurer {courage} extra action(s) this turn.",
+	TileType.COURAGE: "Give your adventurer {actions} extra action(s) this turn.",
 	TileType.ACTION_SURGE: "Give yourself {surge} extra action(s) this turn.",
-	TileType.GUST: "Push an entity one tile to the {direction}.",
+	TileType.GUST: "Push an entity one tile {direction}. Cannot push entities off the board.",
 }
 
 const flavor = {

@@ -5,7 +5,7 @@ func _ready():
 	Game.connect("start_new_turn", self, "start_new_turn")
 	pass
 
-var desired_disabled = false
+var desired_disabled = true
 
 func start_new_turn():
 	desired_disabled = false

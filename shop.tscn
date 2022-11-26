@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://ui/shop2.theme" type="Theme" id=1]
 [ext_resource path="res://ui/span_limiter.gd" type="Script" id=2]
@@ -284,6 +284,62 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
+[sub_resource type="Animation" id=9]
+resource_name = "reroll_in"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Container/VBoxContainer/MarginContainer/Cards:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../../../../ViewportContainer2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "reroll_out"
+length = 0.35
+tracks/0/type = "value"
+tracks/0/path = NodePath("Container/VBoxContainer/MarginContainer/Cards:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../../../../ViewportContainer2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
 [node name="Root" type="Node"]
 
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
@@ -326,9 +382,21 @@ margin_bottom = 600.0
 size_flags_vertical = 3
 alignment = 1
 
+[node name="Title" type="Label" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer"]
+margin_left = 160.0
+margin_top = 2.0
+margin_right = 404.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
+theme_type_variation = "BigLabel"
+custom_fonts/font = ExtResource( 11 )
+text = "Graveyard Shop"
+align = 1
+valign = 1
+
 [node name="MarginContainer2" type="HBoxContainer" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer"]
 margin_right = 800.0
-margin_bottom = 63.0
+size_flags_horizontal = 3
 alignment = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2"]
@@ -362,22 +430,28 @@ text = "10"
 valign = 1
 script = ExtResource( 7 )
 
-[node name="Title" type="Label" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2"]
-margin_left = 160.0
-margin_top = 2.0
-margin_right = 620.0
-margin_bottom = 60.0
+[node name="MarginContainer3" type="MarginContainer" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2"]
+margin_right = 32.0
+margin_bottom = 16.0
 size_flags_horizontal = 3
-theme_type_variation = "BigLabel"
-custom_fonts/font = ExtResource( 11 )
-text = "Graveyard Shop"
-align = 1
-valign = 1
+
+[node name="RerollButton" type="Button" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2/MarginContainer3"]
+unique_name_in_owner = true
+margin_left = 16.0
+margin_top = 8.0
+margin_right = 166.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 150, 42 )
+size_flags_horizontal = 6
+text = "2      Reroll"
+icon = ExtResource( 4 )
+expand_icon = true
 
 [node name="MarginContainer" type="MarginContainer" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2"]
 margin_left = 628.0
 margin_right = 800.0
 margin_bottom = 63.0
+size_flags_horizontal = 8
 
 [node name="SkipButton" type="Button" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2/MarginContainer"]
 margin_left = 16.0
@@ -471,6 +545,8 @@ root_node = NodePath("../Shop")
 anims/RESET = SubResource( 6 )
 anims/fade_in = SubResource( 7 )
 anims/fade_out = SubResource( 8 )
+anims/reroll_in = SubResource( 9 )
+anims/reroll_out = SubResource( 10 )
 
 [node name="ViewportContainer2" type="ViewportContainer" parent="."]
 anchor_right = 1.0
@@ -506,5 +582,6 @@ light_energy = 0.5
 [node name="WorldEnvironment" type="WorldEnvironment" parent="ViewportContainer2/Viewport"]
 environment = ExtResource( 10 )
 
+[connection signal="pressed" from="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2/MarginContainer3/RerollButton" to="ViewportContainer/Viewport/Control" method="_on_RerollButton_pressed"]
 [connection signal="pressed" from="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2/MarginContainer/SkipButton" to="ViewportContainer/Viewport/Control" method="_on_SkipButton_pressed"]
 [connection signal="pressed" from="ViewportContainer/Viewport/Control/Shop/TreasureView/MarginContainer/CenterContainer/Button" to="ViewportContainer/Viewport/Control/Shop/TreasureView/MarginContainer/CenterContainer/Button" method="_on_Button_pressed"]

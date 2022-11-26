@@ -47,10 +47,12 @@ func on_foresight_end(card):
 	# translation = start_translation
 	$Tile.detach_glow()
 	if card == self:
+		var t = global_transform
 		foresight_card = false
 		var cards = get_parent().get_node("Camera/Hand/Cards")
 		get_parent().remove_child(self)
 		cards.add_child(self)
+		global_transform = t
 		cards.get_parent().adjust_hand()
 		return
 	$FloatAnimation.stop()
@@ -82,6 +84,7 @@ func _input(event):
 	if event is InputEventMouseButton && event.pressed && event.button_index == 1:
 		$FloatAnimation.play("RESET")
 		Game.emit_signal("foresight_end", self)
+		yield(get_tree().create_timer(0.2), "timeout")
 		Game.block_interaction = false
 		
 func _process(delta):

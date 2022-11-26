@@ -57,7 +57,7 @@ func place_card_on_tile(card, id: int) -> void:
 			for adventurer in get_tree().get_nodes_in_group("adventurers"):
 				if adventurer.get_id() != id:
 					continue
-				adventurer.give_courage(card.card.courage)
+				adventurer.give_courage(card.card.actions)
 			return
 		Game.TileType.GUST:
 			for pathfinder in get_tree().get_nodes_in_group("pathfinders"):
@@ -204,30 +204,30 @@ func spawn_fence(r, c, pos, tile_size):
 	if c == cols - 1:
 		var f = Fence.instance()
 		call_deferred("add_to_parent", f)
-		f.global_translation = pos + Vector3(tile_size. x + fence_gap, height, 0 if r == 0 else - spacing / 2)
+		f.global_translation = pos + Vector3(tile_size. x + fence_gap, -height, 0 if r == 0 else - spacing / 2)
 		f.rotate_y(PI / 2)
 	
 func spawn_fence_post(r, c, pos, tile_size):
 	if r == 0:
 		var f = FencePost.instance()
 		call_deferred("add_to_parent", f)
-		f.global_translation = pos + Vector3(tile_size.x / 2, height, -fence_gap)
+		f.global_translation = pos + Vector3(tile_size.x / 2, -height, -fence_gap)
 		if c == 0:
 			f = FencePost.instance()
 			call_deferred("add_to_parent", f)
-			f.global_translation = pos + Vector3(-fence_gap, height, -fence_gap)
+			f.global_translation = pos + Vector3(-fence_gap, -height, -fence_gap)
 		if c == cols - 1:
 			f = FencePost.instance()
 			call_deferred("add_to_parent", f)
-			f.global_translation = pos + Vector3(tile_size.x + fence_gap, height, -fence_gap)
+			f.global_translation = pos + Vector3(tile_size.x + fence_gap, -height, -fence_gap)
 	if c == 0:
 		var f = FencePost.instance()
 		call_deferred("add_to_parent", f)
-		f.global_translation = pos + Vector3(-fence_gap, height, tile_size.z / 2)
+		f.global_translation = pos + Vector3(-fence_gap, -height, tile_size.z / 2)
 	if c == cols - 1:
 		var f = FencePost.instance()
 		call_deferred("add_to_parent", f)
-		f.global_translation = pos + Vector3(tile_size.x + fence_gap, height, tile_size.z / 2)
+		f.global_translation = pos + Vector3(tile_size.x + fence_gap, -height, tile_size.z / 2)
 
 func add_to_parent(f):
 	get_parent().add_child(f)
