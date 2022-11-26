@@ -9,6 +9,9 @@ func _ready():
 	
 	set_turns(Game.turns)
 	
+func get_friend():
+	return $"%Friend"
+	
 func start_new_turn():
 	Game.turns -= 1
 	set_turns(Game.turns)

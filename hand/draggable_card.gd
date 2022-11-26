@@ -18,6 +18,19 @@ func show_error(show):
 	$Tile.visible = !show
 	$NoPlace.visible = show
 	
+func discard_animation(index):
+	var tween = Tween.new()
+	add_child(tween)
+	var target_a = get_viewport().get_camera().project_position(get_viewport().size / 2, 15.0 + index * 0.5)
+	tween.interpolate_property(self, "global_translation", global_translation,
+	target_a, 0.5, Tween.TRANS_QUAD, Tween.EASE_OUT)
+	tween.interpolate_property(self, "global_translation", target_a,
+	get_viewport().get_camera().project_position(Vector2.ZERO, 15.0 + index * 0.5), 
+	0.5, Tween.TRANS_QUAD, Tween.EASE_IN, 0.55 + 0.1 * index)
+	tween.start()
+	yield(tween, "tween_all_completed")
+	queue_free()
+	
 func placement_animation():
 	match type:
 		Game.TileType.WALL, Game.TileType.SECRET_DOOR:
@@ -26,6 +39,12 @@ func placement_animation():
 			$Tile.play_animation("scale_up_bridge")
 		Game.TileType.MONEY_TREE, Game.TileType.LURE, Game.TileType.COURAGE, Game.TileType.GUST:
 			$Tile.play_animation("fade_out_all")
+		Game.TileType.ACTION_SURGE, Game.TileType.FORESIGHT, Game.TileType.FRESH_START:
+			var anim_list = $AnimationPlayer.get_animation_list()
+			var i = randi() % anim_list.size()
+			$AnimationPlayer.play(anim_list[i], -1, 0.8)
+			yield($AnimationPlayer, "animation_finished")
+			queue_free()
 		_:
 			$Tile.play_animation("fade_out_header")
 
@@ -65,7 +84,7 @@ func _process(delta):
 		if is_bridge ^ int(bool(check_wall_bit(Game.Direction.WEST))):
 			$Label3D.text += " WEST"
 		
-	self.disabled = Game.actions == 0
+	self.disabled = Game.actions < card.ac
 
 func set_translation(glob):
 	global_translation = glob

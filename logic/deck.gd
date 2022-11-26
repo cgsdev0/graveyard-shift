@@ -11,9 +11,9 @@ var starting_deck = [
 	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 1, 0], "ac": 1 },
 	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 1, 0], "ac": 1 },
 	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 1, 0], "ac": 1 },
-	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
-	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
-	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
+	# { "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
+	# { "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
+	# { "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
 #	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
 #	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
 #	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 2 },
@@ -27,6 +27,9 @@ var starting_deck = [
 #	{ "cost": 0, "type": Game.TileType.BRIDGE, "wall_flags": [1000, 1000, 0, 0], "ac": 1 },
 #	{ "cost": 0, "type": Game.TileType.BRIDGE, "wall_flags": [0, 0, 1000, 1000], "ac": 1 },
 #	{ "type": Game.TileType.GUST, "ac": 2, "direction": "right" },
+	{ "type": Game.TileType.FRESH_START, "ac": 0 },
+	{ "type": Game.TileType.ACTION_SURGE, "ac": 0, "actions": 2 },
+	{ "type": Game.TileType.FORESIGHT, "ac": 1 },
 ]
 
 var max_deck_size = 12
@@ -60,12 +63,16 @@ func on_reset():
 	for i in selected_deck:
 		deck.push_back(starting_deck[i].duplicate(true))
 	# TODO: re-enable
-	deck.shuffle()
+	# deck.shuffle()
 	
 func add_card(card):
 	starting_deck.push_front(card)
 	for i in range(selected_deck.size()):
 		selected_deck[i] += 1
+	
+func return_card(card):
+	deck.push_front(card)
+	deck.shuffle()
 	
 func desired_count():
 	return 4

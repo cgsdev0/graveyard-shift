@@ -20,7 +20,7 @@ export var size = Vector2(1.98, 1.98)
 export var tile_height = 0.2
 
 func has_actions():
-	return Game.actions > 0
+	return true
 	
 func start_new_turn():
 	Game.actions = Game.actions_per_turn
@@ -28,7 +28,7 @@ func start_new_turn():
 func place_card_on_tile(card, id: int) -> void:
 	if Game.actions <= 0 || card == null:
 		return
-	Game.actions -= card.card.ac
+	
 	
 	var desired_type = card.type
 	var desired_flags = card.wall_flags

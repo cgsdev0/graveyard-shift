@@ -26,7 +26,11 @@ var textures = {
 	Game.TileType.GUST: [ preload("res://textures/cards/gust_of_wind.png") ],
 	Game.TileType.WALL: [ wall_n, wall_s, wall_e, wall_w ],
 	Game.TileType.SECRET_DOOR: [ wall_n, wall_s, wall_e, wall_w ],
-	Game.TileType.BRIDGE: [ preload("res://textures/cards/bridge_horizontal.png"), blank, preload("res://textures/cards/bridge_vertical.png"), blank ]
+	Game.TileType.BRIDGE: [ preload("res://textures/cards/bridge_horizontal.png"), blank, preload("res://textures/cards/bridge_vertical.png"), blank ],
+	Game.TileType.COURAGE: [ preload("res://textures/cards/courage.png") ],
+	Game.TileType.ACTION_SURGE: [ preload("res://textures/cards/action_surge.png") ],
+	Game.TileType.FORESIGHT: [ preload("res://textures/cards/foresight.png") ],
+	Game.TileType.FRESH_START: [ preload("res://textures/cards/fresh_start.png") ],
 }
 
 var bg_textures = {

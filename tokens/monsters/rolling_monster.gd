@@ -53,7 +53,7 @@ func take_step():
 			yield($AnimationPlayer, "animation_finished")
 			kill_all()
 			break
-		var y = rotate_to(dir)
+		var y = rotate_to(dir, true)
 		if y is Object:
 			yield(y, "completed")
 		$AnimationPlayer.play("move")

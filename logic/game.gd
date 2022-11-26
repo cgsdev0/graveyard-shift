@@ -260,12 +260,15 @@ var max_turns = 0
 var actions = 2
 var actions_per_turn = 2
 
+var block_interaction = false
+
 var money = 0
 var money_at_start = 0
 var is_turn = false
 var skip_to_inventory = false
 
 func on_reset():
+	block_interaction = false
 	is_turn = false
 	turns = float(levels[level].turns)
 	actions = actions_per_turn
@@ -289,6 +292,9 @@ func on_end_turn():
 	
 func get_board():
 	return get_tree().root.find_node("Board", true, false)
+
+func get_ui():
+	return get_tree().root.find_node("UI", true, false)
 	
 signal start_drag(card, pos)
 signal start_hover(card)
@@ -306,3 +312,5 @@ signal end_turn
 signal accept_treasure
 signal change_scene(path)
 signal soft_reset
+
+signal highlight_friend(on)
