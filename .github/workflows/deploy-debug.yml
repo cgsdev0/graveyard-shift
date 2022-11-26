@@ -1,0 +1,37 @@
+name: Build Godot Project
+
+on:
+  push:
+    branches:
+      - debug
+  workflow_dispatch: {}
+
+env:
+  GODOT_VERSION: 3.5.1
+  EXPORT_NAME: GraveyardShift
+  
+jobs:
+  export_web:
+    name: HTML5 Export
+    runs-on: ubuntu-latest
+    container:
+      image: docker://barichello/godot-ci:3.5.1
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+      - name: Setup
+        run: |
+          pwd
+          mkdir -v -p build/html5 releases final-bundle ~/.local/share/godot/templates
+          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
+      - name: Linux Build
+        run: godot -v --export-debug "HTML5" ./build/html5/index.html
+      - uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butlerApiKey: ${{secrets.BUTLER_API_KEY}}
+          gameData: ./build/html5
+          itchUsername: badcop
+          itchGameId: graveyard-shift
+          buildChannel: release
+          

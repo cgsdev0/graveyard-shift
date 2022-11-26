@@ -20,6 +20,12 @@ var wall_e = preload("res://textures/cards/walls/E.png")
 var wall_w = preload("res://textures/cards/walls/W.png")
 
 var textures = {
+	Game.TileType.EMPTY: [
+		preload("res://textures/cards/grass_1.png"),
+		preload("res://textures/cards/grass_2.png"),
+		preload("res://textures/cards/grass_3.png"),
+		preload("res://textures/cards/grass_4.png"),
+	],
 	Game.TileType.MONEY_TREE: [ preload("res://textures/cards/money_tree.png") ],
 	Game.TileType.LURE: [ preload("res://textures/cards/lure.png") ],
 	Game.TileType.TRAP: [ preload("res://textures/cards/trap.png") ],
@@ -31,6 +37,8 @@ var textures = {
 	Game.TileType.ACTION_SURGE: [ preload("res://textures/cards/action_surge.png") ],
 	Game.TileType.FORESIGHT: [ preload("res://textures/cards/foresight.png") ],
 	Game.TileType.FRESH_START: [ preload("res://textures/cards/fresh_start.png") ],
+	Game.TileType.TREASURE: [ preload("res://textures/cards/treasure.png") ],
+	Game.TileType.TREASURE_TAKEN: [ preload("res://textures/cards/treasure_taken.png") ],
 }
 
 var bg_textures = {
@@ -42,10 +50,19 @@ func become(card):
 		return
 	
 	override_bg(bg_textures.get(card.type, null))
+	recompute_wall_decals(card)
 	
 	match card.type:
 		Game.TileType.PIT, Game.TileType.EMPTY, Game.TileType.EXIT, Game.TileType.TREASURE, Game.TileType.TREASURE_TAKEN, Game.TileType.TRAP_SPRUNG:
 			return
+	
+	match card.type:
+		Game.TileType.COURAGE, Game.TileType.GUST:
+			self.set_bg_hue_shift(-2.072)
+		Game.TileType.ACTION_SURGE, Game.TileType.FORESIGHT, Game.TileType.FRESH_START:
+			self.set_bg_hue_shift(11.0)
+		_:
+			self.set_bg_hue_shift(0.0)
 			
 	self.set_text(str(card.ac), Game.title_card(card))
 	self._set_header_tint(Deck.card_color(card))
@@ -53,10 +70,15 @@ func become(card):
 	if Game.is_wall(card.type):
 		match card.type:
 			Game.TileType.WALL, Game.TileType.SECRET_DOOR:
-				enable_hearts(card.wall_flags.max())
+				var n = card.wall_flags.max()
+				if n < 1000:
+					enable_hearts(n)
 
+func set_bg_hue_shift(v):
+	$Plane.get_surface_material(0).set_shader_param("bg_hue", v)
+	
 func recompute_wall_decals(card):
-	if card == null:
+	if card == null || !textures.has(card.type):
 		return
 	var bits = 0
 	for i in range(textures[card.type].size()):
@@ -65,6 +87,8 @@ func recompute_wall_decals(card):
 		for i in range(card.wall_flags.size()):
 			if card.wall_flags[i]:
 				bits |= 1 << i
+	elif card.type == Game.TileType.EMPTY:
+		bits = randi() % 16
 	elif textures.has(card.type):
 		bits = 1
 	_set_decal_bits(bits)
@@ -83,7 +107,7 @@ func enable_hearts(n):
 	$Viewport.render_target_update_mode = Viewport.UPDATE_ONCE
 		
 func play_animation(anim):
-	if anim == "scale_up_bridge":
+	if anim == "scale_up_bridge" || anim == "fade_out_all_to_glass":
 		$Plane.get_surface_material(0).shader = glass_card_shader
 	$AnimationPlayer.play(anim)
 	

@@ -34,8 +34,8 @@ func _on_CheckBox_toggled(button_pressed):
 func _process(delta):
 	if Deck.selected_deck.size() >= Deck.max_deck_size && !$"%CheckBox".pressed:
 		$"%CheckBox".disabled = true
-		$ColorRect.color = Color.gray
-		$"%Label".modulate = Color.darkgray
+		$ColorRect.color = color
+		$"%Label".modulate = Color(1.0, 1.0, 1.0, 0.5)
 	else:
 		
 		$"%CheckBox".disabled = false

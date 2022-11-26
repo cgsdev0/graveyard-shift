@@ -48,6 +48,7 @@ func place_card_on_tile(card, id: int) -> void:
 			return
 		Game.TileType.MONEY_TREE:
 			var money_tree = MoneyTree.instance()
+			money_tree.gpm = card.card.gpm
 			money_tree.grid_y = int(id / cols)
 			money_tree.grid_x = int(id % cols)
 			get_parent().add_child(money_tree)
@@ -98,15 +99,17 @@ func compute_direction(u, v):
 func _propagate_board_change():
 	get_tree().call_group("pathfinders", "update_navigation")
 	
-func _replace_tile(exit_tile: Tile, type) -> void:
+func _replace_tile(exit_tile: Tile, type, refresh = false) -> void:
 	exit_tile.type = type
+	if refresh:
+		exit_tile.refresh_type()
 	_propagate_board_change()
 	
 func replace_tile(col: int, row: int, type) -> void:
 	_replace_tile(get_tile(col, row), type)
 
-func replace_tile_by_id(id: int, type) -> void:
-	_replace_tile(get_tile_by_id(id), type)
+func replace_tile_by_id(id: int, type, refresh = false) -> void:
+	_replace_tile(get_tile_by_id(id), type, refresh)
 
 func damage_tile_wall_bit(id: int, direction) -> void:
 	set_tile_wall_bit(id, direction, get_tile_by_id(id).wall_flags[direction] - 1)

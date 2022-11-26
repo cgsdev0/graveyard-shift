@@ -5,6 +5,8 @@ code = "shader_type spatial;
 
 uniform sampler2D bg : hint_albedo;
 
+uniform float bg_hue = 0.0;
+
 uniform sampler2D decal_1 : hint_albedo;
 uniform sampler2D decal_2 : hint_albedo;
 uniform sampler2D decal_3 : hint_albedo;
@@ -23,8 +25,35 @@ uniform sampler2D label : hint_albedo;
 
 uniform bool has_viewport = false;
 
+vec3 hueShift( vec3 color, float hueAdjust ){
+
+    const vec3  kRGBToYPrime = vec3 (0.299, 0.587, 0.114);
+    const vec3  kRGBToI      = vec3 (0.596, -0.275, -0.321);
+    const vec3  kRGBToQ      = vec3 (0.212, -0.523, 0.311);
+
+    const vec3  kYIQToR     = vec3 (1.0, 0.956, 0.621);
+    const vec3  kYIQToG     = vec3 (1.0, -0.272, -0.647);
+    const vec3  kYIQToB     = vec3 (1.0, -1.107, 1.704);
+
+    float   YPrime  = dot (color, kRGBToYPrime);
+    float   I       = dot (color, kRGBToI);
+    float   Q       = dot (color, kRGBToQ);
+    float   hue     = atan (Q, I);
+    float   chroma  = sqrt (I * I + Q * Q);
+
+    hue += hueAdjust;
+
+    Q = chroma * sin (hue);
+    I = chroma * cos (hue);
+
+    vec3    yIQ   = vec3 (YPrime, I, Q);
+
+    return vec3( dot (yIQ, kYIQToR), dot (yIQ, kYIQToG), dot (yIQ, kYIQToB) );
+
+}
+
 void fragment() {
-	ALBEDO = texture(bg, UV).rgb;
+	ALBEDO = hueShift(texture(bg, UV).rgb, bg_hue);
 	ROUGHNESS = 0.6;
 	// ALPHA = 1.0;
 	

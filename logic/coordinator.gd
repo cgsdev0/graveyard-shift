@@ -6,6 +6,10 @@ func _ready():
 
 class MyCustomSorter:
 	static func sort_deterministic(a, b):
+		if a.is_in_group("adventurers") && a.has_courage:
+			return true
+		if b.is_in_group("adventurers") && b.has_courage:
+			return false
 		if a.is_in_group("monsters") && !b.is_in_group("monsters"):
 			return true
 		if a.is_in_group("adventurers") && !b.is_in_group("monsters"):

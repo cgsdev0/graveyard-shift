@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://shaders/card_shader_material.tres" type="Material" id=1]
 [ext_resource path="res://debug/untitled.glb" type="PackedScene" id=2]
@@ -6,7 +6,7 @@
 [ext_resource path="res://textures/cards/cardboard.jpg" type="Texture" id=4]
 [ext_resource path="res://textures/cards/back_of_card.png" type="Texture" id=5]
 [ext_resource path="res://debug/card_label_font.tres" type="DynamicFont" id=6]
-[ext_resource path="res://textures/ui/gold.png" type="Texture" id=7]
+[ext_resource path="res://textures/ui/actions.png" type="Texture" id=7]
 [ext_resource path="res://textures/ui/heart.png" type="Texture" id=8]
 
 [sub_resource type="SpatialMaterial" id=2]
@@ -37,9 +37,87 @@ tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0, 0.7 ),
-"transitions": PoolRealArray( 6.49801, 1 ),
+"transitions": PoolRealArray( 2.92817, 1 ),
 "update": 0,
 "values": [ 1.0, 45.0 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "fade_out_all_from_purple"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:header")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.406126, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Plane:material/0:shader_param/b_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 2.92817, 1 ),
+"update": 0,
+"values": [ 1.0, 45.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Plane:material/0:shader_param/bg_hue")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -2.072, 0.0 ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "fade_out_all_to_glass"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Plane:material/0:shader_param/glass_fade")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 0.659754, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Plane:material/0:shader_param/b_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 2.92817, 1 ),
+"update": 0,
+"values": [ 1.0, 45.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:header")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.406126, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -96,24 +174,12 @@ tracks/2/keys = {
 "values": [ 0.032 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Plane:material/0:shader_param/glass_bg")
+tracks/3/path = NodePath("Plane:material/0:shader_param/glass_fade")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("Plane:material/0:shader_param/glass_fade")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
 "times": PoolRealArray( 0, 0.7 ),
 "transitions": PoolRealArray( 0.659754, 1 ),
 "update": 0,
@@ -175,6 +241,8 @@ __meta__ = {
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
 anims/fade_out_all = SubResource( 5 )
+anims/fade_out_all_from_purple = SubResource( 7 )
+anims/fade_out_all_to_glass = SubResource( 8 )
 anims/fade_out_header = SubResource( 4 )
 anims/scale_up_bridge = SubResource( 6 )
 anims/scale_up_walls = SubResource( 1 )
