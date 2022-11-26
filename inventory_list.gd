@@ -37,3 +37,6 @@ func _process(delta):
 	
 func on_hover_row(row):
 	preview.become(row.card)
+	$"%Title".text = Game.title_card(row.card)
+	$"%Description".text = Game.describe_card(row.card)
+	$"%Lore".text = Game.flavor_text_card(row.card)

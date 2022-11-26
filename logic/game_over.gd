@@ -12,17 +12,18 @@ func _process(delta):
 	if dead_switch || !OS.is_debug_build():
 		return
 	if Input.is_key_pressed(KEY_1):
-		Game.level = 0
+		if Game.level > 0:
+			Game.level -= 1
 		Game.emit_signal("reset")
 		Game.emit_signal("change_scene", "res://main.tscn")
 		dead_switch = true
 	elif Input.is_key_pressed(KEY_2):
-		Game.level = 1
 		Game.emit_signal("reset")
 		Game.emit_signal("change_scene", "res://main.tscn")
 		dead_switch = true
 	elif Input.is_key_pressed(KEY_3):
-		Game.level = 2
+		if Game.level < Game.levels.size() - 1:
+			Game.level += 1
 		Game.emit_signal("reset")
 		Game.emit_signal("change_scene", "res://main.tscn")
 		dead_switch = true
