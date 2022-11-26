@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://hand/draggable_card.gd" type="Script" id=1]
 [ext_resource path="res://debug/big_prototype_dynamic_font.tres" type="DynamicFont" id=2]
@@ -16,6 +16,90 @@ albedo_color = Color( 2, 0.42, 0.47, 0.67 )
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1, 1, 0.05 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "scale_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.615572, 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Tile:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -90, 0 ), Vector3( -180, -90, 0 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "scale_out_variation1"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.615572, 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Tile:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -90, 0 ), Vector3( 0, -90, 90 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "scale_out_variation2"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.615572, 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Tile:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -90, 0 ), Vector3( 0, 90, 0 ) ]
+}
 
 [node name="Area" type="Area"]
 script = ExtResource( 1 )
@@ -63,6 +147,11 @@ layers = 2
 text = "hello i am 3d textawefawefawefawefawefawefawef"
 autowrap = true
 width = 180.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/scale_out = SubResource( 4 )
+anims/scale_out_variation1 = SubResource( 5 )
+anims/scale_out_variation2 = SubResource( 6 )
 
 [connection signal="input_event" from="." to="." method="_on_Area_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_Area_mouse_entered"]

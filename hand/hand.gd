@@ -17,6 +17,7 @@ var cards_up = true
 var initial_cards_position
 
 var DraggableCard = preload("res://hand/draggable_card.tscn")
+var ForesightCard = preload("res://foresight_card.tscn")
 
 func _ready():
 	initial_cards_position = $Cards.global_translation
@@ -90,7 +91,8 @@ func set_dragging(drag):
 	else:
 		if !Game.is_turn:
 			return
-		
+		if Game.block_interaction:
+			return
 		highlight_valid_tiles()
 		hover = null
 		drag.old_index = drag.get_index()
@@ -107,6 +109,8 @@ func start_hover(card):
 	if dragging:
 		return
 	if !Game.is_turn:
+		return
+	if Game.block_interaction:
 		return
 	hover = card
 	var hand_pos = get_pos_in_hand(card.get_index(), $Cards.get_child_count())
@@ -201,6 +205,33 @@ func move_cards_vertically():
 		cards_up = true
 		adjust_hand()
 	
+func do_fresh_start():
+	Game.block_interaction = true
+	var i = 0
+	for child in $Cards.get_children():
+		child.placed = true
+		Deck.return_card(child.card)
+		var t = child.global_transform
+		$Cards.remove_child(child)
+		get_parent().get_parent().add_child(child)
+		child.set_owner(get_parent().get_parent())
+		child.global_transform = t
+		child.discard_animation(i)
+		i += 1
+	if i > 0:
+		yield(get_tree().create_timer(1.5), "timeout")
+	while deal_card():
+		yield(get_tree().create_timer(0.2), "timeout")
+	Game.block_interaction = false
+	
+func do_foresight():
+	Game.block_interaction = true
+	for i in range(2, -1, -1):
+		var f_card = ForesightCard.instance()
+		f_card.become(Deck.deal())
+		f_card.index = i
+		get_parent().get_parent().add_child(f_card)
+		yield(get_tree().create_timer(0.2), "timeout")
 func _process(delta):
 	# if Input.is_action_just_pressed("ui_accept"):
 	# 	deal_card()
@@ -208,26 +239,42 @@ func _process(delta):
 	if dragging:
 		var tween = dragging.get_node("Tween") as Tween
 		if !Input.is_mouse_button_pressed(1):
-			if snap_tile && Game.actions >= dragging.card.ac:
-				dragging.placed = true
+			if (snapped_friend || snap_tile) && Game.actions >= dragging.card.ac:
+
 				disable_tile_highlights()
+				dragging.placed = true
+				
+				Game.actions -= dragging.card.ac
+				
+				if snapped_friend:
+					match dragging.card.type:
+						Game.TileType.ACTION_SURGE:
+							Game.actions += dragging.card.actions
+						Game.TileType.FRESH_START:
+							do_fresh_start()
+						Game.TileType.FORESIGHT:
+							do_foresight()
 				# place the tile
-				board.place_card_on_tile(dragging, snap_tile.get_index())
-				# TODO: maybe a cool transition effect here?
-				dragging.placed_at = snap_tile.get_index()
-				dragging.add_to_group("placed_tiles")
+				if !snapped_friend:
+					board.place_card_on_tile(dragging, snap_tile.get_index())
+					dragging.placed_at = snap_tile.get_index()
+					dragging.add_to_group("placed_tiles")
+				
 				var t = dragging.global_transform
 				remove_child(dragging)
 				get_parent().get_parent().add_child(dragging)
 				dragging.set_owner(get_parent().get_parent())
 				dragging.global_transform = t
 				dragging.placement_animation()
-				snap_tile.stacks += 1
-				dragging.get_node("Tween").resume_all()
-#				else:
-#					dragging.queue_free()
+				
+				if !snapped_friend:
+					snap_tile.stacks += 1
+					dragging.get_node("Tween").resume_all()
+
 				hover = null
 				dragging = null
+				$"%UI".get_friend().unbump()
+				snapped_friend = false
 				if board.has_actions():
 					cards_up = true
 				adjust_hand()
@@ -242,8 +289,19 @@ func _process(delta):
 				dragging.rotation = get_viewport().get_camera().rotation
 				dragging.global_translation = get_viewport().get_camera().project_position(mouse, dist_from_camera - hold_dist) - offset
 
+var snapped_friend = false
 func _physics_process(delta):
 	if dragging:
+		var friend = $"%UI".get_friend()
+		var friend_rect = Rect2(friend.rect_global_position, friend.rect_size)
+		if friend_is_valid && friend_rect.has_point($"%UI".get_viewport().get_mouse_position()):
+			friend.bump()
+			snapped_friend = true
+			return
+		else:
+			friend.unbump()
+			snapped_friend = false
+		
 		var space = get_world().direct_space_state
 		var mouse = get_mouse_position()
 		var from = get_viewport().get_camera().project_ray_origin(mouse)
@@ -257,8 +315,10 @@ func _physics_process(delta):
 			set_snap_tile(null)
 
 var valid_tiles = []
+var friend_is_valid = false
 func compute_valid_tiles(card):
 	valid_tiles = []
+	friend_is_valid = false
 	if card == null:
 		return
 	for tile in board.get_children():
@@ -269,6 +329,15 @@ func compute_valid_tiles(card):
 			for token in get_tree().get_nodes_in_group("adventurers"):
 				if token.get_id() == tile.get_index():
 					valid_tiles.push_back(tile)
+		elif card.type == Game.TileType.ACTION_SURGE:
+			friend_is_valid = true
+			break
+		elif card.type == Game.TileType.FORESIGHT:
+			friend_is_valid = true
+			break
+		elif card.type == Game.TileType.FRESH_START:
+			friend_is_valid = true
+			break
 		elif card.type == Game.TileType.GUST:
 			for token in get_tree().get_nodes_in_group("pathfinders"):
 				if token.get_id() == tile.get_index():
@@ -286,10 +355,13 @@ func compute_valid_tiles(card):
 					valid_tiles.push_back(tile)
 
 func highlight_valid_tiles():
+	if friend_is_valid:
+		Game.emit_signal("highlight_friend", true)
 	for tile in valid_tiles:
 		tile.set_selection_glow(true)
 		
 func disable_tile_highlights():
+	Game.emit_signal("highlight_friend", false)
 	for tile in board.get_children():
 		tile.set_selection_glow(false)
 		
