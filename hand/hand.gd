@@ -225,11 +225,16 @@ func do_fresh_start():
 	Game.block_interaction = false
 	
 func do_foresight():
+	if Deck.empty():
+		return
 	Game.emit_signal("foresight")
 	Game.block_interaction = true
-	for i in range(2, -1, -1):
+	for i in [2, 1, 0]:
+		var card = Deck.deal()
+		if !card:
+			break
 		var f_card = ForesightCard.instance()
-		f_card.become(Deck.deal())
+		f_card.become(card)
 		f_card.index = i
 		get_parent().get_parent().add_child(f_card)
 		yield(get_tree().create_timer(0.2), "timeout")

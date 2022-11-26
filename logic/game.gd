@@ -135,7 +135,7 @@ var levels = [
 			[2, 3, TileType.PIT],
 		],
 		"monsters": [
-			[1, 3, MonsterType.WALKER]
+			[3, 3, MonsterType.WALKER]
 		]
 	},
 	# Level 4 - introduce roller
