@@ -10,6 +10,9 @@ var wall_flags = [0, 0, 0, 0]
 var spikes_ready = false
 
 var stacks = 0
+
+func refresh_type():
+	$TileMesh.become({ "type": self.type })
 	
 func get_center() -> Vector3:
 	return global_translation + size / 2 + Vector3(0, 0.1 + 0.06 * stacks, 0)
@@ -32,7 +35,7 @@ func on_board_ready():
 	$CollisionShape2D.translation = size / 2
 	$TileMesh.translation = size / 2
 	$TileMesh.attach_selection_glow()
-	$TileMesh.become({ "type": self.type })
+	refresh_type()
 	
 	# Position debug objects
 	$DebugCube.translation = size / 2
@@ -69,10 +72,6 @@ func set_color_from_type():
 #			color = Color.black
 		Game.TileType.WALL, Game.TileType.BRIDGE:
 			color = Color.white
-		Game.TileType.TREASURE:
-			color = Color.gold
-		Game.TileType.TREASURE_TAKEN:
-			color = Color.brown
 		Game.TileType.EXIT:
 			color = Color.green
 			

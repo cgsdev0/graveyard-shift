@@ -12,8 +12,8 @@ var starting_deck = [
 	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 1, 0], "ac": 1 },
 	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 1, 0], "ac": 1 },
 	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
-	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
-	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
+	#{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
+	#{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
 #	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
 #	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
 #	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 2 },
@@ -26,6 +26,8 @@ var starting_deck = [
 #	{ "type": Game.TileType.LURE, "range": 3, "ac": 2 },
 #	{ "cost": 0, "type": Game.TileType.BRIDGE, "wall_flags": [1000, 1000, 0, 0], "ac": 1 },
 #	{ "cost": 0, "type": Game.TileType.BRIDGE, "wall_flags": [0, 0, 1000, 1000], "ac": 1 },
+{ "cost": 8, "type": Game.TileType.COURAGE, "ac": 1, "actions": 1 },
+{ "cost": 13, "type": Game.TileType.ACTION_SURGE, "ac": 0, "actions": 2 },
 ]
 
 var max_deck_size = 12
@@ -44,7 +46,7 @@ static func card_color(card):
 		1:
 			return Color.webmaroon
 		2:
-			return Color.webgreen
+			return Color.rebeccapurple
 	return Color.purple
 	
 func on_accept_treasure():
@@ -63,7 +65,7 @@ func on_reset():
 	for i in selected_deck:
 		deck.push_back(starting_deck[i].duplicate(true))
 	# TODO: re-enable
-	deck.shuffle()
+	#deck.shuffle()
 	
 func add_card(card):
 	starting_deck.push_front(card)

@@ -12,14 +12,17 @@ func _ready():
 	
 
 var action_limit
+var has_courage = false
 func reset_action_limit():
 	action_limit = 2
+	has_courage = false
 	
 func get_action_limit():
 	return action_limit
 	
 func give_courage(v):
 	action_limit += v
+	has_courage = true
 	
 func _process(delta):
 	if !enabled:
@@ -30,7 +33,7 @@ func take_step():
 		return
 	var treasure_tile = board.find_tile_id(Game.TileType.TREASURE)
 	if treasure_tile != null && treasure_tile == get_id():
-		board.replace_tile_by_id(get_id(), Game.TileType.TREASURE_TAKEN)
+		board.replace_tile_by_id(get_id(), Game.TileType.TREASURE_TAKEN, true)
 		has_treasure = true
 		return
 	if path.size() <= 1 || get_path_cost(path) > 100:
@@ -53,7 +56,7 @@ func take_step():
 
 func get_target_tile():
 	var treasure = board.find_tile_id(Game.TileType.TREASURE)
-	if treasure == null:
+	if treasure == null || has_treasure:
 		return board.find_tile_id(Game.TileType.EXIT)
 	return treasure
 	

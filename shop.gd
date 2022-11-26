@@ -15,7 +15,6 @@ func _ready():
 #	merged_shop_theme.merge_with($Shop.theme)
 #	$Shop.theme = merged_shop_theme
 	cards = []
-	bought = [false, false, false]
 	$AnimationPlayer.play("RESET")
 	$Shop/TreasureView/AnimationPlayer.play("RESET")
 	Game.connect("accept_treasure", self, "on_accept_treasure")
@@ -53,6 +52,7 @@ func on_bought(c):
 func deal_shop_cards():
 	# Deal some cards
 	cards = []
+	bought = [false, false, false]
 	cards.push_back(ShopDeck.deal())
 	cards.push_back(ShopDeck.deal())
 	cards.push_back(ShopDeck.deal())
@@ -86,7 +86,7 @@ func undeal_shop_cards():
 func _on_SkipButton_pressed():
 #	Game.level += 1
 #	Game.emit_signal("reset")
-# TODO: send un-purchased cards back to the shop deck
+	undeal_shop_cards()
 	$AnimationPlayer.play("fade_out")
 	yield($AnimationPlayer, "animation_finished")
 	# get_tree().change_scene("res://inventory.tscn")

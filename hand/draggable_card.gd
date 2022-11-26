@@ -33,14 +33,19 @@ func discard_animation(index):
 	yield(tween, "tween_all_completed")
 	queue_free()
 	
-func placement_animation():
+func placement_animation(played_on = Game.TileType.EMPTY):
 	match type:
 		Game.TileType.WALL, Game.TileType.SECRET_DOOR:
 			$Tile.play_animation("scale_up_walls")
 		Game.TileType.BRIDGE:
 			$Tile.play_animation("scale_up_bridge")
-		Game.TileType.MONEY_TREE, Game.TileType.LURE, Game.TileType.COURAGE, Game.TileType.GUST:
+		Game.TileType.MONEY_TREE, Game.TileType.LURE:
 			$Tile.play_animation("fade_out_all")
+		Game.TileType.COURAGE, Game.TileType.GUST:
+			if played_on != Game.TileType.EMPTY:
+				$Tile.play_animation("fade_out_all_to_glass")
+			else:
+				$Tile.play_animation("fade_out_all_from_purple")
 		Game.TileType.ACTION_SURGE, Game.TileType.FORESIGHT, Game.TileType.FRESH_START:
 			var anim_list = $AnimationPlayer.get_animation_list()
 			var i = randi() % anim_list.size()

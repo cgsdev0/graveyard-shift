@@ -158,7 +158,7 @@ func update_navigation():
 			var id = r * board.cols + c
 			astar.set_point_disabled(id, board.get_tile_by_id(id).type == Game.TileType.PIT)
 	path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
-	print("COST: ", get_path_cost(path))
+	# print("COST: ", get_path_cost(path))
 	
 class MyAStar:
 	extends AStar2D
