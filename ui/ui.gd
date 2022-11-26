@@ -87,4 +87,5 @@ func get_right_bar():
 	return $"%RightBar"
 
 func _on_OpenShopButton_pressed():
+	Game.money += 25
 	Game.emit_signal("change_scene", "res://shop.tscn")
