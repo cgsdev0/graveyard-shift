@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://logic/end_turn_button.gd" type="Script" id=1]
 [ext_resource path="res://logic/game_over.gd" type="Script" id=2]
@@ -12,6 +12,63 @@
 [ext_resource path="res://debug/over.png" type="Texture" id=10]
 [ext_resource path="res://debug/under.png" type="Texture" id=11]
 [ext_resource path="res://ui/friend.gd" type="Script" id=12]
+[ext_resource path="res://ui/font/secret_society_large.tres" type="DynamicFont" id=13]
+[ext_resource path="res://ui/foresight_overlay.gd" type="Script" id=14]
+
+[sub_resource type="Animation" id=5]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "fade_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
 
 [sub_resource type="ShaderMaterial" id=4]
 
@@ -202,6 +259,25 @@ visible = false
 anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0.65098, 0.65098, 0.65098, 1 )
+
+[node name="ForesightOverlay" type="ColorRect" parent="."]
+visible = false
+anchor_right = 0.78
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 0.521569 )
+script = ExtResource( 14 )
+
+[node name="Label" type="Label" parent="ForesightOverlay"]
+anchor_right = 1.0
+margin_top = 16.0
+custom_fonts/font = ExtResource( 13 )
+text = "Choose One"
+align = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ForesightOverlay"]
+anims/fade_in = SubResource( 5 )
+anims/fade_out = SubResource( 6 )
 
 [node name="RightBar" type="ColorRect" parent="."]
 unique_name_in_owner = true

@@ -94,6 +94,9 @@ func attach_selection_glow():
 	pass2.shader = selection_glow_shader
 	$Plane.get_surface_material(0).next_pass = pass2
 
+func detach_glow():
+	$Plane.get_surface_material(0).next_pass = null
+	
 func set_selection_glow(v):
 	$Plane.get_surface_material(0).next_pass.set_shader_param("enable", v)
 	

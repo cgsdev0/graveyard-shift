@@ -26,9 +26,8 @@ func start_new_turn():
 	Game.actions = Game.actions_per_turn
 	
 func place_card_on_tile(card, id: int) -> void:
-	if Game.actions <= 0 || card == null:
+	if card == null:
 		return
-	
 	
 	var desired_type = card.type
 	var desired_flags = card.wall_flags

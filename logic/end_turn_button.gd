@@ -5,9 +5,17 @@ func _ready():
 	Game.connect("start_new_turn", self, "start_new_turn")
 	pass
 
+var desired_disabled = false
+
 func start_new_turn():
-	disabled = false
+	desired_disabled = false
+	
+func _process(delta):
+	if Game.block_interaction:
+		disabled = true
+	else:
+		disabled = desired_disabled
 	
 func on_press():
-	disabled = true
+	desired_disabled = true
 	Game.emit_signal("end_turn")
