@@ -42,6 +42,8 @@ func _ready():
 	$Tile.attach_selection_glow()
 
 func on_foresight_end(card):
+	if inert:
+		return
 	inert = true
 	selected = false
 	# translation = start_translation
