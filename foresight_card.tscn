@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://shop_card_3d.tscn" type="PackedScene" id=1]
+[ext_resource path="res://foresight_card.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "float"
+length = 3.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Card:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5, 3 ),
+"transitions": PoolRealArray( -1.5, -1.5, -1.5 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, -0.2, 0 ), Vector3( 0, 0, 0 ) ]
+}
+
+[node name="Spatial" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
+anims/float = SubResource( 1 )
