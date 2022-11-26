@@ -47,7 +47,6 @@ func on_resize():
 	for type in theme.get_font_types():
 		for font in theme.get_font_list(type):
 			var f = theme.get_font(font, type)
-			print(font," ", type, " ", f)
 			f.size = int(Game.original_theme.get_font(font, type).size * scale_factor)
 	
 	# this should really be an engine feature
@@ -87,5 +86,6 @@ func get_right_bar():
 	return $"%RightBar"
 
 func _on_OpenShopButton_pressed():
-	Game.money += 25
+	Game.money += 15 + 5 * Game.level
+	Game.level += 1
 	Game.emit_signal("change_scene", "res://shop.tscn")

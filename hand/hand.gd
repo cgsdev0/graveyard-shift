@@ -266,7 +266,10 @@ func _process(delta):
 				get_parent().get_parent().add_child(dragging)
 				dragging.set_owner(get_parent().get_parent())
 				dragging.global_transform = t
-				dragging.placement_animation()
+				if snap_tile:
+					dragging.placement_animation(snap_tile.type)
+				else:
+					dragging.placement_animation()
 				
 				if !snapped_friend:
 					snap_tile.stacks += 1

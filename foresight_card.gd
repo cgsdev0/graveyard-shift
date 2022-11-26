@@ -60,7 +60,6 @@ func on_foresight_end(card):
 	var cam = get_viewport().get_camera()
 	var target_translation = cam.project_position(Vector2.ZERO, 17.0)
 	var t2 = global_transform.rotated(global_transform.basis.y, -PI).basis
-	print(global_transform.basis)
 	f_tween.interpolate_property(self, "global_transform:basis", 
 		global_transform.basis,
 		t2,

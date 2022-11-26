@@ -138,7 +138,31 @@ var levels = [
 			[1, 3, MonsterType.WALKER]
 		]
 	},
-	# Level 4
+	# Level 4 - introduce roller
+	{
+		"turns": 5,
+		"camera": {
+			"zoom": 27,
+			"angle": 40,
+			"up": 0.0,
+		},
+		"cols": 5,
+		"rows": 4,
+		"tiles": [
+			[0, 0, TileType.EXIT],
+			[0, 3, TileType.TREASURE],
+			[1, 0, TileType.PIT],
+			[1, 1, TileType.PIT],
+			[1, 2, TileType.PIT],
+			[3, 1, TileType.PIT],
+			[3, 2, TileType.PIT],
+			[3, 3, TileType.PIT],
+		],
+		"monsters": [
+			[4, 3, MonsterType.SPRINTER]
+		]
+	},
+	# Level 5
 	{
 		"turns": 6,
 		"camera": {
@@ -159,7 +183,57 @@ var levels = [
 			[0, 0, MonsterType.SPRINTER]
 		]
 	},
-	# Level 5
+	# Level 6
+	{
+		"turns": 6,
+		"camera": {
+			"zoom": 27,
+			"angle": 40,
+			"up": 0.0,
+		},
+		"cols": 5,
+		"rows": 5,
+		"tiles": [
+			[2, 4, TileType.EXIT],
+			[0, 4, TileType.TREASURE],
+			[4, 2, TileType.TREASURE],
+			[0, 0, TileType.PIT],
+			[0, 3, TileType.PIT],
+			[4, 0, TileType.PIT],
+			[2, 3, TileType.PIT],
+			[1, 4, TileType.PIT],
+		],
+		"monsters": [
+			[0, 1, MonsterType.WALKER]
+		]
+	},
+		# Level 7 - twice the fun
+	{
+		"turns": 6,
+		"camera": {
+			"zoom": 27,
+			"angle": 40,
+			"up": 0.0,
+		},
+		"cols": 5,
+		"rows": 5,
+		"tiles": [
+			[2, 2, TileType.EXIT],
+			[0, 2, TileType.TREASURE],
+			[4, 2, TileType.TREASURE],
+			[0, 1, TileType.PIT],
+			[1, 1, TileType.PIT],
+			[2, 1, TileType.PIT],
+			[2, 3, TileType.PIT],
+			[3, 3, TileType.PIT],
+			[4, 3, TileType.PIT],
+		],
+		"monsters": [
+			[0, 0, MonsterType.SPRINTER],
+			[4, 4, MonsterType.WALKER],
+		]
+	},
+	# Level 8
 	{
 		"turns": 3,
 		"camera": {
@@ -188,8 +262,8 @@ const descriptions = {
 	TileType.TRAP: "If a monster ends its turn on this tile, it will be stunned next turn.",
 	TileType.FRESH_START: "Redraw your entire hand.",
 	TileType.FORESIGHT: "Draw 3 cards; add one to your hand. Shuffle the others back into the deck.",
-	TileType.COURAGE: "Give your adventurer {actions} extra action(s) this turn.",
-	TileType.ACTION_SURGE: "Give yourself {surge} extra action(s) this turn.",
+	TileType.COURAGE: "Give your adventurer {actions} extra action(s) this turn. Also, they will go first.",
+	TileType.ACTION_SURGE: "Give yourself {actions} extra action(s) this turn.",
 	TileType.GUST: "Push an entity one tile {direction}. Cannot push entities off the board.",
 }
 
@@ -225,17 +299,24 @@ const title = {
 
 static func title_card(card):
 	# Define some overrides
-	if card.type == TileType.WALL && card.wall_flags.max() > 1:
+	if card.type == TileType.WALL && card.wall_flags.max() == 2:
 		return "Reinforced Wall"
+	if card.type == TileType.WALL && card.wall_flags.max() == 9999:
+		return "Fortress Wall"
 	if card.type == TileType.LURE && typeof(card.range) == TYPE_STRING:
 		return "Super Lure"
 	return title[card.type].format(card)
 	
 static func describe_card(card):
+	if card.type == TileType.WALL && card.wall_flags.max() == 9999:
+		return "Cannot be destroyed. Requires an action surge to play."
 	return descriptions[card.type].format(card)
 	
 static func flavor_text_card(card):
+	if card.type == TileType.WALL && card.wall_flags.max() == 9999:
+		return "The ultimate defense."
 	return flavor[card.type].format(card)
+	
 static func is_wall(tile_type):
 	match tile_type:
 		TileType.WALL, TileType.SECRET_DOOR, TileType.BRIDGE:
