@@ -187,7 +187,7 @@ const descriptions = {
 	TileType.SPIKES: "Stops an entity in its tracks and stuns for 1 turn. Takes one turn to become active.",
 	TileType.TRAP: "If a monster ends its turn on this tile, it will be stunned next turn.",
 	TileType.FRESH_START: "Redraw your entire hand.",
-	TileType.FORESIGHT: "View the top 3 cards of the deck; add one to your hand.",
+	TileType.FORESIGHT: "Draw 3 cards; add one to your hand. Shuffle the others back into the deck.",
 	TileType.COURAGE: "Give your adventurer {courage} extra action(s) this turn.",
 	TileType.ACTION_SURGE: "Give yourself {surge} extra action(s) this turn.",
 	TileType.GUST: "Push an entity one tile to the {direction}.",
@@ -314,3 +314,6 @@ signal change_scene(path)
 signal soft_reset
 
 signal highlight_friend(on)
+
+signal foresight
+signal foresight_end(card)

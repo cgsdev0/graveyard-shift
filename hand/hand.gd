@@ -225,6 +225,7 @@ func do_fresh_start():
 	Game.block_interaction = false
 	
 func do_foresight():
+	Game.emit_signal("foresight")
 	Game.block_interaction = true
 	for i in range(2, -1, -1):
 		var f_card = ForesightCard.instance()
