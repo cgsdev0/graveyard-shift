@@ -20,7 +20,7 @@ func get_target_tile():
 			cheapest_cost = cost
 	if cheapest_lure != null:
 		return cheapest_lure
-	return board.find_tile_id(Game.TileType.EXIT)
+	return board.find_tile_id(Game.TileType.EXIT)[0]
 	
 func get_action_limit():
 	return 2

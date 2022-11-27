@@ -126,6 +126,8 @@ func deal():
 		deck_i += 1
 		
 	var card = deck[deck_i].pop_back()
+	if !card:
+		return null
 	card.rarity = deck_i
 	return card
 

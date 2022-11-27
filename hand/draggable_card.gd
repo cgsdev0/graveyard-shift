@@ -37,6 +37,7 @@ func placement_animation(played_on = Game.TileType.EMPTY):
 	match type:
 		Game.TileType.WALL, Game.TileType.SECRET_DOOR:
 			$Tile.play_animation("scale_up_walls")
+			$WallSound.play()
 		Game.TileType.BRIDGE:
 			$Tile.play_animation("scale_up_bridge")
 		Game.TileType.MONEY_TREE, Game.TileType.LURE:

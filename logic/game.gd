@@ -340,6 +340,7 @@ var turns = 0
 var max_turns = 0
 var actions = 2
 var actions_per_turn = 2
+var earned_treasure = false
 
 var block_interaction = false
 
@@ -349,6 +350,7 @@ var is_turn = false
 var skip_to_inventory = false
 
 func on_reset():
+	earned_treasure = false
 	block_interaction = false
 	is_turn = false
 	turns = float(levels[level].turns)

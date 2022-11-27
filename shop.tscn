@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://ui/shop2.theme" type="Theme" id=1]
 [ext_resource path="res://ui/span_limiter.gd" type="Script" id=2]
@@ -14,6 +14,12 @@
 [ext_resource path="res://ui/font/secret_society_med.tres" type="DynamicFont" id=12]
 [ext_resource path="res://ui/font/secret_society_xl.tres" type="DynamicFont" id=13]
 [ext_resource path="res://ui/accept_treasure.gd" type="Script" id=14]
+[ext_resource path="res://audio/purchase/Pickup_Gold_02.wav" type="AudioStream" id=15]
+[ext_resource path="res://audio/purchase/Pickup_Gold_01.wav" type="AudioStream" id=16]
+[ext_resource path="res://audio/purchase/Pickup_Gold_00.wav" type="AudioStream" id=17]
+[ext_resource path="res://audio/purchase/Pickup_Gold_04.wav" type="AudioStream" id=18]
+[ext_resource path="res://audio/purchase/Pickup_Gold_03.wav" type="AudioStream" id=19]
+[ext_resource path="res://addons/randomAudioStreamPlayer/random_audio_stream_player.gd" type="Script" id=20]
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 5 )
@@ -497,6 +503,7 @@ margin_bottom = 513.0
 
 [node name="TreasureView" type="Control" parent="ViewportContainer/Viewport/Control/Shop"]
 visible = false
+self_modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -547,6 +554,14 @@ anims/fade_in = SubResource( 7 )
 anims/fade_out = SubResource( 8 )
 anims/reroll_in = SubResource( 9 )
 anims/reroll_out = SubResource( 10 )
+
+[node name="PurchaseSound" type="AudioStreamPlayer" parent="ViewportContainer/Viewport/Control"]
+volume_db = -6.0
+script = ExtResource( 20 )
+samples = [ ExtResource( 17 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 19 ), ExtResource( 18 ) ]
+random_strategy = 2
+random_volume_range = 0
+random_pitch_range = 0
 
 [node name="ViewportContainer2" type="ViewportContainer" parent="."]
 anchor_right = 1.0
