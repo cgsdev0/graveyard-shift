@@ -20,7 +20,7 @@ func manhattan_distance(u, v):
 	var vx = v % board.cols
 	var vy = v / board.cols
 	return abs(ux - vx) + abs(uy - vy)
-	
+
 func gust(dir):
 	var dest = board.compute_tile_id(get_id(), dir)
 	grid_y = int(dest / board.cols)

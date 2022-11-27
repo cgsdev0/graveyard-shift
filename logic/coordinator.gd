@@ -34,6 +34,7 @@ func on_end_turn():
 		if pathfinder.skipped_turns:
 			pathfinder.skipped_turns -= 1
 			continue
+		pathfinder.update_navigation()
 		for i in pathfinder.get_action_limit():
 			var step = pathfinder.take_step()
 			if step is GDScriptFunctionState:

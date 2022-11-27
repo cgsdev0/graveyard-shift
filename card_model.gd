@@ -125,6 +125,9 @@ func detach_glow():
 func set_selection_glow(v):
 	$Plane.get_surface_material(0).next_pass.set_shader_param("enable", v)
 	
+func set_selection_glow_color(v):
+	$Plane.get_surface_material(0).next_pass.set_shader_param("color", v)
+	
 func enable_treasure_glow():
 	var pass2 = ShaderMaterial.new()
 	pass2.shader = treasure_glow_shader

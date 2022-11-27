@@ -15,7 +15,7 @@ func get_target_tile():
 		var lure_id = lure.grid_y * board.cols + lure.grid_x
 		var path = astar.get_id_path(grid_y * board.cols + grid_x, lure_id)
 		var cost = get_path_cost(path)
-		if cost < cheapest_cost && cost <= lure.lure_range:
+		if cost < cheapest_cost:
 			cheapest_lure = lure_id
 			cheapest_cost = cost
 	if cheapest_lure != null:
