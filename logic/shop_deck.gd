@@ -37,8 +37,8 @@ var starting_deck = [
 		{ "cost": 9, "type": Game.TileType.FRESH_START, "ac": 0 },
 		{ "cost": 9, "type": Game.TileType.FRESH_START, "ac": 0 },
 		#
-		{ "cost": 20, "type": Game.TileType.LURE, "range": 3, "ac": 2 },
-		{ "cost": 20, "type": Game.TileType.LURE, "range": 3, "ac": 2 },
+		{ "cost": 20, "type": Game.TileType.LURE, "range": 2, "ac": 2 },
+		{ "cost": 20, "type": Game.TileType.LURE, "range": 2, "ac": 2 },
 	],
 	# Level 1 cards
 	[
