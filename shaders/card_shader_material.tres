@@ -9,7 +9,7 @@
 
 [sub_resource type="ShaderMaterial" id=5]
 
-[sub_resource type="ViewportTexture" id=3]
+[sub_resource type="ViewportTexture" id=6]
 
 [resource]
 resource_local_to_scene = true
@@ -18,7 +18,7 @@ next_pass = SubResource( 5 )
 shader = ExtResource( 1 )
 shader_param/bg_hue = 0.0
 shader_param/b_scale = 1.0
-shader_param/v_offset = 0.0
+shader_param/v_offset = 0.064
 shader_param/decal_bits = 0
 shader_param/has_debug_tint = false
 shader_param/fade_c = 1.0
@@ -30,4 +30,4 @@ shader_param/decal_1 = ExtResource( 3 )
 shader_param/decal_2 = ExtResource( 6 )
 shader_param/decal_3 = ExtResource( 2 )
 shader_param/decal_4 = ExtResource( 5 )
-shader_param/label = SubResource( 3 )
+shader_param/label = SubResource( 6 )
