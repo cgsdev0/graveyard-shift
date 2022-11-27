@@ -25,6 +25,9 @@ func init(s: Vector3, t: Vector3, spacing: float) -> void:
 func set_selection_glow(v):
 	$TileMesh.set_selection_glow(v)
 	
+func set_selection_glow_color(v):
+	$TileMesh.set_selection_glow_color(v)
+	
 func on_start_new_turn():
 	if type == Game.TileType.SPIKES:
 		spikes_ready = true
