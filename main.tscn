@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://board/board.gd" type="Script" id=1]
 [ext_resource path="res://hand/hand.gd" type="Script" id=2]
@@ -12,6 +12,16 @@
 [ext_resource path="res://not_default_env.tres" type="Environment" id=10]
 [ext_resource path="res://textures/cards/Card Back.png" type="Texture" id=11]
 [ext_resource path="res://daylight_animation.gd" type="Script" id=12]
+[ext_resource path="res://addons/randomAudioStreamPlayer/random_audio_stream_player.gd" type="Script" id=13]
+[ext_resource path="res://audio/deal/deal_4.wav" type="AudioStream" id=14]
+[ext_resource path="res://audio/deal/deal_1.wav" type="AudioStream" id=15]
+[ext_resource path="res://audio/deal/deal_3.wav" type="AudioStream" id=16]
+[ext_resource path="res://audio/deal/deal_5.wav" type="AudioStream" id=17]
+[ext_resource path="res://audio/deal/deal_2.wav" type="AudioStream" id=18]
+[ext_resource path="res://audio/pickup/pickup_1.wav" type="AudioStream" id=19]
+[ext_resource path="res://audio/pickup/pickup_4.wav" type="AudioStream" id=20]
+[ext_resource path="res://audio/pickup/pickup_2.wav" type="AudioStream" id=21]
+[ext_resource path="res://audio/pickup/pickup_3.wav" type="AudioStream" id=22]
 
 [sub_resource type="ShaderMaterial" id=4]
 
@@ -207,6 +217,29 @@ script = ExtResource( 2 )
 script = ExtResource( 8 )
 
 [node name="Cards" type="Spatial" parent="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand"]
+
+[node name="DealSound" type="AudioStreamPlayer" parent="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand"]
+script = ExtResource( 13 )
+samples = [ ExtResource( 15 ), ExtResource( 18 ), ExtResource( 16 ), ExtResource( 14 ), ExtResource( 17 ) ]
+random_strategy = 2
+random_volume_range = 0
+random_pitch_range = 0
+
+[node name="SlideSound" type="AudioStreamPlayer" parent="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand"]
+volume_db = -9.0
+pitch_scale = 0.7
+script = ExtResource( 13 )
+samples = [ ExtResource( 15 ), ExtResource( 18 ), ExtResource( 16 ), ExtResource( 14 ), ExtResource( 17 ) ]
+random_strategy = 2
+random_volume_range = 0
+random_pitch_range = 0
+
+[node name="PickupSound" type="AudioStreamPlayer" parent="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand"]
+script = ExtResource( 13 )
+samples = [ ExtResource( 19 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 20 ) ]
+random_strategy = 2
+random_volume_range = 0
+random_pitch_range = 0
 
 [node name="DirectionalLight" type="DirectionalLight" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
 transform = Transform( 0.605325, 0.171092, -0.777374, 0.203513, 0.910899, 0.358951, 0.769523, -0.375488, 0.51657, -2.03058, 1.91977, 2.38178 )
