@@ -43,6 +43,7 @@ var textures = {
 
 var bg_textures = {
 	Game.TileType.PIT: preload("res://textures/cards/pit.png"),
+	Game.TileType.SPIKES: preload("res://textures/cards/spikes.png"),
 }
 
 func become(card):

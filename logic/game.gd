@@ -71,7 +71,7 @@ var levels = [
 			[1, 1, TileType.PIT],
 		],
 		"monsters": [
-			[0, 0, MonsterType.WALKER]
+			[0, 0, MonsterType.SPRINTER]
 		]
 	},
 	# Level 1 - introduce adventurer
