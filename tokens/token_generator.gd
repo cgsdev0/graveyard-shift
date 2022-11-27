@@ -11,7 +11,7 @@ func to_vec3(v2):
 	
 func _find_png_paths() -> Array:
 	var png_paths := [] # accumulated png paths to return
-	var dir_queue := ["res://textures/monsters/Spinner"] # directories remaining to be traversed
+	var dir_queue := ["res://textures/monsters"] # directories remaining to be traversed
 	var dir: Directory # current directory being traversed
 
 	var file: String # current file being examined
