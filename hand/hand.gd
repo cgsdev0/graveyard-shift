@@ -124,6 +124,12 @@ func start_hover(card):
 func set_snap_tile(tile):
 	if self.snap_tile == tile:
 		return
+	if tile != null && self.snap_tile == null:
+		$PickupSound.play()
+	elif tile != null && self.snap_tile != null:
+		$SlideSound.play()
+	elif tile == null && self.snap_tile != null:
+		$PickupSound.play()
 	self.snap_tile = tile
 	var mouse = get_mouse_position()
 	var hand_pos = Vector2(get_viewport().size.x / 2, get_viewport().size.y / 5 * 4)
@@ -190,6 +196,7 @@ func deal_card():
 	var new_card = Deck.deal()
 	if new_card == null:
 		return false
+	$DealSound.play()
 	var card = DraggableCard.instance()
 	card.rotation = get_viewport().get_camera().rotation
 	card.become(new_card)

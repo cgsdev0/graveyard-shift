@@ -83,6 +83,10 @@ ShopDeck="*res://logic/shop_deck.gd"
 window/size/width=800
 window/stretch/aspect="keep"
 
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/randomAudioStreamPlayer/plugin.cfg" )
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
