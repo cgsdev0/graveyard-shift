@@ -1,9 +1,11 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://hand/draggable_card.gd" type="Script" id=1]
 [ext_resource path="res://debug/big_prototype_dynamic_font.tres" type="DynamicFont" id=2]
 [ext_resource path="res://debug/temp2.png" type="Texture" id=3]
 [ext_resource path="res://card_model.tscn" type="PackedScene" id=4]
+[ext_resource path="res://audio/wall.wav" type="AudioStream" id=5]
+[ext_resource path="res://addons/randomAudioStreamPlayer/random_audio_stream_player.gd" type="Script" id=6]
 
 [sub_resource type="SpatialMaterial" id=2]
 resource_local_to_scene = true
@@ -152,6 +154,14 @@ width = 180.0
 anims/scale_out = SubResource( 4 )
 anims/scale_out_variation1 = SubResource( 5 )
 anims/scale_out_variation2 = SubResource( 6 )
+
+[node name="WallSound" type="AudioStreamPlayer" parent="."]
+volume_db = -8.0
+pitch_scale = 0.9
+script = ExtResource( 6 )
+samples = [ ExtResource( 5 ) ]
+random_volume_range = 0
+random_pitch_range = 0.09
 
 [connection signal="input_event" from="." to="." method="_on_Area_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_Area_mouse_entered"]

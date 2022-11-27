@@ -207,7 +207,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
+"times": PoolRealArray( 0, 0.6 ),
 "transitions": PoolRealArray( 0.25, 1 ),
 "update": 0,
 "values": [ 1.0, 0.427 ]
@@ -228,7 +228,7 @@ tracks/2/keys = {
 [node name="untitled" instance=ExtResource( 2 )]
 script = ExtResource( 3 )
 header = 1.0
-decal_v_offset = 0.032
+decal_v_offset = 0.064
 
 [node name="Plane" parent="." index="0"]
 transform = Transform( 0.000142908, 1, 0.000535442, -2.09167, 6.85763e-05, -0.00211913, -0.00211917, -0.00025592, 2.09167, 0.198421, -0.007768, 0.0195606 )

@@ -86,6 +86,10 @@ func get_right_bar():
 	return $"%RightBar"
 
 func _on_OpenShopButton_pressed():
-	Game.money += 15 + 5 * Game.level
+	Game.money += 15 + 5 * (Game.level / 2)
+	if Game.earned_treasure:
+		Game.earned_treasure = false
+		var prize = ShopDeck.deal_treasure()
+		Deck.pending_treasure_card = prize
 	Game.level += 1
 	Game.emit_signal("change_scene", "res://shop.tscn")

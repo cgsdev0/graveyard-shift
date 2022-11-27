@@ -107,7 +107,7 @@ func get_path_cost(path):
 	return cost
 	
 func get_target_tile():
-	 return board.find_tile_id(Game.TileType.EXIT)
+	 return board.find_tile_id(Game.TileType.EXIT)[0]
 
 func check_wall(u, v):
 	var dir = board.compute_direction(u, v)

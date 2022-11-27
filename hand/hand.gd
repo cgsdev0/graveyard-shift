@@ -68,6 +68,7 @@ func set_dragging(drag):
 	compute_valid_tiles(drag)
 	if drag == null:
 		if self.dragging != null:
+			$SubtleSound.play()
 			disable_tile_highlights()
 			dragging.show_error(false)
 			var mouse = get_mouse_position()
@@ -93,6 +94,7 @@ func set_dragging(drag):
 			return
 		if Game.block_interaction:
 			return
+		$SubtleSound.play()
 		highlight_valid_tiles()
 		hover = null
 		drag.old_index = drag.get_index()
@@ -113,6 +115,7 @@ func start_hover(card):
 	if Game.block_interaction:
 		return
 	hover = card
+	$SubtleSound.play()
 	var hand_pos = get_pos_in_hand(card.get_index(), $Cards.get_child_count())
 	var tween = card.get_node("Tween") as Tween
 	tween.interpolate_property(card, "global_translation", 

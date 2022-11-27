@@ -69,10 +69,11 @@ func place_card_on_tile(card, id: int) -> void:
 	replace_tile_by_id(id, desired_type)
 
 func find_tile_id(type):
+	var results = []
 	for i in rows * cols:
 		if get_tile_by_id(i).type == type:
-			return i
-	return null
+			results.push_back(i)
+	return results
 	
 func get_tile(col: int, row: int) -> Tile:
 	return get_child(row * cols + col) as Tile
@@ -161,9 +162,9 @@ func _ready():
 	for tile in get_children():
 		tile.on_board_ready()
 		
-	if find_tile_id(Game.TileType.TREASURE) != null:
+	if !find_tile_id(Game.TileType.TREASURE).empty():
 		var exit = find_tile_id(Game.TileType.EXIT)
-		spawn_adventurer(int(exit % cols), int(exit / cols))
+		spawn_adventurer(int(exit[0] % cols), int(exit[0] / cols))
 	
 	for monster in level.monsters:
 		self.callv("spawn_monster", monster)

@@ -47,6 +47,7 @@ func on_accept_treasure():
 	deal_shop_cards()
 	
 func on_bought(c):
+	$PurchaseSound.play()
 	bought[c.get_index()] = true
 	
 func deal_shop_cards():
@@ -63,7 +64,7 @@ func deal_shop_cards():
 		$"%Cards".add_child(new_card)
 		new_card.connect("bought", self, "on_bought", [new_card])
 		if card == null:
-			return
+			continue
 		var new_3d_card = shopCard3D.instance()
 		new_3d_card.follow_node = new_card.get_node("%3DAnchor")
 		new_3d_card.become(card)
@@ -110,6 +111,7 @@ func _process(delta):
 func _on_RerollButton_pressed():
 	$"%RerollButton".release_focus()
 	Game.money -= 2
+	$PurchaseSound.play()
 	$AnimationPlayer.play("reroll_out")
 	yield($AnimationPlayer, "animation_finished")
 	undeal_shop_cards()
