@@ -31,8 +31,8 @@ func _process(delta):
 func take_step():
 	if !enabled:
 		return
-	var treasure_tile = board.find_tile_id(Game.TileType.TREASURE)
-	if treasure_tile != null && treasure_tile == get_id():
+	var treasure_tiles = board.find_tile_id(Game.TileType.TREASURE)
+	if !treasure_tiles.empty() && get_id() in treasure_tiles:
 		board.replace_tile_by_id(get_id(), Game.TileType.TREASURE_TAKEN, true)
 		has_treasure = true
 		return
@@ -49,16 +49,25 @@ func take_step():
 	yield(movement_tween, "tween_completed")
 	if board.get_tile_by_id(v).type == Game.TileType.EXIT:
 		# rip adventurer
-		var prize = ShopDeck.deal_treasure()
-		Deck.pending_treasure_card = prize
+		Game.earned_treasure = true
 		self.kill()
 	path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
 
 func get_target_tile():
-	var treasure = board.find_tile_id(Game.TileType.TREASURE)
-	if treasure == null || has_treasure:
-		return board.find_tile_id(Game.TileType.EXIT)
-	return treasure
+	var treasures = board.find_tile_id(Game.TileType.TREASURE)
+	if has_treasure || treasures.empty():
+		return board.find_tile_id(Game.TileType.EXIT)[0]
+	var cheapest_cost = 9999
+	var cheapest_treasure = null
+	for treasure in treasures:
+		var path = astar.get_id_path(get_id(), treasure)
+		var cost = get_path_cost(path)
+		if cost < cheapest_cost:
+			cheapest_treasure = treasure
+			cheapest_cost = cost
+	if cheapest_treasure != null:
+		return cheapest_treasure
+	return board.find_tile_id(Game.TileType.EXIT)[0]
 	
 class MyAStar:
 	extends AStar2D

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://ui/fade_transition.gd" type="Script" id=1]
-[ext_resource path="res://debug/fps_counter.gd" type="Script" id=2]
+[ext_resource path="res://debug/fps_counter.gd" type="Script" id=1]
+[ext_resource path="res://ui/fade_transition.gd" type="Script" id=2]
 [ext_resource path="res://ui/scene_manager.gd" type="Script" id=3]
 [ext_resource path="res://ui/fade_transition.tscn" type="PackedScene" id=4]
 
@@ -12,7 +12,7 @@ script = ExtResource( 3 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." instance=ExtResource( 4 )]
 layer = 3
-script = ExtResource( 1 )
+script = ExtResource( 2 )
 
 [node name="Debug" type="Label" parent="CanvasLayer"]
 anchor_right = 1.0
@@ -21,7 +21,10 @@ margin_left = 16.0
 margin_top = 16.0
 text = "FPS: 120
 Cards in deck: 4
-Cards in shop deck: 38
-Cards in treasure deck: 8
-Turns: 1"
-script = ExtResource( 2 )
+Cards in shop deck: 32
+Cards in treasure deck: 1
+Tier 1 rarity: 0.6
+Tier 2 rarity: 0.275
+Tier 3 rarity: 0.125
+Turns: 4"
+script = ExtResource( 1 )
