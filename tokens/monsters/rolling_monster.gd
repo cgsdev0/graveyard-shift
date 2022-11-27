@@ -62,6 +62,8 @@ func take_step():
 		rolling = true
 		u = u2
 		u2 += gap
+		if stunned:
+			break
 	
 	if board.get_tile_by_id(v).type == Game.TileType.WALL:
 		if board.get_tile_by_id(u).check_wall_bit(dir):
@@ -119,6 +121,9 @@ func _take_partial_step(u, v, rolling):
 	else:
 		grid_y = int(v / board.cols)
 		grid_x = int(v % board.cols)
+		if board.get_tile_by_id(v).spikes_ready:
+			stunned = true
+			skipped_turns += 1
 		#global_translation = board.get_tile(grid_x, grid_y).get_center()
 		var dist = global_translation.distance_to(board.get_tile(grid_x, grid_y).get_center())
 		movement_tween.interpolate_property(self, "global_translation",

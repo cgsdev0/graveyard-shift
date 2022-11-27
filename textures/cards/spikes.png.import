@@ -2,21 +2,19 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/spikes.png-02f4448d41ac7240cc16ab827e991d7b.s3tc.stex"
-path.etc2="res://.import/spikes.png-02f4448d41ac7240cc16ab827e991d7b.etc2.stex"
+path="res://.import/spikes.png-02f4448d41ac7240cc16ab827e991d7b.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://textures/cards/spikes.png"
-dest_files=[ "res://.import/spikes.png-02f4448d41ac7240cc16ab827e991d7b.s3tc.stex", "res://.import/spikes.png-02f4448d41ac7240cc16ab827e991d7b.etc2.stex" ]
+dest_files=[ "res://.import/spikes.png-02f4448d41ac7240cc16ab827e991d7b.stex" ]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
@@ -25,7 +23,7 @@ flags/repeat=1
 flags/filter=true
 flags/mipmaps=true
 flags/anisotropic=false
-flags/srgb=2
+flags/srgb=1
 process/fix_alpha_border=false
 process/premult_alpha=false
 process/HDR_as_SRGB=false

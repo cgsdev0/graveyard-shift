@@ -14,6 +14,7 @@ var starting_deck = [
 	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
 	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
 	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
+#	{ "type": Game.TileType.SPIKES, "ac": 1 }
 #
 #{ "cost": 40, "type": Game.TileType.FORESIGHT, "ac": 0 },
 #{ "cost": 40, "type": Game.TileType.FORESIGHT, "ac": 0 },
