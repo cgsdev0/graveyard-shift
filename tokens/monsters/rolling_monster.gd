@@ -5,8 +5,14 @@ func _ready():
 	astar = MyAStar.new(board)
 	update_navigation()
 	$AnimationPlayer.play("idle")
-	
+
+var fixation = null
 func get_target_tile():
+	if fixation != null:
+		if !is_instance_valid(fixation):
+			fixation = null
+		else:
+			return fixation.get_id()
 	var lures = get_tree().get_nodes_in_group("lures")
 	var cheapest_cost = 9999
 	var cheapest_lure = null
@@ -16,11 +22,12 @@ func get_target_tile():
 		var lure_id = lure.grid_y * board.cols + lure.grid_x
 		var path = astar.get_id_path(grid_y * board.cols + grid_x, lure_id)
 		var cost = get_path_cost(path)
-		if cost < cheapest_cost && cost <= lure.lure_range:
-			cheapest_lure = lure_id
+		if cost < cheapest_cost:
+			cheapest_lure = lure
 			cheapest_cost = cost
 	if cheapest_lure != null:
-		return cheapest_lure
+		fixation = cheapest_lure
+		return fixation.get_id()
 	return board.find_tile_id(Game.TileType.EXIT)[0]
 
 func get_action_limit():

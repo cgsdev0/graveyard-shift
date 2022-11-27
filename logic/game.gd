@@ -71,7 +71,7 @@ var levels = [
 			[1, 1, TileType.PIT],
 		],
 		"monsters": [
-			[0, 0, MonsterType.SPRINTER]
+			[0, 0, MonsterType.WALKER]
 		]
 	},
 	# Level 1 - introduce adventurer
@@ -98,7 +98,7 @@ var levels = [
 	{
 		"turns": 4,
 		"camera": {
-			"zoom": 25,
+			"zoom": 28,
 			"angle": 40,
 			"up": 0.0,
 		},
@@ -120,7 +120,7 @@ var levels = [
 	{
 		"turns": 5,
 		"camera": {
-			"zoom": 27,
+			"zoom": 28,
 			"angle": 40,
 			"up": 0.0,
 		},
@@ -142,7 +142,7 @@ var levels = [
 	{
 		"turns": 5,
 		"camera": {
-			"zoom": 27,
+			"zoom": 28,
 			"angle": 40,
 			"up": 0.0,
 		},
@@ -187,9 +187,9 @@ var levels = [
 	{
 		"turns": 6,
 		"camera": {
-			"zoom": 27,
+			"zoom": 31,
 			"angle": 40,
-			"up": 0.0,
+			"up": -0.5,
 		},
 		"cols": 5,
 		"rows": 5,
@@ -211,9 +211,9 @@ var levels = [
 	{
 		"turns": 6,
 		"camera": {
-			"zoom": 27,
+			"zoom": 31,
 			"angle": 40,
-			"up": 0.0,
+			"up": -0.5,
 		},
 		"cols": 5,
 		"rows": 5,
@@ -237,9 +237,9 @@ var levels = [
 	{
 		"turns": 3,
 		"camera": {
-			"zoom": 35,
+			"zoom": 36,
 			"angle": 40,
-			"up": 0.0,
+			"up": -0.5,
 		},
 		"cols": 6,
 		"rows": 6,

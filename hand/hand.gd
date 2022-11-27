@@ -70,6 +70,7 @@ func set_dragging(drag):
 		if self.dragging != null:
 			$SubtleSound.play()
 			disable_tile_highlights()
+			recolor_highlights_for_lure(null)
 			dragging.show_error(false)
 			var mouse = get_mouse_position()
 			if is_mouse_in_card_area():
@@ -96,6 +97,8 @@ func set_dragging(drag):
 			return
 		$SubtleSound.play()
 		highlight_valid_tiles()
+		if drag.type == Game.TileType.LURE:
+			recolor_highlights_for_lure(drag.card.range)
 		hover = null
 		drag.old_index = drag.get_index()
 		$Cards.remove_child(drag)
@@ -151,6 +154,8 @@ func set_snap_tile(tile):
 			tween_time, Tween.TRANS_QUAD, Tween.EASE_OUT)
 		tween.start()
 	else:
+#		if dragging.type == Game.TileType.LURE:
+#			recolor_highlights_for_lure(dragging.card.range)
 		dragging.set_layer_mask(1)
 		dragging.show_error(dragging.card.ac > Game.actions)
 		tween.interpolate_property(dragging, "global_translation", 
@@ -258,6 +263,7 @@ func _process(delta):
 			if (snapped_friend || snap_tile) && Game.actions >= dragging.card.ac:
 
 				disable_tile_highlights()
+				recolor_highlights_for_lure(null)
 				dragging.placed = true
 				
 				Game.actions -= dragging.card.ac
@@ -373,6 +379,16 @@ func compute_valid_tiles(card):
 				if should_add:
 					valid_tiles.push_back(tile)
 
+func recolor_highlights_for_lure(lure_range):
+	if typeof(lure_range) != TYPE_INT:
+		for tile in board.get_children():
+			tile.set_selection_glow_color(null)
+		return
+	for monster in get_tree().get_nodes_in_group("monsters"):
+		for tile in valid_tiles:
+			if monster.manhattan_distance(tile.get_index(), monster.get_id()) <= lure_range:
+				tile.set_selection_glow_color(Color.yellow)
+		
 func highlight_valid_tiles():
 	if friend_is_valid:
 		Game.emit_signal("highlight_friend", true)
