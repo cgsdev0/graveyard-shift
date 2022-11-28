@@ -163,7 +163,7 @@ tracks/4/keys = {
 "values": [ 1.5 ]
 }
 
-[node name="Root" type="Node"]
+[node name="Root2" type="Node"]
 
 [node name="GameView" type="ViewportContainer" parent="."]
 unique_name_in_owner = true
