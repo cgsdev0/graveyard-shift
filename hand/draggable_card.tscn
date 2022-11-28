@@ -158,6 +158,7 @@ anims/scale_out_variation2 = SubResource( 6 )
 [node name="WallSound" type="AudioStreamPlayer" parent="."]
 volume_db = -8.0
 pitch_scale = 0.9
+bus = "SFX"
 script = ExtResource( 6 )
 samples = [ ExtResource( 5 ) ]
 random_volume_range = 0

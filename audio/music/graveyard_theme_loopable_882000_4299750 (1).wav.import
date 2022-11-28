@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/graveyard_theme_loopable_882000_4299750 (1).wav-fa390dff68d282de7169c5b042d2a81b.sample"
+
+[deps]
+
+source_file="res://audio/music/graveyard_theme_loopable_882000_4299750 (1).wav"
+dest_files=[ "res://.import/graveyard_theme_loopable_882000_4299750 (1).wav-fa390dff68d282de7169c5b042d2a81b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=882000
+edit/loop_end=4299750
+compress/mode=0

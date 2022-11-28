@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://main.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ui/fade_transition.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ui/scene_manager.gd" type="Script" id=3]
 [ext_resource path="res://debug/fps_counter.gd" type="Script" id=4]
+[ext_resource path="res://audio/music/graveyard_theme_loopable_882000_4299750 (1).wav" type="AudioStream" id=5]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 3 )
@@ -21,3 +22,9 @@ margin_left = 16.0
 margin_top = 16.0
 text = "FPS:"
 script = ExtResource( 4 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -10.0
+autoplay = true
+bus = "Music"
