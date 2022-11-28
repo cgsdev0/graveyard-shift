@@ -3,6 +3,8 @@ extends Node2D
 
 func _ready():
 	Game.connect("change_scene", self, "on_transition")
+	yield(get_tree().create_timer(0.1), "timeout")
+	$AudioStreamPlayer.play()
 	
 func on_transition(path):
 	$CanvasLayer.transition()
