@@ -209,7 +209,7 @@ var levels = [
 	},
 		# Level 7 - twice the fun
 	{
-		"turns": 6,
+		"turns": 5,
 		"camera": {
 			"zoom": 31,
 			"angle": 40,
@@ -219,9 +219,9 @@ var levels = [
 		"rows": 5,
 		"tiles": [
 			[2, 2, TileType.EXIT],
-			[0, 2, TileType.TREASURE],
-			[4, 2, TileType.TREASURE],
+			[0, 3, TileType.TREASURE],
 			[0, 1, TileType.PIT],
+			[3, 1, TileType.PIT],
 			[1, 1, TileType.PIT],
 			[2, 1, TileType.PIT],
 			[2, 3, TileType.PIT],
@@ -309,7 +309,7 @@ static func title_card(card):
 	
 static func describe_card(card):
 	if card.type == TileType.WALL && card.wall_flags.max() == 9999:
-		return "Cannot be destroyed. Requires an action surge to play."
+		return "The best walls on the market. Requires an action surge to play."
 	return descriptions[card.type].format(card)
 	
 static func flavor_text_card(card):

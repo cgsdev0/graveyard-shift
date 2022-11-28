@@ -13,7 +13,7 @@ var starting_deck = [
 	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 1, 0], "ac": 1 },
 	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
 	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
-#	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
+	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
 #	{ "type": Game.TileType.SPIKES, "ac": 1 }
 #
 #{ "cost": 40, "type": Game.TileType.FORESIGHT, "ac": 0 },
@@ -28,7 +28,7 @@ var starting_deck = [
 #{ "cost": 40, "type": Game.TileType.FORESIGHT, "ac": 0 },
 #{ "cost": 40, "type": Game.TileType.FORESIGHT, "ac": 0 },
 #{ "cost": 40, "type": Game.TileType.FORESIGHT, "ac": 0 },
-#	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
+# { "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1, "level": 1 },
 #	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
 #	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 2 },
 #	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
@@ -37,7 +37,8 @@ var starting_deck = [
 #	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
 #	{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 },
 #	{ "type": Game.TileType.LURE, "range": "unlimited", "ac": 2 },
-	{ "type": Game.TileType.LURE, "range": 2, "ac": 2 },
+#	{ "type": Game.TileType.GUST,  "direction": "down", "ac": 2 },
+#	{ "type": Game.TileType.GUST,  "direction": "left", "ac": 0 },
 #	{ "cost": 0, "type": Game.TileType.BRIDGE, "wall_flags": [1000, 1000, 0, 0], "ac": 1 },
 #	{ "cost": 0, "type": Game.TileType.BRIDGE, "wall_flags": [0, 0, 1000, 1000], "ac": 1 },
 
@@ -78,7 +79,7 @@ func on_reset():
 	for i in selected_deck:
 		deck.push_back(starting_deck[i].duplicate(true))
 	# TODO: re-enable
-	# deck.shuffle()
+	deck.shuffle()
 	
 func add_card(card):
 	starting_deck.push_front(card)

@@ -64,6 +64,7 @@ func take_step():
 		if y is Object:
 			yield(y, "completed")
 		$AnimationPlayer.play("move")
+		moved()
 		movement_tween.start()
 		yield(movement_tween, "tween_all_completed")
 		rolling = true

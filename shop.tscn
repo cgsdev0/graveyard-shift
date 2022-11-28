@@ -557,6 +557,7 @@ anims/reroll_out = SubResource( 10 )
 
 [node name="PurchaseSound" type="AudioStreamPlayer" parent="ViewportContainer/Viewport/Control"]
 volume_db = -6.0
+bus = "SFX"
 script = ExtResource( 20 )
 samples = [ ExtResource( 17 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 19 ), ExtResource( 18 ) ]
 random_strategy = 2

@@ -21,12 +21,15 @@ func manhattan_distance(u, v):
 	var vy = v / board.cols
 	return abs(ux - vx) + abs(uy - vy)
 
-func gust(dir):
+func gust(dir, offset):
 	var dest = board.compute_tile_id(get_id(), dir)
+	board.unmove_tokens_out_of_my_way(get_id())
 	grid_y = int(dest / board.cols)
 	grid_x = int(dest % board.cols)
 	movement_tween.interpolate_property(self, "global_translation",
-	global_translation, board.get_tile(grid_x, grid_y).get_center(), 0.3,
+	global_translation, 
+	board.get_tile(grid_x, grid_y).get_center() + Vector3(0.0, 0.0, -0.25) * offset,
+	0.3,
 	Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 
 	if board.get_tile_by_id(dest).type == Game.TileType.PIT:
@@ -42,13 +45,19 @@ func gust(dir):
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 0.6)
 	movement_tween.start()
 	update_navigation()
+	moved()
+	
+	if board.get_tile_by_id(dest).type == Game.TileType.EXIT:
+		if self.is_in_group("adventurers"):
+			# rip adventurer
+			yield(movement_tween, "tween_all_completed")
+			Game.earned_treasure = true
+			self.kill()
 		
 var start_x
 var start_y
 
 func _ready():
-	movement_tween = Tween.new()
-	self.add_child(movement_tween)
 	add_to_group("pathfinders")
 	board = get_parent().get_node("Board")
 	if board:
@@ -58,6 +67,8 @@ func _ready():
 	# update_navigation()
 
 func is_my_neighbor(pathfinder):
+	if pathfinder.get_id() == self.get_id():
+		return true
 	if abs(pathfinder.grid_x - grid_x) == 1 && pathfinder.grid_y == grid_y:
 		return true
 	if abs(pathfinder.grid_y - grid_y) == 1 && pathfinder.grid_x == grid_x:
@@ -110,6 +121,8 @@ func get_target_tile():
 	 return board.find_tile_id(Game.TileType.EXIT)[0]
 
 func check_wall(u, v):
+	if u == v:
+		return false
 	var dir = board.compute_direction(u, v)
 	var i_dir = Game.invert_direction(dir)
 	var u_wall = Game.is_wall(board.get_tile_by_id(u).type)

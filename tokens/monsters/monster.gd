@@ -4,6 +4,7 @@ func _ready():
 	add_to_group("monsters")
 	astar = MyAStar.new(board)
 	update_navigation()
+	$AnimationPlayer.play("idle")
 	
 func get_target_tile():
 	var lures = get_tree().get_nodes_in_group("lures")
@@ -31,6 +32,12 @@ func take_step():
 		if is_my_neighbor(soldier):
 			if check_wall(get_id(), soldier.get_id()):
 				continue
+			var attack_dir = board.compute_direction(get_id(), soldier.get_id())
+			var y = rotate_to(attack_dir, true)
+			if y is Object:
+				yield(y, "completed")
+			$AnimationPlayer.play("attack")
+			yield($AnimationPlayer, "animation_finished")
 			soldier.kill()
 			return
 	var lures = get_tree().get_nodes_in_group("lures")
@@ -51,8 +58,20 @@ func take_step():
 	var u_wall = Game.is_wall(u_type)
 	var v_wall = Game.is_wall(v_type)
 	if u_wall && board.get_tile_by_id(u).check_wall_bit(dir):
+		var attack_dir = dir
+		var y = rotate_to(attack_dir, true)
+		if y is Object:
+			yield(y, "completed")
+		$AnimationPlayer.play("attack")
+		yield($AnimationPlayer, "animation_finished")
 		board.damage_tile_wall_bit(u, dir)
 	elif v_wall && board.get_tile_by_id(v).check_wall_bit(i_dir):
+		var attack_dir = dir
+		var y = rotate_to(attack_dir, true)
+		if y is Object:
+			yield(y, "completed")
+		$AnimationPlayer.play("attack")
+		yield($AnimationPlayer, "animation_finished")
 		board.damage_tile_wall_bit(v, i_dir)
 	else:
 		grid_y = int(v / board.cols)
@@ -63,9 +82,15 @@ func take_step():
 		#global_translation = board.get_tile(grid_x, grid_y).get_center()
 		movement_tween.interpolate_property(self, "global_translation",
 		global_translation, board.get_tile(grid_x, grid_y).get_center(), 0.4,
-		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+		Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
+		var y = rotate_to(dir, true)
+		if y is Object:
+			yield(y, "completed")
+		$AnimationPlayer.play("move")
 		movement_tween.start()
+		moved()
 		path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
+		yield(movement_tween, "tween_completed")
 #	update()
 
 class MyAStar:
