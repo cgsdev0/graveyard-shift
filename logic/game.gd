@@ -301,7 +301,7 @@ static func title_card(card):
 	# Define some overrides
 	if card.type == TileType.WALL && card.wall_flags.max() == 2:
 		return "Reinforced Wall"
-	if card.type == TileType.WALL && card.wall_flags.max() == 9999:
+	if card.type == TileType.WALL && card.wall_flags.max() == 5:
 		return "Fortress Wall"
 	if card.type == TileType.LURE && typeof(card.range) == TYPE_STRING:
 		return "Super Lure"
