@@ -61,10 +61,12 @@ func place_card_on_tile(card, id: int) -> void:
 				adventurer.give_courage(card.card.actions)
 			return
 		Game.TileType.GUST:
+			var i = 0
 			for pathfinder in get_tree().get_nodes_in_group("pathfinders"):
 				if pathfinder.get_id() != id:
 					continue
-				pathfinder.gust(Game.gust_direction(card.card.direction))
+				pathfinder.gust(Game.gust_direction(card.card.direction), i)
+				i += 1
 			return
 	replace_tile_by_id(id, desired_type)
 
@@ -82,6 +84,8 @@ func get_tile_by_id(id: int) -> Tile:
 	return get_child(id) as Tile
 
 func compute_direction(u, v):
+	if u == v:
+		return Game.Direction.EAST
 	var row_u = int(u / cols)
 	var col_u = int(u % cols)
 	var row_v = int(v / cols)
@@ -168,6 +172,16 @@ func _ready():
 	
 	for monster in level.monsters:
 		self.callv("spawn_monster", monster)
+
+func unmove_tokens_out_of_my_way(v):
+	for token in get_tree().get_nodes_in_group("tokens"):
+		if token.get_id() == v:
+			token.unmove_out_of_way()
+			
+func move_tokens_out_of_my_way(v):
+	for token in get_tree().get_nodes_in_group("tokens"):
+		if token.get_id() == v:
+			token.move_out_of_way()
 
 var fence_gap = 1.0
 var height = -0.13

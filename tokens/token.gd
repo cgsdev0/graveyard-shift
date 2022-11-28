@@ -17,8 +17,35 @@ func reset_rotation_horizontal():
 	match facing:
 		Game.Direction.EAST, Game.Direction.WEST:
 			return
+	if self.is_in_group("adventurers"):
+		return rotate_to(Game.Direction.WEST)
 	return rotate_to(Game.Direction.EAST)
 	
+var moved_stack = 0
+func moved():
+	moved_stack = 0
+	
+func unmove_out_of_way():
+	if moved_stack > 0:
+		moved_stack -= 1
+		movement_tween.interpolate_property(self, "global_translation", 
+		global_translation,
+		global_translation + Vector3(0.0, 0.0, -0.25), 
+		0.2,
+		Tween.TRANS_LINEAR, 
+		Tween.EASE_IN)
+		movement_tween.start()
+		
+func move_out_of_way():
+	moved_stack += 1
+	movement_tween.interpolate_property(self, "global_translation", 
+	global_translation,
+	global_translation + Vector3(0.0, 0.0, 0.25), 
+	0.2,
+	Tween.TRANS_LINEAR, 
+	Tween.EASE_IN)
+	movement_tween.start()
+
 func rotate_to(dir, force_cheat = false):
 	var cheat = 0
 	if grid_x * 2 > board.cols - 1 || force_cheat:
@@ -45,6 +72,8 @@ func rotate_to(dir, force_cheat = false):
 	return
 			
 func _ready():
+	movement_tween = Tween.new()
+	self.add_child(movement_tween)
 	turn_tween = Tween.new()
 	self.add_child(turn_tween)
 	initial_transform = global_transform

@@ -1,10 +1,6 @@
 extends Node
 
 var starting_treasure_deck = [
-		[
-			{ "type": Game.TileType.MONEY_TREE, "gpm": 3, "ac": 2 },
-		],
-		[
 			#                       	                        N  S  E  W
 			{ "type": Game.TileType.SECRET_DOOR, "wall_flags": [3, 0, 0, 0], "ac": 1 },
 			{ "type": Game.TileType.SECRET_DOOR, "wall_flags": [0, 3, 0, 0], "ac": 1 },
@@ -17,47 +13,51 @@ var starting_treasure_deck = [
 			{ "type": Game.TileType.SPIKES, "ac": 1 },
 			{ "type": Game.TileType.SPIKES, "ac": 1 },
 			#
-			{ "type": Game.TileType.LURE, "range": "unlimited", "ac": 2 },
-		],
 ]
+
+var treasure_overrides = {
+	1: [{ "type": Game.TileType.MONEY_TREE, "gpm": 3, "ac": 2, "level": 1 }],
+	2: [{ "type": Game.TileType.WALL, "wall_flags": [2, 2, 2, 2], "ac": 1 }],
+	3: [{ "type": Game.TileType.LURE, "range": "unlimited", "ac": 2, "level": 2 }],
+}
 
 var starting_deck = [
 	# Level 0 cards
 	[
 		#
-		{ "cost": 8, "type": Game.TileType.BRIDGE, "wall_flags": [1000, 1000, 0, 0], "ac": 1 },
-		{ "cost": 8, "type": Game.TileType.BRIDGE, "wall_flags": [0, 0, 1000, 1000], "ac": 1 },
+		{ "cost": 5, "type": Game.TileType.BRIDGE, "wall_flags": [1000, 1000, 0, 0], "ac": 1 },
+		{ "cost": 5, "type": Game.TileType.BRIDGE, "wall_flags": [0, 0, 1000, 1000], "ac": 1 },
 		#
-		{ "cost": 10, "type": Game.TileType.MONEY_TREE, "gpm": 3, "ac": 2 },
-		{ "cost": 10, "type": Game.TileType.MONEY_TREE, "gpm": 3, "ac": 2 },
-		{ "cost": 10, "type": Game.TileType.MONEY_TREE, "gpm": 3, "ac": 2 },
+		{ "cost": 10, "type": Game.TileType.MONEY_TREE, "gpm": 3, "ac": 2, "level": 1 },
+		{ "cost": 10, "type": Game.TileType.MONEY_TREE, "gpm": 3, "ac": 2, "level": 1 },
+		{ "cost": 10, "type": Game.TileType.MONEY_TREE, "gpm": 3, "ac": 2, "level": 1 },
 		#
-		{ "cost": 8, "type": Game.TileType.COURAGE, "ac": 1, "actions": 1 },
-		{ "cost": 8, "type": Game.TileType.COURAGE, "ac": 1, "actions": 1 },
-		{ "cost": 9, "type": Game.TileType.FRESH_START, "ac": 0 },
-		{ "cost": 9, "type": Game.TileType.FRESH_START, "ac": 0 },
+		{ "cost": 5, "type": Game.TileType.COURAGE, "ac": 1, "actions": 1 },
+		{ "cost": 5, "type": Game.TileType.COURAGE, "ac": 1, "actions": 1 },
+		{ "cost": 10, "type": Game.TileType.FRESH_START, "ac": 0 },
+		{ "cost": 10, "type": Game.TileType.FRESH_START, "ac": 0 },
 		#
-		{ "cost": 20, "type": Game.TileType.LURE, "range": 2, "ac": 2 },
-		{ "cost": 20, "type": Game.TileType.LURE, "range": 2, "ac": 2 },
+		{ "cost": 20, "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
+		{ "cost": 20, "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
 	],
 	# Level 1 cards
 	[
 		#                                            N  S  E  W
-		{ "cost": 27, "type": Game.TileType.WALL, "wall_flags": [2, 0, 0, 0], "ac": 1 },
-		{ "cost": 27, "type": Game.TileType.WALL, "wall_flags": [0, 2, 0, 0], "ac": 1 },
-		{ "cost": 27, "type": Game.TileType.WALL, "wall_flags": [0, 0, 2, 0], "ac": 1 },
-		{ "cost": 27, "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 2], "ac": 1 },
-		{ "cost": 24, "type": Game.TileType.WALL, "wall_flags": [1, 1, 0, 0], "ac": 1 },
-		{ "cost": 24, "type": Game.TileType.WALL, "wall_flags": [1, 0, 1, 0], "ac": 1 },
-		{ "cost": 24, "type": Game.TileType.WALL, "wall_flags": [1, 0, 0, 1], "ac": 1 },
-		{ "cost": 24, "type": Game.TileType.WALL, "wall_flags": [0, 1, 1, 0], "ac": 1 },
-		{ "cost": 24, "type": Game.TileType.WALL, "wall_flags": [0, 1, 0, 1], "ac": 1 },
-		{ "cost": 24, "type": Game.TileType.WALL, "wall_flags": [0, 0, 1, 1], "ac": 1 },
+		{ "cost": 25, "type": Game.TileType.WALL, "wall_flags": [2, 0, 0, 0], "ac": 1 },
+		{ "cost": 25, "type": Game.TileType.WALL, "wall_flags": [0, 2, 0, 0], "ac": 1 },
+		{ "cost": 25, "type": Game.TileType.WALL, "wall_flags": [0, 0, 2, 0], "ac": 1 },
+		{ "cost": 25, "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 2], "ac": 1 },
+		{ "cost": 20, "type": Game.TileType.WALL, "wall_flags": [1, 1, 0, 0], "ac": 1 },
+		{ "cost": 20, "type": Game.TileType.WALL, "wall_flags": [1, 0, 1, 0], "ac": 1 },
+		{ "cost": 20, "type": Game.TileType.WALL, "wall_flags": [1, 0, 0, 1], "ac": 1 },
+		{ "cost": 20, "type": Game.TileType.WALL, "wall_flags": [0, 1, 1, 0], "ac": 1 },
+		{ "cost": 20, "type": Game.TileType.WALL, "wall_flags": [0, 1, 0, 1], "ac": 1 },
+		{ "cost": 20, "type": Game.TileType.WALL, "wall_flags": [0, 0, 1, 1], "ac": 1 },
 		#
-		{ "cost": 20, "type": Game.TileType.MONEY_TREE, "gpm": 5, "ac": 2 },
-		{ "cost": 20, "type": Game.TileType.MONEY_TREE, "gpm": 5, "ac": 2 },
-		{ "cost": 20, "type": Game.TileType.MONEY_TREE, "gpm": 5, "ac": 2 },
-		{ "cost": 20, "type": Game.TileType.MONEY_TREE, "gpm": 5, "ac": 2 },
+		{ "cost": 20, "type": Game.TileType.MONEY_TREE, "gpm": 6, "ac": 2, "level": 2 },
+		{ "cost": 20, "type": Game.TileType.MONEY_TREE, "gpm": 6, "ac": 2, "level": 2 },
+		{ "cost": 20, "type": Game.TileType.MONEY_TREE, "gpm": 6, "ac": 2, "level": 2 },
+		{ "cost": 20, "type": Game.TileType.MONEY_TREE, "gpm": 6, "ac": 2, "level": 2 },
 		
 		{ "cost": 30, "type": Game.TileType.ACTION_SURGE, "ac": 0, "actions": 2 },
 		{ "cost": 30, "type": Game.TileType.ACTION_SURGE, "ac": 0, "actions": 2 },
@@ -66,8 +66,8 @@ var starting_deck = [
 	],
 	# Level 2 cards
 	[
-		{ "cost": 75, "type": Game.TileType.TRAP, "ac": 1 },
-		{ "cost": 75, "type": Game.TileType.TRAP, "ac": 1 },
+		{ "cost": 50, "type": Game.TileType.TRAP, "ac": 1 },
+		{ "cost": 50, "type": Game.TileType.TRAP, "ac": 1 },
 		{ "cost": 40, "type": Game.TileType.FORESIGHT, "ac": 0 },
 		{ "cost": 40, "type": Game.TileType.FORESIGHT, "ac": 0 },
 		{ "cost": 35, "type": Game.TileType.GUST, "ac": 2, "direction": "left" },
@@ -76,8 +76,8 @@ var starting_deck = [
 		{ "cost": 35, "type": Game.TileType.GUST, "ac": 2, "direction": "down" },
 		
 		#
-		{ "cost": 100, "type": Game.TileType.WALL, "wall_flags": [9999, 9999, 9999, 9999], "ac": 4 },
-		{ "cost": 100, "type": Game.TileType.WALL, "wall_flags": [9999, 9999, 9999, 9999], "ac": 4 },
+		{ "cost": 99, "type": Game.TileType.WALL, "wall_flags": [5, 5, 5, 5], "ac": 4 },
+		{ "cost": 99, "type": Game.TileType.WALL, "wall_flags": [5, 5, 5, 5], "ac": 4 },
 	],
 ]
 
@@ -99,8 +99,7 @@ func on_hard_reset():
 	treasure_deck = starting_treasure_deck.duplicate(true)
 	for i in range(deck.size()):
 		deck[i].shuffle()
-	for i in range(treasure_deck.size()):
-		treasure_deck[i].shuffle()
+	treasure_deck.shuffle()
 
 func rarities():
 	return [
@@ -136,8 +135,11 @@ func return_card(card):
 	deck[card.rarity].shuffle()
 	
 func deal_treasure():
-	var card = treasure_deck[0].pop_back().duplicate(true)
-	if treasure_deck[0].empty() && treasure_deck.size() > 1:
-		treasure_deck.pop_front()
+	var card 
+	if treasure_overrides.has(Game.level):
+		treasure_overrides[Game.level].shuffle()
+		card = treasure_overrides[Game.level][0].duplicate(true)
+	else:
+		card = treasure_deck.pop_back().duplicate(true)
 	card.treasure = true
 	return card
