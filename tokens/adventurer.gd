@@ -9,6 +9,8 @@ func _ready():
 	update_navigation()
 	Game.connect("start_new_turn", self, "reset_action_limit")
 	reset_action_limit()
+	$AnimationPlayer.play("idle")
+	global_transform.basis = global_transform.rotated(Vector3.UP, PI).basis
 	
 
 var action_limit
@@ -40,12 +42,19 @@ func take_step():
 		return
 	var u = path[0]
 	var v = path[1]
+	board.unmove_tokens_out_of_my_way(u)
+	board.move_tokens_out_of_my_way(v)
 	grid_y = int(v / board.cols)
 	grid_x = int(v % board.cols)
 	movement_tween.interpolate_property(self, "global_translation",
 	global_translation, board.get_tile(grid_x, grid_y).get_center(), 0.5,
 	Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	var dir = board.compute_direction(u, v)
+	var y = rotate_to(dir, true)
+	if y is Object:
+		yield(y, "completed")
 	movement_tween.start()
+	moved()
 	yield(movement_tween, "tween_completed")
 	if board.get_tile_by_id(v).type == Game.TileType.EXIT:
 		# rip adventurer
@@ -53,6 +62,13 @@ func take_step():
 		self.kill()
 	path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
 
+func kill():
+	visible = false
+	self.remove_from_group("adventurers")
+	self.remove_from_group("killable_tokens")
+	self.remove_from_group("tokens")
+	self.remove_from_group("pathfinders")
+	
 func get_target_tile():
 	var treasures = board.find_tile_id(Game.TileType.TREASURE)
 	if has_treasure || treasures.empty():

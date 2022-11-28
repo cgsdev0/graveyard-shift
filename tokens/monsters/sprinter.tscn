@@ -254,12 +254,12 @@ script = ExtResource( 2 )
 sprite_texture = ExtResource( 5 )
 
 [node name="Idle2" type="MeshInstance" parent="."]
-visible = false
 mesh = ExtResource( 3 )
 script = ExtResource( 2 )
 sprite_texture = ExtResource( 6 )
 
 [node name="Spin1" type="MeshInstance" parent="."]
+visible = false
 mesh = ExtResource( 8 )
 script = ExtResource( 2 )
 sprite_texture = ExtResource( 10 )

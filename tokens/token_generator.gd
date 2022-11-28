@@ -2,7 +2,7 @@ class_name TokenGenerator
 extends Node2D
 
 var width = 0.1
-export var scale_factor = 100.0
+export var scale_factor = 250.0
 
 
 
@@ -48,7 +48,7 @@ func _ready():
 	var textures = _find_png_paths()
 	for tex in textures:
 		model_to_texture(tex)
-	get_tree().quit()
+	# get_tree().quit()
 	
 func model_to_texture(path):
 	if get_tree().root.get_child(get_tree().root.get_child_count() - 1) != self:
@@ -66,7 +66,7 @@ func model_to_texture(path):
 
 	var bitmap = BitMap.new()
 	bitmap.create_from_image_alpha(image)
-	var polygons = bitmap.opaque_to_polygons(Rect2(Vector2(0, 0), bitmap.get_size()))
+	var polygons = bitmap.opaque_to_polygons(Rect2(Vector2(1, 1), bitmap.get_size() - Vector2(1,1)))
 	
 	p = []
 	var sz = $Sprite.texture.get_size()

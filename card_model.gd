@@ -26,10 +26,16 @@ var textures = {
 		preload("res://textures/cards/grass_3.png"),
 		preload("res://textures/cards/grass_4.png"),
 	],
-	Game.TileType.MONEY_TREE: [ preload("res://textures/cards/money_tree.png") ],
-	Game.TileType.LURE: [ preload("res://textures/cards/lure.png") ],
+	Game.TileType.MONEY_TREE: [ 
+		preload("res://textures/cards/money_tree.png"),
+		preload("res://textures/cards/money_tree2.png"),
+		 ],
+	Game.TileType.LURE: [ 
+		preload("res://textures/cards/lure.png"),
+		preload("res://textures/cards/lure2.png"),
+	 ],
 	Game.TileType.TRAP: [ preload("res://textures/cards/trap.png") ],
-	Game.TileType.GUST: [ preload("res://textures/cards/gust_of_wind.png") ],
+	Game.TileType.GUST: [ preload("res://textures/cards/gust.png") ],
 	Game.TileType.WALL: [ wall_n, wall_s, wall_e, wall_w ],
 	Game.TileType.SECRET_DOOR: [ wall_n, wall_s, wall_e, wall_w ],
 	Game.TileType.BRIDGE: [ preload("res://textures/cards/bridge_horizontal.png"), blank, preload("res://textures/cards/bridge_vertical.png"), blank ],
@@ -90,6 +96,8 @@ func recompute_wall_decals(card):
 				bits |= 1 << i
 	elif card.type == Game.TileType.EMPTY:
 		bits = randi() % 16
+	elif card.type == Game.TileType.MONEY_TREE || card.type == Game.TileType.LURE:
+		bits = card.level
 	elif textures.has(card.type):
 		bits = 1
 	_set_decal_bits(bits)

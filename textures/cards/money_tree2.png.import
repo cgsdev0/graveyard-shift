@@ -2,21 +2,19 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/money_tree2.png-7b02c5e5cad4eddf91b32a2f2a19baf2.s3tc.stex"
-path.etc2="res://.import/money_tree2.png-7b02c5e5cad4eddf91b32a2f2a19baf2.etc2.stex"
+path="res://.import/money_tree2.png-7b02c5e5cad4eddf91b32a2f2a19baf2.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://textures/cards/money_tree2.png"
-dest_files=[ "res://.import/money_tree2.png-7b02c5e5cad4eddf91b32a2f2a19baf2.s3tc.stex", "res://.import/money_tree2.png-7b02c5e5cad4eddf91b32a2f2a19baf2.etc2.stex" ]
+dest_files=[ "res://.import/money_tree2.png-7b02c5e5cad4eddf91b32a2f2a19baf2.stex" ]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
@@ -25,9 +23,9 @@ flags/repeat=1
 flags/filter=true
 flags/mipmaps=true
 flags/anisotropic=false
-flags/srgb=2
+flags/srgb=1
 process/fix_alpha_border=false
-process/premult_alpha=false
+process/premult_alpha=true
 process/HDR_as_SRGB=false
 process/invert_color=false
 process/normal_map_invert_y=false

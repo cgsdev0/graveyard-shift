@@ -30,6 +30,8 @@ func on_end_turn():
 	for pathfinder in pathfinders:
 		if !is_instance_valid(pathfinder):
 			continue
+		if !pathfinder.is_in_group("pathfinders"):
+			continue
 		pathfinder.stunned = false
 		if pathfinder.skipped_turns:
 			pathfinder.skipped_turns -= 1
