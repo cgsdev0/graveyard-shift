@@ -17,7 +17,7 @@ var starting_treasure_deck = [
 
 var treasure_overrides = {
 	1: [{ "type": Game.TileType.MONEY_TREE, "gpm": 3, "ac": 2, "level": 1 }],
-	2: [{ "type": Game.TileType.WALL, "wall_flags": [2, 2, 2, 2], "ac": 1 }],
+	2: [{ "type": Game.TileType.WALL, "wall_flags": [1, 1, 1, 1], "ac": 1 }],
 	3: [{ "type": Game.TileType.LURE, "range": "unlimited", "ac": 2, "level": 2 }],
 }
 
