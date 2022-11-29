@@ -26,6 +26,7 @@ func moved():
 	moved_stack = 0
 	
 func unmove_out_of_way():
+	yield(get_tree().create_timer(0.4), "timeout")
 	if moved_stack > 0:
 		moved_stack -= 1
 		movement_tween.interpolate_property(self, "global_translation", 
@@ -33,8 +34,7 @@ func unmove_out_of_way():
 		global_translation + Vector3(0.0, 0.0, -0.25), 
 		0.2,
 		Tween.TRANS_LINEAR, 
-		Tween.EASE_IN,
-		0.4)
+		Tween.EASE_IN)
 		movement_tween.start()
 		
 func move_out_of_way():

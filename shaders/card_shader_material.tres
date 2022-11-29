@@ -2,7 +2,7 @@
 
 [ext_resource path="res://shaders/card_shader.tres" type="Shader" id=1]
 [ext_resource path="res://textures/cards/walls/E.png" type="Texture" id=2]
-[ext_resource path="res://textures/cards/walls/N.png" type="Texture" id=3]
+[ext_resource path="res://textures/cards/spikes.png" type="Texture" id=3]
 [ext_resource path="res://textures/cards/Card Back.png" type="Texture" id=4]
 [ext_resource path="res://textures/cards/walls/W.png" type="Texture" id=5]
 [ext_resource path="res://textures/cards/walls/S.png" type="Texture" id=6]
@@ -19,7 +19,7 @@ shader = ExtResource( 1 )
 shader_param/bg_hue = 0.0
 shader_param/b_scale = 1.0
 shader_param/v_offset = 0.064
-shader_param/decal_bits = 0
+shader_param/decal_bits = 1
 shader_param/has_debug_tint = false
 shader_param/fade_c = 1.0
 shader_param/debug_tint = null

@@ -153,10 +153,38 @@ custom_fonts/font = ExtResource( 2 )
 text = "Art / Design"
 align = 2
 
-[node name="MarginContainer6" type="MarginContainer" parent="Container/Control"]
+[node name="MarginContainer10" type="MarginContainer" parent="Container/Control"]
 margin_top = 320.0
 margin_right = 800.0
 margin_bottom = 348.0
+custom_constants/margin_right = 160
+custom_constants/margin_left = 160
+custom_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/Control/MarginContainer10"]
+margin_left = 160.0
+margin_right = 640.0
+margin_bottom = 20.0
+
+[node name="Label" type="Label" parent="Container/Control/MarginContainer10/HBoxContainer"]
+margin_right = 62.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+text = "Mikky_ti"
+
+[node name="Label2" type="Label" parent="Container/Control/MarginContainer10/HBoxContainer"]
+margin_left = 66.0
+margin_right = 480.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "Art"
+align = 2
+
+[node name="MarginContainer6" type="MarginContainer" parent="Container/Control"]
+margin_top = 352.0
+margin_right = 800.0
+margin_bottom = 380.0
 custom_constants/margin_right = 160
 custom_constants/margin_left = 160
 custom_constants/margin_bottom = 8
@@ -182,17 +210,17 @@ text = "UI / UX"
 align = 2
 
 [node name="Label3" type="Label" parent="Container/Control"]
-margin_top = 352.0
+margin_top = 384.0
 margin_right = 800.0
-margin_bottom = 399.0
+margin_bottom = 431.0
 custom_fonts/font = ExtResource( 3 )
 text = "Assets By"
 align = 1
 
 [node name="MarginContainer7" type="MarginContainer" parent="Container/Control"]
-margin_top = 403.0
+margin_top = 435.0
 margin_right = 800.0
-margin_bottom = 431.0
+margin_bottom = 463.0
 custom_constants/margin_right = 160
 custom_constants/margin_left = 160
 custom_constants/margin_bottom = 8
@@ -218,9 +246,9 @@ text = "\"Spooktober\" Pack"
 align = 2
 
 [node name="MarginContainer8" type="MarginContainer" parent="Container/Control"]
-margin_top = 435.0
+margin_top = 467.0
 margin_right = 800.0
-margin_bottom = 463.0
+margin_bottom = 495.0
 custom_constants/margin_right = 160
 custom_constants/margin_left = 160
 custom_constants/margin_bottom = 8
@@ -246,9 +274,9 @@ text = "Fog Shader"
 align = 2
 
 [node name="MarginContainer9" type="MarginContainer" parent="Container/Control"]
-margin_top = 467.0
+margin_top = 499.0
 margin_right = 800.0
-margin_bottom = 495.0
+margin_bottom = 527.0
 custom_constants/margin_right = 160
 custom_constants/margin_left = 160
 custom_constants/margin_bottom = 8
