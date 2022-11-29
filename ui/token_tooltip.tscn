@@ -56,7 +56,7 @@ rect_min_size = Vector2( 80, 0 )
 custom_fonts/normal_font = ExtResource( 2 )
 bbcode_enabled = true
 bbcode_text = "0 ([color=#ed3838]-2[/color])"
-text = "0 (-2)"
+text = "0 ([color=#ed3838]-2[/color])"
 scroll_active = false
 deselect_on_focus_loss_enabled = false
 
