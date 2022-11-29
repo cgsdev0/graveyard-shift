@@ -44,9 +44,6 @@ func take_step():
 	var v = path[1]
 	board.unmove_tokens_out_of_my_way(u)
 	board.move_tokens_out_of_my_way(v)
-	if board.get_tile_by_id(v).spikes_ready:
-			stunned = true
-			skipped_turns += 1
 	grid_y = int(v / board.cols)
 	grid_x = int(v % board.cols)
 	movement_tween.interpolate_property(self, "global_translation",
@@ -59,6 +56,10 @@ func take_step():
 	movement_tween.start()
 	moved()
 	yield(movement_tween, "tween_completed")
+	if board.get_tile_by_id(v).spikes_ready:
+		stunned = true
+		board.activate_spikes(v)
+		skipped_turns += 1
 	if board.get_tile_by_id(v).type == Game.TileType.EXIT:
 		# rip adventurer
 		Game.earned_treasure = true

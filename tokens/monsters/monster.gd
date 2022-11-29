@@ -79,9 +79,7 @@ func take_step():
 		board.move_tokens_out_of_my_way(v)
 		grid_y = int(v / board.cols)
 		grid_x = int(v % board.cols)
-		if board.get_tile_by_id(v).spikes_ready:
-			stunned = true
-			skipped_turns += 1
+
 		#global_translation = board.get_tile(grid_x, grid_y).get_center()
 		movement_tween.interpolate_property(self, "global_translation",
 		global_translation, board.get_tile(grid_x, grid_y).get_center(), 0.4,
@@ -94,6 +92,10 @@ func take_step():
 		moved()
 		path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
 		yield(movement_tween, "tween_completed")
+		if board.get_tile_by_id(v).spikes_ready:
+			stunned = true
+			skipped_turns += 1
+			board.activate_spikes(v)
 		var lures = get_tree().get_nodes_in_group("lures")
 		for lure in lures:
 			if lure.grid_x == grid_x && lure.grid_y == grid_y:
