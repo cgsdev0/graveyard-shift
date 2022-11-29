@@ -6,7 +6,13 @@ func _ready():
 	update_navigation()
 	$AnimationPlayer.play("idle")
 	
+var fixation = null
 func get_target_tile():
+	if fixation != null:
+		if !is_instance_valid(fixation):
+			fixation = null
+		else:
+			return fixation.get_id()
 	var lures = get_tree().get_nodes_in_group("lures")
 	var cheapest_cost = 9999
 	var cheapest_lure = null
@@ -17,10 +23,11 @@ func get_target_tile():
 		var path = astar.get_id_path(grid_y * board.cols + grid_x, lure_id)
 		var cost = get_path_cost(path)
 		if cost < cheapest_cost:
-			cheapest_lure = lure_id
+			cheapest_lure = lure
 			cheapest_cost = cost
 	if cheapest_lure != null:
-		return cheapest_lure
+		fixation = cheapest_lure
+		return fixation.get_id()
 	return board.find_tile_id(Game.TileType.EXIT)[0]
 	
 func get_action_limit():
@@ -40,13 +47,7 @@ func take_step():
 			yield($AnimationPlayer, "animation_finished")
 			soldier.kill()
 			return
-	var lures = get_tree().get_nodes_in_group("lures")
-	for lure in lures:
-		if lure.grid_x == grid_x && lure.grid_y == grid_y:
-			lure.remove_from_group("lures")
-			lure.queue_free()
-			path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
-			return
+
 	if path.size() <= 1 || get_path_cost(path) > 100:
 		return
 	var u = path[0]
@@ -74,6 +75,8 @@ func take_step():
 		yield($AnimationPlayer, "animation_finished")
 		board.damage_tile_wall_bit(v, i_dir)
 	else:
+		board.unmove_tokens_out_of_my_way(u)
+		board.move_tokens_out_of_my_way(v)
 		grid_y = int(v / board.cols)
 		grid_x = int(v % board.cols)
 		if board.get_tile_by_id(v).spikes_ready:
@@ -91,6 +94,13 @@ func take_step():
 		moved()
 		path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
 		yield(movement_tween, "tween_completed")
+		var lures = get_tree().get_nodes_in_group("lures")
+		for lure in lures:
+			if lure.grid_x == grid_x && lure.grid_y == grid_y:
+				lure.remove_from_group("lures")
+				lure.queue_free()
+				fixation = null
+				path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
 #	update()
 
 class MyAStar:

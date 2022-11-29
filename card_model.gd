@@ -34,6 +34,7 @@ var textures = {
 		preload("res://textures/cards/lure.png"),
 		preload("res://textures/cards/lure2.png"),
 	 ],
+	Game.TileType.SPIKES: [ preload("res://textures/cards/spikes.png") ],
 	Game.TileType.TRAP: [ preload("res://textures/cards/trap.png") ],
 	Game.TileType.GUST: [ preload("res://textures/cards/gust.png") ],
 	Game.TileType.WALL: [ wall_n, wall_s, wall_e, wall_w ],
@@ -49,7 +50,7 @@ var textures = {
 
 var bg_textures = {
 	Game.TileType.PIT: preload("res://textures/cards/pit.png"),
-	Game.TileType.SPIKES: preload("res://textures/cards/spikes.png"),
+	Game.TileType.EXIT: preload("res://textures/cards/exit.png"),
 }
 
 func become(card):
@@ -74,12 +75,14 @@ func become(card):
 	self.set_text(str(card.ac), Game.title_card(card))
 	self._set_header_tint(Deck.card_color(card))
 	self.enable_hearts(0)
-	if Game.is_wall(card.type):
+	if Game.is_wall(card.type) || Game.TileType.MONEY_TREE:
 		match card.type:
 			Game.TileType.WALL, Game.TileType.SECRET_DOOR:
 				var n = card.wall_flags.max()
 				if n < 1000:
 					enable_hearts(n)
+			Game.TileType.MONEY_TREE:
+				enable_hearts(1)
 
 func set_bg_hue_shift(v):
 	$Plane.get_surface_material(0).set_shader_param("bg_hue", v)

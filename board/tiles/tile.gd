@@ -75,8 +75,6 @@ func set_color_from_type():
 #			color = Color.black
 		Game.TileType.WALL, Game.TileType.BRIDGE:
 			color = Color.white
-		Game.TileType.EXIT:
-			color = Color.green
 			
 func _process(delta):
 	# TODO: PASS HERE

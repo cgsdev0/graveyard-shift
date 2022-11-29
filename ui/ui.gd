@@ -92,4 +92,5 @@ func _on_OpenShopButton_pressed():
 		var prize = ShopDeck.deal_treasure()
 		Deck.pending_treasure_card = prize
 	Game.level += 1
+	Game.emit_signal("reset")
 	Game.emit_signal("change_scene", "res://shop.tscn")
