@@ -135,6 +135,7 @@ func set_tile_wall_bit(id: int, direction, health: int) -> void:
 func activate_spikes(id):
 	for tile in get_tree().get_nodes_in_group("placed_tiles"):
 			if tile.placed_at == id:
+				tile.get_node("Tile").play_animation("RESET")
 				tile.get_node("Tile").play_animation("spikes")
 				
 func _ready():
