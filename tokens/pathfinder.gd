@@ -13,6 +13,12 @@ var stunned = false
 var enabled = true
 func kill():
 	self.enabled = false
+	
+func get_name():
+	return "Unknown"
+	
+func get_description():
+	return "Moves on the board"
 
 func manhattan_distance(u, v):
 	var ux = u % board.cols
@@ -101,6 +107,9 @@ func draw_debug_path():
 			debug_path_node.add_vertex(B)
 		debug_path_node.end()
 			
+	
+func get_base_action_limit():
+	return get_action_limit()
 	
 func get_action_limit():
 	return 0

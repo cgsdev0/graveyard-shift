@@ -10,7 +10,13 @@ var wall_flags = [0, 0, 0, 0]
 var spikes_ready = false
 
 var stacks = 0
+var title
 
+func get_title():
+	if title:
+		return title
+	return Game.title_card(self)
+	
 func refresh_type():
 	$TileMesh.become({ "type": self.type })
 	

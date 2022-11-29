@@ -33,6 +33,12 @@ func get_target_tile():
 func get_action_limit():
 	return 2
 	
+func get_name():
+	return "Snake"
+	
+func get_description():
+	return "Heads towards the exit,\nattacking things in the way."
+	
 func take_step():
 	var soldiers = get_tree().get_nodes_in_group("killable_tokens")
 	for soldier in soldiers:

@@ -68,7 +68,7 @@ func place_card_on_tile(card, id: int) -> void:
 				pathfinder.gust(Game.gust_direction(card.card.direction), i)
 				i += 1
 			return
-	replace_tile_by_id(id, desired_type)
+	replace_tile_by_id(id, desired_type, false, Game.title_card(card.card))
 
 func find_tile_id(type):
 	var results = []
@@ -104,17 +104,21 @@ func compute_direction(u, v):
 func _propagate_board_change():
 	get_tree().call_group("pathfinders", "update_navigation")
 	
-func _replace_tile(exit_tile: Tile, type, refresh = false) -> void:
+func _replace_tile(exit_tile: Tile, type, refresh, title) -> void:
 	exit_tile.type = type
 	if refresh:
 		exit_tile.refresh_type()
+		
+	if title:
+		exit_tile.title = title
 	_propagate_board_change()
 	
-func replace_tile(col: int, row: int, type) -> void:
-	_replace_tile(get_tile(col, row), type)
+func replace_tile(col: int, row: int, type, title = null) -> void:
+	_replace_tile(get_tile(col, row), type, false, title)
 
-func replace_tile_by_id(id: int, type, refresh = false) -> void:
-	_replace_tile(get_tile_by_id(id), type, refresh)
+func replace_tile_by_id(id: int, type, refresh = false, title = null) -> void:
+	_replace_tile(get_tile_by_id(id), type, refresh, title)
+		
 
 func damage_tile_wall_bit(id: int, direction) -> void:
 	set_tile_wall_bit(id, direction, get_tile_by_id(id).wall_flags[direction] - 1)
