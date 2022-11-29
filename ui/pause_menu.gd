@@ -4,19 +4,17 @@ extends PopupPanel
 func _ready():
 	pass
 
-func _input(event):
-	if Game.current_path == "res://menu.tscn":
-		return
-	if Game.block_pause:
-		return
-	if event is InputEventKey && event.pressed && (event.scancode == KEY_ESCAPE || event.scancode == KEY_P):
-		toggle()
-		
 func _process(delta):
 	$M/V/Inventory.visible = Game.current_path == "res://main.tscn"
 	$M/V/Shop.visible = Game.current_path == "res://main.tscn"
 	$M/V/Restart.visible = Game.current_path == "res://main.tscn"
-
+	if Game.current_path == "res://menu.tscn":
+		return
+	if Game.block_pause:
+		return
+	if Input.is_action_just_pressed("ui_pause"):
+		toggle()
+		
 func set_toggle(v):
 	if !v:
 		get_tree().paused = false
@@ -24,6 +22,7 @@ func set_toggle(v):
 	else:
 		get_tree().paused = true
 		show()
+		$M/V/Resume.grab_focus()
 		
 func toggle():
 	set_toggle(!visible)
@@ -36,6 +35,7 @@ func _on_Settings_pressed():
 
 func _on_Quit_pressed():
 	$"%QuitConfirm".show()
+	$"%ActuallyQuit".grab_focus()
 
 func _on_CancelQuit_pressed():
 	$"%QuitConfirm".hide()

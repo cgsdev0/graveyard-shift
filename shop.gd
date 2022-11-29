@@ -9,6 +9,7 @@ var Inventory = preload("res://inventory.tscn")
 var cards
 var bought
 
+var in_inventory = false
 func _ready():
 #	var merged_shop_theme = Theme.new()
 #	merged_shop_theme.merge_with(Game.original_theme)
@@ -95,6 +96,7 @@ func _on_SkipButton_pressed():
 	go_to_inventory()
 
 func go_to_inventory():
+	in_inventory = true
 	for child in $Shop.get_children():
 		$Shop.remove_child(child)
 	for child in $"%ShopCamera".get_children():
@@ -106,6 +108,8 @@ func go_to_inventory():
 	inventory.fade_in()
 
 func _process(delta):
+	if in_inventory:
+		return
 	if $"%RerollButton" != null:
 		$"%RerollButton".disabled = Game.money < 2
 	
