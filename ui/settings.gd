@@ -6,6 +6,7 @@ func _ready():
 
 func open_settings():
 	show()
+	$"%MusicVolume".grab_focus()
 	$"%Fullscreen".pressed = OS.window_fullscreen
 	$"%SSAO".pressed = Game.world_env.ssao_enabled
 	$"%Bloom".pressed = Game.world_env.glow_enabled
@@ -42,3 +43,4 @@ func _on_Fullscreen_toggled(button_pressed):
 	hide()
 	yield(get_tree().create_timer(0.0), "timeout")
 	show()
+	$"%Fullscreen".grab_focus()

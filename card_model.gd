@@ -38,7 +38,12 @@ var textures = {
 	Game.TileType.TRAP: [ preload("res://textures/cards/trap.png") ],
 	Game.TileType.GUST: [ preload("res://textures/cards/gust.png") ],
 	Game.TileType.WALL: [ wall_n, wall_s, wall_e, wall_w ],
-	Game.TileType.SECRET_DOOR: [ wall_n, wall_s, wall_e, wall_w ],
+	Game.TileType.SECRET_DOOR: [ 
+		preload("res://textures/cards/walls/secret_N.png"),
+		preload("res://textures/cards/walls/secret_S.png"),
+		preload("res://textures/cards/walls/secret_E.png"),
+		preload("res://textures/cards/walls/secret_W.png"),
+	],
 	Game.TileType.BRIDGE: [ preload("res://textures/cards/bridge_horizontal.png"), blank, preload("res://textures/cards/bridge_vertical.png"), blank ],
 	Game.TileType.COURAGE: [ preload("res://textures/cards/courage.png") ],
 	Game.TileType.ACTION_SURGE: [ preload("res://textures/cards/action_surge.png") ],
@@ -46,11 +51,11 @@ var textures = {
 	Game.TileType.FRESH_START: [ preload("res://textures/cards/fresh_start.png") ],
 	Game.TileType.TREASURE: [ preload("res://textures/cards/treasure.png") ],
 	Game.TileType.TREASURE_TAKEN: [ preload("res://textures/cards/treasure_taken.png") ],
+	Game.TileType.EXIT: [ preload("res://textures/cards/exit.png") ],
 }
 
 var bg_textures = {
 	Game.TileType.PIT: preload("res://textures/cards/pit.png"),
-	Game.TileType.EXIT: preload("res://textures/cards/exit.png"),
 }
 
 func become(card):
