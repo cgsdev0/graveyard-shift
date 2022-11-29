@@ -19,6 +19,7 @@ func _ready():
 			row.check_box()
 		
 	preview = shopCard3D.instance()
+	preview.visible = false
 	preview.follow_node = $"%PreviewTarget"
 	preview.become(Deck.starting_deck[0])
 	get_owner().controller.get_shop_cam().add_child(preview)

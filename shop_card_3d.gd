@@ -23,6 +23,7 @@ func _process(delta):
 	
 var inside = false
 func do_process(delta):
+	visible = true
 	var cam = get_parent() as Camera
 	global_translation = cam.project_position(follow_node.rect_global_position + follow_node.rect_size / 2.0, 20.0)
 	var pos1 = cam.unproject_position(global_translation)

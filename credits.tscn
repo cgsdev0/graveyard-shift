@@ -1,0 +1,274 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://ui/font/secret_society_xl.tres" type="DynamicFont" id=1]
+[ext_resource path="res://ui/font/inter_normal.tres" type="DynamicFont" id=2]
+[ext_resource path="res://ui/font/secret_society_med.tres" type="DynamicFont" id=3]
+[ext_resource path="res://ui/span_limiter.gd" type="Script" id=4]
+[ext_resource path="res://ui/credits.gd" type="Script" id=5]
+
+[node name="Node2D" type="Node"]
+script = ExtResource( 5 )
+
+[node name="Container" type="Container" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 4 )
+rect_max_size = Vector2( 800, 1e+07 )
+
+[node name="Control" type="VBoxContainer" parent="Container"]
+margin_right = 800.0
+margin_bottom = 600.0
+
+[node name="MarginContainer3" type="MarginContainer" parent="Container/Control"]
+margin_right = 800.0
+margin_bottom = 137.0
+custom_constants/margin_top = 18
+custom_constants/margin_bottom = 32
+
+[node name="Label" type="Label" parent="Container/Control/MarginContainer3"]
+margin_top = 18.0
+margin_right = 800.0
+margin_bottom = 105.0
+custom_fonts/font = ExtResource( 1 )
+text = "Graveyard Shift"
+align = 1
+
+[node name="Label2" type="Label" parent="Container/Control"]
+margin_top = 141.0
+margin_right = 800.0
+margin_bottom = 188.0
+custom_fonts/font = ExtResource( 3 )
+text = "Developed By"
+align = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Container/Control"]
+margin_top = 192.0
+margin_right = 800.0
+margin_bottom = 220.0
+custom_constants/margin_right = 160
+custom_constants/margin_left = 160
+custom_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/Control/MarginContainer"]
+margin_left = 160.0
+margin_right = 640.0
+margin_bottom = 20.0
+
+[node name="Label" type="Label" parent="Container/Control/MarginContainer/HBoxContainer"]
+margin_right = 58.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+text = "badcop"
+
+[node name="Label2" type="Label" parent="Container/Control/MarginContainer/HBoxContainer"]
+margin_left = 62.0
+margin_right = 480.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "Code / Design"
+align = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Container/Control"]
+margin_top = 224.0
+margin_right = 800.0
+margin_bottom = 252.0
+custom_constants/margin_right = 160
+custom_constants/margin_left = 160
+custom_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/Control/MarginContainer2"]
+margin_left = 160.0
+margin_right = 640.0
+margin_bottom = 20.0
+
+[node name="Label" type="Label" parent="Container/Control/MarginContainer2/HBoxContainer"]
+margin_right = 107.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+text = "GamerPieJess"
+
+[node name="Label2" type="Label" parent="Container/Control/MarginContainer2/HBoxContainer"]
+margin_left = 111.0
+margin_right = 480.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "Art"
+align = 2
+
+[node name="MarginContainer4" type="MarginContainer" parent="Container/Control"]
+margin_top = 256.0
+margin_right = 800.0
+margin_bottom = 284.0
+custom_constants/margin_right = 160
+custom_constants/margin_left = 160
+custom_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/Control/MarginContainer4"]
+margin_left = 160.0
+margin_right = 640.0
+margin_bottom = 20.0
+
+[node name="Label" type="Label" parent="Container/Control/MarginContainer4/HBoxContainer"]
+margin_right = 81.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+text = "Ava1anche"
+
+[node name="Label2" type="Label" parent="Container/Control/MarginContainer4/HBoxContainer"]
+margin_left = 85.0
+margin_right = 480.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "Music"
+align = 2
+
+[node name="MarginContainer5" type="MarginContainer" parent="Container/Control"]
+margin_top = 288.0
+margin_right = 800.0
+margin_bottom = 316.0
+custom_constants/margin_right = 160
+custom_constants/margin_left = 160
+custom_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/Control/MarginContainer5"]
+margin_left = 160.0
+margin_right = 640.0
+margin_bottom = 20.0
+
+[node name="Label" type="Label" parent="Container/Control/MarginContainer5/HBoxContainer"]
+margin_right = 130.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+text = "Rainy Day Atelier"
+
+[node name="Label2" type="Label" parent="Container/Control/MarginContainer5/HBoxContainer"]
+margin_left = 134.0
+margin_right = 480.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "Art / Design"
+align = 2
+
+[node name="MarginContainer6" type="MarginContainer" parent="Container/Control"]
+margin_top = 320.0
+margin_right = 800.0
+margin_bottom = 348.0
+custom_constants/margin_right = 160
+custom_constants/margin_left = 160
+custom_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/Control/MarginContainer6"]
+margin_left = 160.0
+margin_right = 640.0
+margin_bottom = 20.0
+
+[node name="Label" type="Label" parent="Container/Control/MarginContainer6/HBoxContainer"]
+margin_right = 108.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+text = "TheCoppinger"
+
+[node name="Label2" type="Label" parent="Container/Control/MarginContainer6/HBoxContainer"]
+margin_left = 112.0
+margin_right = 480.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "UI / UX"
+align = 2
+
+[node name="Label3" type="Label" parent="Container/Control"]
+margin_top = 352.0
+margin_right = 800.0
+margin_bottom = 399.0
+custom_fonts/font = ExtResource( 3 )
+text = "Assets By"
+align = 1
+
+[node name="MarginContainer7" type="MarginContainer" parent="Container/Control"]
+margin_top = 403.0
+margin_right = 800.0
+margin_bottom = 431.0
+custom_constants/margin_right = 160
+custom_constants/margin_left = 160
+custom_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/Control/MarginContainer7"]
+margin_left = 160.0
+margin_right = 640.0
+margin_bottom = 20.0
+
+[node name="Label" type="Label" parent="Container/Control/MarginContainer7/HBoxContainer"]
+margin_right = 104.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+text = "Kay Lousberg"
+
+[node name="Label2" type="Label" parent="Container/Control/MarginContainer7/HBoxContainer"]
+margin_left = 108.0
+margin_right = 480.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "\"Spooktober\" Pack"
+align = 2
+
+[node name="MarginContainer8" type="MarginContainer" parent="Container/Control"]
+margin_top = 435.0
+margin_right = 800.0
+margin_bottom = 463.0
+custom_constants/margin_right = 160
+custom_constants/margin_left = 160
+custom_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/Control/MarginContainer8"]
+margin_left = 160.0
+margin_right = 640.0
+margin_bottom = 20.0
+
+[node name="Label" type="Label" parent="Container/Control/MarginContainer8/HBoxContainer"]
+margin_right = 58.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+text = "Gonkee"
+
+[node name="Label2" type="Label" parent="Container/Control/MarginContainer8/HBoxContainer"]
+margin_left = 62.0
+margin_right = 480.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "Fog Shader"
+align = 2
+
+[node name="MarginContainer9" type="MarginContainer" parent="Container/Control"]
+margin_top = 467.0
+margin_right = 800.0
+margin_bottom = 495.0
+custom_constants/margin_right = 160
+custom_constants/margin_left = 160
+custom_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/Control/MarginContainer9"]
+margin_left = 160.0
+margin_right = 640.0
+margin_bottom = 20.0
+
+[node name="Label" type="Label" parent="Container/Control/MarginContainer9/HBoxContainer"]
+margin_right = 205.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+text = "Little Robot Sound Factory"
+
+[node name="Label2" type="Label" parent="Container/Control/MarginContainer9/HBoxContainer"]
+margin_left = 209.0
+margin_right = 480.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "Fantasy SFX Library"
+align = 2

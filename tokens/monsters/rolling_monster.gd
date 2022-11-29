@@ -34,13 +34,6 @@ func get_action_limit():
 	return 2
 	
 func take_step():
-	var lures = get_tree().get_nodes_in_group("lures")
-	for lure in lures:
-		if lure.grid_x == grid_x && lure.grid_y == grid_y:
-			lure.remove_from_group("lures")
-			lure.queue_free()
-			path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
-			return
 	if path.size() <= 1 || get_path_cost(path) > 100:
 		return
 	var u = path[0]
@@ -51,7 +44,7 @@ func take_step():
 	var rolling = false
 
 	while u != v:
-		var attack_dir = _take_partial_step(u, u2, rolling)
+		var attack_dir = _take_partial_step(u, u2, rolling, u == path[0], v == u2)
 		if attack_dir != null:
 			var y = rotate_to(attack_dir, true)
 			if y is Object:
@@ -67,6 +60,14 @@ func take_step():
 		moved()
 		movement_tween.start()
 		yield(movement_tween, "tween_all_completed")
+		
+		var lures = get_tree().get_nodes_in_group("lures")
+		for lure in lures:
+			if lure.grid_x == grid_x && lure.grid_y == grid_y:
+				lure.remove_from_group("lures")
+				lure.queue_free()
+				fixation = null
+				path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
 		rolling = true
 		u = u2
 		u2 += gap
@@ -75,10 +76,8 @@ func take_step():
 	
 	if board.get_tile_by_id(v).type == Game.TileType.WALL:
 		if board.get_tile_by_id(u).check_wall_bit(dir):
-			
 			board.damage_tile_wall_bit(u, dir)
 	path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
-	return
 
 var kill_queue = []
 var wall_queue = []
@@ -89,7 +88,7 @@ func kill_all():
 	while !wall_queue.empty():
 		board.callv("damage_tile_wall_bit", wall_queue.pop_back())
 		
-func _take_partial_step(u, v, rolling):
+func _take_partial_step(u, v, rolling, first, last):
 	if !rolling:
 		var soldiers = get_tree().get_nodes_in_group("killable_tokens")
 		for soldier in soldiers:
@@ -127,16 +126,26 @@ func _take_partial_step(u, v, rolling):
 		wall_queue.push_back([v, i_dir])
 		return dir
 	else:
+		board.unmove_tokens_out_of_my_way(u)
+		board.move_tokens_out_of_my_way(v)
 		grid_y = int(v / board.cols)
 		grid_x = int(v % board.cols)
 		if board.get_tile_by_id(v).spikes_ready:
 			stunned = true
 			skipped_turns += 1
 		#global_translation = board.get_tile(grid_x, grid_y).get_center()
+		var ease_type = Tween.EASE_OUT
+		if first && last:
+			ease_type = Tween.EASE_IN_OUT
+		elif first:
+			ease_type = Tween.EASE_IN
 		var dist = global_translation.distance_to(board.get_tile(grid_x, grid_y).get_center())
 		movement_tween.interpolate_property(self, "global_translation",
-		global_translation, board.get_tile(grid_x, grid_y).get_center(), dist / 4,
-		Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
+		global_translation, board.get_tile(grid_x, grid_y).get_center(), 
+		dist / 4 if first or last else dist / 6,
+		Tween.TRANS_QUAD if first or last else Tween.TRANS_LINEAR, 
+		ease_type)
+
 #		movement_tween.interpolate_property(self, "global_translation:z",
 #		global_translation.z, board.get_tile(grid_x, grid_y).get_center().z, dist / 4,
 #		Tween.TRANS_QUAD, Tween.EASE_IN_OUT)

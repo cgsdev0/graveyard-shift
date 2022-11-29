@@ -1,0 +1,152 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://textures/menu/logo.png" type="Texture" id=1]
+[ext_resource path="res://shaders/shop_fog.gdshader" type="Shader" id=2]
+[ext_resource path="res://menu/moon.gd" type="Script" id=3]
+[ext_resource path="res://ui/font/secret_society_large.tres" type="DynamicFont" id=4]
+[ext_resource path="res://menu/button.gd" type="Script" id=5]
+[ext_resource path="res://menu/menu.gd" type="Script" id=6]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 2 )
+shader_param/color = Color( 0.458824, 0.317647, 0.501961, 0.345098 )
+shader_param/bgcolor = Color( 0.0980392, 0.0588235, 0.145098, 0 )
+shader_param/time_scale = 0.5
+shader_param/time_offset = 0.0
+shader_param/transparent_bg = false
+shader_param/OCTAVES = 2
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 2 )
+shader_param/color = Color( 0.533333, 0.529412, 0.709804, 0.509804 )
+shader_param/bgcolor = Color( 0, 0, 0, 0 )
+shader_param/time_scale = 1.0
+shader_param/time_offset = 0.0
+shader_param/transparent_bg = true
+shader_param/OCTAVES = 4
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 120, 30 )
+
+[node name="Node" type="Node"]
+script = ExtResource( 6 )
+
+[node name="Sky" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0.152941, 0.105882, 0.258824, 1 )
+
+[node name="Moon" type="Control" parent="."]
+visible = false
+anchor_left = 0.9
+anchor_top = 0.134
+anchor_right = 0.9
+anchor_bottom = 0.134
+script = ExtResource( 3 )
+
+[node name="Sky2" type="ColorRect" parent="."]
+material = SubResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0.776471, 0.623529, 0.862745, 0 )
+
+[node name="Grass" type="ColorRect" parent="."]
+anchor_top = 0.711
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0.0627451, 0.164706, 0.141176, 1 )
+
+[node name="Logo" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 7
+
+[node name="Fog" type="ColorRect" parent="."]
+material = SubResource( 2 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 1, 1, 1, 0 )
+
+[node name="Control" type="Control" parent="."]
+anchor_left = 0.495
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="Play" type="Area2D" parent="Control"]
+modulate = Color( 0, 0, 0, 1 )
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/Play"]
+shape = SubResource( 3 )
+
+[node name="Label" type="Label" parent="Control/Play"]
+margin_left = -120.0
+margin_top = -30.0
+margin_right = 120.0
+margin_bottom = 30.0
+custom_fonts/font = ExtResource( 4 )
+text = "Play"
+align = 1
+valign = 1
+
+[node name="Settings" type="Area2D" parent="Control"]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 0, 60 )
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/Settings"]
+shape = SubResource( 3 )
+
+[node name="Label" type="Label" parent="Control/Settings"]
+margin_left = -120.0
+margin_top = -30.0
+margin_right = 120.0
+margin_bottom = 30.0
+custom_fonts/font = ExtResource( 4 )
+text = "Settings"
+align = 1
+valign = 1
+
+[node name="Credits" type="Area2D" parent="Control"]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 0, 120 )
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/Credits"]
+shape = SubResource( 3 )
+
+[node name="Label" type="Label" parent="Control/Credits"]
+margin_left = -120.0
+margin_top = -30.0
+margin_right = 120.0
+margin_bottom = 30.0
+custom_fonts/font = ExtResource( 4 )
+text = "Credits"
+align = 1
+valign = 1
+
+[node name="Exit" type="Area2D" parent="Control"]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 0, 180 )
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/Exit"]
+shape = SubResource( 3 )
+
+[node name="Label" type="Label" parent="Control/Exit"]
+margin_left = -120.0
+margin_top = -30.0
+margin_right = 120.0
+margin_bottom = 30.0
+custom_fonts/font = ExtResource( 4 )
+text = "Exit"
+align = 1
+valign = 1
