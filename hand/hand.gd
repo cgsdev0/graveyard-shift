@@ -315,7 +315,18 @@ func _process(delta):
 				dragging.global_translation = get_viewport().get_camera().project_position(mouse, dist_from_camera - hold_dist) - offset
 
 var snapped_friend = false
+var showing_tooltip_for = null
 func _physics_process(delta):
+	if !Game.is_turn:
+		if showing_tooltip_for:
+			showing_tooltip_for = null
+			$"%UI".hide_tooltip()
+		return
+	var space = get_world().direct_space_state
+	var mouse = get_mouse_position()
+	var from = get_viewport().get_camera().project_ray_origin(mouse)
+	var to = from + get_viewport().get_camera().project_ray_normal(mouse) * 600
+	var result = space.intersect_ray(from, to, [], 0b10, false, true)
 	if dragging:
 		var friend = $"%UI".get_friend()
 		var friend_rect = Rect2(friend.rect_global_position, friend.rect_size)
@@ -326,19 +337,30 @@ func _physics_process(delta):
 		else:
 			friend.unbump()
 			snapped_friend = false
-		
-		var space = get_world().direct_space_state
-		var mouse = get_mouse_position()
-		var from = get_viewport().get_camera().project_ray_origin(mouse)
-		var to = from + get_viewport().get_camera().project_ray_normal(mouse) * 600
-		var result = space.intersect_ray(from, to, [], 0b10, false, true)
 		if result.has("collider"):
+			showing_tooltip_for = result.collider
 			if result.collider in valid_tiles:
 					if snap_tile != result.collider:
 						set_snap_tile(result.collider)
 		elif snap_tile != null:
+			showing_tooltip_for = null
 			set_snap_tile(null)
-
+	else:
+		# consider a tooltip
+		if result.has("collider"):
+			if showing_tooltip_for == result.collider:
+				return
+			showing_tooltip_for = result.collider
+			var tokens = []
+			for token in get_tree().get_nodes_in_group("tokens"):
+				if token.get_id() == result.collider.get_index():
+					tokens.push_back(token)
+			$"%UI".show_tooltip(
+				get_viewport().get_camera().unproject_position(result.collider.get_center() + Vector3(0, 0.55, 0)), 
+				{ "tile": result.collider, "tokens": tokens })
+		else:
+			showing_tooltip_for = null
+			$"%UI".hide_tooltip()
 var valid_tiles = []
 var friend_is_valid = false
 func compute_valid_tiles(card):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://logic/end_turn_button.gd" type="Script" id=1]
 [ext_resource path="res://logic/game_over.gd" type="Script" id=2]
@@ -15,6 +15,10 @@
 [ext_resource path="res://ui/font/secret_society_large.tres" type="DynamicFont" id=13]
 [ext_resource path="res://ui/foresight_overlay.gd" type="Script" id=14]
 [ext_resource path="res://textures/ui/actions.png" type="Texture" id=15]
+[ext_resource path="res://ui/font/secret_society_sm.tres" type="DynamicFont" id=16]
+[ext_resource path="res://ui/tooltip.theme" type="Theme" id=17]
+[ext_resource path="res://textures/ui/heart.png" type="Texture" id=18]
+[ext_resource path="res://ui/font/inter_normal.tres" type="DynamicFont" id=19]
 
 [sub_resource type="Animation" id=5]
 resource_name = "fade_in"
@@ -629,5 +633,271 @@ text = "Continue"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="YouWin"]
 anims/RESET = SubResource( 1 )
 anims/victory = SubResource( 2 )
+
+[node name="Tooltip" type="HFlowContainer" parent="."]
+rect_min_size = Vector2( 400, 0 )
+custom_constants/vseparation = 20
+custom_constants/hseparation = 20
+
+[node name="TileTooltip" type="PanelContainer" parent="Tooltip"]
+margin_right = 137.0
+margin_bottom = 134.0
+mouse_filter = 2
+size_flags_vertical = 4
+theme = ExtResource( 17 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tooltip/TileTooltip"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 135.0
+margin_bottom = 132.0
+custom_constants/separation = 4
+alignment = 1
+
+[node name="Label" type="Label" parent="Tooltip/TileTooltip/VBoxContainer"]
+margin_right = 133.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 16 )
+text = "Wall"
+
+[node name="Health" type="GridContainer" parent="Tooltip/TileTooltip/VBoxContainer"]
+margin_top = 38.0
+margin_right = 133.0
+margin_bottom = 130.0
+columns = 2
+
+[node name="NorthLabel" type="Label" parent="Tooltip/TileTooltip/VBoxContainer/Health"]
+margin_right = 49.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 19 )
+text = "North "
+valign = 1
+
+[node name="North" type="HBoxContainer" parent="Tooltip/TileTooltip/VBoxContainer/Health"]
+margin_left = 53.0
+margin_right = 133.0
+margin_bottom = 20.0
+custom_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="Tooltip/TileTooltip/VBoxContainer/Health/North"]
+margin_right = 16.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect2" type="TextureRect" parent="Tooltip/TileTooltip/VBoxContainer/Health/North"]
+margin_left = 16.0
+margin_right = 32.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect3" type="TextureRect" parent="Tooltip/TileTooltip/VBoxContainer/Health/North"]
+margin_left = 32.0
+margin_right = 48.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect4" type="TextureRect" parent="Tooltip/TileTooltip/VBoxContainer/Health/North"]
+margin_left = 48.0
+margin_right = 64.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect5" type="TextureRect" parent="Tooltip/TileTooltip/VBoxContainer/Health/North"]
+margin_left = 64.0
+margin_right = 80.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 6
+
+[node name="SouthLabel" type="Label" parent="Tooltip/TileTooltip/VBoxContainer/Health"]
+margin_top = 24.0
+margin_right = 49.0
+margin_bottom = 44.0
+custom_fonts/font = ExtResource( 19 )
+text = "South "
+valign = 1
+
+[node name="South" type="HBoxContainer" parent="Tooltip/TileTooltip/VBoxContainer/Health"]
+margin_left = 53.0
+margin_top = 24.0
+margin_right = 133.0
+margin_bottom = 44.0
+custom_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="Tooltip/TileTooltip/VBoxContainer/Health/South"]
+margin_right = 16.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect2" type="TextureRect" parent="Tooltip/TileTooltip/VBoxContainer/Health/South"]
+margin_left = 16.0
+margin_right = 32.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect3" type="TextureRect" parent="Tooltip/TileTooltip/VBoxContainer/Health/South"]
+margin_left = 32.0
+margin_right = 48.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect4" type="TextureRect" parent="Tooltip/TileTooltip/VBoxContainer/Health/South"]
+margin_left = 48.0
+margin_right = 64.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect5" type="TextureRect" parent="Tooltip/TileTooltip/VBoxContainer/Health/South"]
+margin_left = 64.0
+margin_right = 80.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 6
+
+[node name="EastLabel" type="Label" parent="Tooltip/TileTooltip/VBoxContainer/Health"]
+margin_top = 48.0
+margin_right = 49.0
+margin_bottom = 68.0
+custom_fonts/font = ExtResource( 19 )
+text = "East "
+valign = 1
+
+[node name="East" type="HBoxContainer" parent="Tooltip/TileTooltip/VBoxContainer/Health"]
+margin_left = 53.0
+margin_top = 48.0
+margin_right = 133.0
+margin_bottom = 68.0
+custom_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="Tooltip/TileTooltip/VBoxContainer/Health/East"]
+margin_right = 16.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect2" type="TextureRect" parent="Tooltip/TileTooltip/VBoxContainer/Health/East"]
+margin_left = 16.0
+margin_right = 32.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect3" type="TextureRect" parent="Tooltip/TileTooltip/VBoxContainer/Health/East"]
+margin_left = 32.0
+margin_right = 48.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect4" type="TextureRect" parent="Tooltip/TileTooltip/VBoxContainer/Health/East"]
+margin_left = 48.0
+margin_right = 64.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect5" type="TextureRect" parent="Tooltip/TileTooltip/VBoxContainer/Health/East"]
+margin_left = 64.0
+margin_right = 80.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 6
+
+[node name="WestLabel" type="Label" parent="Tooltip/TileTooltip/VBoxContainer/Health"]
+margin_top = 72.0
+margin_right = 49.0
+margin_bottom = 92.0
+custom_fonts/font = ExtResource( 19 )
+text = "West "
+valign = 1
+
+[node name="West" type="HBoxContainer" parent="Tooltip/TileTooltip/VBoxContainer/Health"]
+margin_left = 53.0
+margin_top = 72.0
+margin_right = 133.0
+margin_bottom = 92.0
+custom_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="Tooltip/TileTooltip/VBoxContainer/Health/West"]
+margin_right = 16.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect2" type="TextureRect" parent="Tooltip/TileTooltip/VBoxContainer/Health/West"]
+margin_left = 16.0
+margin_right = 32.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect3" type="TextureRect" parent="Tooltip/TileTooltip/VBoxContainer/Health/West"]
+margin_left = 32.0
+margin_right = 48.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect4" type="TextureRect" parent="Tooltip/TileTooltip/VBoxContainer/Health/West"]
+margin_left = 48.0
+margin_right = 64.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect5" type="TextureRect" parent="Tooltip/TileTooltip/VBoxContainer/Health/West"]
+margin_left = 64.0
+margin_right = 80.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 6
 
 [connection signal="pressed" from="YouWin/VBoxContainer/VBoxContainer/OpenShopButton" to="." method="_on_OpenShopButton_pressed"]

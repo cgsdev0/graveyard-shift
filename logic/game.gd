@@ -290,11 +290,16 @@ const title = {
 	TileType.BRIDGE: "Bridge",
 	TileType.SPIKES: "Floor Spikes",
 	TileType.TRAP: "Bear Trap",
+	TileType.TRAP_SPRUNG: "Trap (Sprung)",
 	TileType.FRESH_START: "Fresh Start",
 	TileType.FORESIGHT: "Foresight",
 	TileType.COURAGE: "Courage",
 	TileType.ACTION_SURGE: "Action Surge",
 	TileType.GUST: "Gust ({direction})",
+	TileType.EXIT: "Exit",
+	TileType.PIT: "Pit",
+	TileType.TREASURE: "Treasure",
+	TileType.TREASURE_TAKEN: "Treasure",
 }
 
 static func title_card(card):
@@ -305,7 +310,10 @@ static func title_card(card):
 		return "Fortress Wall"
 	if card.type == TileType.LURE && typeof(card.range) == TYPE_STRING:
 		return "Super Lure"
-	return title[card.type].format(card)
+	if typeof(card) == TYPE_DICTIONARY || typeof(card) == TYPE_ARRAY:
+		return title[card.type].format(card)
+	# fallback
+	return title[card.type]
 	
 static func describe_card(card):
 	if card.type == TileType.WALL && card.wall_flags.max() == 5:

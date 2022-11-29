@@ -88,6 +88,9 @@ func kill_all():
 	while !wall_queue.empty():
 		board.callv("damage_tile_wall_bit", wall_queue.pop_back())
 		
+func get_name():
+	return "Centipede"
+	
 func _take_partial_step(u, v, rolling, first, last):
 	if !rolling:
 		var soldiers = get_tree().get_nodes_in_group("killable_tokens")

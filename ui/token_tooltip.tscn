@@ -1,0 +1,117 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://ui/font/secret_society_sm.tres" type="DynamicFont" id=1]
+[ext_resource path="res://ui/font/inter_normal.tres" type="DynamicFont" id=2]
+[ext_resource path="res://ui/tooltip.theme" type="Theme" id=3]
+[ext_resource path="res://ui/token_tooltip.gd" type="Script" id=4]
+
+[node name="TokenTooltip" type="PanelContainer"]
+mouse_filter = 2
+size_flags_vertical = 8
+theme = ExtResource( 3 )
+script = ExtResource( 4 )
+
+[node name="Body" type="VBoxContainer" parent="."]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 221.0
+margin_bottom = 202.0
+custom_constants/separation = 4
+alignment = 1
+
+[node name="Label" type="Label" parent="Body"]
+margin_right = 219.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 1 )
+text = "Centipede"
+
+[node name="Stunned" type="Label" parent="Body"]
+margin_top = 38.0
+margin_right = 219.0
+margin_bottom = 58.0
+custom_colors/font_color = Color( 0.929412, 0.219608, 0.219608, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Stunned"
+valign = 1
+
+[node name="Actions" type="HBoxContainer" parent="Body"]
+margin_top = 62.0
+margin_right = 219.0
+margin_bottom = 82.0
+custom_constants/separation = 4
+
+[node name="Label" type="Label" parent="Body/Actions"]
+margin_right = 66.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+text = "Actions: "
+valign = 1
+
+[node name="Value" type="RichTextLabel" parent="Body/Actions"]
+margin_left = 70.0
+margin_right = 150.0
+margin_bottom = 20.0
+grow_horizontal = 0
+rect_min_size = Vector2( 80, 0 )
+custom_fonts/normal_font = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "0 ([color=#ed3838]-2[/color])"
+text = "0 (-2)"
+scroll_active = false
+deselect_on_focus_loss_enabled = false
+
+[node name="GPM" type="HBoxContainer" parent="Body"]
+margin_top = 86.0
+margin_right = 219.0
+margin_bottom = 106.0
+custom_constants/separation = 8
+
+[node name="Label" type="Label" parent="Body/GPM"]
+margin_right = 105.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+text = "Gold per turn:"
+valign = 1
+
+[node name="Value" type="RichTextLabel" parent="Body/GPM"]
+margin_left = 113.0
+margin_right = 219.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+custom_fonts/normal_font = ExtResource( 2 )
+bbcode_text = "0"
+text = "0"
+scroll_active = false
+
+[node name="Range" type="HBoxContainer" parent="Body"]
+margin_top = 110.0
+margin_right = 219.0
+margin_bottom = 130.0
+custom_constants/separation = 8
+
+[node name="Label" type="Label" parent="Body/Range"]
+margin_right = 51.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+text = "Range:"
+valign = 1
+
+[node name="Value" type="RichTextLabel" parent="Body/Range"]
+margin_left = 59.0
+margin_right = 219.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+custom_fonts/normal_font = ExtResource( 2 )
+bbcode_text = "0"
+text = "0"
+scroll_active = false
+
+[node name="Description" type="Label" parent="Body"]
+margin_top = 134.0
+margin_right = 219.0
+margin_bottom = 200.0
+custom_fonts/font = ExtResource( 2 )
+text = "Rolls multiple squares
+in a straight line. Can attack
+for free using its momentum."
+valign = 1
