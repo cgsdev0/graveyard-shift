@@ -596,6 +596,7 @@ script = ExtResource( 9 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="ViewportContainer2/Viewport"]
 transform = Transform( 0.492721, -0.260875, 0.830163, 0.0863882, 0.963956, 0.251646, -0.865889, -0.0522748, 0.497498, 3.00159, 1.95636, 2.72075 )
+light_color = Color( 0.819608, 0.780392, 0.941176, 1 )
 light_energy = 0.5
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="ViewportContainer2/Viewport"]

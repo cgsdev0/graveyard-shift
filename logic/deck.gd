@@ -1,6 +1,18 @@
 extends Node
 
 var starting_deck = [
+	{ "type": Game.TileType.SPIKES, "ac": 1 },
+{ "type": Game.TileType.SPIKES, "ac": 1 },
+{ "type": Game.TileType.SPIKES, "ac": 1 },
+{ "type": Game.TileType.SPIKES, "ac": 1 },
+{ "type": Game.TileType.SPIKES, "ac": 1 },
+{ "type": Game.TileType.SPIKES, "ac": 1 },
+{ "type": Game.TileType.SPIKES, "ac": 1 },
+{ "type": Game.TileType.SPIKES, "ac": 1 },
+{ "type": Game.TileType.SPIKES, "ac": 1 },
+{ "type": Game.TileType.SPIKES, "ac": 1 },
+{ "type": Game.TileType.SPIKES, "ac": 1 },
+{ "type": Game.TileType.SPIKES, "ac": 1 },
 	#                                            N  S  E  W
 	{ "type": Game.TileType.WALL, "wall_flags": [1, 0, 0, 0], "ac": 1 },
 	{ "type": Game.TileType.WALL, "wall_flags": [1, 0, 0, 0], "ac": 1 },
@@ -15,7 +27,7 @@ var starting_deck = [
 	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
 	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
 
-#{ "type": Game.TileType.SPIKES, "ac": 1 },
+
 #{ "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
 #{ "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
 #{ "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },

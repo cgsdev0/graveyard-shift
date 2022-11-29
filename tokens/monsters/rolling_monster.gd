@@ -131,6 +131,7 @@ func _take_partial_step(u, v, rolling, first, last):
 		grid_y = int(v / board.cols)
 		grid_x = int(v % board.cols)
 		if board.get_tile_by_id(v).spikes_ready:
+			board.activate_spikes(v)
 			stunned = true
 			skipped_turns += 1
 		#global_translation = board.get_tile(grid_x, grid_y).get_center()

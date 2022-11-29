@@ -132,6 +132,11 @@ func set_tile_wall_bit(id: int, direction, health: int) -> void:
 #				break
 	_propagate_board_change()
 	
+func activate_spikes(id):
+	for tile in get_tree().get_nodes_in_group("placed_tiles"):
+			if tile.placed_at == id:
+				tile.get_node("Tile").play_animation("spikes")
+				
 func _ready():
 	Game.connect("start_new_turn", self, "start_new_turn")
 	
