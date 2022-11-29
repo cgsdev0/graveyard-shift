@@ -16,8 +16,17 @@ func _ready():
 var action_limit
 var has_courage = false
 func reset_action_limit():
-	action_limit = 2
+	action_limit = get_base_action_limit()
 	has_courage = false
+	
+func get_name():
+	return "Adventurer"
+
+func get_description():
+	return "Retrieves the nearest treasure,\nthen heads for the exit."
+	
+func get_base_action_limit():
+	return 2
 	
 func get_action_limit():
 	return action_limit

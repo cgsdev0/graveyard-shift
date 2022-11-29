@@ -1,20 +1,30 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://ui/settings.gd" type="Script" id=1]
 [ext_resource path="res://addons/randomAudioStreamPlayer/random_audio_stream_player.gd" type="Script" id=2]
 [ext_resource path="res://ui/fade_transition.gd" type="Script" id=3]
 [ext_resource path="res://ui/scene_manager.gd" type="Script" id=4]
 [ext_resource path="res://debug/fps_counter.gd" type="Script" id=5]
-[ext_resource path="res://audio/music/graveyard_theme_loopable_882000_4299750 (1).wav" type="AudioStream" id=6]
-[ext_resource path="res://audio/deal/deal_2.wav" type="AudioStream" id=7]
-[ext_resource path="res://audio/deal/deal_4.wav" type="AudioStream" id=8]
-[ext_resource path="res://audio/deal/deal_3.wav" type="AudioStream" id=9]
+[ext_resource path="res://shortcuts/xbox_back.tres" type="InputEventJoypadButton" id=6]
+[ext_resource path="res://audio/music/graveyard_theme_loopable_882000_4299750 (1).wav" type="AudioStream" id=7]
+[ext_resource path="res://audio/deal/deal_2.wav" type="AudioStream" id=8]
+[ext_resource path="res://audio/deal/deal_5.wav" type="AudioStream" id=9]
 [ext_resource path="res://audio/deal/deal_1.wav" type="AudioStream" id=10]
-[ext_resource path="res://audio/deal/deal_5.wav" type="AudioStream" id=11]
-[ext_resource path="res://ui/font/secret_society_med.tres" type="DynamicFont" id=12]
+[ext_resource path="res://audio/deal/deal_4.wav" type="AudioStream" id=11]
+[ext_resource path="res://audio/deal/deal_3.wav" type="AudioStream" id=12]
 [ext_resource path="res://ui/pause_menu.gd" type="Script" id=13]
 [ext_resource path="res://settings.theme" type="Theme" id=14]
-[ext_resource path="res://ui/fade_transition.tscn" type="PackedScene" id=15]
+[ext_resource path="res://ui/font/secret_society_med.tres" type="DynamicFont" id=15]
+[ext_resource path="res://ui/fade_transition.tscn" type="PackedScene" id=16]
+
+[sub_resource type="ShortCut" id=2]
+shortcut = ExtResource( 6 )
+
+[sub_resource type="ShortCut" id=3]
+shortcut = ExtResource( 6 )
+
+[sub_resource type="ShortCut" id=4]
+shortcut = ExtResource( 6 )
 
 [node name="Node2D" type="Node2D"]
 pause_mode = 2
@@ -23,7 +33,7 @@ script = ExtResource( 4 )
 [node name="CurrentScene" type="Node" parent="."]
 pause_mode = 1
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." instance=ExtResource( 15 )]
+[node name="CanvasLayer" type="CanvasLayer" parent="." instance=ExtResource( 16 )]
 layer = 3
 script = ExtResource( 3 )
 
@@ -59,7 +69,7 @@ margin_bottom = 235.0
 [node name="Paused" type="Label" parent="CanvasLayer/PauseMenu/M/V"]
 margin_right = 340.0
 margin_bottom = 47.0
-custom_fonts/font = ExtResource( 12 )
+custom_fonts/font = ExtResource( 15 )
 text = "Paused"
 align = 1
 
@@ -67,6 +77,7 @@ align = 1
 margin_top = 51.0
 margin_right = 340.0
 margin_bottom = 77.0
+shortcut = SubResource( 2 )
 text = "Resume"
 
 [node name="Settings" type="Button" parent="CanvasLayer/PauseMenu/M/V"]
@@ -102,7 +113,7 @@ text = "Quit to Title"
 [node name="TestSound" type="AudioStreamPlayer" parent="CanvasLayer/PauseMenu"]
 bus = "SFX"
 script = ExtResource( 2 )
-samples = [ ExtResource( 10 ), ExtResource( 7 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 11 ) ]
+samples = [ ExtResource( 10 ), ExtResource( 8 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 9 ) ]
 select_samples_from_folder = ""
 random_strategy = 2
 random_volume_range = 0
@@ -139,7 +150,7 @@ margin_bottom = 164.0
 [node name="Paused" type="Label" parent="CanvasLayer/QuitConfirm/M/V"]
 margin_right = 380.0
 margin_bottom = 47.0
-custom_fonts/font = ExtResource( 12 )
+custom_fonts/font = ExtResource( 15 )
 text = "Really quit?"
 align = 1
 
@@ -166,9 +177,11 @@ margin_bottom = 156.0
 margin_right = 188.0
 margin_bottom = 26.0
 size_flags_horizontal = 3
+shortcut = SubResource( 3 )
 text = "Cancel"
 
 [node name="ActuallyQuit" type="Button" parent="CanvasLayer/QuitConfirm/M/V/HBoxContainer"]
+unique_name_in_owner = true
 margin_left = 192.0
 margin_right = 380.0
 margin_bottom = 26.0
@@ -178,7 +191,7 @@ text = "Quit"
 [node name="TestSound" type="AudioStreamPlayer" parent="CanvasLayer/QuitConfirm"]
 bus = "SFX"
 script = ExtResource( 2 )
-samples = [ ExtResource( 10 ), ExtResource( 7 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 11 ) ]
+samples = [ ExtResource( 10 ), ExtResource( 8 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 9 ) ]
 select_samples_from_folder = ""
 random_strategy = 2
 random_volume_range = 0
@@ -189,14 +202,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 16.0
 margin_top = 16.0
-text = "FPS: 120
-Cards in deck: 8
+text = "FPS: 121
+Cards in deck: 6
 Cards in shop deck: 38
 Cards in treasure deck: 8
 Tier 1 rarity: 0.72
 Tier 2 rarity: 0.215
 Tier 3 rarity: 0.065
-Turns: 2"
+Turns: 1"
 script = ExtResource( 5 )
 
 [node name="SettingsPanel" type="PopupPanel" parent="CanvasLayer"]
@@ -260,12 +273,12 @@ margin_bottom = 94.0
 text = "Music Volume"
 
 [node name="MusicVolume" type="HSlider" parent="CanvasLayer/SettingsPanel/MarginContainer/VBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
 margin_top = 98.0
 margin_right = 460.0
 margin_bottom = 114.0
 min_value = -20.0
 max_value = 10.0
-step = 0.1
 
 [node name="Label2" type="Label" parent="CanvasLayer/SettingsPanel/MarginContainer/VBoxContainer2/VBoxContainer"]
 margin_top = 118.0
@@ -279,7 +292,6 @@ margin_right = 460.0
 margin_bottom = 158.0
 min_value = -20.0
 max_value = 10.0
-step = 0.1
 
 [node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/SettingsPanel/MarginContainer/VBoxContainer2/VBoxContainer"]
 margin_top = 162.0
@@ -333,19 +345,20 @@ text = "Fullscreen"
 margin_top = 374.0
 margin_right = 460.0
 margin_bottom = 400.0
+shortcut = SubResource( 4 )
 text = "Confirm"
 
 [node name="TestSound" type="AudioStreamPlayer" parent="CanvasLayer/SettingsPanel"]
 bus = "SFX"
 script = ExtResource( 2 )
-samples = [ ExtResource( 10 ), ExtResource( 7 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 11 ) ]
+samples = [ ExtResource( 10 ), ExtResource( 8 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 9 ) ]
 select_samples_from_folder = ""
 random_strategy = 2
 random_volume_range = 0
 random_pitch_range = 0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 6 )
+stream = ExtResource( 7 )
 volume_db = -15.0
 bus = "Music"
 
