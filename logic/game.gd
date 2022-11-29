@@ -308,12 +308,12 @@ static func title_card(card):
 	return title[card.type].format(card)
 	
 static func describe_card(card):
-	if card.type == TileType.WALL && card.wall_flags.max() == 9999:
+	if card.type == TileType.WALL && card.wall_flags.max() == 5:
 		return "The best walls on the market. Requires an action surge to play."
 	return descriptions[card.type].format(card)
 	
 static func flavor_text_card(card):
-	if card.type == TileType.WALL && card.wall_flags.max() == 9999:
+	if card.type == TileType.WALL && card.wall_flags.max() == 5:
 		return "The ultimate defense."
 	return flavor[card.type].format(card)
 	
@@ -334,6 +334,9 @@ static func invert_direction(direction):
 		Direction.EAST:
 			return Direction.WEST
 
+var world_env
+var current_path = "res://menu.tscn"
+
 # Game State
 var level = 0
 var turns = 0
@@ -348,8 +351,10 @@ var money = 0
 var money_at_start = 0
 var is_turn = false
 var skip_to_inventory = false
+var block_pause = false
 
 func on_reset():
+	block_pause = false
 	earned_treasure = false
 	block_interaction = false
 	is_turn = false
@@ -358,13 +363,23 @@ func on_reset():
 	max_turns = turns
 	money_at_start = money
 	
+func on_hard_reset():
+	Game.level = 0
+	money = 0
+	on_reset()
+	
 func reset_money():
 	money = money_at_start
 
+func on_you_win():
+	block_pause = true
+	
 func _ready():
 	self.connect("reset", self, "on_reset")
 	self.connect("end_turn", self, "on_end_turn")
 	self.connect("start_new_turn", self, "on_start_new_turn")
+	self.connect("hard_reset", self, "on_hard_reset")
+	self.connect("you_win", self, "on_you_win")
 	on_reset()
 
 func on_start_new_turn():
@@ -400,3 +415,7 @@ signal highlight_friend(on)
 
 signal foresight
 signal foresight_end(card)
+
+signal open_settings
+
+signal hard_reset

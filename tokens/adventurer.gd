@@ -44,6 +44,9 @@ func take_step():
 	var v = path[1]
 	board.unmove_tokens_out_of_my_way(u)
 	board.move_tokens_out_of_my_way(v)
+	if board.get_tile_by_id(v).spikes_ready:
+			stunned = true
+			skipped_turns += 1
 	grid_y = int(v / board.cols)
 	grid_x = int(v % board.cols)
 	movement_tween.interpolate_property(self, "global_translation",
@@ -77,6 +80,8 @@ func get_target_tile():
 	var cheapest_treasure = null
 	for treasure in treasures:
 		var path = astar.get_id_path(get_id(), treasure)
+		if path.empty():
+			continue
 		var cost = get_path_cost(path)
 		if cost < cheapest_cost:
 			cheapest_treasure = treasure

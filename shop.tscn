@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://ui/shop2.theme" type="Theme" id=1]
 [ext_resource path="res://ui/span_limiter.gd" type="Script" id=2]
@@ -20,12 +20,15 @@
 [ext_resource path="res://audio/purchase/Pickup_Gold_04.wav" type="AudioStream" id=18]
 [ext_resource path="res://audio/purchase/Pickup_Gold_03.wav" type="AudioStream" id=19]
 [ext_resource path="res://addons/randomAudioStreamPlayer/random_audio_stream_player.gd" type="Script" id=20]
+[ext_resource path="res://load_world_env.gd" type="Script" id=21]
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 5 )
 shader_param/color = Color( 0.360784, 0.356863, 0.584314, 0.380392 )
 shader_param/bgcolor = Color( 0.027451, 0.0156863, 0.0627451, 1 )
+shader_param/time_scale = 1.0
 shader_param/time_offset = 0.0
+shader_param/transparent_bg = false
 shader_param/OCTAVES = 4
 
 [sub_resource type="Animation" id=3]
@@ -597,6 +600,7 @@ light_energy = 0.5
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="ViewportContainer2/Viewport"]
 environment = ExtResource( 10 )
+script = ExtResource( 21 )
 
 [connection signal="pressed" from="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2/MarginContainer3/RerollButton" to="ViewportContainer/Viewport/Control" method="_on_RerollButton_pressed"]
 [connection signal="pressed" from="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2/MarginContainer/SkipButton" to="ViewportContainer/Viewport/Control" method="_on_SkipButton_pressed"]

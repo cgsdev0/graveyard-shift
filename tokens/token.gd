@@ -33,7 +33,8 @@ func unmove_out_of_way():
 		global_translation + Vector3(0.0, 0.0, -0.25), 
 		0.2,
 		Tween.TRANS_LINEAR, 
-		Tween.EASE_IN)
+		Tween.EASE_IN,
+		0.4)
 		movement_tween.start()
 		
 func move_out_of_way():

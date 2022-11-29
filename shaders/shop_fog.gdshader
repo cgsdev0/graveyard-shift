@@ -6,7 +6,11 @@ shader_type canvas_item;
 uniform vec4 color : hint_color = vec4(0.35, 0.48, 0.95, 1.0);
 uniform vec4 bgcolor : hint_color = vec4(1.0, 0.0, 0.0, 1.0);
 
+uniform float time_scale = 1.0;
+
 uniform float time_offset = 0.0;
+
+uniform bool transparent_bg = false;
 
 uniform int OCTAVES = 4;
 
@@ -42,7 +46,7 @@ float fbm(vec2 coord){
 }
 
 void fragment() {
-	float scaled_time = (TIME - time_offset) / 2.0;
+	float scaled_time = (TIME - time_offset) / 2.0 * time_scale;
 	vec2 coord = UV * 3.0 + vec2(scaled_time, 0.5 * sin(scaled_time));
 
 	vec2 motion = vec2( fbm(coord + vec2(scaled_time * -0.5, scaled_time * 0.5)) );
@@ -50,4 +54,7 @@ void fragment() {
 	float final = fbm(coord + motion);
 
 	COLOR = vec4(mix(bgcolor.rgb, color.rgb, final * color.a), 1.0 * UV.y * 1.5);
+	if (transparent_bg) {
+		COLOR.a *= final * color.a;
+	}
 }

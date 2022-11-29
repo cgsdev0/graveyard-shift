@@ -14,8 +14,30 @@ var starting_deck = [
 	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
 	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
 	{ "type": Game.TileType.WALL, "wall_flags": [0, 0, 0, 1], "ac": 1 },
-#	{ "type": Game.TileType.SPIKES, "ac": 1 }
-#
+
+#{ "type": Game.TileType.SPIKES, "ac": 1 },
+#{ "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
+#{ "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
+#{ "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
+#{ "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
+#{ "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
+#{ "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
+#{ "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
+#{ "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
+#{ "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
+#{ "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
+#{ "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
+#{ "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
+#{ "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
+#{ "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
+#{ "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
+#{ "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
+#{ "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
+#{ "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
+#{ "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
+#{ "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
+#{ "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
+#{ "type": Game.TileType.LURE, "range": 2, "ac": 2, "level": 1 },
 #{ "cost": 40, "type": Game.TileType.FORESIGHT, "ac": 0 },
 #{ "cost": 40, "type": Game.TileType.FORESIGHT, "ac": 0 },
 #{ "cost": 40, "type": Game.TileType.FORESIGHT, "ac": 0 },
@@ -45,8 +67,9 @@ var starting_deck = [
 ]
 
 var max_deck_size = 12
-var selected_deck = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+var starting_selected_deck = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
+var selected_deck = starting_selected_deck.duplicate(true)
 var deck = starting_deck.duplicate(true)
 
 var pending_treasure_card = null #{ "cost": 0, "type": Game.TileType.MONEY_TREE, "gpm": 1, "ac": 1 }# null
@@ -68,9 +91,16 @@ func on_accept_treasure():
 		add_card(pending_treasure_card)
 		pending_treasure_card = null
 		
+func on_hard_reset():
+	pending_treasure_card = null
+	selected_deck = starting_selected_deck.duplicate(true)
+	deck = starting_deck.duplicate(true)
+	on_reset()
+	
 func _ready():
 	Game.connect("reset", self, "on_reset")
 	Game.connect("accept_treasure", self, "on_accept_treasure")
+	Game.connect("hard_reset", self, "on_hard_reset")
 	randomize()
 	on_reset()
 

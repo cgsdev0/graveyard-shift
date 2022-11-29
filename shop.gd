@@ -66,6 +66,7 @@ func deal_shop_cards():
 		if card == null:
 			continue
 		var new_3d_card = shopCard3D.instance()
+		new_3d_card.visible = false
 		new_3d_card.follow_node = new_card.get_node("%3DAnchor")
 		new_3d_card.become(card)
 		$"%ShopCamera".add_child(new_3d_card)
