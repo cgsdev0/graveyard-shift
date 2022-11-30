@@ -18,7 +18,6 @@ func get_friend_rect():
 func start_new_turn():
 	Game.turns -= 1
 	set_turns(Game.turns)
-	yield($"%TurnsProgress/Tween", "tween_completed")
 	if Game.turns == 0:
 		Game.emit_signal("you_win")
 		yield(Game, "daylight_animation_done")
@@ -26,6 +25,15 @@ func start_new_turn():
 	else:
 		Game.emit_signal("deal_new_turn")
 	
+func set_hover_text(text):
+	if text:
+		$"%HoverDescription".text = text
+		$"%HoverDescription".visible = true
+		$"%NoHover".visible = false
+	else:
+		$"%HoverDescription".visible = false
+		$"%NoHover".visible = true
+		
 func scale_margin(original_margin, scale_factor):
 	if original_margin == -1:
 		return -1
@@ -47,7 +55,7 @@ func on_resize():
 	yield(get_tree().create_timer(0), "timeout")
 	var v = get_viewport().size
 	# TODO: this value should maybe come from somewhere else
-	var scale_factor = min(v.x / 800.0, v.y / 450.0)
+	var scale_factor = pow(min(v.x / 800.0, v.y / 450.0), 0.8)
 	
 	for type in theme.get_font_types():
 		for font in theme.get_font_list(type):
@@ -78,9 +86,6 @@ func _process(delta):
 	
 func set_turns(turns):
 	$"%TurnsLabel".text = str(Game.turns)
-	var progress = lerp($"%TurnsProgress".min_value, $"%TurnsProgress".max_value, Game.turns / Game.max_turns)
-	$"%TurnsProgress/Tween".interpolate_property($"%TurnsProgress", "value", $"%TurnsProgress".value, progress, 0.5)
-	$"%TurnsProgress/Tween".start()
 	
 func get_bottom_edge():
 	return $"%BottomEdge"
