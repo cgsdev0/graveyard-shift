@@ -25,7 +25,7 @@ void vertex() {
 void fragment() {
 	vec2 base_uv = UV;
 	vec4 albedo_tex = texture(texture_albedo,base_uv);
-	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	ALBEDO = albedo.rgb * albedo_tex.rgb * 10.0;
 	float blink = pow(sin(TIME), 80.0) / 1.6;
 	if (distance(UV *uv1_scale.xy, anchor) < blink) {
 		ALBEDO.rgb = vec3(0.0, 0.0, 0.0);
@@ -33,5 +33,5 @@ void fragment() {
 	METALLIC = metallic;
 	ROUGHNESS = roughness;
 	SPECULAR = specular;
-	ALPHA = albedo.a * albedo_tex.a;
+	ALPHA = albedo.a * albedo_tex.a * 2.0;
 }
