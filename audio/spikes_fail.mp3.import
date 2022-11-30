@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/spikes_fail.mp3-984aedcf70e16a31898f354463886b33.mp3str"
+
+[deps]
+
+source_file="res://audio/spikes_fail.mp3"
+dest_files=[ "res://.import/spikes_fail.mp3-984aedcf70e16a31898f354463886b33.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
