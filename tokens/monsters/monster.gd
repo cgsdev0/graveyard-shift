@@ -69,6 +69,8 @@ func take_step():
 		var y = rotate_to(attack_dir, true)
 		if y is Object:
 			yield(y, "completed")
+		if board.get_tile_by_id(u).check_wall_bit(dir) == 1:
+			board.get_parent().play_wall_break_sound()
 		$AnimationPlayer.play("attack")
 		yield($AnimationPlayer, "animation_finished")
 		board.damage_tile_wall_bit(u, dir)
@@ -77,6 +79,8 @@ func take_step():
 		var y = rotate_to(attack_dir, true)
 		if y is Object:
 			yield(y, "completed")
+		if board.get_tile_by_id(v).check_wall_bit(i_dir) == 1:
+			board.get_parent().play_wall_break_sound()
 		$AnimationPlayer.play("attack")
 		yield($AnimationPlayer, "animation_finished")
 		board.damage_tile_wall_bit(v, i_dir)
@@ -102,6 +106,8 @@ func take_step():
 			stunned = true
 			skipped_turns += 1
 			board.activate_spikes(v)
+		elif board.get_tile_by_id(v).type == Game.TileType.SPIKES:
+			board.misfire_spikes()
 		var lures = get_tree().get_nodes_in_group("lures")
 		for lure in lures:
 			if lure.grid_x == grid_x && lure.grid_y == grid_y:

@@ -49,6 +49,8 @@ func take_step():
 			var y = rotate_to(attack_dir, true)
 			if y is Object:
 				yield(y, "completed")
+			if should_play_wall_break:
+				board.get_parent().play_wall_break_sound(0.2)
 			$AnimationPlayer.play("attack")
 			yield($AnimationPlayer, "animation_finished")
 			kill_all()
@@ -76,12 +78,16 @@ func take_step():
 	
 	if board.get_tile_by_id(v).type == Game.TileType.WALL:
 		if board.get_tile_by_id(u).check_wall_bit(dir):
+			if board.get_tile_by_id(u).check_wall_bit(dir) == 1:
+				board.get_parent().play_wall_break_sound()
 			board.damage_tile_wall_bit(u, dir)
 	path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
 
 var kill_queue = []
 var wall_queue = []
+var should_play_wall_break = false
 func kill_all():
+	should_play_wall_break = false
 	while !kill_queue.empty():
 		var enemy = kill_queue.pop_back()
 		enemy.kill()
@@ -125,9 +131,13 @@ func _take_partial_step(u, v, rolling, first, last):
 	var v_wall = Game.is_wall(v_type)
 	if u_wall && board.get_tile_by_id(u).check_wall_bit(dir):
 		# board.damage_tile_wall_bit(u, dir)
+		if board.get_tile_by_id(u).check_wall_bit(dir) == 1:
+			should_play_wall_break = true
 		wall_queue.push_back([u, dir])
 		return dir
 	elif v_wall && board.get_tile_by_id(v).check_wall_bit(i_dir):
+		if board.get_tile_by_id(v).check_wall_bit(i_dir) == 1:
+			should_play_wall_break = true
 		# board.damage_tile_wall_bit(v, i_dir)
 		wall_queue.push_back([v, i_dir])
 		return dir
@@ -140,6 +150,8 @@ func _take_partial_step(u, v, rolling, first, last):
 			board.activate_spikes(v)
 			stunned = true
 			skipped_turns += 1
+		elif board.get_tile_by_id(v).type == Game.TileType.SPIKES:
+			board.misfire_spikes()
 		#global_translation = board.get_tile(grid_x, grid_y).get_center()
 		var ease_type = Tween.EASE_OUT
 		if first && last:

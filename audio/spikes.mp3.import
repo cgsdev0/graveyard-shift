@@ -11,5 +11,5 @@ dest_files=[ "res://.import/spikes.mp3-807bd05ac507e9be7ff04934e5b3844c.mp3str" 
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

@@ -69,6 +69,8 @@ func take_step():
 		stunned = true
 		board.activate_spikes(v)
 		skipped_turns += 1
+	elif board.get_tile_by_id(v).type == Game.TileType.SPIKES:
+			board.misfire_spikes()
 	if board.get_tile_by_id(v).type == Game.TileType.EXIT:
 		# rip adventurer
 		Game.earned_treasure = true

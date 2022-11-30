@@ -273,6 +273,7 @@ func _process(delta):
 					match dragging.card.type:
 						Game.TileType.ACTION_SURGE:
 							Game.actions += dragging.card.actions
+							$PotionSound.play()
 						Game.TileType.FRESH_START:
 							do_fresh_start()
 						Game.TileType.FORESIGHT:

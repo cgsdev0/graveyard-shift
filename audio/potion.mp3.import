@@ -11,5 +11,5 @@ dest_files=[ "res://.import/potion.mp3-d30246f41c6bfc696867bf4401cb49fc.mp3str" 
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0
