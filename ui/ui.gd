@@ -11,6 +11,9 @@ func _ready():
 	
 func get_friend():
 	return $"%Friend"
+
+func get_friend_rect():
+	return Rect2($"%RightBar".rect_global_position, $"%RightBar".rect_size)
 	
 func start_new_turn():
 	Game.turns -= 1
@@ -69,6 +72,10 @@ func on_resize():
 			stylemap.content_margin_right = scale_margin(og_stylemap.content_margin_right, scale_factor)
 	update()
 
+func _process(delta):
+	var s = get_viewport().get_mouse_position() / get_viewport().size
+	$"%Face3D".set_rot(clamp(s.x, 0, 1), clamp(s.y, 0, 1))
+	
 func set_turns(turns):
 	$"%TurnsLabel".text = str(Game.turns)
 	var progress = lerp($"%TurnsProgress".min_value, $"%TurnsProgress".max_value, Game.turns / Game.max_turns)
@@ -141,7 +148,6 @@ func show_tooltip(position, data):
 					j += 1
 					
 	for token in data.tokens:
-		print(token)
 		var tt = TokenTooltip.instance()
 		tt.describe(token)
 		$Tooltip.add_child(tt)

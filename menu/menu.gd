@@ -9,6 +9,17 @@ func _ready():
 	
 	$Sky2.material.set_shader_param("time_offset", OS.get_ticks_msec() / 1000.0)
 	$Fog.material.set_shader_param("time_offset", OS.get_ticks_msec() / 1000.0 + 1)
+
+var dead_switch = false
+func _process(delta):
+	if dead_switch || !OS.is_debug_build():
+		return
+	if Input.is_key_pressed(KEY_5):
+		Game.skip_to_inventory = true
+		dead_switch = true
+		Deck.starting_deck = Deck.developer_deck
+		Game.emit_signal("hard_reset")
+		Game.emit_signal("change_scene", "res://shop.tscn")
 	
 func play():
 	Game.emit_signal("change_scene", "res://main.tscn")

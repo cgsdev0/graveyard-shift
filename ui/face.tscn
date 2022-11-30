@@ -1,0 +1,65 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://textures/ui/eye_2.png" type="Texture" id=1]
+[ext_resource path="res://ui/face_cam.gd" type="Script" id=2]
+[ext_resource path="res://ui/face.gd" type="Script" id=3]
+
+[sub_resource type="QuadMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=3]
+flags_transparent = true
+flags_unshaded = true
+albedo_texture = ExtResource( 1 )
+uv1_scale = Vector3( -1, 1, 1 )
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_transparent = true
+flags_unshaded = true
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="SpatialMaterial" id=4]
+flags_transparent = true
+albedo_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_unshaded = true
+albedo_color = Color( 0, 0, 0, 1 )
+
+[node name="Spatial" type="Spatial"]
+script = ExtResource( 3 )
+
+[node name="Camera" type="Camera" parent="."]
+script = ExtResource( 2 )
+
+[node name="head" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984807, 0, 0, -4.5 )
+
+[node name="face" type="Spatial" parent="head"]
+unique_name_in_owner = true
+transform = Transform( 1, 0, 0, 0, 0.999999, 0, 0, 0, 1, -1.19209e-07, 0, 1 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="head/face"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.37, 0, 0 )
+mesh = SubResource( 1 )
+material = SubResource( 3 )
+
+[node name="CSGMesh" type="CSGMesh" parent="head/face"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.37, 0, 0 )
+mesh = SubResource( 1 )
+material = SubResource( 2 )
+
+[node name="CSGCylinder" type="CSGCylinder" parent="head/face"]
+transform = Transform( 1, 0, 3.72529e-09, -1.2334e-11, -0.0627906, -0.998028, 0, 0.998027, -0.0627906, 0, -0.245, 1.08326 )
+radius = 0.12
+height = 2.21567
+cone = true
+material = SubResource( 4 )
+
+[node name="CSGCombiner" type="CSGCombiner" parent="head/face/CSGCylinder"]
+transform = Transform( 1, 0, 1.86265e-09, -2.98023e-08, 1, 9.31323e-09, 1.86265e-09, -1.86265e-09, 1, -4.76837e-07, 5.96046e-08, 0 )
+operation = 2
+
+[node name="CSGBox" type="CSGBox" parent="head/face/CSGCylinder/CSGCombiner"]
+transform = Transform( 1, -2.98023e-08, 2.04891e-08, 2.98023e-08, 1, -8.19564e-08, -1.86265e-09, 0, 1, 0.228936, 0.591164, -0.0371927 )
+height = 1.05469
+material = SubResource( 5 )
