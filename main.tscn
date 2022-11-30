@@ -302,7 +302,7 @@ volume_db = -12.0
 
 [node name="WallBreakSound" type="AudioStreamPlayer" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
 stream = ExtResource( 35 )
-volume_db = -14.0
+volume_db = -17.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="GameView/Viewport/BoardViewport/Viewport"]
 environment = ExtResource( 10 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://textures/ui/eye_2.png" type="Texture" id=1]
 [ext_resource path="res://ui/face_cam.gd" type="Script" id=2]
@@ -50,6 +50,62 @@ albedo_color = Color( 0, 0, 0, 1 )
 flags_unshaded = true
 albedo_color = Color( 0, 0, 0, 1 )
 
+[sub_resource type="Animation" id=11]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("head/face/eye1:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -0.37, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("head/face/eye2:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.37, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "happy_eyes"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("head/face/eye1:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( -0.37, 0, 0 ), Vector3( -0.37, 0.1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("head/face/eye2:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.37, 0, 0 ), Vector3( 0.37, 0.1, 0 ) ]
+}
+
 [node name="Spatial" type="Spatial"]
 script = ExtResource( 3 )
 
@@ -100,3 +156,7 @@ operation = 2
 transform = Transform( 1, -2.98023e-08, 2.04891e-08, 2.98023e-08, 1, -8.19564e-08, -1.86265e-09, 0, 1, 0.228936, 0.591164, -0.0371927 )
 height = 1.05469
 material = SubResource( 5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 11 )
+anims/happy_eyes = SubResource( 10 )
