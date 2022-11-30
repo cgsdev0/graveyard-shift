@@ -1,9 +1,21 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://tokens/lure.gd" type="Script" id=1]
-[ext_resource path="res://debug/icon.png" type="Texture" id=2]
+[ext_resource path="res://models/circle_token.tscn" type="PackedScene" id=2]
+[ext_resource path="res://textures/tokens/lure_1.png" type="Texture" id=3]
 
-[node name="Lure" type="Sprite3D"]
-modulate = Color( 0.992157, 1, 0, 1 )
-texture = ExtResource( 2 )
+[sub_resource type="SpatialMaterial" id=1]
+albedo_texture = ExtResource( 3 )
+uv1_scale = Vector3( 0.6, 0.6, 0.6 )
+uv1_offset = Vector3( 0.166, 0.213, 0 )
+
+[node name="Lure" type="Spatial"]
 script = ExtResource( 1 )
+
+[node name="token" parent="." instance=ExtResource( 2 )]
+transform = Transform( -1.66103e-08, 0.38, -1.66103e-08, 0, -1.66103e-08, -0.38, -0.38, -1.66103e-08, 7.2606e-16, 0, 0.095, 0 )
+
+[node name="Token" parent="token" index="0"]
+material/2 = SubResource( 1 )
+
+[editable path="token"]

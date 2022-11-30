@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Picket fence (1).glb-6feda32bd575910fc2ea9ad7a87b57fb.scn"
+path="res://.import/token.glb-6fc702397b960a80bb7f03edac4d204e.scn"
 
 [deps]
 
-source_file="res://models/Picket fence (1).glb"
-dest_files=[ "res://.import/Picket fence (1).glb-6feda32bd575910fc2ea9ad7a87b57fb.scn" ]
+source_file="res://models/token.glb"
+dest_files=[ "res://.import/token.glb-6fc702397b960a80bb7f03edac4d204e.scn" ]
 
 [params]
 

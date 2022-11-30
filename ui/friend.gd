@@ -1,11 +1,13 @@
-extends Sprite
+extends Node2D
 
 var outline_shader = preload("res://shaders/friend_outline.gdshader")
 
 func _ready():
-	material.set_shader_param("line_color", Color.aqua)
-	material.set_shader_param("line_thickness", 9.0)
+	$FriendBody.material.set_shader_param("line_color", Color.aqua)
+	$FriendBody.material.set_shader_param("line_thickness", 9.0)
 	Game.connect("highlight_friend", self, "highlight")
+	$FriendBody/AnimationPlayer.play("bounce")
+	print("hi")
 
 func _process(delta):
 	var v = get_viewport().size
@@ -14,9 +16,9 @@ func _process(delta):
 	
 func highlight(v):
 	if v:
-		material.shader = outline_shader
+		$FriendBody.material.shader = outline_shader
 	else:
-		material.shader = null
+		$FriendBody.material.shader = null
 
 func bump():
 	pass

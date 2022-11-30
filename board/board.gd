@@ -157,9 +157,11 @@ func _ready():
 	
 	var tile_size = Vector3(width, tile_height, height)
 	
+	var last_t
 	for r in rows:
 		for c in cols:
 			var t = tile.instance()
+			last_t = t
 			var pos = Vector3(c * (width + spacing), 0, r * (height + spacing))
 			t.init(Vector3(tile_size), pos, spacing)
 			self.add_child(t)
@@ -182,6 +184,9 @@ func _ready():
 	
 	for monster in level.monsters:
 		self.callv("spawn_monster", monster)
+		
+	yield(last_t.get_node("AnimationPlayer"), "animation_finished")
+	Game.emit_signal("deal_new_turn")
 
 func unmove_tokens_out_of_my_way(v):
 	for token in get_tree().get_nodes_in_group("tokens"):

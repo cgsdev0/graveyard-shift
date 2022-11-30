@@ -2,19 +2,21 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/back_of_card.png-c5a7a46da690530d12a879e44408e03b.stex"
+path.s3tc="res://.import/lure_1.png-0c58fcbf4bd3c2d09ef9997d133a8ddf.s3tc.stex"
+path.etc2="res://.import/lure_1.png-0c58fcbf4bd3c2d09ef9997d133a8ddf.etc2.stex"
 metadata={
-"vram_texture": false
+"imported_formats": [ "s3tc", "etc2" ],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://textures/cards/back_of_card.png"
-dest_files=[ "res://.import/back_of_card.png-c5a7a46da690530d12a879e44408e03b.stex" ]
+source_file="res://textures/tokens/lure_1.png"
+dest_files=[ "res://.import/lure_1.png-0c58fcbf4bd3c2d09ef9997d133a8ddf.s3tc.stex", "res://.import/lure_1.png-0c58fcbf4bd3c2d09ef9997d133a8ddf.etc2.stex" ]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0

@@ -57,7 +57,11 @@ func on_end_turn():
 		if pathfinder.is_in_group("monsters"):
 			if $Board.get_tile_by_id(pathfinder.get_id()).type == Game.TileType.TRAP:
 				$Board.replace_tile_by_id(pathfinder.get_id(), Game.TileType.TRAP_SPRUNG, true, "Trap (Sprung)")
+				for tile in get_tree().get_nodes_in_group("placed_tiles"):
+					if tile.placed_at == pathfinder.get_id():
+						tile.become({ "type": Game.TileType.TRAP_SPRUNG })
 				pathfinder.skipped_turns += 1
+				pathfinder.stunned = true
 		var rot = pathfinder.reset_rotation_horizontal()
 		if rot is GDScriptFunctionState:
 			yield(rot, "completed")

@@ -7,6 +7,7 @@ var wall_flags = [0, 0, 0, 0]
 var disabled = false
 var placed = false
 var placed_at
+var placed_on setget set_placed_on
 
 var old_index
 
@@ -16,6 +17,16 @@ var mutable_card
 
 var foresight_card = false
 
+func on_spikes_ready():
+	mutable_card.spikes_ready = true
+	$Tile.recompute_wall_decals(mutable_card)
+	
+func set_placed_on(p):
+	if card.type == Game.TileType.SPIKES:
+		p.connect("spikes_ready", self, "on_spikes_ready")
+		mutable_card.spikes_ready = false
+		$Tile.recompute_wall_decals(mutable_card)
+	placed_on = p
 func show_error(show):
 	$Tile.visible = !show
 	$NoPlace.visible = show
@@ -79,6 +90,8 @@ func check_wall_bit(flag):
 	return wall_flags[flag]
 	
 func _process(delta):
+	if placed:
+		return
 	self.disabled = Game.actions < card.ac
 
 func set_translation(glob):

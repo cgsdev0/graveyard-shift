@@ -1,21 +1,46 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://textures/ui/eye_2.png" type="Texture" id=1]
 [ext_resource path="res://ui/face_cam.gd" type="Script" id=2]
 [ext_resource path="res://ui/face.gd" type="Script" id=3]
+[ext_resource path="res://shaders/blinking_eyes.gdshader" type="Shader" id=4]
 
 [sub_resource type="QuadMesh" id=1]
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="ShaderMaterial" id=8]
+shader = ExtResource( 4 )
+shader_param/albedo = Color( 1, 1, 1, 1 )
+shader_param/specular = 0.5
+shader_param/metallic = 0.0
+shader_param/roughness = 1.0
+shader_param/point_size = 1.0
+shader_param/uv1_scale = Vector3( -1, 1, 1 )
+shader_param/uv1_offset = Vector3( 0, 0, 0 )
+shader_param/uv2_scale = Vector3( 1, 1, 1 )
+shader_param/uv2_offset = Vector3( 0, 0, 0 )
+shader_param/anchor = Vector2( 0.7, 0 )
+shader_param/texture_albedo = ExtResource( 1 )
+
+[sub_resource type="SpatialMaterial" id=6]
 flags_transparent = true
 flags_unshaded = true
+albedo_color = Color( 0, 0, 0, 1 )
 albedo_texture = ExtResource( 1 )
 uv1_scale = Vector3( -1, 1, 1 )
 
-[sub_resource type="SpatialMaterial" id=2]
-flags_transparent = true
-flags_unshaded = true
-albedo_texture = ExtResource( 1 )
+[sub_resource type="ShaderMaterial" id=9]
+shader = ExtResource( 4 )
+shader_param/albedo = Color( 1, 1, 1, 1 )
+shader_param/specular = 0.5
+shader_param/metallic = 0.0
+shader_param/roughness = 1.0
+shader_param/point_size = 1.0
+shader_param/uv1_scale = Vector3( 1, 1, 1 )
+shader_param/uv1_offset = Vector3( 0, 0, 0 )
+shader_param/uv2_scale = Vector3( 1, 1, 1 )
+shader_param/uv2_offset = Vector3( 0, 0, 0 )
+shader_param/anchor = Vector2( 0.3, 0 )
+shader_param/texture_albedo = ExtResource( 1 )
 
 [sub_resource type="SpatialMaterial" id=4]
 flags_transparent = true
@@ -38,15 +63,27 @@ transform = Transform( 1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984807, 0
 unique_name_in_owner = true
 transform = Transform( 1, 0, 0, 0, 0.999999, 0, 0, 0, 1, -1.19209e-07, 0, 1 )
 
-[node name="CSGMesh2" type="CSGMesh" parent="head/face"]
+[node name="eye1" type="CSGMesh" parent="head/face"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.37, 0, 0 )
 mesh = SubResource( 1 )
-material = SubResource( 3 )
+material = SubResource( 8 )
 
-[node name="CSGMesh" type="CSGMesh" parent="head/face"]
+[node name="eyelid1" type="CSGMesh" parent="head/face"]
+transform = Transform( 1.5, 0, 0, 0, 1.5, 2.98023e-08, 0, -2.98023e-08, 1, -0.37, -0.004, 0.028 )
+visible = false
+mesh = SubResource( 1 )
+material = SubResource( 6 )
+
+[node name="eye2" type="CSGMesh" parent="head/face"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.37, 0, 0 )
 mesh = SubResource( 1 )
-material = SubResource( 2 )
+material = SubResource( 9 )
+
+[node name="eyelid2" type="CSGMesh" parent="head/face"]
+transform = Transform( -1.5, 0, 0, 0, 1.5, 2.98023e-08, 0, -2.98023e-08, 1, 0.37, -0.00504893, 0.0282502 )
+visible = false
+mesh = SubResource( 1 )
+material = SubResource( 6 )
 
 [node name="CSGCylinder" type="CSGCylinder" parent="head/face"]
 transform = Transform( 1, 0, 3.72529e-09, -1.2334e-11, -0.0627906, -0.998028, 0, 0.998027, -0.0627906, 0, -0.245, 1.08326 )

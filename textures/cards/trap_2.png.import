@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/back_of_card.png-c5a7a46da690530d12a879e44408e03b.stex"
+path="res://.import/trap_2.png-9749defcbfabac716b8364efcb701755.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/cards/back_of_card.png"
-dest_files=[ "res://.import/back_of_card.png-c5a7a46da690530d12a879e44408e03b.stex" ]
+source_file="res://textures/cards/trap_2.png"
+dest_files=[ "res://.import/trap_2.png-9749defcbfabac716b8364efcb701755.stex" ]
 
 [params]
 
@@ -19,11 +19,11 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=true
+flags/repeat=0
 flags/filter=true
-flags/mipmaps=true
+flags/mipmaps=false
 flags/anisotropic=false
-flags/srgb=1
+flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
@@ -31,5 +31,5 @@ process/invert_color=false
 process/normal_map_invert_y=false
 stream=false
 size_limit=0
-detect_3d=false
+detect_3d=true
 svg/scale=1.0
