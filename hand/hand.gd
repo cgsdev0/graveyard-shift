@@ -270,6 +270,7 @@ func _process(delta):
 				Game.actions -= dragging.card.ac
 				
 				if snapped_friend:
+					$"%UI".get_friend().celebrate_card()
 					match dragging.card.type:
 						Game.TileType.ACTION_SURGE:
 							Game.actions += dragging.card.actions
