@@ -58,6 +58,7 @@ func place_card_on_tile(card, id: int) -> void:
 			for adventurer in get_tree().get_nodes_in_group("adventurers"):
 				if adventurer.get_id() != id:
 					continue
+				get_parent().play_potion_sound()
 				adventurer.give_courage(card.card.actions)
 			return
 		Game.TileType.GUST:
@@ -67,6 +68,8 @@ func place_card_on_tile(card, id: int) -> void:
 					continue
 				pathfinder.gust(Game.gust_direction(card.card.direction), i)
 				i += 1
+			if i > 0:
+				get_parent().play_gust_sound()
 			return
 	replace_tile_by_id(id, desired_type, false, Game.title_card(card.card))
 
@@ -121,7 +124,10 @@ func replace_tile_by_id(id: int, type, refresh = false, title = null) -> void:
 		
 
 func damage_tile_wall_bit(id: int, direction) -> void:
-	set_tile_wall_bit(id, direction, get_tile_by_id(id).wall_flags[direction] - 1)
+	var new_health = get_tile_by_id(id).wall_flags[direction] - 1
+	set_tile_wall_bit(id, direction, new_health)
+#	if new_health == 0:
+#		get_parent().play_wall_break_sound()
 	
 func set_tile_wall_bit(id: int, direction, health: int) -> void:
 	get_tile_by_id(id).wall_flags[direction] = max(0, health)
@@ -137,11 +143,15 @@ func set_tile_wall_bit(id: int, direction, health: int) -> void:
 	_propagate_board_change()
 	
 func activate_spikes(id):
+	get_parent().play_spike_sound(true)
 	for tile in get_tree().get_nodes_in_group("placed_tiles"):
 			if tile.placed_at == id:
 				tile.get_node("Tile").play_animation("RESET")
 				tile.get_node("Tile").play_animation("spikes")
 				
+func misfire_spikes():
+	get_parent().play_spike_sound(false)
+	
 func _ready():
 	Game.connect("start_new_turn", self, "start_new_turn")
 	

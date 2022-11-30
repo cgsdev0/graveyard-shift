@@ -11,5 +11,5 @@ dest_files=[ "res://.import/wall_breaking.mp3-2219c4742903ae758d3058bfdb0e000b.m
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

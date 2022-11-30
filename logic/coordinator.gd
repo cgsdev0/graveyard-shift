@@ -56,6 +56,7 @@ func on_end_turn():
 				break
 		if pathfinder.is_in_group("monsters"):
 			if $Board.get_tile_by_id(pathfinder.get_id()).type == Game.TileType.TRAP:
+				$BearTrapSound.play()
 				$Board.replace_tile_by_id(pathfinder.get_id(), Game.TileType.TRAP_SPRUNG, true, "Trap (Sprung)")
 				for tile in get_tree().get_nodes_in_group("placed_tiles"):
 					if tile.placed_at == pathfinder.get_id():
@@ -69,6 +70,22 @@ func on_end_turn():
 		money_tree.tick()
 	Game.emit_signal("prep_new_turn")
 
+func play_spike_sound(success):
+	if success:
+		$SpikeSuccess.play()
+	else:
+		$SpikeFail.play()
+
+func play_potion_sound():
+	$PotionSound.play()
+	
+func play_gust_sound():
+	$GustSound.play()
+
+func play_wall_break_sound(delay = 0.0):
+	if delay > 0.0:
+		yield(get_tree().create_timer(delay), "timeout")
+	$WallBreakSound.play()
 #	for i in 100:
 #		var stepped_finders = 0
 #		var pathfinders = get_tree().get_nodes_in_group("pathfinders")

@@ -11,5 +11,5 @@ dest_files=[ "res://.import/centipede_attack.mp3-3bb7fa8035c7bceef16eeec69945196
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0
