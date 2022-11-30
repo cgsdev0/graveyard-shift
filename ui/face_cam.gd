@@ -6,4 +6,3 @@ func _ready():
 
 func _process(delta):
 	global_translation.x = $"%face".global_translation.x / 2.2
-	print($"%face".global_translation)

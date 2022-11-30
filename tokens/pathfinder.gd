@@ -70,6 +70,16 @@ func _ready():
 		global_translation = board.get_tile(grid_x, grid_y).get_center()
 	start_x = grid_x
 	start_y = grid_y
+	
+	var start_tween = Tween.new()
+	add_child(start_tween)
+	scale = Vector3(0, 1, 1)
+	visible = false
+	yield(get_tree().create_timer(4.2), "timeout")
+	visible = true
+	start_tween.interpolate_property(self, "scale", scale, Vector3(1,1,1),
+	1.1, Tween.TRANS_ELASTIC, Tween.EASE_OUT)
+	start_tween.start()
 	# update_navigation()
 
 func is_my_neighbor(pathfinder):

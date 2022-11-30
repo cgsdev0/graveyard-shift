@@ -1,19 +1,13 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://shaders/card_shader_material.tres" type="Material" id=1]
 [ext_resource path="res://debug/untitled.glb" type="PackedScene" id=2]
 [ext_resource path="res://card_model.gd" type="Script" id=3]
-[ext_resource path="res://textures/cards/cardboard.jpg" type="Texture" id=4]
-[ext_resource path="res://textures/cards/back_of_card.png" type="Texture" id=5]
+[ext_resource path="res://models/cardboard.material" type="Material" id=4]
+[ext_resource path="res://models/card_back.material" type="Material" id=5]
 [ext_resource path="res://debug/card_label_font.tres" type="DynamicFont" id=6]
 [ext_resource path="res://textures/ui/actions.png" type="Texture" id=7]
 [ext_resource path="res://textures/ui/heart.png" type="Texture" id=8]
-
-[sub_resource type="SpatialMaterial" id=2]
-albedo_texture = ExtResource( 5 )
-
-[sub_resource type="SpatialMaterial" id=3]
-albedo_texture = ExtResource( 4 )
 
 [sub_resource type="SpatialMaterial" id=9]
 albedo_color = Color( 0.65098, 0.65098, 0.65098, 1 )
@@ -71,7 +65,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.7 ),
 "transitions": PoolRealArray( 2.92817, 1 ),
 "update": 0,
-"values": [ 1.0, 45.0 ]
+"values": [ 1.0, 15.0 ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -98,7 +92,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.7 ),
 "transitions": PoolRealArray( 2.92817, 1 ),
 "update": 0,
-"values": [ 1.0, 45.0 ]
+"values": [ 1.0, 15.0 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Plane:material/0:shader_param/bg_hue")
@@ -137,7 +131,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.7 ),
 "transitions": PoolRealArray( 2.92817, 1 ),
 "update": 0,
-"values": [ 1.0, 45.0 ]
+"values": [ 1.0, 15.0 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:header")
@@ -287,13 +281,12 @@ tracks/1/keys = {
 
 [node name="untitled" instance=ExtResource( 2 )]
 script = ExtResource( 3 )
-header = 1.0
 
 [node name="Plane" parent="." index="0"]
-transform = Transform( 0.000142908, 1, 0.000535442, -2.09167, 6.85763e-05, -0.00211913, -0.00211917, -0.00025592, 2.09167, 0.198421, -0.007768, 0.0195606 )
+transform = Transform( 0.000266307, 1, 0.000804627, -2.09167, 0.00012753, -0.0012558, -0.00125591, -0.000384613, 2.09167, 0.198421, -0.007768, 0.0195606 )
 material/0 = ExtResource( 1 )
-material/1 = SubResource( 2 )
-material/2 = SubResource( 3 )
+material/1 = ExtResource( 5 )
+material/2 = ExtResource( 4 )
 __meta__ = {
 "_edit_pinned_properties_": [ "material/0" ]
 }

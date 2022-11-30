@@ -110,14 +110,6 @@ margin_right = 340.0
 margin_bottom = 227.0
 text = "Quit to Title"
 
-[node name="TestSound" type="AudioStreamPlayer" parent="CanvasLayer/PauseMenu"]
-bus = "SFX"
-script = ExtResource( 12 )
-samples = [ ExtResource( 8 ), ExtResource( 7 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ]
-random_strategy = 2
-random_volume_range = 0
-random_pitch_range = 0
-
 [node name="QuitConfirm" type="PopupPanel" parent="CanvasLayer"]
 unique_name_in_owner = true
 anchor_left = 0.5
@@ -186,14 +178,6 @@ margin_right = 380.0
 margin_bottom = 26.0
 size_flags_horizontal = 3
 text = "Quit"
-
-[node name="TestSound" type="AudioStreamPlayer" parent="CanvasLayer/QuitConfirm"]
-bus = "SFX"
-script = ExtResource( 12 )
-samples = [ ExtResource( 8 ), ExtResource( 7 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ]
-random_strategy = 2
-random_volume_range = 0
-random_pitch_range = 0
 
 [node name="Debug" type="Label" parent="CanvasLayer"]
 anchor_right = 1.0
