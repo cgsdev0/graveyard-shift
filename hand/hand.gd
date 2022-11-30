@@ -47,6 +47,7 @@ func end_hover(card):
 	if dragging == card:
 		return
 	if hover == card:
+		$"%UI".set_hover_text(null)
 		var hand_pos = get_pos_in_hand(hover.get_index(), $Cards.get_child_count())
 		var tween = hover.get_node("Tween") as Tween
 		tween.interpolate_property(hover, "global_translation", 
@@ -117,6 +118,7 @@ func start_hover(card):
 	if Game.block_interaction:
 		return
 	hover = card
+	$"%UI".set_hover_text(Game.describe_card(card.card))
 	$SubtleSound.play()
 	var hand_pos = get_pos_in_hand(card.get_index(), $Cards.get_child_count())
 	var tween = card.get_node("Tween") as Tween
