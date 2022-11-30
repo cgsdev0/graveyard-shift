@@ -56,7 +56,7 @@ rect_min_size = Vector2( 80, 0 )
 custom_fonts/normal_font = ExtResource( 2 )
 bbcode_enabled = true
 bbcode_text = "0 ([color=#ed3838]-2[/color])"
-text = "0 ([color=#ed3838]-2[/color])"
+text = "0 (-2)"
 scroll_active = false
 deselect_on_focus_loss_enabled = false
 
@@ -73,15 +73,13 @@ custom_fonts/font = ExtResource( 2 )
 text = "Gold per turn:"
 valign = 1
 
-[node name="Value" type="RichTextLabel" parent="Body/GPM"]
+[node name="Value" type="Label" parent="Body/GPM"]
 margin_left = 113.0
-margin_right = 219.0
+margin_right = 153.0
 margin_bottom = 20.0
-size_flags_horizontal = 3
-custom_fonts/normal_font = ExtResource( 2 )
-bbcode_text = "0"
+rect_min_size = Vector2( 40, 0 )
+custom_fonts/font = ExtResource( 2 )
 text = "0"
-scroll_active = false
 
 [node name="Range" type="HBoxContainer" parent="Body"]
 margin_top = 110.0
@@ -96,15 +94,12 @@ custom_fonts/font = ExtResource( 2 )
 text = "Range:"
 valign = 1
 
-[node name="Value" type="RichTextLabel" parent="Body/Range"]
+[node name="Value" type="Label" parent="Body/Range"]
 margin_left = 59.0
-margin_right = 219.0
+margin_right = 69.0
 margin_bottom = 20.0
-size_flags_horizontal = 3
-custom_fonts/normal_font = ExtResource( 2 )
-bbcode_text = "0"
-text = "0"
-scroll_active = false
+custom_fonts/font = ExtResource( 2 )
+text = "5"
 
 [node name="Description" type="Label" parent="Body"]
 margin_top = 134.0

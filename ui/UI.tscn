@@ -1,8 +1,8 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://logic/end_turn_button.gd" type="Script" id=1]
 [ext_resource path="res://logic/game_over.gd" type="Script" id=2]
-[ext_resource path="res://debug/lil_guy.png" type="Texture" id=3]
+[ext_resource path="res://textures/ui/friend_body.png" type="Texture" id=3]
 [ext_resource path="res://ui/ui.gd" type="Script" id=4]
 [ext_resource path="res://debug/icon.png" type="Texture" id=5]
 [ext_resource path="res://ui/ui.theme" type="Theme" id=6]
@@ -19,6 +19,8 @@
 [ext_resource path="res://ui/tooltip.theme" type="Theme" id=17]
 [ext_resource path="res://textures/ui/heart.png" type="Texture" id=18]
 [ext_resource path="res://ui/font/inter_normal.tres" type="DynamicFont" id=19]
+[ext_resource path="res://textures/ui/eye_1.png" type="Texture" id=20]
+[ext_resource path="res://ui/face.tscn" type="PackedScene" id=21]
 
 [sub_resource type="Animation" id=5]
 resource_name = "fade_in"
@@ -76,6 +78,10 @@ tracks/1/keys = {
 }
 
 [sub_resource type="ShaderMaterial" id=4]
+
+[sub_resource type="ViewportTexture" id=7]
+flags = 5
+viewport_path = NodePath("RightBar/Control/Friend/Viewport")
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -231,6 +237,7 @@ tracks/5/keys = {
 [node name="UI" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+rect_clip_content = true
 mouse_filter = 2
 theme = ExtResource( 6 )
 script = ExtResource( 4 )
@@ -286,24 +293,11 @@ anims/fade_out = SubResource( 6 )
 
 [node name="RightBar" type="ColorRect" parent="."]
 unique_name_in_owner = true
-anchor_left = 0.78
+anchor_left = 0.82
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_clip_content = true
 mouse_filter = 2
 color = Color( 0.65098, 0.65098, 0.65098, 1 )
-
-[node name="Friend" type="TextureRect" parent="RightBar"]
-unique_name_in_owner = true
-material = SubResource( 4 )
-anchor_top = 0.6
-anchor_right = 1.0
-anchor_bottom = 1.05
-rect_clip_content = true
-texture = ExtResource( 3 )
-expand = true
-stretch_mode = 6
-script = ExtResource( 12 )
 
 [node name="MarginContainer" type="MarginContainer" parent="RightBar"]
 anchor_right = 1.0
@@ -312,27 +306,27 @@ anchor_bottom = 0.6
 [node name="VBoxContainer" type="VBoxContainer" parent="RightBar/MarginContainer"]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 168.0
+margin_right = 136.0
 margin_bottom = 352.0
 
 [node name="TurnPanel" type="PanelContainer" parent="RightBar/MarginContainer/VBoxContainer"]
-margin_right = 160.0
-margin_bottom = 87.0
+margin_right = 128.0
+margin_bottom = 110.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="RightBar/MarginContainer/VBoxContainer/TurnPanel"]
 margin_top = 10.0
-margin_right = 160.0
-margin_bottom = 77.0
+margin_right = 128.0
+margin_bottom = 100.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="RightBar/MarginContainer/VBoxContainer/TurnPanel/VBoxContainer"]
-margin_right = 160.0
+margin_right = 128.0
 margin_bottom = 39.0
 size_flags_horizontal = 3
 alignment = 1
 
 [node name="TurnsLabel" type="Label" parent="RightBar/MarginContainer/VBoxContainer/TurnPanel/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_right = 71.0
+margin_right = 56.0
 margin_bottom = 39.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.88
@@ -342,9 +336,9 @@ align = 2
 
 [node name="TurnsProgress" type="TextureProgress" parent="RightBar/MarginContainer/VBoxContainer/TurnPanel/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 79.0
+margin_left = 64.0
 margin_top = 3.0
-margin_right = 111.0
+margin_right = 96.0
 margin_bottom = 35.0
 rect_min_size = Vector2( 32, 32 )
 size_flags_horizontal = 2
@@ -360,30 +354,31 @@ nine_patch_stretch = true
 
 [node name="Label" type="Label" parent="RightBar/MarginContainer/VBoxContainer/TurnPanel/VBoxContainer"]
 margin_top = 47.0
-margin_right = 160.0
-margin_bottom = 67.0
-text = "Turns Until Sunrise"
+margin_right = 128.0
+margin_bottom = 90.0
+text = "Turns until
+Sunrise"
 align = 1
 
 [node name="ActionPanel" type="PanelContainer" parent="RightBar/MarginContainer/VBoxContainer"]
-margin_top = 95.0
-margin_right = 160.0
-margin_bottom = 212.0
+margin_top = 118.0
+margin_right = 128.0
+margin_bottom = 235.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="RightBar/MarginContainer/VBoxContainer/ActionPanel"]
 margin_top = 10.0
-margin_right = 160.0
+margin_right = 128.0
 margin_bottom = 107.0
 custom_constants/separation = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="RightBar/MarginContainer/VBoxContainer/ActionPanel/VBoxContainer"]
-margin_right = 160.0
+margin_right = 128.0
 margin_bottom = 39.0
 alignment = 1
 
 [node name="ActionsLabel" type="Label" parent="RightBar/MarginContainer/VBoxContainer/ActionPanel/VBoxContainer/HBoxContainer"]
-margin_left = 50.0
-margin_right = 69.0
+margin_left = 34.0
+margin_right = 53.0
 margin_bottom = 39.0
 theme_type_variation = "BigLabel"
 text = "3"
@@ -392,8 +387,8 @@ valign = 1
 script = ExtResource( 7 )
 
 [node name="TextureRect2" type="TextureRect" parent="RightBar/MarginContainer/VBoxContainer/ActionPanel/VBoxContainer/HBoxContainer"]
-margin_left = 77.0
-margin_right = 109.0
+margin_left = 61.0
+margin_right = 93.0
 margin_bottom = 39.0
 rect_min_size = Vector2( 32, 32 )
 size_flags_vertical = 3
@@ -403,22 +398,22 @@ stretch_mode = 6
 
 [node name="MarginContainer" type="MarginContainer" parent="RightBar/MarginContainer/VBoxContainer/ActionPanel/VBoxContainer"]
 margin_top = 39.0
-margin_right = 160.0
+margin_right = 128.0
 margin_bottom = 67.0
 custom_constants/margin_top = 0
 
 [node name="Label" type="Label" parent="RightBar/MarginContainer/VBoxContainer/ActionPanel/VBoxContainer/MarginContainer"]
 margin_left = 8.0
-margin_right = 152.0
+margin_right = 120.0
 margin_bottom = 20.0
 text = "Action(s)"
 align = 1
 valign = 1
 
 [node name="Button" type="Button" parent="RightBar/MarginContainer/VBoxContainer/ActionPanel/VBoxContainer"]
-margin_left = 35.0
+margin_left = 19.0
 margin_top = 67.0
-margin_right = 125.0
+margin_right = 109.0
 margin_bottom = 97.0
 focus_mode = 0
 size_flags_horizontal = 4
@@ -430,9 +425,9 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="RightBar/MarginContainer/VBoxContainer"]
-margin_top = 220.0
-margin_right = 160.0
-margin_bottom = 252.0
+margin_top = 243.0
+margin_right = 128.0
+margin_bottom = 275.0
 
 [node name="TextureRect" type="TextureRect" parent="RightBar/MarginContainer/VBoxContainer/HBoxContainer"]
 margin_right = 32.0
@@ -446,12 +441,45 @@ stretch_mode = 6
 [node name="Label" type="Label" parent="RightBar/MarginContainer/VBoxContainer/HBoxContainer"]
 margin_left = 40.0
 margin_top = 6.0
-margin_right = 160.0
+margin_right = 128.0
 margin_bottom = 26.0
 size_flags_horizontal = 3
 text = "2 gold"
 valign = 1
 script = ExtResource( 8 )
+
+[node name="Control" type="Control" parent="RightBar"]
+anchor_left = 0.02
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Friend" type="Sprite" parent="RightBar/Control"]
+unique_name_in_owner = true
+material = SubResource( 4 )
+scale = Vector2( 0.22, 0.22 )
+texture = ExtResource( 3 )
+offset = Vector2( 280, -400 )
+script = ExtResource( 12 )
+
+[node name="Sprite" type="Sprite" parent="RightBar/Control/Friend"]
+visible = false
+position = Vector2( 146, -390.909 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 20 )
+
+[node name="Sprite2" type="Sprite" parent="RightBar/Control/Friend"]
+position = Vector2( 236.909, -377.273 )
+texture = SubResource( 7 )
+flip_v = true
+
+[node name="Viewport" type="Viewport" parent="RightBar/Control/Friend"]
+size = Vector2( 1024, 1024 )
+own_world = true
+transparent_bg = true
+
+[node name="Face3D" parent="RightBar/Control/Friend/Viewport" instance=ExtResource( 21 )]
+unique_name_in_owner = true
 
 [node name="Banner" type="ColorRect" parent="."]
 visible = false
