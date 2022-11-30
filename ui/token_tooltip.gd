@@ -3,7 +3,6 @@ extends PanelContainer
 func set_action_label(actions, base_actions):
 	if actions == base_actions:
 		$Body/Actions/Value.bbcode_text = str(actions)
-		print("'", str(actions), "'")
 		return
 	var color = "lime"
 	if actions < base_actions:
@@ -21,7 +20,7 @@ func describe(token):
 		
 	elif token.is_in_group("lures"):
 		$Body/Label.text = "Lure"
-		$Body/GPM/Range.text = str(token.range)
+		$Body/Range/Value.text = str(token.lure_range) if token.lure_range < 100 else "Unlimited"
 		$Body/Description.visible = false
 		$Body/Stunned.visible = false
 		$Body/GPM.visible = false

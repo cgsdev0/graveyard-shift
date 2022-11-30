@@ -329,7 +329,7 @@ func _physics_process(delta):
 	var result = space.intersect_ray(from, to, [], 0b10, false, true)
 	if dragging:
 		var friend = $"%UI".get_friend()
-		var friend_rect = Rect2(friend.rect_global_position, friend.rect_size)
+		var friend_rect = $"%UI".get_friend_rect()
 		if friend_is_valid && friend_rect.has_point($"%UI".get_viewport().get_mouse_position()):
 			friend.bump()
 			snapped_friend = true
