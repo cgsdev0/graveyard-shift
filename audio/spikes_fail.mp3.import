@@ -11,5 +11,5 @@ dest_files=[ "res://.import/spikes_fail.mp3-984aedcf70e16a31898f354463886b33.mp3
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

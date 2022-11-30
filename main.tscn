@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://board/board.gd" type="Script" id=1]
 [ext_resource path="res://hand/hand.gd" type="Script" id=2]
@@ -29,6 +29,12 @@
 [ext_resource path="res://audio/subtle/subtle_1.wav" type="AudioStream" id=27]
 [ext_resource path="res://audio/subtle/subtle_6.wav" type="AudioStream" id=28]
 [ext_resource path="res://load_world_env.gd" type="Script" id=29]
+[ext_resource path="res://audio/spikes.mp3" type="AudioStream" id=30]
+[ext_resource path="res://audio/spikes_fail.mp3" type="AudioStream" id=31]
+[ext_resource path="res://audio/potion.mp3" type="AudioStream" id=32]
+[ext_resource path="res://audio/bear_trap.mp3" type="AudioStream" id=33]
+[ext_resource path="res://audio/gust.wav" type="AudioStream" id=34]
+[ext_resource path="res://audio/wall_breaking.mp3" type="AudioStream" id=35]
 
 [sub_resource type="ShaderMaterial" id=4]
 
@@ -260,6 +266,10 @@ random_strategy = 2
 random_volume_range = 0
 random_pitch_range = 0
 
+[node name="PotionSound" type="AudioStreamPlayer" parent="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand"]
+stream = ExtResource( 32 )
+volume_db = -10.0
+
 [node name="DirectionalLight" type="DirectionalLight" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
 transform = Transform( 0.605325, 0.171092, -0.777374, 0.203513, 0.910899, 0.358951, 0.769523, -0.375488, 0.51657, -2.03058, 1.91977, 2.38178 )
 light_energy = 0.1
@@ -268,6 +278,31 @@ light_energy = 0.1
 transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 20, 7.417, 0.13, 3.079 )
 mesh = SubResource( 1 )
 material = SubResource( 2 )
+
+[node name="SpikeSuccess" type="AudioStreamPlayer" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
+stream = ExtResource( 30 )
+volume_db = -13.0
+
+[node name="SpikeFail" type="AudioStreamPlayer" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
+stream = ExtResource( 31 )
+volume_db = -5.0
+
+[node name="PotionSound" type="AudioStreamPlayer" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
+stream = ExtResource( 32 )
+volume_db = -10.0
+pitch_scale = 0.8
+
+[node name="BearTrapSound" type="AudioStreamPlayer" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
+stream = ExtResource( 33 )
+volume_db = -16.5
+
+[node name="GustSound" type="AudioStreamPlayer" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
+stream = ExtResource( 34 )
+volume_db = -12.0
+
+[node name="WallBreakSound" type="AudioStreamPlayer" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
+stream = ExtResource( 35 )
+volume_db = -14.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="GameView/Viewport/BoardViewport/Viewport"]
 environment = ExtResource( 10 )
