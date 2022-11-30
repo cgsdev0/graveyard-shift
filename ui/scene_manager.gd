@@ -8,7 +8,9 @@ func _ready():
 	Game.world_env = env
 	if OS.get_name() == "HTML5":
 		env.ssao_enabled = false
-	$AudioStreamPlayer.play()
+
+	if !OS.is_debug_build():
+		$AudioStreamPlayer.play()
 	
 func on_transition(path):
 	$CanvasLayer.transition()

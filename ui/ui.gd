@@ -13,7 +13,7 @@ func get_friend():
 	return $"%Friend"
 
 func get_friend_rect():
-	return Rect2($"%RightBar".rect_global_position, $"%RightBar".rect_size)
+	return Rect2($"%RightBar".rect_global_position + Vector2(0, $"%RightBar".rect_size.y * 0.5), $"%RightBar".rect_size)
 	
 func start_new_turn():
 	Game.turns -= 1
