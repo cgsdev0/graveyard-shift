@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://logic/end_turn_button.gd" type="Script" id=1]
 [ext_resource path="res://logic/game_over.gd" type="Script" id=2]
@@ -19,7 +19,6 @@
 [ext_resource path="res://ui/tooltip.theme" type="Theme" id=17]
 [ext_resource path="res://textures/ui/heart.png" type="Texture" id=18]
 [ext_resource path="res://ui/font/inter_normal.tres" type="DynamicFont" id=19]
-[ext_resource path="res://textures/ui/eye_1.png" type="Texture" id=20]
 [ext_resource path="res://ui/face.tscn" type="PackedScene" id=21]
 
 [sub_resource type="Animation" id=5]
@@ -77,11 +76,43 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="ShaderMaterial" id=4]
+[sub_resource type="ShaderMaterial" id=10]
+
+[sub_resource type="Animation" id=8]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "bounce"
+length = 5.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 0.5, 1.8025 ),
+"update": 0,
+"values": [ Vector2( 0.985, 1.005 ), Vector2( 1.01, 0.99 ) ]
+}
 
 [sub_resource type="ViewportTexture" id=7]
 flags = 5
-viewport_path = NodePath("RightBar/Control/Friend/Viewport")
+viewport_path = NodePath("RightBar/Control/Friend/FriendBody/Viewport")
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -454,32 +485,34 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Friend" type="Sprite" parent="RightBar/Control"]
+[node name="Friend" type="Node2D" parent="RightBar/Control"]
 unique_name_in_owner = true
-material = SubResource( 4 )
-scale = Vector2( 0.22, 0.22 )
-texture = ExtResource( 3 )
-offset = Vector2( 280, -400 )
+position = Vector2( -13.8799, 1 )
+scale = Vector2( 0.221111, 0.217222 )
 script = ExtResource( 12 )
 
-[node name="Sprite" type="Sprite" parent="RightBar/Control/Friend"]
-visible = false
-position = Vector2( 146, -390.909 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 20 )
+[node name="FriendBody" type="Sprite" parent="RightBar/Control/Friend"]
+material = SubResource( 10 )
+texture = ExtResource( 3 )
+offset = Vector2( 280, -400 )
 
-[node name="Sprite2" type="Sprite" parent="RightBar/Control/Friend"]
-position = Vector2( 236.909, -377.273 )
-texture = SubResource( 7 )
-flip_v = true
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RightBar/Control/Friend/FriendBody"]
+anims/RESET = SubResource( 8 )
+anims/bounce = SubResource( 9 )
 
-[node name="Viewport" type="Viewport" parent="RightBar/Control/Friend"]
+[node name="Viewport" type="Viewport" parent="RightBar/Control/Friend/FriendBody"]
 size = Vector2( 1024, 1024 )
 own_world = true
 transparent_bg = true
 
-[node name="Face3D" parent="RightBar/Control/Friend/Viewport" instance=ExtResource( 21 )]
+[node name="Face3D" parent="RightBar/Control/Friend/FriendBody/Viewport" instance=ExtResource( 21 )]
 unique_name_in_owner = true
+
+[node name="Sprite2" type="Sprite" parent="RightBar/Control/Friend/FriendBody"]
+position = Vector2( 236.908, -377.273 )
+scale = Vector2( 1, 1 )
+texture = SubResource( 7 )
+flip_v = true
 
 [node name="Banner" type="ColorRect" parent="."]
 visible = false
@@ -490,6 +523,7 @@ mouse_filter = 2
 color = Color( 0, 0, 0, 0.745098 )
 
 [node name="OneLine" type="Label" parent="Banner"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme_type_variation = "MassiveLabel"
@@ -498,23 +532,24 @@ align = 1
 valign = 1
 
 [node name="TwoLine" type="VBoxContainer" parent="Banner"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 alignment = 1
 
 [node name="Header" type="Label" parent="Banner/TwoLine"]
-margin_top = 18.0
+margin_top = 35.0
 margin_right = 800.0
-margin_bottom = 57.0
+margin_bottom = 74.0
 theme_type_variation = "BigLabel"
 text = "Graveyard #6"
 align = 1
 valign = 1
 
 [node name="Subtitle" type="Label" parent="Banner/TwoLine"]
-margin_top = 65.0
+margin_top = 82.0
 margin_right = 800.0
-margin_bottom = 85.0
+margin_bottom = 102.0
 text = "4 turns to sunrise"
 align = 1
 valign = 1

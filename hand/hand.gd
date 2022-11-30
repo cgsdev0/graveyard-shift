@@ -30,7 +30,6 @@ func _ready():
 	get_tree().get_root().connect("size_changed", self, "on_resize")
 	call_deferred("on_resize")
 	yield(get_tree().create_timer(0.5), "timeout")
-	on_deal_new_turn()
 	
 
 func on_resize():
@@ -280,6 +279,7 @@ func _process(delta):
 				if !snapped_friend:
 					board.place_card_on_tile(dragging, snap_tile.get_index())
 					dragging.placed_at = snap_tile.get_index()
+					dragging.placed_on = snap_tile
 					dragging.add_to_group("placed_tiles")
 				
 				var t = dragging.global_transform

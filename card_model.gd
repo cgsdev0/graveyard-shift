@@ -34,8 +34,12 @@ var textures = {
 		preload("res://textures/cards/lure.png"),
 		preload("res://textures/cards/lure2.png"),
 	 ],
-	Game.TileType.SPIKES: [ preload("res://textures/cards/spikes.png") ],
+	Game.TileType.SPIKES: [ 
+		preload("res://textures/cards/spikes.png"),
+		preload("res://textures/cards/spikes_2.png"),
+	],
 	Game.TileType.TRAP: [ preload("res://textures/cards/trap.png") ],
+	Game.TileType.TRAP_SPRUNG: [ preload("res://textures/cards/trap_2.png") ],
 	Game.TileType.GUST: [ preload("res://textures/cards/gust.png") ],
 	Game.TileType.WALL: [ wall_n, wall_s, wall_e, wall_w ],
 	Game.TileType.SECRET_DOOR: [ 
@@ -106,6 +110,11 @@ func recompute_wall_decals(card):
 		bits = randi() % 16
 	elif card.type == Game.TileType.MONEY_TREE || card.type == Game.TileType.LURE:
 		bits = card.level
+	elif card.type == Game.TileType.SPIKES:
+		if card.get("spikes_ready", true):
+			bits = 1
+		else:
+			bits = 3
 	elif textures.has(card.type):
 		bits = 1
 	_set_decal_bits(bits)

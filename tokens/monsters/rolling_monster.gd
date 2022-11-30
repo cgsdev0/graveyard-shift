@@ -90,6 +90,9 @@ func kill_all():
 		
 func get_name():
 	return "Centipede"
+
+func get_description():
+	return "Rolls multiple squares\nin a straight line. Can attack\nfor free using its momentum."
 	
 func _take_partial_step(u, v, rolling, first, last):
 	if !rolling:
