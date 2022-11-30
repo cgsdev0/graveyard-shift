@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/centipede_attack.mp3-3bb7fa8035c7bceef16eeec699451960.mp3str"
+
+[deps]
+
+source_file="res://audio/centipede_attack.mp3"
+dest_files=[ "res://.import/centipede_attack.mp3-3bb7fa8035c7bceef16eeec699451960.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

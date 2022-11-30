@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/wall_breaking.mp3-2219c4742903ae758d3058bfdb0e000b.mp3str"
+
+[deps]
+
+source_file="res://audio/wall_breaking.mp3"
+dest_files=[ "res://.import/wall_breaking.mp3-2219c4742903ae758d3058bfdb0e000b.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
