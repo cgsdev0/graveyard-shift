@@ -1,10 +1,9 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://logic/end_turn_button.gd" type="Script" id=1]
 [ext_resource path="res://logic/game_over.gd" type="Script" id=2]
 [ext_resource path="res://textures/ui/friend_body.png" type="Texture" id=3]
 [ext_resource path="res://ui/ui.gd" type="Script" id=4]
-[ext_resource path="res://debug/icon.png" type="Texture" id=5]
 [ext_resource path="res://ui/ui.theme" type="Theme" id=6]
 [ext_resource path="res://ui/actions_label.gd" type="Script" id=7]
 [ext_resource path="res://ui/money_label.gd" type="Script" id=8]
@@ -546,18 +545,19 @@ anchor_bottom = 1.0
 alignment = 1
 
 [node name="Header" type="Label" parent="Banner/TwoLine"]
-margin_top = 35.0
+margin_top = 17.0
 margin_right = 800.0
-margin_bottom = 74.0
-theme_type_variation = "BigLabel"
+margin_bottom = 75.0
+theme_type_variation = "GigaLabel"
 text = "Graveyard #6"
 align = 1
 valign = 1
 
 [node name="Subtitle" type="Label" parent="Banner/TwoLine"]
-margin_top = 82.0
+margin_top = 83.0
 margin_right = 800.0
-margin_bottom = 102.0
+margin_bottom = 120.0
+theme_type_variation = "MassiveLabel"
 text = "4 turns to sunrise"
 align = 1
 valign = 1
@@ -595,40 +595,33 @@ anchor_bottom = 1.0
 alignment = 1
 
 [node name="Header" type="Label" parent="GameOver/VBoxContainer"]
-margin_top = 139.0
+margin_top = 233.0
 margin_right = 800.0
-margin_bottom = 196.0
-theme_type_variation = "MassiveLabel"
+margin_bottom = 291.0
+theme_type_variation = "GigaLabel"
 text = "The monster escaped!"
 align = 1
 valign = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GameOver/VBoxContainer"]
-margin_left = 292.0
-margin_top = 204.0
-margin_right = 508.0
-margin_bottom = 310.0
+margin_left = 323.0
+margin_top = 299.0
+margin_right = 476.0
+margin_bottom = 367.0
 size_flags_horizontal = 4
 
 [node name="Button" type="Button" parent="GameOver/VBoxContainer/VBoxContainer"]
-margin_right = 216.0
+margin_right = 153.0
 margin_bottom = 30.0
 text = "Try again with same deck"
 
 [node name="Button2" type="Button" parent="GameOver/VBoxContainer/VBoxContainer"]
 margin_top = 38.0
-margin_right = 216.0
+margin_right = 153.0
 margin_bottom = 68.0
-text = "Reconfigure deck (5G)"
-icon = ExtResource( 5 )
+text = "Reconfigure deck"
 icon_align = 2
 expand_icon = true
-
-[node name="Button3" type="Button" parent="GameOver/VBoxContainer/VBoxContainer"]
-margin_top = 76.0
-margin_right = 216.0
-margin_bottom = 106.0
-text = "Quit to title"
 
 [node name="YouWin" type="ColorRect" parent="."]
 visible = false
@@ -646,22 +639,22 @@ alignment = 1
 modulate = Color( 1, 1, 1, 0 )
 margin_top = 212.0
 margin_right = 800.0
-margin_bottom = 269.0
-theme_type_variation = "MassiveLabel"
+margin_bottom = 270.0
+theme_type_variation = "GigaLabel"
 text = "You win!"
 align = 1
 valign = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="YouWin/VBoxContainer"]
-margin_left = 316.0
-margin_top = 277.0
-margin_right = 484.0
-margin_bottom = 387.0
+margin_left = 331.0
+margin_top = 278.0
+margin_right = 469.0
+margin_bottom = 388.0
 size_flags_horizontal = 4
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="YouWin/VBoxContainer/VBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
-margin_right = 168.0
+margin_right = 138.0
 margin_bottom = 32.0
 alignment = 1
 
@@ -676,11 +669,12 @@ stretch_mode = 6
 
 [node name="GoldLabel" type="Label" parent="YouWin/VBoxContainer/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
-margin_left = 40.0
-margin_top = 6.0
-margin_right = 168.0
-margin_bottom = 26.0
+margin_left = 36.0
+margin_top = 4.0
+margin_right = 138.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
+theme_type_variation = "BigLabel"
 text = "Gold earned: 25"
 valign = 1
 
@@ -688,16 +682,17 @@ valign = 1
 unique_name_in_owner = true
 modulate = Color( 1, 1, 1, 0 )
 margin_top = 40.0
-margin_right = 168.0
+margin_right = 138.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 0, 32 )
+theme_type_variation = "BigLabel"
 text = "Treasure recovered: 0"
 align = 1
 
 [node name="OpenShopButton" type="Button" parent="YouWin/VBoxContainer/VBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
 margin_top = 80.0
-margin_right = 168.0
+margin_right = 138.0
 margin_bottom = 110.0
 text = "Continue"
 
