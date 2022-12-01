@@ -180,11 +180,14 @@ func _ready():
 	Game.connect("reset", self, "on_reset")
 	Game.connect("accept_treasure", self, "on_accept_treasure")
 	Game.connect("hard_reset", self, "on_hard_reset")
+	Game.connect("game_over", self, "on_game_over")
 	randomize()
 	on_reset()
 
-func on_reset():
+func on_game_over():
 	pending_treasure_card = null
+	
+func on_reset():
 	deck = []
 	for i in selected_deck:
 		deck.push_back(starting_deck[i].duplicate(true))
