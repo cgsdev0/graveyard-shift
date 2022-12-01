@@ -1,6 +1,9 @@
 extends Control
 
 func _ready():
+	Game.connect("game_over", self, "game_over")
+	$"%RestartBtn".connect("pressed", self, "on_restart_level")
+	$"%ReconfigureBtn".connect("pressed", self, "on_reconfigure_deck")
 	get_tree().get_root().connect("size_changed", self, "on_resize")
 	Game.connect("prep_new_turn", self, "start_new_turn")
 	call_deferred("on_resize")
@@ -8,6 +11,21 @@ func _ready():
 		Game.original_theme = theme.duplicate(true)
 	
 	set_turns(Game.turns)
+	
+func game_over():
+	yield(get_tree().create_timer(1.5), "timeout")
+	$GameOver/AnimationPlayer.play("lose")
+	
+func on_reconfigure_deck():
+	Game.skip_to_inventory = true
+	Game.reset_money()
+	Game.emit_signal("reset")
+	Game.emit_signal("change_scene", "res://shop.tscn")
+	
+func on_restart_level():
+	Game.reset_money()
+	Game.emit_signal("reset")
+	Game.emit_signal("change_scene", "res://main.tscn")
 	
 func get_friend():
 	return $"%Friend"
@@ -21,6 +39,9 @@ func start_new_turn():
 	if Game.turns == 0:
 		Game.emit_signal("you_win")
 		yield(Game, "daylight_animation_done")
+		var earned = Game.money - Game.money_at_start
+		$"%GoldLabel".text = "Gold earned: %d" % earned
+		$"%TreasureLabel".text = "Treasure recovered: %d/1" % (1 if Game.earned_treasure else 0)
 		$YouWin/AnimationPlayer.play("victory")
 		$AudioStreamPlayer.play()
 	else:
