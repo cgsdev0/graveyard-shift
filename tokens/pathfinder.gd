@@ -75,11 +75,14 @@ func _ready():
 	add_child(start_tween)
 	scale = Vector3(0, 1, 1)
 	visible = false
-	yield(get_tree().create_timer(4.2), "timeout")
+	yield(get_tree().create_timer(0.5), "timeout")
 	visible = true
 	start_tween.interpolate_property(self, "scale", scale, Vector3(1,1,1),
 	1.1, Tween.TRANS_ELASTIC, Tween.EASE_OUT)
 	start_tween.start()
+	yield(start_tween, "tween_completed")
+	if is_in_group("adventurers"):
+		Tutorial.trigger_line(Tutorial.Line.ADVENTURER)
 	# update_navigation()
 
 func is_my_neighbor(pathfinder):

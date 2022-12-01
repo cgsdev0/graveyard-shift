@@ -1,20 +1,20 @@
 [gd_scene load_steps=20 format=2]
 
-[ext_resource path="res://debug/fps_counter.gd" type="Script" id=1]
-[ext_resource path="res://ui/settings.gd" type="Script" id=2]
-[ext_resource path="res://addons/randomAudioStreamPlayer/random_audio_stream_player.gd" type="Script" id=3]
-[ext_resource path="res://ui/fade_transition.gd" type="Script" id=4]
-[ext_resource path="res://ui/scene_manager.gd" type="Script" id=5]
+[ext_resource path="res://ui/scene_manager.gd" type="Script" id=1]
+[ext_resource path="res://debug/fps_counter.gd" type="Script" id=2]
+[ext_resource path="res://ui/settings.gd" type="Script" id=3]
+[ext_resource path="res://addons/randomAudioStreamPlayer/random_audio_stream_player.gd" type="Script" id=4]
+[ext_resource path="res://ui/fade_transition.gd" type="Script" id=5]
 [ext_resource path="res://audio/music/graveyard_theme_loopable_882000_4299750 (1).wav" type="AudioStream" id=6]
 [ext_resource path="res://shortcuts/xbox_back.tres" type="InputEventJoypadButton" id=7]
-[ext_resource path="res://audio/deal/deal_1.wav" type="AudioStream" id=8]
-[ext_resource path="res://audio/deal/deal_5.wav" type="AudioStream" id=9]
-[ext_resource path="res://audio/deal/deal_2.wav" type="AudioStream" id=10]
-[ext_resource path="res://audio/deal/deal_3.wav" type="AudioStream" id=11]
-[ext_resource path="res://audio/deal/deal_4.wav" type="AudioStream" id=12]
-[ext_resource path="res://ui/font/secret_society_med.tres" type="DynamicFont" id=13]
-[ext_resource path="res://ui/pause_menu.gd" type="Script" id=14]
-[ext_resource path="res://settings.theme" type="Theme" id=15]
+[ext_resource path="res://audio/deal/deal_2.wav" type="AudioStream" id=8]
+[ext_resource path="res://audio/deal/deal_1.wav" type="AudioStream" id=9]
+[ext_resource path="res://audio/deal/deal_5.wav" type="AudioStream" id=10]
+[ext_resource path="res://audio/deal/deal_4.wav" type="AudioStream" id=11]
+[ext_resource path="res://audio/deal/deal_3.wav" type="AudioStream" id=12]
+[ext_resource path="res://ui/pause_menu.gd" type="Script" id=13]
+[ext_resource path="res://settings.theme" type="Theme" id=14]
+[ext_resource path="res://ui/font/secret_society_med.tres" type="DynamicFont" id=15]
 [ext_resource path="res://ui/fade_transition.tscn" type="PackedScene" id=16]
 
 [sub_resource type="ShortCut" id=2]
@@ -28,14 +28,14 @@ shortcut = ExtResource( 7 )
 
 [node name="Node2D" type="Node2D"]
 pause_mode = 2
-script = ExtResource( 5 )
+script = ExtResource( 1 )
 
 [node name="CurrentScene" type="Node" parent="."]
 pause_mode = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." instance=ExtResource( 16 )]
 layer = 3
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 
 [node name="PauseMenu" type="PopupPanel" parent="CanvasLayer"]
 unique_name_in_owner = true
@@ -45,8 +45,8 @@ anchor_right = 0.5
 anchor_bottom = 0.3
 margin_left = -180.0
 margin_right = 180.0
-theme = ExtResource( 15 )
-script = ExtResource( 14 )
+theme = ExtResource( 14 )
+script = ExtResource( 13 )
 
 [node name="M" type="MarginContainer" parent="CanvasLayer/PauseMenu"]
 anchor_right = 1.0
@@ -69,7 +69,7 @@ margin_bottom = 235.0
 [node name="Paused" type="Label" parent="CanvasLayer/PauseMenu/M/V"]
 margin_right = 340.0
 margin_bottom = 47.0
-custom_fonts/font = ExtResource( 13 )
+custom_fonts/font = ExtResource( 15 )
 text = "Paused"
 align = 1
 
@@ -118,7 +118,7 @@ anchor_right = 0.5
 anchor_bottom = 0.38
 margin_left = -200.0
 margin_right = 200.0
-theme = ExtResource( 15 )
+theme = ExtResource( 14 )
 
 [node name="M" type="MarginContainer" parent="CanvasLayer/QuitConfirm"]
 anchor_right = 1.0
@@ -141,7 +141,7 @@ margin_bottom = 164.0
 [node name="Paused" type="Label" parent="CanvasLayer/QuitConfirm/M/V"]
 margin_right = 380.0
 margin_bottom = 47.0
-custom_fonts/font = ExtResource( 13 )
+custom_fonts/font = ExtResource( 15 )
 text = "Really quit?"
 align = 1
 
@@ -185,14 +185,14 @@ anchor_bottom = 1.0
 margin_left = 16.0
 margin_top = 16.0
 text = "FPS: 120
-Cards in deck: 7
+Cards in deck: 4
 Cards in shop deck: 38
 Cards in treasure deck: 8
-Tier 1 rarity: 0.6
-Tier 2 rarity: 0.275
-Tier 3 rarity: 0.125
-Turns: 5"
-script = ExtResource( 1 )
+Tier 1 rarity: 0.75
+Tier 2 rarity: 0.2
+Tier 3 rarity: 0.05
+Turns: 1"
+script = ExtResource( 2 )
 
 [node name="SettingsPanel" type="PopupPanel" parent="CanvasLayer"]
 anchor_left = 0.5
@@ -203,8 +203,8 @@ margin_left = -240.0
 margin_top = -220.0
 margin_right = 240.0
 margin_bottom = 200.0
-theme = ExtResource( 15 )
-script = ExtResource( 2 )
+theme = ExtResource( 14 )
+script = ExtResource( 3 )
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/SettingsPanel"]
 anchor_right = 1.0
@@ -261,6 +261,7 @@ margin_right = 460.0
 margin_bottom = 114.0
 min_value = -20.0
 max_value = 10.0
+value = -14.0
 
 [node name="Label2" type="Label" parent="CanvasLayer/SettingsPanel/MarginContainer/VBoxContainer2/VBoxContainer"]
 margin_top = 118.0
@@ -304,23 +305,23 @@ text = "Graphics"
 unique_name_in_owner = true
 margin_top = 229.0
 margin_right = 460.0
-margin_bottom = 261.0
+margin_bottom = 269.0
 pressed = true
 text = "Ambient Occlusion"
 
 [node name="Bloom" type="CheckButton" parent="CanvasLayer/SettingsPanel/MarginContainer/VBoxContainer2/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 265.0
+margin_top = 273.0
 margin_right = 460.0
-margin_bottom = 297.0
+margin_bottom = 313.0
 pressed = true
 text = "Bloom"
 
 [node name="Fullscreen" type="CheckButton" parent="CanvasLayer/SettingsPanel/MarginContainer/VBoxContainer2/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 301.0
+margin_top = 317.0
 margin_right = 460.0
-margin_bottom = 333.0
+margin_bottom = 357.0
 text = "Fullscreen"
 
 [node name="Button" type="Button" parent="CanvasLayer/SettingsPanel/MarginContainer/VBoxContainer2"]
@@ -332,8 +333,8 @@ text = "Confirm"
 
 [node name="TestSound" type="AudioStreamPlayer" parent="CanvasLayer/SettingsPanel"]
 bus = "SFX"
-script = ExtResource( 3 )
-samples = [ ExtResource( 8 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 9 ) ]
+script = ExtResource( 4 )
+samples = [ ExtResource( 9 ), ExtResource( 8 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 10 ) ]
 select_samples_from_folder = ""
 random_strategy = 2
 random_volume_range = 0

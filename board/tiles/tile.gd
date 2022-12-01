@@ -14,6 +14,9 @@ var title
 
 func _ready():
 	var tiles = get_parent().cols * get_parent().rows
+	var line
+	while line != Tutorial.Line.WELCOME:
+		line = yield(Tutorial, "dialogue_finished")
 	yield(get_tree().create_timer(0.5 + 0.8 * get_index() / tiles), "timeout")
 	$AnimationPlayer.play("fall")
 	
