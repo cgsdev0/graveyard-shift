@@ -1,6 +1,7 @@
 # Graveyard Shift
-Created for the 
+Created for [GitHub Game Off 2022](https://itch.io/jam/game-off-2022).
 
+Play it [here on itch.io](https://badcop.itch.io/graveyard-shift)!
 
 ## Credits
 cgsdev0 (aka badcop) - Code / Design
