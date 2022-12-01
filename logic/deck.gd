@@ -184,6 +184,7 @@ func _ready():
 	on_reset()
 
 func on_reset():
+	pending_treasure_card = null
 	deck = []
 	for i in selected_deck:
 		deck.push_back(starting_deck[i].duplicate(true))
