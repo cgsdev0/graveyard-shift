@@ -261,7 +261,7 @@ var levels = [
 	},
 	# Level 9
 	{
-		"turns": 8,
+		"turns": 8, # 8
 		"camera": {
 			"zoom": 35,
 			"angle": 40,
@@ -395,6 +395,7 @@ var actions = 2
 var actions_per_turn = 2
 var earned_treasure = false
 var earned_treasure_index = 0
+var beat = false
 
 var block_interaction = false
 

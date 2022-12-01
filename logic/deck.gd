@@ -155,7 +155,7 @@ var pending_treasure_card = null #{ "cost": 0, "type": Game.TileType.MONEY_TREE,
 
 static func card_color(card):
 	if card.has('treasure'):
-		return Color.salmon
+		return Color.orange
 	match card.get("rarity", 0):
 		0:
 			return Color.steelblue

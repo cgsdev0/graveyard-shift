@@ -43,6 +43,8 @@ func _process(delta):
 func take_step():
 	if !enabled:
 		return
+	if gone:
+		return
 	var treasure_tiles = board.find_tile_id(Game.TileType.TREASURE)
 	if !treasure_tiles.empty() && get_id() in treasure_tiles:
 		treasure_index = board.get_tile_by_id(get_id()).treasure_index
@@ -92,11 +94,12 @@ func take_step():
 		# rip adventurer
 		Game.earned_treasure = true
 		Game.earned_treasure_index = treasure_index
-		$Teleport.play()
-		self.kill()
+		self.escape()
 	path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
 
+var gone = false
 func kill():
+	gone = true
 	$Wilhelm.play()
 	self.remove_from_group("adventurers")
 	self.remove_from_group("killable_tokens")
@@ -105,6 +108,15 @@ func kill():
 	$AnimationPlayer.play("RESET")
 	$AnimationPlayer.play("fall_over")
 	# visible = false
+	
+func escape():
+	gone = true
+	$Teleport.play()
+	self.remove_from_group("adventurers")
+	self.remove_from_group("killable_tokens")
+	self.remove_from_group("tokens")
+	self.remove_from_group("pathfinders")
+	visible = false
 	
 func get_target_tile():
 	var treasures = board.find_tile_id(Game.TileType.TREASURE)

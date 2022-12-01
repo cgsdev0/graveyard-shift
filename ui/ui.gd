@@ -41,7 +41,7 @@ func start_new_turn():
 		yield(Game, "daylight_animation_done")
 		var earned = Game.money - Game.money_at_start
 		$"%GoldLabel".text = "Gold earned: %d" % earned
-		$"%TreasureLabel".text = "Treasure recovered: %d/1" % (1 if Game.earned_treasure else 0)
+		$"%TreasureLabel".text = "Treasure recovered: %d of 1" % (1 if Game.earned_treasure else 0)
 		$YouWin/AnimationPlayer.play("victory")
 		$AudioStreamPlayer.play()
 	else:
@@ -202,5 +202,9 @@ func _on_OpenShopButton_pressed():
 		var prize = ShopDeck.deal_treasure(Game.earned_treasure_index)
 		Deck.pending_treasure_card = prize
 	Game.level += 1
-	Game.emit_signal("reset")
-	Game.emit_signal("change_scene", "res://shop.tscn")
+	if Game.level < 10:
+		Game.emit_signal("reset")
+		Game.emit_signal("change_scene", "res://shop.tscn")
+	else:
+		Game.beat = true
+		Game.emit_signal("change_scene", "res://credits.tscn")
