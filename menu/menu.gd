@@ -18,6 +18,7 @@ func _process(delta):
 		Game.skip_to_inventory = true
 		dead_switch = true
 		Deck.starting_deck = Deck.developer_deck
+		Tutorial.skip = true
 		Game.emit_signal("hard_reset")
 		Game.emit_signal("change_scene", "res://shop.tscn")
 	

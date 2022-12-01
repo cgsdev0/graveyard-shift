@@ -11,7 +11,7 @@ func _ready():
 	add_child(type_timer)
 	
 	visible = false
-	print(Tutorial.connect("dialogue", self, "on_dialogue"))
+	Tutorial.connect("dialogue", self, "on_dialogue")
 	get_tree().get_root().connect("size_changed", self, "on_resize")
 
 var i = 0
@@ -81,9 +81,6 @@ func _process(delta):
 func type_message(msg, i):
 	var stripped = strip_bbcode(state)
 	typing = true
-	print("range: ", $"%DialogueLabel".visible_characters, ", ", $"%DialogueLabel".get_total_character_count())
-	print(stripped)
-	print(stripped.length())
 	for j in range($"%DialogueLabel".visible_characters, $"%DialogueLabel".get_total_character_count()):
 		if self.i != i:
 			return
