@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://ui/shop2.theme" type="Theme" id=1]
 [ext_resource path="res://ui/span_limiter.gd" type="Script" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://audio/purchase/Pickup_Gold_03.wav" type="AudioStream" id=19]
 [ext_resource path="res://addons/randomAudioStreamPlayer/random_audio_stream_player.gd" type="Script" id=20]
 [ext_resource path="res://load_world_env.gd" type="Script" id=21]
+[ext_resource path="res://audio/transition_button.mp3" type="AudioStream" id=22]
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 5 )
@@ -566,6 +567,11 @@ samples = [ ExtResource( 17 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource
 random_strategy = 2
 random_volume_range = 0
 random_pitch_range = 0
+
+[node name="DigSound" type="AudioStreamPlayer" parent="ViewportContainer/Viewport/Control"]
+stream = ExtResource( 22 )
+volume_db = -4.948
+bus = "SFX"
 
 [node name="ViewportContainer2" type="ViewportContainer" parent="."]
 anchor_right = 1.0

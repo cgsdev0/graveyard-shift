@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://tokens/lure.gd" type="Script" id=1]
 [ext_resource path="res://models/circle_token.tscn" type="PackedScene" id=2]
 [ext_resource path="res://textures/tokens/lure_1.png" type="Texture" id=3]
+[ext_resource path="res://audio/eat_lure.mp3" type="AudioStream" id=4]
 
 [sub_resource type="SpatialMaterial" id=1]
 resource_local_to_scene = true
@@ -18,5 +19,10 @@ transform = Transform( -1.66103e-08, 0.38, -1.66103e-08, 0, -1.66103e-08, -0.38,
 
 [node name="Token" parent="token" index="0"]
 material/2 = SubResource( 1 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -10.0
+bus = "SFX"
 
 [editable path="token"]

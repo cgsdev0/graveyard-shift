@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/foresight.mp3-88b1fcfa88273cdf83ff4d476c44fb1d.mp3str"
+
+[deps]
+
+source_file="res://audio/foresight.mp3"
+dest_files=[ "res://.import/foresight.mp3-88b1fcfa88273cdf83ff4d476c44fb1d.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

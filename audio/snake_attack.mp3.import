@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/snake_attack.mp3-5764e9fe979eff48d5bf6eeaedbf0012.mp3str"
+
+[deps]
+
+source_file="res://audio/snake_attack.mp3"
+dest_files=[ "res://.import/snake_attack.mp3-5764e9fe979eff48d5bf6eeaedbf0012.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

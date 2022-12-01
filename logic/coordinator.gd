@@ -48,6 +48,7 @@ func on_end_turn():
 			play_animation(pathfinder, "idle")
 			if pathfinder.is_in_group("monsters"):
 				if $Board.get_tile_by_id(pathfinder.get_id()).type == Game.TileType.EXIT:
+					$Teleport.play()
 					Game.emit_signal("game_over")
 					pathfinder.reset_rotation_horizontal()
 					return

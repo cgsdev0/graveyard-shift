@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/eat_lure.mp3-d0d18164ed8c149c3937990f7f80a547.mp3str"
+
+[deps]
+
+source_file="res://audio/eat_lure.mp3"
+dest_files=[ "res://.import/eat_lure.mp3-d0d18164ed8c149c3937990f7f80a547.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
