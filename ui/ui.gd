@@ -167,16 +167,17 @@ func show_tooltip(position, data):
 func hide_tooltip():
 	tooltip_pos = null
 	$Tooltip.hide()
-	for i in range(1, $Tooltip.get_child_count()):
-		var child = $Tooltip.get_child(i)
+	for child in $Tooltip.get_children():
+		if child.get_index() == 0:
+			continue
 		$Tooltip.remove_child(child)
 		child.queue_free()
 	
 func _on_OpenShopButton_pressed():
-	Game.money += 15 + 5 * (Game.level / 2)
+	Game.money += Game.money_for_level()
 	if Game.earned_treasure:
 		Game.earned_treasure = false
-		var prize = ShopDeck.deal_treasure()
+		var prize = ShopDeck.deal_treasure(Game.earned_treasure_index)
 		Deck.pending_treasure_card = prize
 	Game.level += 1
 	Game.emit_signal("reset")

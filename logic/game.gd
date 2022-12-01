@@ -49,7 +49,8 @@ func gust_direction(dir):
 
 enum MonsterType {
 	WALKER,
-	SPRINTER
+	SPRINTER,
+	SLIME
 }
 
 var original_theme
@@ -150,7 +151,7 @@ var levels = [
 		"rows": 4,
 		"tiles": [
 			[0, 0, TileType.EXIT],
-			[0, 3, TileType.TREASURE],
+			[1, 3, TileType.TREASURE],
 			[1, 0, TileType.PIT],
 			[1, 1, TileType.PIT],
 			[1, 2, TileType.PIT],
@@ -207,7 +208,31 @@ var levels = [
 			[0, 1, MonsterType.WALKER]
 		]
 	},
-		# Level 7 - twice the fun
+	# Level 7 - slime time
+	{
+		"turns": 4,
+		"camera": {
+			"zoom": 28,
+			"angle": 40,
+			"up": 0.0,
+		},
+		"cols": 5,
+		"rows": 5,
+		"tiles": [
+			[2, 2, TileType.EXIT],
+			[4, 4, TileType.TREASURE],
+			[1, 1, TileType.PIT],
+			[3, 1, TileType.PIT],
+			[3, 3, TileType.PIT],
+			[1, 3, TileType.PIT],
+		],
+		"monsters": [
+			[2, 0, MonsterType.SLIME],
+			[0, 1, MonsterType.SLIME],
+			[4, 1, MonsterType.SLIME],
+		]
+	},
+	# Level 8 - twice the fun
 	{
 		"turns": 5,
 		"camera": {
@@ -220,6 +245,7 @@ var levels = [
 		"tiles": [
 			[2, 2, TileType.EXIT],
 			[0, 3, TileType.TREASURE],
+			[3, 4, TileType.TREASURE],
 			[0, 1, TileType.PIT],
 			[3, 1, TileType.PIT],
 			[1, 1, TileType.PIT],
@@ -233,9 +259,9 @@ var levels = [
 			[4, 4, MonsterType.WALKER],
 		]
 	},
-	# Level 8
+	# Level 9
 	{
-		"turns": 3,
+		"turns": 10,
 		"camera": {
 			"zoom": 35,
 			"angle": 40,
@@ -244,10 +270,21 @@ var levels = [
 		"cols": 6,
 		"rows": 6,
 		"tiles": [
-			[5, 5, TileType.EXIT],
+			[1, 1, TileType.EXIT],
+			[1, 0, TileType.PIT],
+			[0, 1, TileType.PIT],
+			[2, 2, TileType.PIT],
+			[3, 3, TileType.PIT],
+			[4, 4, TileType.PIT],
+			[5, 5, TileType.PIT],
 		],
 		"monsters": [
-			[0, 0, MonsterType.SPRINTER]
+			[0, 4, MonsterType.SLIME],
+			[0, 5, MonsterType.SLIME],
+			[1, 5, MonsterType.SLIME],
+			[4, 0, MonsterType.SLIME],
+			[5, 0, MonsterType.SLIME],
+			[5, 1, MonsterType.SLIME],
 		]
 	}
 ]
@@ -316,9 +353,14 @@ static func title_card(card):
 	return title[card.type]
 	
 static func describe_card(card):
+	var describe = ""
 	if card.type == TileType.WALL && card.wall_flags.max() == 5:
-		return "The best walls on the market. Requires an action surge to play."
-	return descriptions[card.type].format(card)
+		describe = "The best walls on the market."
+	else:
+		describe = descriptions[card.type].format(card)
+	if card.ac > 2:
+		describe += " Requires an action surge to play."
+	return describe
 	
 static func flavor_text_card(card):
 	if card.type == TileType.WALL && card.wall_flags.max() == 5:
@@ -352,6 +394,7 @@ var max_turns = 0
 var actions = 2
 var actions_per_turn = 2
 var earned_treasure = false
+var earned_treasure_index = 0
 
 var block_interaction = false
 
@@ -361,7 +404,11 @@ var is_turn = false
 var skip_to_inventory = false
 var block_pause = false
 
+func money_for_level():
+	return min(30, 15 + 5 * (level / 2))
+	
 func on_reset():
+	earned_treasure_index = 0
 	block_pause = false
 	earned_treasure = false
 	block_interaction = false
@@ -372,6 +419,7 @@ func on_reset():
 	money_at_start = money
 	
 func on_hard_reset():
+	earned_treasure_index = 0
 	Game.level = 0
 	money = 0
 	on_reset()

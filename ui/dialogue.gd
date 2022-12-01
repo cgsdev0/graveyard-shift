@@ -12,11 +12,15 @@ func _ready():
 	
 	visible = false
 	print(Tutorial.connect("dialogue", self, "on_dialogue"))
+	get_tree().get_root().connect("size_changed", self, "on_resize")
 
 var i = 0
 
 var typing = false
 
+func on_resize():
+	$"%DialogueLabel".bbcode_text = state
+	
 func get_text(msg):
 	var text = "uhhhh oh... my creator messed up >.<"
 	if typeof(msg) == TYPE_STRING:

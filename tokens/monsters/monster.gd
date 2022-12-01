@@ -1,5 +1,10 @@
 extends Pathfinder
 
+export var actions_economy = 2
+export var move_speed = 0.4
+export var monster_name = "Snake"
+export var description = "Heads towards the exit,\nattacking things in the way."
+
 func _ready():
 	add_to_group("monsters")
 	astar = MyAStar.new(board)
@@ -44,13 +49,13 @@ func update_navigation():
 		my_cost = cost
 	
 func get_action_limit():
-	return 2
+	return actions_economy
 	
 func get_name():
-	return "Snake"
+	return monster_name
 	
 func get_description():
-	return "Heads towards the exit,\nattacking things in the way."
+	return description
 	
 func take_step():
 	var soldiers = get_tree().get_nodes_in_group("killable_tokens")
@@ -105,7 +110,7 @@ func take_step():
 
 		#global_translation = board.get_tile(grid_x, grid_y).get_center()
 		movement_tween.interpolate_property(self, "global_translation",
-		global_translation, board.get_tile(grid_x, grid_y).get_center(), 0.4,
+		global_translation, board.get_tile(grid_x, grid_y).get_center(), move_speed,
 		Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
 		var y = rotate_to(dir, true)
 		if y is Object:

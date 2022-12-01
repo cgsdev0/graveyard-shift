@@ -577,6 +577,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="MarginContainer" type="MarginContainer" parent="RightBar/Control/Dialogue"]
+anchor_left = 0.01
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -584,20 +585,22 @@ anchor_bottom = 1.0
 unique_name_in_owner = true
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 352.0
+margin_right = 348.0
 margin_bottom = 100.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
 custom_fonts/normal_font = ExtResource( 22 )
 bbcode_enabled = true
 bbcode_text = "awefawefawefawefawef"
-text = "awefawefawefawefawef"
+text = "awefawefawefawefawef
+my text is long
+three lines even"
 
 [node name="ConfirmIcon" type="TextureRect" parent="RightBar/Control/Dialogue/MarginContainer"]
 unique_name_in_owner = true
-margin_left = 328.0
+margin_left = 324.0
 margin_top = 76.0
-margin_right = 352.0
+margin_right = 348.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 24, 24 )
 size_flags_horizontal = 8
