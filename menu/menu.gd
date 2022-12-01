@@ -23,13 +23,16 @@ func _process(delta):
 		Game.emit_signal("change_scene", "res://shop.tscn")
 	
 func play():
+	$DigSound.play()
 	Game.emit_signal("change_scene", "res://main.tscn")
 	
 func settings():
+	$DigSound.play()
 	yield(get_tree().create_timer(0.0), "timeout")
 	Game.emit_signal("open_settings")
 	
 func credits():
+	$DigSound.play()
 	Game.emit_signal("change_scene", "res://credits.tscn")
 	
 func exit():

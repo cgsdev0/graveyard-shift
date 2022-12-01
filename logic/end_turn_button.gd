@@ -18,4 +18,5 @@ func _process(delta):
 	
 func on_press():
 	desired_disabled = true
+	$DigSound.play()
 	Game.emit_signal("end_turn")
