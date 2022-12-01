@@ -22,6 +22,7 @@ func start_new_turn():
 		Game.emit_signal("you_win")
 		yield(Game, "daylight_animation_done")
 		$YouWin/AnimationPlayer.play("victory")
+		$AudioStreamPlayer.play()
 	else:
 		Game.emit_signal("deal_new_turn")
 	

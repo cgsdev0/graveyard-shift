@@ -57,3 +57,4 @@ func on_hard_reset():
 	
 func _ready():
 	Game.connect("hard_reset", self, "on_hard_reset")
+	Game.connect("reset", self, "on_hard_reset")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://logic/end_turn_button.gd" type="Script" id=1]
 [ext_resource path="res://logic/game_over.gd" type="Script" id=2]
@@ -27,6 +27,7 @@
 [ext_resource path="res://addons/randomAudioStreamPlayer/random_audio_stream_player.gd" type="Script" id=25]
 [ext_resource path="res://audio/transition_button.mp3" type="AudioStream" id=26]
 [ext_resource path="res://audio/speak.wav" type="AudioStream" id=27]
+[ext_resource path="res://audio/you_win.mp3" type="AudioStream" id=28]
 
 [sub_resource type="Animation" id=5]
 resource_name = "fade_in"
@@ -1071,5 +1072,10 @@ rect_min_size = Vector2( 16, 16 )
 texture = ExtResource( 18 )
 expand = true
 stretch_mode = 6
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 28 )
+volume_db = -5.0
+bus = "SFX"
 
 [connection signal="pressed" from="YouWin/VBoxContainer/VBoxContainer/OpenShopButton" to="." method="_on_OpenShopButton_pressed"]
