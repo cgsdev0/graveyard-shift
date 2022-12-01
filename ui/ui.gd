@@ -39,9 +39,9 @@ func start_new_turn():
 	if Game.turns == 0:
 		Game.emit_signal("you_win")
 		yield(Game, "daylight_animation_done")
-		var earned = Game.money - Game.money_at_start
+		var earned = Game.money - Game.money_at_start + Game.money_for_level()
 		$"%GoldLabel".text = "Gold earned: %d" % earned
-		$"%TreasureLabel".text = "Treasure recovered: %d of 1" % (1 if Game.earned_treasure else 0)
+		$"%TreasureLabel".text = "Treasure recovered: %d of %d" % [(1 if Game.earned_treasure else 0), (1 if Game.level > 0 && Game.level < 9 else 0)]
 		$YouWin/AnimationPlayer.play("victory")
 		$AudioStreamPlayer.play()
 	else:
