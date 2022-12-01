@@ -30,6 +30,19 @@ func get_target_tile():
 		return fixation.get_id()
 	return board.find_tile_id(Game.TileType.EXIT)[0]
 	
+var my_cost = null
+func update_navigation():
+	.update_navigation()
+	
+	var cost = get_path_cost(path)
+	if my_cost == null:
+		my_cost = cost
+	else:
+		if my_cost == cost && Game.level == 0 && Game.is_turn:
+			# oops
+			Tutorial.trigger_line(Tutorial.Line.OOPS)
+		my_cost = cost
+	
 func get_action_limit():
 	return 2
 	

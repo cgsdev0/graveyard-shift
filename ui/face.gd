@@ -5,6 +5,7 @@ var default_eye = preload("res://textures/ui/eye_2.png")
 var happy_eye = preload("res://textures/ui/eye_1.png")
 
 func _ready():
+	Game.connect("you_win", self, "set_face_happy")
 	pass
 
 func set_rot(hori, vert):
