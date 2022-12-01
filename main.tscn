@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://board/board.gd" type="Script" id=1]
 [ext_resource path="res://hand/hand.gd" type="Script" id=2]
@@ -37,6 +37,11 @@
 [ext_resource path="res://audio/wall_breaking.mp3" type="AudioStream" id=35]
 [ext_resource path="res://audio/foresight.mp3" type="AudioStream" id=36]
 [ext_resource path="res://audio/teleport.wav" type="AudioStream" id=37]
+[ext_resource path="res://audio/purchase/Pickup_Gold_03.wav" type="AudioStream" id=38]
+[ext_resource path="res://audio/purchase/Pickup_Gold_02.wav" type="AudioStream" id=39]
+[ext_resource path="res://audio/purchase/Pickup_Gold_01.wav" type="AudioStream" id=40]
+[ext_resource path="res://audio/purchase/Pickup_Gold_04.wav" type="AudioStream" id=41]
+[ext_resource path="res://audio/purchase/Pickup_Gold_00.wav" type="AudioStream" id=42]
 
 [sub_resource type="ShaderMaterial" id=4]
 
@@ -322,6 +327,15 @@ bus = "SFX"
 stream = ExtResource( 37 )
 volume_db = -17.52
 bus = "SFX"
+
+[node name="MoneyTree" type="AudioStreamPlayer" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
+volume_db = -6.0
+bus = "SFX"
+script = ExtResource( 13 )
+samples = [ ExtResource( 42 ), ExtResource( 40 ), ExtResource( 39 ), ExtResource( 38 ), ExtResource( 41 ) ]
+random_strategy = 2
+random_volume_range = 0
+random_pitch_range = 0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="GameView/Viewport/BoardViewport/Viewport"]
 environment = ExtResource( 10 )

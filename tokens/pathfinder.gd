@@ -61,8 +61,10 @@ func gust(dir, offset):
 		if self.is_in_group("adventurers"):
 			# rip adventurer
 			yield(movement_tween, "tween_all_completed")
+			var a = self
 			Game.earned_treasure = true
-			self.kill()
+			Game.earned_treasure_index = a.treasure_index
+			a.escape()
 		
 var start_x
 var start_y

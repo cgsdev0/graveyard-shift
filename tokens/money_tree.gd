@@ -19,4 +19,6 @@ func kill():
 	queue_free()
 
 func tick():
+	$Label3D.text = "+%d" % gpm
+	$AnimationPlayer.play("get_money")
 	Game.money += gpm

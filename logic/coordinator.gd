@@ -74,8 +74,12 @@ func on_end_turn():
 		var rot = pathfinder.reset_rotation_horizontal()
 		if rot is GDScriptFunctionState:
 			yield(rot, "completed")
+	var trees = 0
 	for money_tree in get_tree().get_nodes_in_group("money_trees"):
 		money_tree.tick()
+		trees += 1
+	if trees > 1:
+		$MoneyTree.play()
 	Game.emit_signal("prep_new_turn")
 
 func play_spike_sound(success):

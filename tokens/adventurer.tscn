@@ -182,3 +182,4 @@ bus = "SFX"
 [node name="Wilhelm" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
 volume_db = -18.534
+bus = "SFX"
