@@ -316,6 +316,7 @@ func _process(delta):
 				hover = null
 				dragging = null
 				$"%UI".get_friend().unbump()
+				snap_tile = null
 				snapped_friend = false
 				if board.has_actions():
 					cards_up = true

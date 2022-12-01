@@ -72,7 +72,7 @@ var levels = [
 			[1, 1, TileType.PIT],
 		],
 		"monsters": [
-			[0, 0, MonsterType.WALKER]
+			[0, 0, MonsterType.SLIME]
 		]
 	},
 	# Level 1 - introduce adventurer
@@ -175,8 +175,8 @@ var levels = [
 		"rows": 5,
 		"tiles": [
 			[2, 4, TileType.EXIT],
-			[0, 4, TileType.TREASURE],
 			[4, 2, TileType.TREASURE],
+			[0, 4, TileType.TREASURE],
 			[0, 0, TileType.PIT],
 			[0, 3, TileType.PIT],
 			[4, 0, TileType.PIT],
@@ -189,7 +189,7 @@ var levels = [
 	},
 	# Level 6
 	{
-		"turns": 6,
+		"turns": 5,
 		"camera": {
 			"zoom": 26,
 			"angle": 40,
@@ -261,7 +261,7 @@ var levels = [
 	},
 	# Level 9
 	{
-		"turns": 10,
+		"turns": 9,
 		"camera": {
 			"zoom": 35,
 			"angle": 40,
@@ -405,7 +405,7 @@ var skip_to_inventory = false
 var block_pause = false
 
 func money_for_level():
-	return min(30, 15 + 5 * (level / 2))
+	return min(35, 10 + 5 * (level))
 	
 func on_reset():
 	earned_treasure_index = 0
