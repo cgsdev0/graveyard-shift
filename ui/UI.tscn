@@ -345,8 +345,7 @@ mouse_filter = 2
 color = Color( 0.65098, 0.65098, 0.65098, 1 )
 
 [node name="ForesightOverlay" type="ColorRect" parent="."]
-visible = false
-anchor_right = 0.78
+anchor_right = 0.82
 anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 0.521569 )
@@ -592,9 +591,7 @@ size_flags_vertical = 7
 custom_fonts/normal_font = ExtResource( 22 )
 bbcode_enabled = true
 bbcode_text = "awefawefawefawefawef"
-text = "awefawefawefawefawef
-my text is long
-three lines even"
+text = "awefawefawefawefawef"
 
 [node name="ConfirmIcon" type="TextureRect" parent="RightBar/Control/Dialogue/MarginContainer"]
 unique_name_in_owner = true
