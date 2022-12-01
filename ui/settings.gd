@@ -3,6 +3,8 @@ extends PopupPanel
 
 func _ready():
 	Game.connect("open_settings", self, "open_settings")
+	if OS.get_name() == "HTML5":
+		$"%SSAO".disabled = true
 
 func open_settings():
 	show()

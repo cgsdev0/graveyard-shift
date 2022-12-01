@@ -261,7 +261,7 @@ var levels = [
 	},
 	# Level 9
 	{
-		"turns": 9,
+		"turns": 8,
 		"camera": {
 			"zoom": 35,
 			"angle": 40,
