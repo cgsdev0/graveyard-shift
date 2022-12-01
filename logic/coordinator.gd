@@ -32,6 +32,13 @@ func on_end_turn():
 			continue
 		if !pathfinder.is_in_group("pathfinders"):
 			continue
+		if $Board.get_tile_by_id(pathfinder.get_id()).type == Game.TileType.TRAP:
+			$BearTrapSound.play()
+			$Board.replace_tile_by_id(pathfinder.get_id(), Game.TileType.TRAP_SPRUNG, true, "Trap (Sprung)")
+			for tile in get_tree().get_nodes_in_group("placed_tiles"):
+				if tile.placed_at == pathfinder.get_id():
+					tile.become({ "type": Game.TileType.TRAP_SPRUNG })
+			continue
 		pathfinder.stunned = false
 		if pathfinder.skipped_turns:
 			pathfinder.skipped_turns -= 1

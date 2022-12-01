@@ -22,8 +22,9 @@ func set_tex():
 
 func eat():
 	$AudioStreamPlayer.play()
+	remove_from_group("tokens")
 	start_tween.interpolate_property(self, "scale", scale, Vector3(0, 1, 1),
-	1.1, Tween.TRANS_ELASTIC, Tween.EASE_OUT)
+	0.5, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	start_tween.start()
 	yield(start_tween, "tween_completed")
 	self.visible = false

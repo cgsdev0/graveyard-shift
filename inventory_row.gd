@@ -13,6 +13,7 @@ func become(card):
 	self.card = card
 	$"%Label".text = Game.title_card(card)
 	color = Deck.card_color(card)
+	color = Color.darkorchid
 	$ColorRect.color = color
 	if Game.is_wall(card.type):
 		var bits = flags_to_bits(card.wall_flags)

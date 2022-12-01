@@ -49,6 +49,10 @@ func gust(dir, offset):
 		board.get_tile(grid_x, grid_y).get_center() + Vector3(0, 3, 0), 
 		board.get_tile(grid_x, grid_y).get_center(), 0.3,
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 0.6)
+	elif board.get_tile_by_id(dest).type == Game.TileType.SPIKES:
+		stunned = true
+		skipped_turns += 1
+		board.activate_spikes(dest)
 	movement_tween.start()
 	update_navigation()
 	moved()
