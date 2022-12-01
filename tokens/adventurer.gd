@@ -97,11 +97,14 @@ func take_step():
 	path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
 
 func kill():
-	visible = false
+	$Wilhelm.play()
 	self.remove_from_group("adventurers")
 	self.remove_from_group("killable_tokens")
 	self.remove_from_group("tokens")
 	self.remove_from_group("pathfinders")
+	$AnimationPlayer.play("RESET")
+	$AnimationPlayer.play("fall_over")
+	# visible = false
 	
 func get_target_tile():
 	var treasures = board.find_tile_id(Game.TileType.TREASURE)
