@@ -11,6 +11,7 @@ var Lure = preload("res://tokens/lure.tscn")
 var Adventurer = preload("res://tokens/adventurer.tscn")
 var Sprinter = preload("res://tokens/monsters/sprinter.tscn")
 var Walker = preload("res://tokens/monsters/walker.tscn")
+var Slime = preload("res://tokens/monsters/slime.tscn")
 
 export var rows = 3
 export var cols = 3
@@ -168,6 +169,7 @@ func _ready():
 	
 	var tile_size = Vector3(width, tile_height, height)
 	
+	var treasure_index = 0
 	var last_t
 	for r in rows:
 		for c in cols:
@@ -184,6 +186,9 @@ func _ready():
 	
 
 	for tile in level.tiles:
+		if tile[2] == Game.TileType.TREASURE:
+			get_tile(tile[0], tile[1]).treasure_index = treasure_index
+			treasure_index += 1
 		self.callv("replace_tile", tile)
 		
 	for tile in get_children():
@@ -297,6 +302,8 @@ func spawn_monster(x, y, monster_type):
 			monster = Sprinter.instance()
 		Game.MonsterType.WALKER:
 			monster = Walker.instance()
+		Game.MonsterType.SLIME:
+			monster = Slime.instance()
 	monster.grid_x = x
 	monster.grid_y = y
 	get_parent().call_deferred("add_child", monster)
