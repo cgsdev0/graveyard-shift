@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://logic/end_turn_button.gd" type="Script" id=1]
 [ext_resource path="res://logic/game_over.gd" type="Script" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://textures/ui/left_click.png" type="Texture" id=23]
 [ext_resource path="res://ui/dialogue.theme" type="Theme" id=24]
 [ext_resource path="res://addons/randomAudioStreamPlayer/random_audio_stream_player.gd" type="Script" id=25]
+[ext_resource path="res://audio/transition_button.mp3" type="AudioStream" id=26]
 [ext_resource path="res://audio/speak.wav" type="AudioStream" id=27]
 
 [sub_resource type="Animation" id=5]
@@ -345,6 +346,7 @@ mouse_filter = 2
 color = Color( 0.65098, 0.65098, 0.65098, 1 )
 
 [node name="ForesightOverlay" type="ColorRect" parent="."]
+visible = false
 anchor_right = 0.82
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -502,6 +504,11 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
+
+[node name="DigSound" type="AudioStreamPlayer" parent="RightBar/MarginContainer/VBoxContainer/Button"]
+stream = ExtResource( 26 )
+volume_db = -4.948
+bus = "SFX"
 
 [node name="Gold" type="HBoxContainer" parent="RightBar/MarginContainer/VBoxContainer"]
 visible = false

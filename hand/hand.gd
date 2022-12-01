@@ -251,6 +251,7 @@ func do_fresh_start():
 func do_foresight():
 	if Deck.empty():
 		return
+	$ForesightSound.play()
 	Game.emit_signal("foresight")
 	Game.block_interaction = true
 	for i in [2, 1, 0]:

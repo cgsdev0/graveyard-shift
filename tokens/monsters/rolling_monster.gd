@@ -67,7 +67,7 @@ func take_step():
 		for lure in lures:
 			if lure.grid_x == grid_x && lure.grid_y == grid_y:
 				lure.remove_from_group("lures")
-				lure.queue_free()
+				lure.eat()
 				fixation = null
 				path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
 		rolling = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://board/board.gd" type="Script" id=1]
 [ext_resource path="res://hand/hand.gd" type="Script" id=2]
@@ -35,6 +35,8 @@
 [ext_resource path="res://audio/bear_trap.mp3" type="AudioStream" id=33]
 [ext_resource path="res://audio/gust.wav" type="AudioStream" id=34]
 [ext_resource path="res://audio/wall_breaking.mp3" type="AudioStream" id=35]
+[ext_resource path="res://audio/foresight.mp3" type="AudioStream" id=36]
+[ext_resource path="res://audio/teleport.wav" type="AudioStream" id=37]
 
 [sub_resource type="ShaderMaterial" id=4]
 
@@ -271,6 +273,11 @@ stream = ExtResource( 32 )
 volume_db = -10.0
 bus = "SFX"
 
+[node name="ForesightSound" type="AudioStreamPlayer" parent="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand"]
+stream = ExtResource( 36 )
+volume_db = -6.0
+bus = "SFX"
+
 [node name="DirectionalLight" type="DirectionalLight" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
 transform = Transform( 0.605325, 0.171092, -0.777374, 0.203513, 0.910899, 0.358951, 0.769523, -0.375488, 0.51657, -2.03058, 1.91977, 2.38178 )
 light_energy = 0.1
@@ -309,6 +316,11 @@ bus = "SFX"
 [node name="WallBreakSound" type="AudioStreamPlayer" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
 stream = ExtResource( 35 )
 volume_db = -17.0
+bus = "SFX"
+
+[node name="Teleport" type="AudioStreamPlayer" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
+stream = ExtResource( 37 )
+volume_db = -17.52
 bus = "SFX"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="GameView/Viewport/BoardViewport/Viewport"]

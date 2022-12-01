@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://ui/font/secret_society_large.tres" type="DynamicFont" id=1]
 [ext_resource path="res://ui/span_limiter.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://ui/font/caveat_regular.tres" type="DynamicFont" id=5]
 [ext_resource path="res://debug/icon.png" type="Texture" id=6]
 [ext_resource path="res://ui/shop2.theme" type="Theme" id=7]
+[ext_resource path="res://audio/transition_button.mp3" type="AudioStream" id=8]
 [ext_resource path="res://inventory.gd" type="Script" id=11]
 [ext_resource path="res://inventory_skip_button.gd" type="Script" id=12]
 
@@ -216,5 +217,10 @@ max_lines_visible = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/fade_in = SubResource( 1 )
+
+[node name="DigSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -4.948
+bus = "SFX"
 
 [connection signal="pressed" from="Container/VBoxContainer/MarginContainer2/SkipButton" to="." method="_on_SkipButton_pressed"]

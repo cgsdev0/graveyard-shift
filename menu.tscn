@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://textures/menu/logo.png" type="Texture" id=1]
 [ext_resource path="res://shaders/shop_fog.gdshader" type="Shader" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://ui/font/secret_society_large.tres" type="DynamicFont" id=4]
 [ext_resource path="res://menu/button.gd" type="Script" id=5]
 [ext_resource path="res://menu/menu.gd" type="Script" id=6]
+[ext_resource path="res://audio/transition_button.mp3" type="AudioStream" id=7]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 2 )
@@ -150,3 +151,8 @@ custom_fonts/font = ExtResource( 4 )
 text = "Exit"
 align = 1
 valign = 1
+
+[node name="DigSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -4.948
+bus = "SFX"

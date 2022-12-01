@@ -21,7 +21,7 @@ func take_step():
 	for lure in lures:
 		if lure.grid_x == grid_x && lure.grid_y == grid_y:
 			lure.remove_from_group("lures")
-			lure.queue_free()
+			lure.eat()
 			path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
 			return
 	if path.size() <= 1 || get_path_cost(path) > 100:

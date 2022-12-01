@@ -41,6 +41,7 @@ func _ready():
 		$"%ShopCamera".add_child(new_3d_card)
 
 func on_accept_treasure():
+	$DigSound.play()
 	$Shop/TreasureView/AnimationPlayer.play("fade_out")
 	yield($Shop/TreasureView/AnimationPlayer, "animation_finished")
 	$AnimationPlayer.play("fade_in")
@@ -89,6 +90,7 @@ func undeal_shop_cards():
 func _on_SkipButton_pressed():
 #	Game.level += 1
 #	Game.emit_signal("reset")
+	$DigSound.play()
 	undeal_shop_cards()
 	$AnimationPlayer.play("fade_out")
 	yield($AnimationPlayer, "animation_finished")

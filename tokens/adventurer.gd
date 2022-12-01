@@ -46,6 +46,7 @@ func take_step():
 	var treasure_tiles = board.find_tile_id(Game.TileType.TREASURE)
 	if !treasure_tiles.empty() && get_id() in treasure_tiles:
 		treasure_index = board.get_tile_by_id(get_id()).treasure_index
+		$TreasureSound.play()
 		board.replace_tile_by_id(get_id(), Game.TileType.TREASURE_TAKEN, true)
 		has_treasure = true
 		return
@@ -53,6 +54,19 @@ func take_step():
 		return
 	var u = path[0]
 	var v = path[1]
+	
+	var u_type = board.get_tile_by_id(u).type
+	var v_type = board.get_tile_by_id(v).type
+	var u_wall = u_type == Game.TileType.SECRET_DOOR
+	var v_wall = v_type == Game.TileType.SECRET_DOOR
+	
+	var dir = board.compute_direction(u, v)
+	var i_dir = Game.invert_direction(dir)
+	var should_play = false
+	if (u_wall && board.get_tile_by_id(u).check_wall_bit(dir)) || (v_wall && board.get_tile_by_id(v).check_wall_bit(i_dir)):
+		should_play = true
+				
+		
 	board.unmove_tokens_out_of_my_way(u)
 	board.move_tokens_out_of_my_way(v)
 	grid_y = int(v / board.cols)
@@ -60,12 +74,13 @@ func take_step():
 	movement_tween.interpolate_property(self, "global_translation",
 	global_translation, board.get_tile(grid_x, grid_y).get_center(), 0.5,
 	Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-	var dir = board.compute_direction(u, v)
 	var y = rotate_to(dir, true)
 	if y is Object:
 		yield(y, "completed")
 	movement_tween.start()
 	moved()
+	if should_play:
+		$SecretDoor.play()
 	yield(movement_tween, "tween_completed")
 	if board.get_tile_by_id(v).spikes_ready:
 		stunned = true
@@ -77,6 +92,7 @@ func take_step():
 		# rip adventurer
 		Game.earned_treasure = true
 		Game.earned_treasure_index = treasure_index
+		$Teleport.play()
 		self.kill()
 	path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
 

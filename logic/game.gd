@@ -72,7 +72,7 @@ var levels = [
 			[1, 1, TileType.PIT],
 		],
 		"monsters": [
-			[0, 0, MonsterType.SLIME]
+			[0, 0, MonsterType.WALKER]
 		]
 	},
 	# Level 1 - introduce adventurer
@@ -439,6 +439,8 @@ func _ready():
 	on_reset()
 
 func on_start_new_turn():
+	for monster in get_tree().get_nodes_in_group("monsters"):
+		monster.update_navigation()
 	is_turn = true
 	
 func on_end_turn():

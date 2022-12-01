@@ -40,6 +40,7 @@ func update_navigation():
 	.update_navigation()
 	
 	var cost = get_path_cost(path)
+	print(cost)
 	if my_cost == null:
 		my_cost = cost
 	else:
@@ -130,7 +131,7 @@ func take_step():
 		for lure in lures:
 			if lure.grid_x == grid_x && lure.grid_y == grid_y:
 				lure.remove_from_group("lures")
-				lure.queue_free()
+				lure.eat()
 				fixation = null
 				path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
 #	update()

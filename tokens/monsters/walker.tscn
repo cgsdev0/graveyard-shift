@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://tokens/monsters/monster.gd" type="Script" id=1]
 [ext_resource path="res://textures/monsters/Tsuchi/Attack 002.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://textures/monsters/Tsuchi/Walk 001_mesh.tres" type="ArrayMesh" id=10]
 [ext_resource path="res://textures/monsters/Tsuchi/Idle 002_mesh.tres" type="ArrayMesh" id=11]
 [ext_resource path="res://textures/monsters/Tsuchi/Idle 001_mesh.tres" type="ArrayMesh" id=12]
+[ext_resource path="res://audio/snake_attack.mp3" type="AudioStream" id=13]
 
 [sub_resource type="Animation" id=1]
 resource_name = "attack"
@@ -87,6 +88,20 @@ tracks/5/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ false ]
+}
+tracks/6/type = "method"
+tracks/6/path = NodePath("AudioStreamPlayer")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "play"
+} ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -290,3 +305,8 @@ sprite_texture = ExtResource( 2 )
 anims/attack = SubResource( 1 )
 anims/idle = SubResource( 2 )
 anims/move = SubResource( 3 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+volume_db = -10.0
+bus = "SFX"
