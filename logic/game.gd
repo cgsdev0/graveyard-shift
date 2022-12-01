@@ -163,28 +163,7 @@ var levels = [
 			[4, 3, MonsterType.SPRINTER]
 		]
 	},
-	# Level 5
-	{
-		"turns": 6,
-		"camera": {
-			"zoom": 26,
-			"angle": 40,
-			"up": 0.4,
-		},
-		"cols": 5,
-		"rows": 4,
-		"tiles": [
-			[4, 3, TileType.EXIT],
-			[2, 0, TileType.TREASURE],
-			[0, 3, TileType.PIT],
-			[2, 2, TileType.PIT],
-			[3, 1, TileType.PIT],
-		],
-		"monsters": [
-			[0, 0, MonsterType.SPRINTER]
-		]
-	},
-	# Level 6
+		# Level 5
 	{
 		"turns": 6,
 		"camera": {
@@ -206,6 +185,27 @@ var levels = [
 		],
 		"monsters": [
 			[0, 1, MonsterType.WALKER]
+		]
+	},
+	# Level 6
+	{
+		"turns": 6,
+		"camera": {
+			"zoom": 26,
+			"angle": 40,
+			"up": 0.4,
+		},
+		"cols": 5,
+		"rows": 4,
+		"tiles": [
+			[4, 3, TileType.EXIT],
+			[2, 0, TileType.TREASURE],
+			[0, 3, TileType.PIT],
+			[2, 2, TileType.PIT],
+			[3, 1, TileType.PIT],
+		],
+		"monsters": [
+			[0, 0, MonsterType.SPRINTER]
 		]
 	},
 	# Level 7 - slime time
