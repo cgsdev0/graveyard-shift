@@ -19,6 +19,9 @@ var initial_cards_position
 var DraggableCard = preload("res://hand/draggable_card.tscn")
 var ForesightCard = preload("res://foresight_card.tscn")
 
+var minimum_drag_dist = 50.0
+var dragged_dist = 0.0
+
 func _ready():
 	initial_cards_position = $Cards.global_translation
 	board = Game.get_board()
@@ -105,6 +108,7 @@ func set_dragging(drag):
 		self.add_child(drag)
 		call_deferred("adjust_hand")
 	self.dragging = drag
+	dragged_dist = 0.0
 	
 func start_hover(card):
 	if card.placed:
@@ -130,6 +134,8 @@ func start_hover(card):
 
 func set_snap_tile(tile):
 	if self.snap_tile == tile:
+		return
+	if cards_up && tile != null:
 		return
 	if tile != null && self.snap_tile == null:
 		$PickupSound.play()
@@ -200,6 +206,8 @@ func adjust_hand():
 		tween.start()
 			
 func deal_card():
+	if Tutorial.in_dialogue:
+		return true
 	if $Cards.get_child_count() >= Deck.desired_count():
 		return false
 	var new_card = Deck.deal()
@@ -214,10 +222,10 @@ func deal_card():
 	return true
 	
 func move_cards_vertically():
-	if (!is_mouse_in_card_area() && cards_up && (hover == null || dragging)) || (!Game.is_turn && cards_up):
+	if cards_up && ((!is_mouse_in_card_area() && (hover == null || dragging)) || !Game.is_turn || Tutorial.in_dialogue):
 		cards_up = false
 		adjust_hand() 
-	if is_mouse_in_card_area() && !cards_up && board.has_actions() && Game.is_turn:
+	if is_mouse_in_card_area() && !cards_up && board.has_actions() && Game.is_turn && !Tutorial.in_dialogue:
 		cards_up = true
 		adjust_hand()
 	
@@ -254,6 +262,11 @@ func do_foresight():
 		f_card.index = i
 		get_parent().get_parent().add_child(f_card)
 		yield(get_tree().create_timer(0.2), "timeout")
+
+func _input(event):
+	if event is InputEventMouseMotion && dragging:
+		dragged_dist += event.relative.length()
+		
 func _process(delta):
 	# if Input.is_action_just_pressed("ui_accept"):
 	# 	deal_card()
@@ -321,17 +334,20 @@ func _process(delta):
 var snapped_friend = false
 var showing_tooltip_for = null
 func _physics_process(delta):
-	if !Game.is_turn:
+	if !Game.is_turn || cards_up:
 		if showing_tooltip_for:
 			showing_tooltip_for = null
 			$"%UI".hide_tooltip()
-		return
+		if !Game.is_turn:
+			return
 	var space = get_world().direct_space_state
 	var mouse = get_mouse_position()
 	var from = get_viewport().get_camera().project_ray_origin(mouse)
 	var to = from + get_viewport().get_camera().project_ray_normal(mouse) * 600
 	var result = space.intersect_ray(from, to, [], 0b10, false, true)
 	if dragging:
+		if dragged_dist < minimum_drag_dist:
+			return
 		var friend = $"%UI".get_friend()
 		var friend_rect = $"%UI".get_friend_rect()
 		if friend_is_valid && friend_rect.has_point($"%UI".get_viewport().get_mouse_position()):

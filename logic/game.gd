@@ -61,7 +61,7 @@ var levels = [
 		"camera": {
 			"zoom": 21,
 			"angle": 40,
-			"up": 0.3,
+			"up": 0.5,
 		},
 		"cols": 3,
 		"rows": 3,
@@ -80,7 +80,7 @@ var levels = [
 		"camera": {
 			"zoom": 23,
 			"angle": 40,
-			"up": 0.1,
+			"up": 0.4,
 		},
 		"cols": 4,
 		"rows": 3,
@@ -98,9 +98,9 @@ var levels = [
 	{
 		"turns": 4,
 		"camera": {
-			"zoom": 28,
+			"zoom": 25,
 			"angle": 40,
-			"up": 0.0,
+			"up": 0.4,
 		},
 		"cols": 4,
 		"rows": 4,
@@ -120,9 +120,9 @@ var levels = [
 	{
 		"turns": 5,
 		"camera": {
-			"zoom": 28,
+			"zoom": 26,
 			"angle": 40,
-			"up": 0.0,
+			"up": 0.4,
 		},
 		"cols": 5,
 		"rows": 4,
@@ -142,9 +142,9 @@ var levels = [
 	{
 		"turns": 5,
 		"camera": {
-			"zoom": 28,
+			"zoom": 26,
 			"angle": 40,
-			"up": 0.0,
+			"up": 0.4,
 		},
 		"cols": 5,
 		"rows": 4,
@@ -166,9 +166,9 @@ var levels = [
 	{
 		"turns": 6,
 		"camera": {
-			"zoom": 27,
+			"zoom": 26,
 			"angle": 40,
-			"up": 0.0,
+			"up": 0.4,
 		},
 		"cols": 5,
 		"rows": 4,
@@ -187,9 +187,9 @@ var levels = [
 	{
 		"turns": 6,
 		"camera": {
-			"zoom": 31,
+			"zoom": 28,
 			"angle": 40,
-			"up": -0.5,
+			"up": 0.0,
 		},
 		"cols": 5,
 		"rows": 5,
@@ -211,9 +211,9 @@ var levels = [
 	{
 		"turns": 5,
 		"camera": {
-			"zoom": 31,
+			"zoom": 28,
 			"angle": 40,
-			"up": -0.5,
+			"up": 0.0,
 		},
 		"cols": 5,
 		"rows": 5,
@@ -237,9 +237,9 @@ var levels = [
 	{
 		"turns": 3,
 		"camera": {
-			"zoom": 36,
+			"zoom": 35,
 			"angle": 40,
-			"up": -0.5,
+			"up": 0.0,
 		},
 		"cols": 6,
 		"rows": 6,

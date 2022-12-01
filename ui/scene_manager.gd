@@ -10,7 +10,8 @@ func _ready():
 		env.ssao_enabled = false
 
 	if !OS.is_debug_build():
-		$AudioStreamPlayer.play()
+		pass
+	$AudioStreamPlayer.play()
 	
 func on_transition(path):
 	$CanvasLayer.transition()

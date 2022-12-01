@@ -6,8 +6,14 @@ func _ready():
 	$FriendBody.material.set_shader_param("line_color", Color.aqua)
 	$FriendBody.material.set_shader_param("line_thickness", 9.0)
 	Game.connect("highlight_friend", self, "highlight")
-	$FriendBody/AnimationPlayer.play("bounce")
-
+	bounce()
+	
+func bounce():
+	$FriendBody/AnimationPlayer.play("bounce", 0.1)
+	
+func speak():
+	$FriendBody/AnimationPlayer.play("speak", 0.1)
+	
 var celebrating = false
 func celebrate_card():
 	celebrating = true

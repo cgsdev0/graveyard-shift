@@ -24,6 +24,7 @@ func has_actions():
 	
 func start_new_turn():
 	Game.actions = Game.actions_per_turn
+	Tutorial.trigger_line(Tutorial.Line.OVERVIEW)
 	
 func place_card_on_tile(card, id: int) -> void:
 	if card == null:
@@ -186,16 +187,20 @@ func _ready():
 		self.callv("replace_tile", tile)
 		
 	for tile in get_children():
-		tile.on_board_ready()
-		
+		tile.on_board_ready()	
+
+	
+	Tutorial.trigger_line(Tutorial.Line.WELCOME)
+	
+	yield(last_t.get_node("AnimationPlayer"), "animation_finished")
+	
 	if !find_tile_id(Game.TileType.TREASURE).empty():
 		var exit = find_tile_id(Game.TileType.EXIT)
 		spawn_adventurer(int(exit[0] % cols), int(exit[0] / cols))
-	
+		
 	for monster in level.monsters:
 		self.callv("spawn_monster", monster)
 		
-	yield(last_t.get_node("AnimationPlayer"), "animation_finished")
 	Game.emit_signal("deal_new_turn")
 
 func unmove_tokens_out_of_my_way(v):

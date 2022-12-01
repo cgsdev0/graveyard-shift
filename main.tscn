@@ -269,6 +269,7 @@ random_pitch_range = 0
 [node name="PotionSound" type="AudioStreamPlayer" parent="GameView/Viewport/BoardViewport/Viewport/Level/Camera/Hand"]
 stream = ExtResource( 32 )
 volume_db = -10.0
+bus = "SFX"
 
 [node name="DirectionalLight" type="DirectionalLight" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
 transform = Transform( 0.605325, 0.171092, -0.777374, 0.203513, 0.910899, 0.358951, 0.769523, -0.375488, 0.51657, -2.03058, 1.91977, 2.38178 )
@@ -282,27 +283,33 @@ material = SubResource( 2 )
 [node name="SpikeSuccess" type="AudioStreamPlayer" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
 stream = ExtResource( 30 )
 volume_db = -13.0
+bus = "SFX"
 
 [node name="SpikeFail" type="AudioStreamPlayer" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
 stream = ExtResource( 31 )
 volume_db = -5.0
+bus = "SFX"
 
 [node name="PotionSound" type="AudioStreamPlayer" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
 stream = ExtResource( 32 )
 volume_db = -10.0
 pitch_scale = 0.8
+bus = "SFX"
 
 [node name="BearTrapSound" type="AudioStreamPlayer" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
 stream = ExtResource( 33 )
 volume_db = -16.5
+bus = "SFX"
 
 [node name="GustSound" type="AudioStreamPlayer" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
 stream = ExtResource( 34 )
 volume_db = -12.0
+bus = "SFX"
 
 [node name="WallBreakSound" type="AudioStreamPlayer" parent="GameView/Viewport/BoardViewport/Viewport/Level"]
 stream = ExtResource( 35 )
 volume_db = -17.0
+bus = "SFX"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="GameView/Viewport/BoardViewport/Viewport"]
 environment = ExtResource( 10 )

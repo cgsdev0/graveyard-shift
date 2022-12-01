@@ -43,6 +43,7 @@ size_flags_vertical = 3
 unique_name_in_owner = true
 margin_right = 24.0
 margin_bottom = 32.0
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -52,7 +53,7 @@ margin_right = 748.0
 margin_bottom = 23.0
 mouse_filter = 1
 size_flags_horizontal = 3
-custom_colors/font_color = Color( 1, 1, 1, 1 )
+theme_type_variation = "BigLabel"
 text = "Wall (NW)"
 align = 1
 
