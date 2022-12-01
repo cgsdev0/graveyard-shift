@@ -36,6 +36,8 @@ func _ready():
 	translate_object_local(Vector3(0, - sqrt(camera.zoom) / 5 + camera.up, 0))
 	
 func _input(event):
+	if !OS.is_debug_build():
+		return
 	# Receives mouse motion
 	if event is InputEventMouseMotion:
 		_mouse_position = event.relative
@@ -72,6 +74,8 @@ func _input(event):
 
 # Updates mouselook and movement every frame
 func _process(delta):
+	if !OS.is_debug_build():
+		return
 	if Input.is_action_just_pressed("restart"):
 		var packed_scene = PackedScene.new()
 		packed_scene.pack(get_tree().get_current_scene())
