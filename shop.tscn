@@ -1,8 +1,7 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://ui/shop2.theme" type="Theme" id=1]
 [ext_resource path="res://ui/span_limiter.gd" type="Script" id=2]
-[ext_resource path="res://ui/shop_card.tscn" type="PackedScene" id=3]
 [ext_resource path="res://textures/ui/gold.png" type="Texture" id=4]
 [ext_resource path="res://shaders/shop_fog.gdshader" type="Shader" id=5]
 [ext_resource path="res://shop.gd" type="Script" id=6]
@@ -393,10 +392,8 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="Title" type="Label" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer"]
-margin_left = 160.0
-margin_top = 2.0
-margin_right = 404.0
-margin_bottom = 60.0
+margin_right = 800.0
+margin_bottom = 58.0
 size_flags_horizontal = 3
 theme_type_variation = "BigLabel"
 custom_fonts/font = ExtResource( 11 )
@@ -405,7 +402,9 @@ align = 1
 valign = 1
 
 [node name="MarginContainer2" type="HBoxContainer" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer"]
+margin_top = 66.0
 margin_right = 800.0
+margin_bottom = 129.0
 size_flags_horizontal = 3
 alignment = 1
 
@@ -441,16 +440,17 @@ valign = 1
 script = ExtResource( 7 )
 
 [node name="MarginContainer3" type="MarginContainer" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2"]
-margin_right = 32.0
-margin_bottom = 16.0
+margin_left = 160.0
+margin_right = 620.0
+margin_bottom = 63.0
 size_flags_horizontal = 3
 
 [node name="RerollButton" type="Button" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer2/MarginContainer3"]
 unique_name_in_owner = true
-margin_left = 16.0
+margin_left = 155.0
 margin_top = 8.0
-margin_right = 166.0
-margin_bottom = 50.0
+margin_right = 305.0
+margin_bottom = 55.0
 rect_min_size = Vector2( 150, 42 )
 size_flags_horizontal = 6
 text = "2      Reroll"
@@ -472,9 +472,9 @@ rect_min_size = Vector2( 140, 32 )
 text = "Continue"
 
 [node name="MarginContainer" type="MarginContainer" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer"]
-margin_top = 71.0
+margin_top = 137.0
 margin_right = 800.0
-margin_bottom = 600.0
+margin_bottom = 606.0
 size_flags_vertical = 3
 
 [node name="Cards" type="HBoxContainer" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer"]
@@ -482,28 +482,8 @@ unique_name_in_owner = true
 margin_left = 16.0
 margin_top = 8.0
 margin_right = 784.0
-margin_bottom = 521.0
+margin_bottom = 461.0
 size_flags_vertical = 3
-
-[node name="MarginContainer" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer/Cards" instance=ExtResource( 3 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 250.0
-margin_bottom = 513.0
-
-[node name="MarginContainer2" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer/Cards" instance=ExtResource( 3 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 258.0
-margin_right = 509.0
-margin_bottom = 513.0
-
-[node name="MarginContainer3" parent="ViewportContainer/Viewport/Control/Shop/Container/VBoxContainer/MarginContainer/Cards" instance=ExtResource( 3 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 517.0
-margin_right = 768.0
-margin_bottom = 513.0
 
 [node name="TreasureView" type="Control" parent="ViewportContainer/Viewport/Control/Shop"]
 visible = false
