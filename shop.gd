@@ -40,7 +40,11 @@ func _ready():
 		new_3d_card.become(Deck.pending_treasure_card)
 		$"%ShopCamera".add_child(new_3d_card)
 
+var on_accept_treasure_dead = false 
 func on_accept_treasure():
+	if on_accept_treasure_dead:
+		return
+	on_accept_treasure_dead = true
 	$DigSound.play()
 	$Shop/TreasureView/AnimationPlayer.play("fade_out")
 	yield($Shop/TreasureView/AnimationPlayer, "animation_finished")
@@ -87,7 +91,11 @@ func undeal_shop_cards():
 				continue
 			ShopDeck.return_card(card)
 			
+var _on_SkipButton_pressed_dead = false
 func _on_SkipButton_pressed():
+	if _on_SkipButton_pressed_dead:
+		return
+	_on_SkipButton_pressed_dead = true
 #	Game.level += 1
 #	Game.emit_signal("reset")
 	$DigSound.play()
@@ -114,8 +122,12 @@ func _process(delta):
 		return
 	if $"%RerollButton" != null:
 		$"%RerollButton".disabled = Game.money < 2
-	
+
+var rerolling = false
 func _on_RerollButton_pressed():
+	if rerolling:
+		return
+	rerolling = true
 	$"%RerollButton".release_focus()
 	Game.money -= 2
 	$PurchaseSound.play()
@@ -128,3 +140,4 @@ func _on_RerollButton_pressed():
 		$"%ShopCamera".remove_child(child)
 	deal_shop_cards()
 	$AnimationPlayer.play("reroll_in")
+	rerolling = false

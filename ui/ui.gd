@@ -195,7 +195,11 @@ func hide_tooltip():
 		$Tooltip.remove_child(child)
 		child.queue_free()
 	
+var dead = false
 func _on_OpenShopButton_pressed():
+	if dead:
+		return
+	dead = true
 	Game.money += Game.money_for_level()
 	if Game.earned_treasure:
 		Game.earned_treasure = false
