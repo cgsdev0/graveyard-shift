@@ -1,6 +1,7 @@
 extends Pathfinder
 
 var has_treasure = false
+var treasure_index = 0
 
 func _ready():
 	add_to_group("adventurers")
@@ -44,6 +45,7 @@ func take_step():
 		return
 	var treasure_tiles = board.find_tile_id(Game.TileType.TREASURE)
 	if !treasure_tiles.empty() && get_id() in treasure_tiles:
+		treasure_index = board.get_tile_by_id(get_id()).treasure_index
 		board.replace_tile_by_id(get_id(), Game.TileType.TREASURE_TAKEN, true)
 		has_treasure = true
 		return
@@ -71,9 +73,10 @@ func take_step():
 		skipped_turns += 1
 	elif board.get_tile_by_id(v).type == Game.TileType.SPIKES:
 			board.misfire_spikes()
-	if board.get_tile_by_id(v).type == Game.TileType.EXIT:
+	if board.get_tile_by_id(v).type == Game.TileType.EXIT && has_treasure:
 		# rip adventurer
 		Game.earned_treasure = true
+		Game.earned_treasure_index = treasure_index
 		self.kill()
 	path = astar.get_id_path(grid_y * board.cols + grid_x, self.get_target_tile())
 

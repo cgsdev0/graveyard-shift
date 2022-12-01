@@ -1,0 +1,296 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://tokens/monsters/monster.gd" type="Script" id=1]
+[ext_resource path="res://textures/monsters/Slime/Slime_Idle_001.png" type="Texture" id=2]
+[ext_resource path="res://textures/monsters/Slime/Slime_idle_002.png" type="Texture" id=3]
+[ext_resource path="res://textures/monsters/Slime/Slime_walk_001.png" type="Texture" id=4]
+[ext_resource path="res://textures/monsters/Slime/Slime_Attack_001.png" type="Texture" id=5]
+[ext_resource path="res://textures/monsters/Slime/Slime_idle_002_mesh.tres" type="ArrayMesh" id=6]
+[ext_resource path="res://textures/monsters/Slime/Slime_Idle_001_mesh.tres" type="ArrayMesh" id=7]
+[ext_resource path="res://tokens/token_model.gd" type="Script" id=8]
+[ext_resource path="res://textures/monsters/Slime/Slime_Attack_001_mesh.tres" type="ArrayMesh" id=9]
+[ext_resource path="res://textures/monsters/Slime/Slime_walk_001_mesh.tres" type="ArrayMesh" id=10]
+[ext_resource path="res://textures/monsters/Slime/Slime_Attack_002.png" type="Texture" id=11]
+[ext_resource path="res://textures/monsters/Slime/Slime_Attack_002_mesh.tres" type="ArrayMesh" id=12]
+
+[sub_resource type="Animation" id=1]
+resource_name = "attack"
+length = 0.45
+tracks/0/type = "value"
+tracks/0/path = NodePath("Attack1:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Attack2:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.15, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Idle1:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Idle2:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Spin1:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Spin2:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Idle1:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Idle2:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Spin1:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Spin2:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Attack1:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Attack2:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "move"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Idle1:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Idle2:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Spin1:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Spin2:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Attack1:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Attack2:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[node name="Monster" type="Spatial"]
+script = ExtResource( 1 )
+actions_economy = 1
+move_speed = 0.6
+monster_name = "Slime"
+description = "Cute, but deadly."
+
+[node name="Idle1" type="MeshInstance" parent="."]
+visible = false
+mesh = ExtResource( 7 )
+script = ExtResource( 8 )
+scale_factor = 1.7
+sprite_texture = ExtResource( 2 )
+
+[node name="Idle2" type="MeshInstance" parent="."]
+visible = false
+mesh = ExtResource( 6 )
+script = ExtResource( 8 )
+scale_factor = 1.7
+sprite_texture = ExtResource( 3 )
+
+[node name="Spin1" type="MeshInstance" parent="."]
+mesh = ExtResource( 7 )
+script = ExtResource( 8 )
+scale_factor = 1.7
+sprite_texture = ExtResource( 2 )
+
+[node name="Spin2" type="MeshInstance" parent="."]
+visible = false
+mesh = ExtResource( 10 )
+script = ExtResource( 8 )
+scale_factor = 1.7
+sprite_texture = ExtResource( 4 )
+
+[node name="Attack1" type="MeshInstance" parent="."]
+visible = false
+mesh = ExtResource( 9 )
+script = ExtResource( 8 )
+scale_factor = 1.7
+sprite_texture = ExtResource( 5 )
+
+[node name="Attack2" type="MeshInstance" parent="."]
+visible = false
+mesh = ExtResource( 12 )
+script = ExtResource( 8 )
+scale_factor = 1.7
+sprite_texture = ExtResource( 11 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/attack = SubResource( 1 )
+anims/idle = SubResource( 2 )
+anims/move = SubResource( 3 )

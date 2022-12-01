@@ -12,6 +12,8 @@ var spikes_ready = false
 var stacks = 0
 var title
 
+var treasure_index
+
 func _ready():
 	var tiles = get_parent().cols * get_parent().rows
 	var line

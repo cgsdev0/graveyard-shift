@@ -10,15 +10,48 @@ var starting_treasure_deck = [
 			{ "type": Game.TileType.WALL, "wall_flags": [2, 2, 2, 2], "ac": 2 },
 			{ "type": Game.TileType.WALL, "wall_flags": [2, 2, 2, 2], "ac": 2 },
 			#
-			{ "type": Game.TileType.SPIKES, "ac": 1 },
+			
 			{ "type": Game.TileType.SPIKES, "ac": 1 },
 			#
 ]
 
 var treasure_overrides = {
-	1: [{ "type": Game.TileType.MONEY_TREE, "gpm": 3, "ac": 2, "level": 1 }],
-	2: [{ "type": Game.TileType.WALL, "wall_flags": [1, 1, 1, 1], "ac": 1 }],
-	3: [{ "type": Game.TileType.LURE, "range": "unlimited", "ac": 2, "level": 2 }],
+	1: [
+		{ "type": Game.TileType.MONEY_TREE, "gpm": 3, "ac": 2, "level": 1 }
+	],
+	2: [
+		{ "type": Game.TileType.BRIDGE, "wall_flags": [1000, 1000, 0, 0], "ac": 1 }
+	],
+	3: [
+		[
+			{ "type": Game.TileType.SECRET_DOOR, "wall_flags": [3, 0, 0, 0], "ac": 1 },
+			{ "type": Game.TileType.SECRET_DOOR, "wall_flags": [0, 3, 0, 0], "ac": 1 },
+			{ "type": Game.TileType.SECRET_DOOR, "wall_flags": [0, 0, 3, 0], "ac": 1 },
+			{ "type": Game.TileType.SECRET_DOOR, "wall_flags": [0, 0, 0, 3], "ac": 1 },
+		]
+	],
+	4: [
+		{ "type": Game.TileType.SPIKES, "ac": 1 },
+	],
+	5: [
+		{ "type": Game.TileType.WALL, "wall_flags": [2, 2, 2, 2], "ac": 2 },
+		{ "type": Game.TileType.LURE, "range": "unlimited", "ac": 2, "level": 2 },
+	],
+	6: [
+		{ "cost": 35, "type": Game.TileType.GUST, "ac": 2, "direction": "left" },
+		{ "cost": 35, "type": Game.TileType.GUST, "ac": 2, "direction": "right" },
+		{ "cost": 35, "type": Game.TileType.GUST, "ac": 2, "direction": "up" },
+		{ "cost": 35, "type": Game.TileType.GUST, "ac": 2, "direction": "down" },
+	],
+	7: [
+		[
+			{ "type": Game.TileType.SECRET_DOOR, "wall_flags": [3, 0, 0, 0], "ac": 1 },
+			{ "type": Game.TileType.SECRET_DOOR, "wall_flags": [0, 3, 0, 0], "ac": 1 },
+			{ "type": Game.TileType.SECRET_DOOR, "wall_flags": [0, 0, 3, 0], "ac": 1 },
+			{ "type": Game.TileType.SECRET_DOOR, "wall_flags": [0, 0, 0, 3], "ac": 1 },
+		],
+		{ "type": Game.TileType.WALL, "wall_flags": [5, 5, 5, 5], "ac": 2 },
+	]
 }
 
 var starting_deck = [
@@ -87,7 +120,6 @@ var starting_deck = [
 #	{ "type": Game.TileType.FORESIGHT, "ac": 1 },
 
 var deck
-var treasure_deck
 
 func _ready():
 	Game.connect("hard_reset", self, "on_hard_reset")
@@ -96,10 +128,8 @@ func _ready():
 
 func on_hard_reset():
 	deck = starting_deck.duplicate(true)
-	treasure_deck = starting_treasure_deck.duplicate(true)
 	for i in range(deck.size()):
 		deck[i].shuffle()
-	treasure_deck.shuffle()
 
 func rarities():
 	return [
@@ -134,12 +164,10 @@ func return_card(card):
 	deck[card.rarity].push_back(card)
 	deck[card.rarity].shuffle()
 	
-func deal_treasure():
-	var card 
-	if treasure_overrides.has(Game.level):
-		treasure_overrides[Game.level].shuffle()
-		card = treasure_overrides[Game.level][0].duplicate(true)
-	else:
-		card = treasure_deck.pop_back().duplicate(true)
+func deal_treasure(index):
+	var card = treasure_overrides[Game.level][index].duplicate(true)
+	if typeof(card) == TYPE_ARRAY:
+		card.shuffle()
+		card = card[0]
 	card.treasure = true
 	return card

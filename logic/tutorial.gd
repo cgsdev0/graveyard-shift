@@ -50,3 +50,9 @@ func trigger_line(line) -> void:
 signal dialogue(data)
 
 signal dialogue_finished(line)
+
+func on_hard_reset():
+	in_dialogue = false
+	
+func _ready():
+	Game.connect("hard_reset", self, "on_hard_reset")
