@@ -39,9 +39,10 @@ const lines = {
 var played_lines = {}
 
 var in_dialogue = false
+var skip = false
 
 func trigger_line(line) -> void:
-	if played_lines.has(line):
+	if played_lines.has(line) || skip:
 		call_deferred("emit_signal", "dialogue_finished", line)
 		return
 	played_lines[line] = true
