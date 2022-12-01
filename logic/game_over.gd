@@ -1,12 +1,5 @@
 extends Label
 
-func game_over():
-	visible = true
-	
-func _ready():
-	Game.connect("game_over", self, "game_over")
-	pass
-
 var dead_switch = false
 func _process(delta):
 	if dead_switch || !OS.is_debug_build():
